@@ -1,0 +1,245 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 05: CAMERA MASTER (SHOTS + ANGLES + MOVEMENTS + LENS)
+================================================================================
+
+TITLE
+-----
+The Complete Camera Grammar Engine — Shot Type, Angle, Movement & Lens
+Specification System
+
+PURPOSE
+-------
+Translate a beat-by-beat scene (from File 04) into precise, technically
+correct camera language that any AI video model can parse consistently.
+This is the single most consequential template in the library for visual
+quality — vague camera direction is the number one cause of generic-looking
+AI video output. This template forces explicit selection across four
+locked categories (Shot Type, Angle, Movement, Lens) for every single beat,
+with no ambiguity permitted.
+
+PROMPT FORMULA
+---------------
+[BEAT INPUT] + [SHOT TYPE] + [CAMERA ANGLE] + [CAMERA MOVEMENT] + [LENS
+SPECIFICATION] + [FOCAL BEHAVIOR] + [FRAME RATE/SHUTTER FEEL] + [RATIONALE]
+
+Master formula string, applied per beat:
+
+"For beat {BEAT_NUMBER} ({BEAT_DESCRIPTION}), specify: Shot type —
+{SHOT_TYPE}. Camera angle — {CAMERA_ANGLE}. Camera movement —
+{CAMERA_MOVEMENT} at {MOVEMENT_SPEED}. Lens — {FOCAL_LENGTH}mm equivalent,
+{APERTURE_FEEL} depth of field. Focal behavior — {FOCUS_BEHAVIOR}.
+Frame rate/shutter feel — {MOTION_QUALITY}. State the dramatic rationale
+for every choice in one sentence: why this shot type, this angle, this
+movement, and this lens serve the beat's emotional/narrative function."
+
+VARIABLES
+---------
+SHOT_TYPE       = "Extreme Wide Shot (EWS)" | "Wide Shot (WS)" | "Full Shot
+                   (FS)" | "Medium Wide/Cowboy Shot" | "Medium Shot (MS)" |
+                   "Medium Close-Up (MCU)" | "Close-Up (CU)" | "Extreme
+                   Close-Up (ECU)" | "Two-Shot" | "Over-the-Shoulder (OTS)"
+                   | "Point of View (POV)" | "Insert Shot"
+CAMERA_ANGLE    = "Eye Level" | "High Angle" | "Low Angle" | "Bird's Eye/
+                   Overhead" | "Worm's Eye" | "Dutch/Canted Angle
+                   (specify degrees)" | "Over-the-Shoulder Angle"
+CAMERA_MOVEMENT = "Static/Locked" | "Pan (specify direction, L-R or R-L)" |
+                   "Tilt (up/down)" | "Dolly In/Out" | "Truck L/R" |
+                   "Tracking Shot (follow subject)" | "Crane/Jib
+                   (up/down/arc)" | "Handheld (specify shake intensity:
+                   subtle/moderate/aggressive)" | "Steadicam (smooth
+                   float)" | "Whip Pan" | "Zoom (specify in/out, and
+                   whether combined with dolly for a 'dolly zoom/vertigo
+                   effect')" | "Orbit/Arc around subject"
+MOVEMENT_SPEED  = "slow/deliberate" | "moderate" | "fast/urgent" |
+                   descriptive real-world pacing comparison if helpful
+FOCAL_LENGTH    = specify actual mm equivalent (e.g. "24mm wide,"
+                   "50mm normal/natural perspective," "85mm portrait
+                   compression," "135mm+ telephoto compression")
+APERTURE_FEEL   = "shallow depth of field (heavy background blur, f/1.4-
+                   2.8 equivalent)" | "moderate depth (f/4-5.6
+                   equivalent)" | "deep focus (everything sharp, f/8+
+                   equivalent)"
+FOCUS_BEHAVIOR  = "static focus on subject" | "rack focus from
+                   {SUBJECT_A} to {SUBJECT_B}" | "soft focus pull
+                   maintaining subject throughout movement" | "focus
+                   breathing intentional for effect"
+MOTION_QUALITY  = "standard cinematic 24fps motion blur" | "crisp
+                   high-shutter clarity (sports/action feel)" |
+                   "slow-motion (specify speed ramp, e.g. 2x, 4x)" |
+                   "time-lapse/hyperlapse quality"
+BEAT_NUMBER/DESCRIPTION = pulled directly from File 04 output
+
+INPUT STRUCTURE
+----------------
+SCENE_BEATS: <required, full beat-by-beat breakdown from File 04>
+VISUAL_STYLE_REFERENCE: <optional but recommended — director/DP tonal
+  reference for calibration, e.g. "Emmanuel Lubezki-style unbroken takes"
+  or "Deakins-style precise, motivated composition">
+GENRE: <required, inherited from File 01, affects default camera language —
+  horror favors different angle logic than romance>
+TARGET_AI_MODEL: <optional, affects how explicit movement descriptions need
+  to be, since different platforms parse camera language with varying
+  precision>
+
+OUTPUT STRUCTURE
+-----------------
+For EACH beat in the scene:
+1. BEAT REFERENCE (number + one-line description, restated from File 04)
+2. SHOT SPECIFICATION (type, angle, movement + speed, lens + aperture,
+   focus behavior, motion quality — every field filled, no defaults left
+   implicit)
+3. DRAMATIC RATIONALE (one sentence justifying the combined choice)
+4. COMPILED GENERATION-READY PROMPT LINE (a single dense sentence
+   combining all technical specs into natural language ready to paste into
+   an AI video generator, e.g. "Medium close-up, slight low angle, slow
+   dolly-in, 50mm lens, shallow depth of field with soft background blur,
+   focus locked on subject's eyes, standard cinematic motion")
+
+After all beats:
+5. SHOT VARIETY CHECK (confirms the scene doesn't overuse any single shot
+   type/angle combination — flags repetition that would read as visually
+   monotonous)
+6. COVERAGE NOTE (identifies whether any beat is missing a shot that
+   editorial (File 15) would need for proper cutting — e.g. reaction shots,
+   establishing shots)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Every camera choice must be MOTIVATED, never arbitrary. A low angle isn't
+  just "cool" — it must serve a specific purpose (power dynamic, scale,
+  disorientation). If a choice can't be justified in the Dramatic Rationale
+  sentence, it's the wrong choice — pick again.
+- Never combine an EXTREME CLOSE-UP with FAST HANDHELD unless the beat
+  specifically calls for chaos/disorientation — this combination is
+  physically nauseating on screen without narrative justification.
+- Match lens choice to emotional intimacy: wider lenses (24-35mm) for
+  environmental/establishing context and alienation effects; longer lenses
+  (85mm+) for intimacy, compression, and emotional close focus. This is not
+  an absolute rule but must be deliberately broken, not defaulted past.
+- Movement must have a clear START and END state — "dolly in" is
+  incomplete; specify what the shot begins on and what it ends on.
+- For dialogue-heavy beats, favor stable, motivated camera work (locked,
+  slow push, or classical OTS shot-reverse-shot) — excessive movement
+  during dialogue reads as amateurish unless the scene's emotional
+  register specifically calls for instability.
+- Dutch/canted angles must always specify exact degree of tilt (typically
+  5-15 degrees for subtle unease, 15-45 for extreme disorientation) — never
+  leave this vague.
+- The COMPILED GENERATION-READY PROMPT LINE is the actual deliverable most
+  users will copy-paste — it must stand alone as a complete, unambiguous
+  instruction without requiring the reader to cross-reference the itemized
+  breakdown above it.
+
+BEST PRACTICES
+----------------
+- Run the SHOT VARIETY CHECK as a hard gate — if 4+ consecutive beats use
+  the same shot type/angle combination, force a revision even if each
+  individual choice was individually justified, because monotony itself
+  becomes a viewing problem.
+- For AI video generation specifically, understand that different models
+  interpret camera movement language with different fidelity as of current
+  tooling — simpler, more explicit movement descriptions (e.g. "slow dolly
+  in" rather than "creeping insidiously toward") generally produce more
+  reliable results. When in doubt, favor mechanical precision over poetic
+  language in the COMPILED GENERATION-READY PROMPT LINE specifically (poetic
+  language is fine in the Dramatic Rationale, which is for human reference
+  only).
+- Build a per-project "camera language document" by compiling all Camera
+  Master outputs in sequence — this becomes your shot list and reveals
+  pacing/rhythm patterns across the whole piece before a single frame is
+  generated.
+- Cross-reference every shot against File 08 (Composition & Framing) — 
+  Camera Master determines shot TYPE and MOVEMENT, Composition determines
+  what's placed WHERE within that shot; the two must be generated as a
+  pair for full specification.
+- When uncertain between two shot choices, default toward the choice that
+  gives editorial (File 15) more flexibility — a wider shot can always be
+  punched in during editing conceptually, but a close-up that turns out
+  too tight limits options.
+
+EXAMPLE INPUT
+---------------
+SCENE_BEATS: [Beat-by-beat breakdown from File 04 example, Scene 2 — the
+photo frame reach]
+VISUAL_STYLE_REFERENCE: Deakins-style precise, motivated composition;
+stillness holds weight
+GENRE: Techno-thriller with family drama undertones
+TARGET_AI_MODEL: Runway Gen and Kling (dialogue/performance-focused)
+
+EXAMPLE OUTPUT
+-----------------
+BEAT 1 (0:00-0:03, controlled shock reading the address):
+Shot Specification — Medium Close-Up, Eye Level angle, Static/Locked
+camera, 50mm lens, moderate depth of field (f/4 equivalent, background
+softly present but not eliminated), static focus on Marcus's eyes,
+standard cinematic 24fps motion.
+Dramatic Rationale: A locked eye-level MCU denies the audience any
+directorial "comment" on the moment — the stillness of the frame mirrors
+Marcus's own frozen control, letting his micro-expression carry the entire
+beat without camera interference.
+Compiled Prompt Line: "Medium close-up, eye level, static locked camera,
+50mm lens, moderate depth of field with softly present background, sharp
+focus on subject's eyes, standard cinematic motion, no camera movement."
+
+BEAT 2 (0:03-0:06, aborted reach toward photo frame):
+Shot Specification — Extreme Close-Up (Insert), slight High Angle
+(looking down at the desk surface), slow Dolly In combined with a subtle
+Rack Focus from Marcus's face to his hand, 85mm lens, shallow depth of
+field (f/2 equivalent, heavy blur outside focal plane), focus racks
+precisely as the hand enters frame, standard cinematic motion with slight
+motion blur on the hand's movement.
+Dramatic Rationale: The high angle and rack focus physically enact the
+audience's attention being pulled toward the involuntary gesture, exactly
+as Marcus's own control is being pulled toward it — camera behavior mirrors
+psychological behavior.
+Compiled Prompt Line: "Extreme close-up insert shot, slight high angle
+looking down, slow dolly in with rack focus shifting from face to hand,
+85mm lens, shallow depth of field with heavy background blur, focus pulls
+sharply onto hand as it enters frame, subtle natural motion blur."
+
+BEAT 3 (0:06-0:08, forced composure reasserting):
+Shot Specification — Medium Close-Up, Eye Level (return to Beat 1's
+framing for bookend effect), Static/Locked, 50mm lens, moderate depth of
+field, static focus, standard cinematic motion.
+Dramatic Rationale: Returning to Beat 1's exact framing visually confirms
+the "reset" — Marcus's composure reasserting itself is mirrored by the
+camera itself returning to its earlier, controlled position.
+Compiled Prompt Line: "Medium close-up, eye level, static locked camera,
+50mm lens, moderate depth of field, sharp focus on subject's face, standard
+cinematic motion, matching earlier framing exactly."
+
+SHOT VARIETY CHECK: Passed — three beats use three distinct shot type/angle
+combinations (MCU-eyelevel-static, ECU-highangle-dolly, MCU-eyelevel-
+static-bookend), with the bookend repetition being intentional and
+motivated rather than accidental monotony.
+
+COVERAGE NOTE: Scene would benefit from one additional insert shot of the
+photo frame itself (face-down, untouched) at the end of Beat 3 for
+editorial flexibility in File 15 — flagged as optional B-roll.
+
+ADVANCED VERSION
+-------------------
+For high-end previsualization or complex action sequences, extend with:
+
+"Additionally generate: (a) a full SHOT LIST TABLE format (spreadsheet-
+style columns: Beat # | Shot Type | Angle | Movement | Lens | Duration |
+Notes) for direct import into production tracking tools, (b) LENS
+BREATHING AND DISTORTION NOTES for wide-angle beats (barrel distortion
+presence/absence), (c) MULTI-CAMERA COVERAGE OPTIONS offering an
+alternate 'safety' angle for each key beat in case the primary generation
+fails or needs replacement, (d) explicit PLATFORM-SPECIFIC CAMERA SYNTAX
+for {TARGET_AI_MODEL: Sora/Veo/Kling/Runway/Pika/Luma/Hailuo}, converting
+the Compiled Prompt Line into whatever camera-control syntax that specific
+platform is known to respond to best (e.g. structured camera motion tags
+versus pure natural language description) as of current best practice."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for shot specification generation. Compiled Prompt Lines are directly
+paste-ready for Sora, Veo, Kling, Runway, Pika, Luma, Hailuo camera-control
+inputs.
+PIPELINE POSITION: Requires 04_Scene_Generator.txt beat breakdown.
+Feeds into: 06_Cinematography.txt, 08_Composition_&_Framing.txt,
+16_Video_Generation_Master.txt
+================================================================================

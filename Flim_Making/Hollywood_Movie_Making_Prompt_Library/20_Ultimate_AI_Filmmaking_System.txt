@@ -1,0 +1,290 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 20: ULTIMATE AI FILMMAKING SYSTEM
+================================================================================
+
+TITLE
+-----
+The Master Pipeline Orchestrator — Complete 19-Template Production System
+Operating Manual
+
+PURPOSE
+-------
+This is not a generation template like Files 01-19 — it is the SYSTEM
+DOCUMENT that governs how those 19 templates work together as a single
+disciplined production pipeline. It defines the correct sequencing, the
+dependency graph between templates, decision logic for when to use the
+full pipeline versus the Fast Mode (File 19), and the quality-gate
+checkpoints (File 18) that should occur throughout. Use this file first,
+before starting any project, to plan your production approach — and
+return to it whenever you need to decide "which template do I need right
+now."
+
+PROMPT FORMULA
+---------------
+This file's "formula" is a decision and sequencing framework rather than
+a single fill-in-the-blank generation prompt. It's designed to be
+referenced directly (used to reason about pipeline stage) or given
+verbatim to an AI model as a standing system instruction at the start of
+a filmmaking project, so the model itself maintains pipeline discipline
+across a long, multi-session production process.
+
+Master system framing, usable as a standing instruction to an AI model
+managing a full project:
+
+"You are operating as the pipeline orchestrator for an AI filmmaking
+project using the Ultimate Hollywood AI Filmmaking Prompt Library
+(20 templates). Maintain awareness of: (1) which templates have been
+completed for this project and their locked outputs (Consistency Tokens,
+structural decisions), (2) the correct dependency order for any new
+request (never generate a downstream template's output without its
+required upstream inputs already established), (3) when to recommend
+Fast Mode (File 19) versus full pipeline depth based on the project's
+actual consistency needs, (4) when to trigger a Quality & Consistency
+Check (File 18) as a gate before allowing progression to final assembly.
+When the user requests something, first identify which template(s) it
+maps to, verify prerequisite templates exist or need to be generated
+first, then proceed in correct dependency order."
+
+VARIABLES
+---------
+PROJECT_SCOPE            = "single shot/test" | "single scene" | "short
+                            film (multiple scenes)" | "feature-length" —
+                            determines how much of the full pipeline
+                            depth is actually warranted
+CONSISTENCY_REQUIREMENTS = how many times each character/location
+                            recurs — high recurrence justifies full File
+                            03/09 investment; single-use elements may not
+                            need it
+PRODUCTION_STAGE         = "pre-production (story/character/world)" |
+                            "production (scene-by-scene generation)" |
+                            "post-production (assembly/QA/delivery)" —
+                            determines which template cluster is
+                            currently relevant
+TARGET_PLATFORMS         = which AI video model(s) will be used, affects
+                            File 16/17/19's platform-adaptation needs
+COMPLETED_TEMPLATES      = running record of which of Files 01-19 have
+                            been generated for this project and their
+                            locked outputs
+
+INPUT STRUCTURE
+----------------
+PROJECT_SCOPE: <required, determines pipeline depth recommendation>
+CURRENT_REQUEST: <required — what the user is actually trying to
+  accomplish right now>
+COMPLETED_TEMPLATES_SO_FAR: <required if mid-project, list what's already
+  been generated and locked>
+TARGET_PLATFORMS: <required>
+
+OUTPUT STRUCTURE
+-----------------
+1. PIPELINE DEPENDENCY MAP (the full 19-template dependency graph,
+   reproduced below, for reference)
+2. PROJECT SCOPE RECOMMENDATION (given PROJECT_SCOPE, how much of the
+   full pipeline is actually warranted — full depth vs. Fast Mode vs.
+   hybrid)
+3. CURRENT REQUEST ROUTING (which specific template(s) the current
+   request maps to)
+4. PREREQUISITE CHECK (which upstream templates must exist before the
+   current request can be properly fulfilled, and whether they're already
+   completed)
+5. RECOMMENDED NEXT ACTION (the specific template to generate next, in
+   correct dependency order)
+6. QUALITY GATE REMINDER (whether a File 18 audit is due given current
+   production stage)
+
+THE FULL PIPELINE DEPENDENCY MAP
+-----------------------------------
+FOUNDATION LAYER (generate once per project, early):
+- File 01 (Story Generator) — no dependencies, the root of everything
+- File 06 (Cinematography) — depends on File 01
+- File 03 (Character Design) — depends on File 01's Protagonist Core, one
+  per recurring character
+- File 09 (Environment & World Building) — depends on File 01 and File
+  06, one per recurring location
+
+SCRIPT LAYER (generate once per project, after Foundation):
+- File 02 (Screenplay Generator) — depends on File 01
+- File 11 (Dialogue Generator) — depends on File 02's voice anchors,
+  generated per scene/exchange as needed
+
+SCENE-BY-SCENE PRODUCTION LAYER (generate per scene):
+- File 04 (Scene Generator) — depends on Files 02, 03 (all present
+  characters), 09 (location)
+- File 05 (Camera Master) — depends on File 04
+- File 08 (Composition & Framing) — depends on File 05
+- File 07 (Lighting Master) — depends on Files 04, 06, 09
+- File 10 (Emotion & Acting) — depends on Files 03, 04
+- File 12 (VFX & CGI) — depends on Files 07, 09, only if needed for the
+  scene
+- File 13 (Sound & Music) — depends on Files 04, 09, 10
+- File 14 (Color Grading) — depends on Files 06, 07
+
+COMPILATION LAYER (generate per shot, after Scene-by-Scene layer complete
+for that shot):
+- File 16 (Video Generation Master) — depends on Files 03, 05, 06, 07,
+  08, 09, 10, 12 (if applicable), 14
+- File 17 (Negative Prompt Master) — generated paired with File 16
+
+ASSEMBLY LAYER (generate per scene/sequence, after Compilation Layer):
+- File 15 (Editing & Transitions) — depends on Files 04, 05, 13
+
+QUALITY GATE (run at multiple checkpoints):
+- File 18 (Quality & Consistency Checker) — run after individual shots,
+  after scene assembly, and before final project delivery
+
+FAST-PATH ALTERNATIVE (bypasses most of the above for speed):
+- File 19 (Hollywood Movie Master Prompt) — standalone, compresses
+  Foundation + Scene-by-Scene + Compilation layers into one pass for
+  single shots/scenes where full multi-shot consistency isn't required
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- NEVER generate a downstream template before its dependencies exist —
+  e.g. never attempt File 05 (Camera Master) without File 04 (Scene
+  Generator) already established for that scene, since Camera Master
+  requires beat-by-beat context that doesn't exist otherwise. If a user
+  requests a downstream template directly, first check whether
+  prerequisites exist; if not, generate them first (or use File 19's
+  Fast Mode with clearly flagged inferences if speed is prioritized over
+  full-pipeline precision).
+- Match PROJECT_SCOPE to pipeline depth honestly — a single test shot
+  does not need full Files 01-18 generated; recommend File 19 Fast Mode
+  for such cases. A feature-length project with recurring characters
+  across dozens of scenes genuinely benefits from full Foundation Layer
+  investment (Files 01, 03, 06, 09) even though it requires more upfront
+  work, since the consistency payoff compounds across many scenes.
+- The Foundation Layer (Files 01, 03, 06, 09) should be treated as a
+  ONE-TIME investment per project (or per new recurring character/
+  location) — never regenerate a Character Design or Environment bible
+  from scratch for a character/location that already has a locked
+  Consistency Token; reuse the existing token.
+- Quality Gates (File 18) should not be skipped under production time
+  pressure — the earlier an inconsistency is caught, the cheaper it is to
+  fix; treat File 18 checkpoints as non-negotiable at the per-scene and
+  full-project levels at minimum, even if per-shot checks are sometimes
+  abbreviated for speed on lower-stakes content.
+- When COMPLETED_TEMPLATES_SO_FAR indicates a project is well underway,
+  always route new requests through existing locked outputs (tokens,
+  identities) rather than allowing fresh, potentially inconsistent
+  re-derivation of already-established elements.
+
+BEST PRACTICES
+----------------
+- Start every new project by running this template (File 20) first,
+  even before File 01 — use it to consciously decide PROJECT_SCOPE and
+  therefore how much pipeline depth is actually appropriate, rather than
+  defaulting to either "generate everything" (wasteful for small
+  projects) or "skip everything" (risky for large ones).
+- Maintain a simple running project log tracking COMPLETED_TEMPLATES_SO_
+  FAR and their key locked outputs (Consistency Tokens especially) —
+  this becomes the single source of truth to paste into this template
+  whenever routing a new request mid-project.
+- For projects that start as a quick test (File 19 Fast Mode) but grow
+  into something larger, use this template's guidance to "graduate" the
+  Fast Mode's inferred defaults into proper Foundation Layer documents
+  (as File 19's own Advanced Version suggests) rather than starting over.
+- Revisit PROJECT_SCOPE periodically — a short film that was originally
+  scoped as 5 scenes but has grown to 15 may now justify Foundation Layer
+  investments (e.g. a full File 09 Environment bible for a location) that
+  weren't initially deemed necessary.
+- Use the Pipeline Dependency Map as a literal checklist for any given
+  scene — before considering a scene "shot," verify every applicable
+  layer (Foundation references, Scene-by-Scene, Compilation, and at least
+  one Quality Gate pass) has actually been addressed.
+
+EXAMPLE INPUT
+---------------
+PROJECT_SCOPE: Short film (8 scenes, per the original File 01 example)
+CURRENT_REQUEST: "I want to generate the actual video clip for Scene 2,
+Beat 2"
+COMPLETED_TEMPLATES_SO_FAR: File 01 (Story Generator) complete, File 03
+(Marcus Delacroix Character Design) complete, File 06 (Cinematography
+identity) complete, File 09 (Bullpen Environment) complete, File 02
+(Screenplay, Scenes 1-2) complete, File 04 (Scene Generator, Scene 2)
+complete, File 05 (Camera Master, Scene 2) complete
+TARGET_PLATFORMS: Runway Gen
+
+EXAMPLE OUTPUT
+-----------------
+PIPELINE DEPENDENCY MAP: [Full map as documented above, provided for
+reference]
+
+PROJECT SCOPE RECOMMENDATION: An 8-scene short film with a recurring
+protagonist and recurring location justifies the full Foundation Layer
+investment already made (Files 01, 03, 06, 09) — this was the right call,
+since Marcus and the Bullpen will likely recur across multiple scenes,
+and the upfront consistency investment will pay off repeatedly.
+
+CURRENT REQUEST ROUTING: The request ("generate the actual video clip")
+maps to File 16 (Video Generation Master), with File 17 (Negative Prompt
+Master) as its required pairing. Before that compilation can happen,
+Files 08 (Composition), 07 (Lighting), 10 (Emotion & Acting), and 14
+(Color Grading) are also required inputs per the Compilation Layer's
+dependency list — checking whether these exist yet.
+
+PREREQUISITE CHECK: Based on COMPLETED_TEMPLATES_SO_FAR — File 04 (Scene
+Generator) ✓, File 05 (Camera Master) ✓. STILL NEEDED before File 16 can
+properly compile: File 08 (Composition & Framing) — not yet listed as
+complete. File 07 (Lighting Master) — not yet listed as complete. File 10
+(Emotion & Acting) — not yet listed as complete. File 14 (Color Grading)
+— not yet listed as complete. File 06 (Cinematography) ✓ already
+available as a Foundation Layer input to File 14.
+
+RECOMMENDED NEXT ACTION: Generate, in this order: File 08 (Composition &
+Framing, using File 05's shot spec as input), File 07 (Lighting Master,
+using File 04's setting and File 06's identity), File 10 (Emotion &
+Acting, using File 03's token and File 04's beat context), File 14 (Color
+Grading, using File 06 and File 07's outputs) — then File 16 (Video
+Generation Master) can properly compile all layers, paired with File 17
+(Negative Prompt Master), targeting Runway Gen per TARGET_PLATFORMS.
+
+QUALITY GATE REMINDER: Once File 16/17 generation is complete for all
+three beats of Scene 2, a File 18 (Quality & Consistency Checker) pass at
+the "full scene" AUDIT_SCOPE is due before this scene is considered
+final and before proceeding to File 15 (Editing & Transitions) assembly.
+
+ADVANCED VERSION
+-------------------
+For studio-scale or team-based productions, extend with:
+
+"Additionally generate: (a) a MULTI-CONTRIBUTOR HANDOFF PROTOCOL —
+guidance for how different team members (writer, character designer,
+cinematographer-equivalent prompt engineers) can work on different
+templates in parallel while maintaining dependency discipline, with clear
+ownership boundaries per template, (b) a PROJECT TIMELINE ESTIMATOR
+mapping the full 19-template pipeline against realistic time-per-template
+estimates for a project of the given PROJECT_SCOPE, to support production
+scheduling, (c) a VERSION CONTROL RECOMMENDATION for tracking iterations
+of Consistency Tokens and locked identities as they're refined over the
+course of a longer production, preventing team members from
+inadvertently working from outdated tokens, (d) a FULL PROJECT
+COMPLETION CHECKLIST cross-referencing every scene against the complete
+Pipeline Dependency Map, formatted for final pre-delivery verification
+across an entire feature-length or multi-episode project."
+
+================================================================================
+SYSTEM-WIDE COMPATIBILITY SUMMARY
+================================================================================
+This entire 20-file library is designed for AI-model-agnostic AUTHORING
+(any of GPT-4/5-class, Claude, Gemini, Grok, or DeepSeek can generate
+excellent output from every template in this library), with final
+compiled prompts (Files 16, 17, 19) specifically adapted for
+PLATFORM-SPECIFIC VIDEO GENERATION across Sora, Veo, Kling, Runway,
+Pika, Luma, Hailuo, and future models as they emerge.
+
+The library is built to remain useful as both AI authoring models and AI
+video generation platforms continue to evolve: every template's
+PROFESSIONAL INSTRUCTIONS and BEST PRACTICES sections encode durable
+Hollywood craft principles (motivated camera choices, restrained
+performance, consistent world-building, subtext-driven dialogue) that
+remain valid regardless of which specific AI tool executes them, while
+platform-specific notes are explicitly flagged as needing verification
+against current tooling rather than treated as permanent fact — since
+those specifics will change fastest as the technology matures.
+
+RECOMMENDED FIRST USE: Start with File 20 (this file) to scope your
+project, then File 01 (Story Generator) to establish your narrative
+foundation, then proceed through the Foundation Layer before any
+scene-by-scene production work begins.
+================================================================================

@@ -1,0 +1,236 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 08: COMPOSITION & FRAMING
+================================================================================
+
+TITLE
+-----
+The Frame Architecture Engine — Compositional Design & Visual Hierarchy
+System
+
+PURPOSE
+-------
+Specify exactly WHAT is placed WHERE within the frame that Camera Master
+(File 05) has already defined the type/angle/movement for. Composition is
+the difference between a technically correct shot and a genuinely
+Hollywood-grade image — this template governs subject placement, negative
+space, leading lines, depth layering, and visual hierarchy so the eye is
+guided deliberately rather than left to wander.
+
+PROMPT FORMULA
+---------------
+[SHOT CONTEXT FROM CAMERA MASTER] + [SUBJECT PLACEMENT] + [COMPOSITIONAL
+RULE APPLIED] + [FOREGROUND/MIDGROUND/BACKGROUND LAYERING] + [NEGATIVE
+SPACE FUNCTION] + [LEADING LINES/FRAME GEOMETRY] + [VISUAL HIERARCHY] +
+[ASPECT RATIO CONTEXT]
+
+Master formula string:
+
+"Within the shot specification {CAMERA_MASTER_SHOT_SPEC}, compose the
+frame as follows: primary subject {SUBJECT} placed at {FRAME_POSITION}
+using {COMPOSITIONAL_RULE}. Depth layering — foreground:
+{FOREGROUND_ELEMENT}, midground: {MIDGROUND_ELEMENT}, background:
+{BACKGROUND_ELEMENT}. Negative space: {NEGATIVE_SPACE_AMOUNT}, serving
+{NEGATIVE_SPACE_FUNCTION}. Frame geometry: {LEADING_LINES_PRESENT},
+directing the eye toward {EYE_DESTINATION}. Visual hierarchy: primary
+focus {PRIMARY_FOCUS}, secondary interest {SECONDARY_FOCUS}, ensuring no
+competing element of equal visual weight distracts. Aspect ratio:
+{ASPECT_RATIO}, composed specifically for this format's framing
+tendencies."
+
+VARIABLES
+---------
+CAMERA_MASTER_SHOT_SPEC  = the shot type/angle/movement/lens combo
+                            inherited from File 05, restated for context
+SUBJECT                  = primary subject of the frame
+FRAME_POSITION            = "rule of thirds — left third" | "rule of
+                            thirds — right third" | "dead center
+                            (deliberate, for symmetry/power/confrontation
+                            effect)" | "golden ratio spiral point" |
+                            "extreme edge placement (deliberate unease)"
+COMPOSITIONAL_RULE        = "rule of thirds" | "symmetry/central
+                            balance" | "leading lines convergence" |
+                            "frame within frame" | "negative space
+                            dominant" | "diagonal/dynamic tension" |
+                            "golden ratio"
+FOREGROUND_ELEMENT        = what occupies the closest visual layer (can be
+                            "none/clear" if deliberately absent)
+MIDGROUND_ELEMENT         = the layer containing the primary subject,
+                            typically
+BACKGROUND_ELEMENT        = what's visible behind the subject, and its
+                            relationship (contextual, contrasting,
+                            environmentally storytelling)
+NEGATIVE_SPACE_AMOUNT     = "minimal (tightly filled frame)" | "moderate"
+                            | "dominant (subject small within vast
+                            space)"
+NEGATIVE_SPACE_FUNCTION   = why the negative space exists (isolation,
+                            scale, breathing room, anticipation of
+                            off-frame action)
+LEADING_LINES_PRESENT     = specific architectural/environmental lines
+                            that guide the eye (doorframes, roads,
+                            shadows, furniture edges) — "none" if
+                            deliberately absent
+EYE_DESTINATION           = where the composition ultimately directs
+                            viewer attention
+PRIMARY_FOCUS             = the single most important visual element
+SECONDARY_FOCUS           = supporting visual interest, subordinate to
+                            primary
+ASPECT_RATIO              = "2.39:1 (anamorphic widescreen, epic/
+                            cinematic)" | "1.85:1 (standard widescreen)" |
+                            "16:9 (standard digital)" | "9:16 (vertical/
+                            mobile)" | "1:1 (square)" | "4:3 (classic/
+                            retro)"
+
+INPUT STRUCTURE
+----------------
+CAMERA_MASTER_SHOT_SPEC: <required, from File 05>
+SUBJECT: <required>
+SCENE_CONTEXT: <required, from File 04 — informs what environmental
+  elements are actually available for foreground/background layering>
+EMOTIONAL_INTENT: <required — what the composition should make the viewer
+  feel, drives compositional rule selection>
+ASPECT_RATIO: <required, should be locked project-wide and stated once,
+  then referenced consistently>
+
+OUTPUT STRUCTURE
+-----------------
+1. SHOT CONTEXT RESTATEMENT (from File 05, for reference)
+2. SUBJECT PLACEMENT SPECIFICATION (position, compositional rule, rationale)
+3. DEPTH LAYERING BREAKDOWN (foreground/midground/background, each
+   specified and justified)
+4. NEGATIVE SPACE DESIGN (amount, function, rationale)
+5. FRAME GEOMETRY (leading lines, eye direction path)
+6. VISUAL HIERARCHY MAP (primary/secondary focus, explicit confirmation of
+   no competing elements)
+7. COMPILED COMPOSITION PROMPT LINE (dense, generation-ready description
+   combining all elements for layering with Camera Master output)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Compositional rule choice must serve EMOTIONAL_INTENT, never be
+  decorative. Dead-center symmetry communicates something specific (power,
+  confrontation, unnerving stillness) — it should never be a default,
+  only a deliberate choice.
+- Depth layering must be physically plausible within the established
+  environment (File 09) — never invent foreground/background elements that
+  contradict the scene's established setting.
+- Every frame needs exactly ONE primary focus. If Visual Hierarchy Map
+  reveals two elements of equal visual weight competing for attention,
+  this is a compositional failure requiring revision — adjust placement,
+  focus, or lighting emphasis (cross-reference File 07) to resolve it.
+- Negative space is an active tool, not empty leftover area — its function
+  must always be articulated. Unmotivated negative space reads as a
+  framing error, not a choice.
+- Leading lines should feel found within the environment, not artificially
+  imposed — favor naturally occurring architectural or environmental lines
+  over contrived ones.
+- For character-focused shots, apply "headroom" and "lead room" logic
+  correctly: appropriate space above the head (not excessive, not
+  cramped) and, for shots where a character faces/moves toward one side
+  of frame, appropriate negative space in their direction of gaze/movement
+  (looking room) unless deliberately violated for unease.
+
+BEST PRACTICES
+----------------
+- Generate Composition immediately after Camera Master (File 05) for each
+  beat — the two are conceptually inseparable (WHAT shot + WHERE within
+  it) and should be treated as a paired specification, not sequential
+  afterthoughts.
+- Cross-check every composition against File 07's lighting design — 
+  composition and lighting should direct the eye toward the SAME point of
+  interest; if they conflict (composition emphasizes one area, lighting
+  brightens another), resolve the conflict before finalizing.
+- Vary compositional rules across a scene's beats the same way Camera
+  Master varies shot types — a scene using rule-of-thirds for every single
+  beat will feel as monotonous as one using only medium shots, even if
+  each individual choice was justified.
+- Lock ASPECT_RATIO project-wide at the start and never vary it
+  mid-project unless there's a deliberate narrative reason (e.g. a format
+  shift representing a shift in reality/medium within the story) — state
+  this decision explicitly if it happens.
+- Use frame-within-frame composition (doorways, windows, mirrors)
+  deliberately as a tool for conveying confinement, observation, or
+  psychological framing — a powerful, underused Hollywood-grade technique.
+
+EXAMPLE INPUT
+---------------
+CAMERA_MASTER_SHOT_SPEC: Beat 2 — Extreme Close-Up (Insert), slight High
+Angle, slow Dolly In with Rack Focus, 85mm lens, shallow depth of field
+SUBJECT: Marcus's hand, reaching toward the face-down photo frame
+SCENE_CONTEXT: Cluttered desk, dual monitors, cable clutter, face-down
+photo frame
+EMOTIONAL_INTENT: The involuntary, vulnerable nature of the gesture — it
+should feel small, private, almost accidental
+ASPECT_RATIO: 2.39:1 anamorphic widescreen (project-locked)
+
+EXAMPLE OUTPUT
+-----------------
+SHOT CONTEXT RESTATEMENT: ECU insert, high angle, dolly-in with rack
+focus, 85mm shallow DOF, per File 05 Beat 2 specification.
+
+SUBJECT PLACEMENT SPECIFICATION: Hand placed at the lower-right third
+intersection point (rule of thirds), leaving the majority of frame as
+negative space above and to the left — the hand should feel small within
+the frame despite being an extreme close-up, a deliberate tension between
+shot scale and compositional smallness.
+
+DEPTH LAYERING BREAKDOWN:
+- Foreground: Slightly out-of-focus desk clutter (cable edge, corner of a
+  keyboard) at the very bottom frame edge, grounding the shot physically
+  without competing for attention (heavily softened by shallow DOF)
+- Midground: The hand itself, in sharp focus following the rack focus
+  completion, positioned at the lower-right third
+- Background: The face-down photo frame, positioned at the upper-left
+  third (opposite the hand), softly out of focus but still legible as a
+  recognizable object — this is the eye's ultimate destination
+
+NEGATIVE SPACE DESIGN: Dominant negative space occupying the upper and
+left portions of frame (the empty desk surface, slightly blurred).
+Function: isolates the small, vulnerable gesture within a larger,
+indifferent professional space — visually reinforcing that this private
+moment is happening within a context that has no room for it.
+
+FRAME GEOMETRY: The desk's edge creates a soft diagonal leading line from
+lower-left to upper-right, naturally guiding the eye from the entry point
+(hand, lower-right) up along the desk surface toward the photo frame
+(upper-left) — the eye travels the same physical path the hand is
+attempting.
+
+VISUAL HIERARCHY MAP: Primary focus — the hand (sharp focus, rule-of-
+thirds position, largest clear shape). Secondary focus — the photo frame
+(soft focus, opposite third, smaller in frame but narratively loaded).
+Confirmed no competing third element; foreground clutter is sufficiently
+soft to avoid rivaling either.
+
+COMPILED COMPOSITION PROMPT LINE: "Hand positioned at lower-right third
+intersection, sharp focus, dominant negative space above and left, softly
+blurred desk clutter in extreme foreground, face-down photo frame visible
+softly out-of-focus at upper-left third, diagonal leading line from desk
+edge connecting hand to frame, 2.39:1 anamorphic widescreen composition."
+
+ADVANCED VERSION
+-------------------
+For complex ensemble or action-heavy compositions, extend with:
+
+"Additionally generate: (a) a MULTI-SUBJECT HIERARCHY BREAKDOWN when 3+
+significant elements compete for frame space, ranking each by intended
+visual weight with specific placement for each, (b) a COMPOSITIONAL
+RHYTHM MAP across the full scene showing how compositional rules vary
+beat-to-beat to avoid monotony while maintaining a coherent visual logic,
+(c) SAFE AREA / TITLE-SAFE CONSIDERATIONS if the output will have text
+overlays (trailers, social content), (d) explicit ASPECT-RATIO-SPECIFIC
+REFRAME NOTES for delivering the same composition across
+{ADDITIONAL_FORMATS: 16:9 broadcast/9:16 vertical social/1:1 square},
+specifying what must be sacrificed or repositioned at each ratio without
+losing the primary focus."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for compositional design. Compiled Prompt Lines designed for direct layering
+with Camera Master and Lighting Master outputs in Sora, Veo, Kling,
+Runway, Pika, Luma, Hailuo generation calls.
+PIPELINE POSITION: Requires 05_Camera_Master.txt shot specification and
+04_Scene_Generator.txt environmental context.
+Feeds into: 07_Lighting_Master.txt (cross-check), 15_Editing_&_
+Transitions.txt, 16_Video_Generation_Master.txt
+================================================================================

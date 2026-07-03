@@ -1,0 +1,262 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 17: NEGATIVE PROMPT MASTER
+================================================================================
+
+TITLE
+-----
+The Exclusion Architecture Engine — Negative Prompt & Error-Prevention
+Specification System
+
+PURPOSE
+-------
+Specify what should NOT appear in a generation — the negative prompt
+layer that prevents common AI video generation artifacts, unwanted
+elements, and specification contradictions before they occur, rather than
+troubleshooting them after a failed generation. This template is paired
+with File 16's positive compilation and should generally be generated
+alongside it, not as an afterthought.
+
+PROMPT FORMULA
+---------------
+[GENERAL ARTIFACT EXCLUSION] + [SHOT-SPECIFIC EXCLUSIONS] + [CHARACTER-
+SPECIFIC EXCLUSIONS] + [ENVIRONMENT-SPECIFIC EXCLUSIONS] + [STYLE
+CONTRADICTION PREVENTION] + [PLATFORM-KNOWN FAILURE MODES] + [PRIORITY
+WEIGHTING]
+
+Master formula string:
+
+"Generate the negative prompt for {BEAT_OR_SHOT_IDENTIFIER} on
+{TARGET_PLATFORM}. General artifact exclusions:
+{GENERAL_ARTIFACT_LIST}. Shot-specific exclusions given the specified
+{CAMERA_SPEC}: {SHOT_SPECIFIC_EXCLUSIONS}. Character-specific exclusions
+for {CHARACTER_NAME}, given established consistency token: preventing
+{CHARACTER_DRIFT_RISKS}. Environment-specific exclusions given
+{ENVIRONMENT_TOKEN}: preventing {ENVIRONMENT_CONTRADICTION_RISKS}. Style
+contradiction prevention: exclude {STYLE_CONTRADICTIONS} that would
+conflict with the established {CINEMATOGRAPHY_IDENTITY}. Known platform
+failure modes for {TARGET_PLATFORM}: {PLATFORM_SPECIFIC_KNOWN_ISSUES}.
+Weight exclusions by priority: {HIGH_PRIORITY_EXCLUSIONS} must never
+appear; {LOWER_PRIORITY_EXCLUSIONS} should be avoided but are less
+critical."
+
+VARIABLES
+---------
+BEAT_OR_SHOT_IDENTIFIER  = which shot this negative prompt pairs with
+TARGET_PLATFORM          = the AI video platform being used
+GENERAL_ARTIFACT_LIST    = common cross-platform AI video generation
+                            artifacts (e.g. "extra fingers, warped
+                            hands, unnatural blinking, text/watermark
+                            artifacts, morphing/melting geometry between
+                            frames, inconsistent number of limbs,
+                            unnatural facial symmetry, flickering
+                            textures")
+CAMERA_SPEC              = pulled from File 05, informs shot-specific
+                            risks (e.g. a close-up has different failure
+                            risks than a wide shot)
+SHOT_SPECIFIC_EXCLUSIONS = failure modes particular to this shot type
+                            (e.g. for extreme close-ups: "overly smooth/
+                            plastic skin texture, incorrect eye
+                            reflections, asymmetrical pupil size")
+CHARACTER_NAME + CHARACTER_DRIFT_RISKS = pulled from File 03, the
+                            specific ways THIS character's established
+                            appearance commonly drifts in AI generation
+                            (e.g. "do not generate: clean-shaven jaw
+                            (character has stubble), symmetrical
+                            undamaged eyebrows (character has a scar),
+                            different hair color/length than established,
+                            wedding band on wrong hand or absent")
+ENVIRONMENT_TOKEN + ENVIRONMENT_CONTRADICTION_RISKS = pulled from File
+                            09, ways the established location commonly
+                            drifts (e.g. "do not generate: windows on
+                            walls where none were established, different
+                            ceiling height, inconsistent furniture
+                            placement")
+STYLE_CONTRADICTIONS     = visual styles/qualities that would conflict
+                            with the established Cinematography identity
+                            (e.g. if the project is grounded realism:
+                            "cartoon/anime styling, oversaturated colors,
+                            unrealistic lens flares, stylized/painterly
+                            rendering")
+CINEMATOGRAPHY_IDENTITY  = pulled from File 06
+PLATFORM_SPECIFIC_KNOWN_ISSUES = failure modes specifically associated
+                            with the target platform as currently
+                            understood — always verify current platform
+                            behavior rather than assuming permanence, as
+                            platforms actively improve over time
+HIGH_PRIORITY_EXCLUSIONS = the 3-5 exclusions most critical to this
+                            specific shot (usually character consistency
+                            and core technical artifacts)
+LOWER_PRIORITY_EXCLUSIONS = exclusions worth including but less
+                            critical if some must be dropped for length
+
+INPUT STRUCTURE
+----------------
+BEAT_OR_SHOT_IDENTIFIER + TARGET_PLATFORM: <required>
+CAMERA_SPEC: <required, from File 05>
+CHARACTER_NAME + CONSISTENCY_TOKEN: <required if character present, from
+  File 03>
+ENVIRONMENT_TOKEN: <required, from File 09>
+CINEMATOGRAPHY_IDENTITY: <required, from File 06>
+
+OUTPUT STRUCTURE
+-----------------
+1. GENERAL ARTIFACT EXCLUSION LIST (cross-platform common failure modes)
+2. SHOT-SPECIFIC EXCLUSIONS (tailored to the specific shot type/angle/
+   lens from File 05)
+3. CHARACTER-SPECIFIC EXCLUSIONS (tailored to prevent drift from this
+   specific character's established consistency token)
+4. ENVIRONMENT-SPECIFIC EXCLUSIONS (tailored to prevent drift from this
+   specific location's established token)
+5. STYLE CONTRADICTION EXCLUSIONS (preventing conflicts with established
+   Cinematography identity)
+6. PLATFORM-SPECIFIC KNOWN ISSUES (current, verified failure modes for
+   the target platform)
+7. PRIORITY-WEIGHTED FINAL NEGATIVE PROMPT (compiled, ready-to-pair-with-
+   File-16's positive prompt)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Negative prompts must be SPECIFIC, not generic — "bad quality" or "ugly"
+  provide almost no useful signal to a generation model; specific,
+  concrete exclusions ("extra fingers," "asymmetrical eyebrows where
+  character has a scar-based asymmetry established as specific") are far
+  more effective.
+- Character-specific exclusions must be derived directly from that
+  character's actual established consistency token — generic "prevent
+  character drift" instructions are far less effective than explicitly
+  naming the specific established features most at risk of being
+  incorrectly generated.
+- Never let negative prompt exclusions contradict the positive prompt
+  (File 16) — cross-check before finalizing that nothing being excluded
+  here is actually something the positive specification requires.
+- Platform-specific known issues should be treated as current best
+  understanding, not permanent fact — AI video platforms update
+  frequently, and failure modes that exist at one point may be resolved
+  in later platform versions; always favor current verified information
+  over assumed persistent limitations.
+- Priority weighting matters when negative prompt length is constrained
+  by the platform — always ensure character consistency and core
+  technical artifact prevention survive any necessary trimming before
+  less critical stylistic exclusions.
+- Environment-specific exclusions should focus on preventing
+  contradictions of LOCKED architectural elements specifically (from File
+  09) — these are the highest-value exclusions since architectural drift
+  is one of the most noticeable continuity breaks across a multi-shot
+  sequence.
+
+BEST PRACTICES
+----------------
+- Generate this template as a PAIRED step immediately after File 16's
+  positive compilation, not as a separate, disconnected process — the two
+  should be developed with full awareness of each other.
+- Build a running "known issues" reference log per platform as you work —
+  when a specific negative prompt exclusion proves effective (or
+  ineffective) at solving a recurring problem on a specific platform,
+  record it for reuse across the project and future projects.
+- For character-heavy projects, build the character-specific exclusion
+  list ONCE per character (alongside File 03's Character Design,
+  potentially as an extension of that template's Advanced Version) rather
+  than re-deriving it for every single shot that character appears in.
+- Don't over-load negative prompts with exhaustive lists of every
+  conceivable failure mode — prioritize the exclusions most likely to
+  actually matter for THIS specific shot, since excessively long negative
+  prompts can dilute effectiveness on some platforms just as
+  over-specified positive prompts can.
+- Periodically review whether platform-specific known issues logged
+  earlier in a project are still accurate — platforms improve over time,
+  and continuing to exclude for a resolved issue wastes prompt budget
+  that could go toward genuinely current concerns.
+
+EXAMPLE INPUT
+---------------
+BEAT_OR_SHOT_IDENTIFIER + TARGET_PLATFORM: Scene 2, Beat 2, Runway Gen
+CAMERA_SPEC: Extreme close-up insert, high angle, rack focus (from File
+05)
+CHARACTER_NAME + CONSISTENCY_TOKEN: Marcus Delacroix [full token from
+File 03]
+ENVIRONMENT_TOKEN: Bullpen desk area [from File 09]
+CINEMATOGRAPHY_IDENTITY: Grounded, naturalistic, digital-clean with
+subtle grain [from File 06]
+
+EXAMPLE OUTPUT
+-----------------
+GENERAL ARTIFACT EXCLUSION LIST: extra fingers, missing fingers, warped/
+melted hand geometry, unnatural finger bending, motion-blur artifacts
+inconsistent with stated subtle blur only, flickering or morphing desk
+surface textures, text or watermark artifacts, inconsistent lighting
+direction shifting mid-clip.
+
+SHOT-SPECIFIC EXCLUSIONS: Given the extreme close-up on a hand with rack
+focus — exclude: incorrect number of visible knuckles, unnaturally smooth/
+plastic skin texture on the hand, ring appearing on wrong finger or wrong
+hand, focus pull that snaps instantly rather than racking smoothly,
+background elements resolving into sharp focus when they should remain
+blurred per the shallow depth of field specification.
+
+CHARACTER-SPECIFIC EXCLUSIONS: For Marcus's hand specifically — exclude:
+wedding band absent or on left hand instead of established right hand,
+skin tone lighter/paler than established weathered olive tone, unnaturally
+young/unlined skin texture (character is 52, hands should show age-
+appropriate texture), manicured/soft hand appearance inconsistent with
+his established tactical/functional character background.
+
+ENVIRONMENT-SPECIFIC EXCLUSIONS: Given the established bullpen desk —
+exclude: desk surface material inconsistent with established laminate
+finish, clutter items that would contradict a modern near-future office
+setting (no anachronistic objects), monitor glow color shifting from
+established cool-blue to any other hue, desk clutter arrangement that
+contradicts File 04's established continuity (photo frame must remain
+face-down and undisturbed beyond the specified reach gesture).
+
+STYLE CONTRADICTION EXCLUSIONS: Given the grounded naturalistic
+Cinematography identity — exclude: cartoon or illustrated rendering
+style, oversaturated/neon color grading, unrealistic anamorphic lens
+flare streaks, soft-focus "dreamy" romantic styling inconsistent with the
+clinical tone, any stylization suggesting fantasy/sci-fi exoticism beyond
+the established grounded near-future aesthetic.
+
+PLATFORM-SPECIFIC KNOWN ISSUES: [Note: verify current platform behavior
+before relying on this section, as it reflects general historical
+tendencies rather than a guaranteed current state] — some close-up hand/
+finger generation has historically been a more error-prone area for AI
+video models generally; consider budgeting for multiple generation
+attempts on this specific shot and reviewing frame-by-frame for finger-
+count consistency before finalizing.
+
+PRIORITY-WEIGHTED FINAL NEGATIVE PROMPT: "extra or missing fingers,
+warped hand geometry, wedding band on wrong hand or absent, skin tone
+inconsistent with weathered olive established tone, unnaturally smooth
+young skin texture, background resolving into unwanted sharp focus,
+oversaturated or stylized non-realistic color grading, cartoon or
+illustrated rendering, text or watermark artifacts, flickering desk
+surface texture, monitor glow color inconsistent with established cool-
+blue."
+
+ADVANCED VERSION
+-------------------
+For high-volume production pipelines, extend with:
+
+"Additionally generate: (a) a PROJECT-WIDE NEGATIVE PROMPT LIBRARY —
+reusable base exclusion sets organized by shot type, character, and
+environment that can be rapidly assembled for any new shot in the
+project without re-deriving from scratch, (b) a FAILURE PATTERN TRACKER
+logging which specific exclusions proved necessary after observing actual
+generation failures, building an increasingly refined project-specific
+negative prompt knowledge base over time, (c) a CROSS-PLATFORM
+EXCLUSION COMPARISON noting which exclusions are universally necessary
+versus platform-specific, (d) explicit GENERATION BUDGET GUIDANCE
+estimating how many generation attempts to budget for shots with
+historically higher failure rates (based on the Failure Pattern Tracker),
+to set realistic production timeline expectations."
+
+================================================================================
+COMPATIBILITY: Designed as the negative-prompt pairing for Sora, Veo,
+Kling, Runway, Pika, Luma, Hailuo generation calls, alongside File 16's
+positive compilation. Generation logic itself is universal across GPT-4/
+5-class, Claude, Gemini, Grok, DeepSeek for template authoring.
+PIPELINE POSITION: Requires the same upstream context as File 16 (Files
+03, 05, 06, 09 minimum).
+Feeds into: 16_Video_Generation_Master.txt (paired), 18_Quality_&_
+Consistency_Checker.txt
+================================================================================

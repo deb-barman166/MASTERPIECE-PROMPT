@@ -1,0 +1,257 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 19: HOLLYWOOD MOVIE MASTER PROMPT
+================================================================================
+
+TITLE
+-----
+The Single-Call Feature Compiler — Condensed Full-Pipeline Master Prompt
+
+PURPOSE
+-------
+Every prior template (01-18) operates at ONE stage of the pipeline in
+depth. This template exists for the opposite need: a single, dense,
+comprehensive prompt that compresses the ENTIRE pipeline's discipline —
+story structure, character consistency, camera grammar, cinematography,
+lighting, composition, performance, and technical constraints — into one
+master instruction block. Use this when you need a fast, high-quality
+single-shot or single-scene generation WITHOUT running all 18 prior
+templates individually, while still capturing the disciplined thinking
+that produces Hollywood-grade rather than generic output. This is the
+"I need this now, done right, in one prompt" tool.
+
+PROMPT FORMULA
+---------------
+[ROLE + PROJECT ANCHOR] + [STORY CORE] + [CHARACTER LOCK] + [SCENE
+SPECIFICATION] + [CAMERA + COMPOSITION] + [LIGHT + COLOR] + [PERFORMANCE]
++ [TECHNICAL CONSTRAINTS] + [NEGATIVE SPACE] + [PLATFORM TARGET]
+
+Master formula string — this is intentionally the DENSEST single prompt
+in the library, compressing Files 01-17's disciplines into one pass:
+
+"Act as a Hollywood-caliber writer-director-cinematographer generating a
+single {SHOT_OR_SCENE_TYPE} for {PROJECT_LOGLINE}. STORY CORE: protagonist
+{CHARACTER_NAME} wants {EXTERNAL_WANT}, needs {INTERNAL_NEED}, currently
+{CURRENT_STORY_MOMENT} — this shot must dramatize {WHAT_THIS_SHOT_
+ACCOMPLISHES} without stating it. CHARACTER LOCK: {CHARACTER_CONSISTENCY_
+TOKEN}. SCENE: {LOCATION_DESCRIPTION}, {TIME_OF_DAY}, {ATMOSPHERE}.
+CAMERA + COMPOSITION: {SHOT_TYPE}, {ANGLE}, {MOVEMENT}, {LENS}mm,
+{DEPTH_OF_FIELD}, subject at {FRAME_POSITION} using {COMPOSITIONAL_RULE}.
+LIGHT + COLOR: key light {KEY_LIGHT_DESCRIPTION} from
+{PRACTICAL_SOURCE}, {COLOR_TEMPERATURE}, {CONTRAST_LEVEL}, grade
+{COLOR_GRADE_CAST}. PERFORMANCE: {SURFACE_EMOTION} masking
+{SUBTEXT_EMOTION}, expressed through {SPECIFIC_MICRO_BEHAVIOR}, restraint
+level {RESTRAINT}. TECHNICAL: {DURATION} seconds, {ASPECT_RATIO},
+{MOTION_QUALITY}. EXCLUDE: {NEGATIVE_PROMPT_CORE}. TARGET PLATFORM:
+{TARGET_AI_MODEL}, phrased per that platform's conventions."
+
+VARIABLES
+---------
+This template deliberately compresses variables from Files 01, 03, 04,
+05, 06, 07, 08, 10, 14, and 17 into a single pass. Every variable below
+maps to a fuller version in its source template — use the abbreviated
+form here for speed, or paste full outputs from those templates in for
+maximum precision:
+
+SHOT_OR_SCENE_TYPE       = "single shot" | "short scene (2-4 shots)" |
+                            "trailer beat"
+PROJECT_LOGLINE          = one-line story context (File 01)
+CHARACTER_NAME + WANT + NEED + CURRENT_STORY_MOMENT = compressed
+                            Protagonist Core (File 01)
+WHAT_THIS_SHOT_ACCOMPLISHES = the specific dramatic function of this
+                            exact shot within the larger story
+CHARACTER_CONSISTENCY_TOKEN = full token from File 03, pasted verbatim
+LOCATION_DESCRIPTION + TIME_OF_DAY + ATMOSPHERE = compressed Environment
+                            spec (File 09)
+SHOT_TYPE + ANGLE + MOVEMENT + LENS + DEPTH_OF_FIELD = compressed Camera
+                            Master spec (File 05)
+FRAME_POSITION + COMPOSITIONAL_RULE = compressed Composition spec (File
+                            08)
+KEY_LIGHT_DESCRIPTION + PRACTICAL_SOURCE + COLOR_TEMPERATURE +
+  CONTRAST_LEVEL = compressed Lighting spec (File 07)
+COLOR_GRADE_CAST         = compressed Color Grade spec (File 14)
+SURFACE_EMOTION + SUBTEXT_EMOTION + SPECIFIC_MICRO_BEHAVIOR + RESTRAINT =
+                            compressed Emotion & Acting spec (File 10)
+DURATION + ASPECT_RATIO + MOTION_QUALITY = technical delivery
+                            specification
+NEGATIVE_PROMPT_CORE     = compressed high-priority exclusions (File 17)
+TARGET_AI_MODEL          = "Sora" | "Veo" | "Kling" | "Runway" | "Pika" |
+                            "Luma" | "Hailuo" | other
+
+INPUT STRUCTURE
+----------------
+This template accepts EITHER:
+(A) FULL MODE — paste complete outputs from Files 01, 03, 05, 07, 08, 09,
+    10, 14, 17 and this template will compress them intelligently, OR
+(B) FAST MODE — provide only the abbreviated variables directly (a
+    logline, a quick character sketch, a shot idea) and this template
+    will infer reasonable Hollywood-grade defaults for anything unstated,
+    clearly flagging every inferred choice so it can be corrected.
+
+PROJECT_LOGLINE: <required>
+CHARACTER_NAME + brief description: <required>
+SHOT_OR_SCENE_TYPE: <required>
+WHAT_THIS_SHOT_ACCOMPLISHES: <required>
+TARGET_AI_MODEL: <required>
+Everything else: <optional in Fast Mode, will be inferred and flagged>
+
+OUTPUT STRUCTURE
+-----------------
+1. MODE CONFIRMATION (Full or Fast, and which elements were provided vs.
+   inferred)
+2. INFERRED DEFAULTS LIST (if Fast Mode — every assumption made,
+   explicitly stated for the user to confirm or correct)
+3. COMPRESSED MASTER SPECIFICATION (all disciplines compiled into the
+   dense single-block format)
+4. FINAL GENERATION-READY PROMPT (platform-adapted, ready to paste)
+5. PAIRED NEGATIVE PROMPT (condensed high-priority exclusions)
+6. UPGRADE PATH NOTE (if Fast Mode was used, a note on which specific
+   File 01-18 template would most improve this result if the user wants
+   to invest more time — e.g. "for maximum character consistency across
+   multiple future shots of this character, generate a full File 03
+   Character Design bible")
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Even in Fast Mode, never skip the underlying discipline — every
+  inferred default must still be a genuinely motivated, Hollywood-grade
+  choice (a motivated camera angle, a specific rather than vague
+  lighting choice), not a generic placeholder. The compression is in
+  format, never in quality of thinking.
+- Always explicitly flag inferred elements — the user must be able to
+  see at a glance what was assumed versus what was actually specified, so
+  they can correct any assumption that doesn't match their actual intent.
+- WHAT_THIS_SHOT_ACCOMPLISHES must be treated as load-bearing — every
+  other compressed choice (camera, light, performance) should trace back
+  to serving this stated function, exactly as the full pipeline templates
+  require, just without the extended justification prose.
+- This template should never be used as a substitute for the full
+  pipeline on projects requiring maximum multi-shot consistency (an
+  entire film or multi-scene sequence) — it's optimized for speed on
+  single shots/scenes, and the Upgrade Path Note should make this
+  limitation clear whenever relevant.
+- The Paired Negative Prompt must still be genuinely specific to the
+  content (not a generic boilerplate list) — compress File 17's
+  discipline, don't abandon it.
+
+BEST PRACTICES
+----------------
+- Use Fast Mode for rapid ideation, testing shot concepts, or single
+  standalone shots where multi-shot consistency isn't a concern.
+- Use Full Mode (pasting complete upstream template outputs) when this
+  shot is part of a larger project that already has established
+  Consistency Tokens — this ensures the compression doesn't lose any of
+  the precision already built in earlier templates.
+- When Fast Mode's Inferred Defaults List reveals a choice you want to
+  lock in permanently (e.g. you like the inferred lighting approach and
+  want it consistent across future shots), graduate that inference into
+  a proper File 07 Lighting Master specification rather than re-inferring
+  it fresh each time.
+- Treat this template as the "sketch" tool and Files 01-18 as the
+  "full painting" tools — sketches are valuable for speed and iteration,
+  but a project's hero shots and recurring elements deserve the full
+  pipeline's precision.
+- For social/trailer content requiring many quick, varied shots without
+  heavy multi-shot consistency needs, this template alone may be entirely
+  sufficient — recognize when the full pipeline's overhead genuinely
+  isn't needed for the task at hand.
+
+EXAMPLE INPUT
+---------------
+Mode: Fast Mode
+PROJECT_LOGLINE: A disinformation-defusal expert discovers his daughter
+built the threat he's tracking.
+CHARACTER_NAME: Marcus, 50s, controlled, ex-military energy
+SHOT_OR_SCENE_TYPE: Single shot
+WHAT_THIS_SHOT_ACCOMPLISHES: The moment his professional detachment first
+cracks
+TARGET_AI_MODEL: Kling
+
+EXAMPLE OUTPUT
+-----------------
+MODE CONFIRMATION: Fast Mode — only logline, character sketch, shot type,
+dramatic function, and target platform were provided. All camera,
+lighting, composition, and performance detail below is inferred and
+flagged for your review.
+
+INFERRED DEFAULTS LIST:
+- Character physical details (build, coloring, distinguishing features)
+  beyond "50s, controlled, ex-military energy" — inferred as lean build,
+  weathered features, minimal distinguishing marks. RECOMMENDATION: for
+  any future shot of this character, generate a full File 03 Character
+  Design to lock these details rather than re-inferring them.
+- Setting inferred as a generic modern office interior (not specified in
+  input).
+- Shot type inferred as extreme close-up given the "cracks" function
+  (a close, intimate framing best serves a subtle emotional break).
+- Lighting inferred as cool, clinical office lighting (motivated,
+  consistent with a professional/institutional setting implied by the
+  logline).
+
+COMPRESSED MASTER SPECIFICATION: A man in his 50s with a lean, weathered
+build and controlled bearing sits at a desk in a cool-lit modern office
+interior, daytime, fluorescent and monitor-glow ambient light. Extreme
+close-up on his face, eye-level angle, static camera, 85mm lens, shallow
+depth of field with soft background blur, subject positioned at center-
+frame with generous negative space suggesting isolation. Key light: cool
+blue-white practical monitor glow from below-eye-level, soft diffused
+quality, minimal fill creating subtle shadow beneath brow. Color grade:
+cool blue-neutral cast, naturalistic intensity, skin tone protected and
+warm-natural despite cool environment. Performance: outward composure
+masking a sudden, involuntary flicker of vulnerability — a barely
+perceptible widening at the eyes, held breath for one second, released
+as a controlled exhale, posture otherwise entirely unchanged. Highly
+restrained performance, should read as almost subliminal on first
+viewing. Duration: 3-4 seconds. 2.39:1 widescreen aspect ratio. Standard
+cinematic motion quality.
+
+FINAL GENERATION-READY PROMPT (Kling-adapted): "Extreme close-up of a
+man in his 50s, lean weathered features, controlled composed expression,
+seated in a cool-lit modern office, static eye-level camera, 85mm lens
+shallow depth of field, soft blurred background. Cool blue-white light
+from below suggesting monitor glow, subtle shadow beneath brow, muted
+naturalistic color grade. His controlled expression shows a barely
+perceptible flicker of vulnerability — eyes widen fractionally, breath
+holds for a beat then releases as a slow controlled exhale, otherwise
+completely still. Highly subtle, restrained performance. Cinematic,
+naturalistic, 2.39:1 widescreen, 3-4 seconds."
+
+PAIRED NEGATIVE PROMPT: "exaggerated or theatrical facial expression,
+oversaturated color, cartoon or illustrated styling, extra fingers if
+hands visible, unnatural blinking, flickering background, text or
+watermark artifacts, harsh unmotivated lighting inconsistent with
+monitor-glow source."
+
+UPGRADE PATH NOTE: This result should be strong for a single standalone
+shot. If this character will appear across multiple future scenes,
+generating a full File 03 Character Design now (locking exact physical
+features, wardrobe, and a reusable Consistency Token) will prevent visual
+drift across those future shots — currently, physical details were
+inferred fresh for this one shot only and would likely vary slightly if
+re-inferred for a different shot.
+
+ADVANCED VERSION
+-------------------
+For rapid trailer-cut or multi-shot fast-turnaround projects, extend with:
+
+"Additionally generate: (a) a BATCH FAST-MODE SET — 3-5 shot variations
+of the same core moment (different angles/framings) for editorial
+selection, all sharing the same inferred character/environment defaults
+for internal consistency within this batch, (b) a FAST-MODE-TO-FULL-
+PIPELINE BRIDGE — take this shot's inferred defaults and format them as
+starter inputs for Files 01, 03, and 09, effectively 'graduating' a
+successful fast sketch into full-pipeline foundational documents, (c)
+explicit RAPID ITERATION NOTES — the 2-3 most likely elements to need
+adjustment based on common Fast Mode gaps, so first-pass review is
+efficient."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for compression/inference generation. Final prompts adapted for direct
+use in Sora, Veo, Kling, Runway, Pika, Luma, Hailuo.
+PIPELINE POSITION: Standalone fast-path alternative to running Files
+01-17 individually; can also serve as a rapid draft before committing to
+the full pipeline.
+Feeds into: 20_Ultimate_AI_Filmmaking_System.txt (as the fast-path
+option within that meta-system)
+================================================================================

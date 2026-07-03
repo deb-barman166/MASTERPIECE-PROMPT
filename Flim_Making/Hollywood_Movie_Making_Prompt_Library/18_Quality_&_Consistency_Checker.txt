@@ -1,0 +1,265 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 18: QUALITY & CONSISTENCY CHECKER
+================================================================================
+
+TITLE
+-----
+The Production Auditor — Cross-Template Quality Assurance & Consistency
+Verification System
+
+PURPOSE
+-------
+Audit completed work — a single shot, a scene, or an entire sequence —
+against every consistency token, locked identity, and quality standard
+established across Files 01-17. This template exists because a
+multi-template, multi-shot production pipeline accumulates consistency
+risk with every additional shot generated; this is the systematic check
+that catches drift before it compounds into a visibly broken final
+product, functioning as the quality gate before final assembly.
+
+PROMPT FORMULA
+---------------
+[SCOPE OF AUDIT] + [CHARACTER CONSISTENCY CHECK] + [ENVIRONMENT
+CONSISTENCY CHECK] + [CINEMATOGRAPHY IDENTITY CHECK] + [NARRATIVE
+COHERENCE CHECK] + [TECHNICAL QUALITY CHECK] + [CONTINUITY CHECK] +
+[SEVERITY CLASSIFICATION] + [REMEDIATION GUIDANCE]
+
+Master formula string:
+
+"Audit {AUDIT_SCOPE} against the following locked standards. Character
+consistency: verify {CHARACTERS_PRESENT} match their established tokens
+({CHARACTER_TOKENS}) — flag any deviation in {CHARACTER_CHECK_POINTS}.
+Environment consistency: verify {LOCATIONS_PRESENT} match established
+tokens ({ENVIRONMENT_TOKENS}) — flag deviation in
+{ENVIRONMENT_CHECK_POINTS}. Cinematography identity: verify adherence to
+{CINEMATOGRAPHY_LOCKED_ELEMENTS} — flag deviation in
+{CINEMATOGRAPHY_CHECK_POINTS}. Narrative coherence: verify this
+content serves {STORY_STRUCTURAL_CONTEXT} from the original outline —
+flag any drift from established Want/Need/Theme. Technical quality:
+check for {TECHNICAL_ARTIFACT_CHECKLIST}. Continuity: verify
+{CONTINUITY_ELEMENTS} carry correctly from adjacent scenes. Classify
+every flagged issue by severity: {SEVERITY_LEVELS}. For each issue,
+provide remediation: {REMEDIATION_APPROACH}."
+
+VARIABLES
+---------
+AUDIT_SCOPE              = "single shot" | "full scene" | "full sequence"
+                            | "entire project" — defines how much content
+                            is being reviewed in this pass
+CHARACTERS_PRESENT + CHARACTER_TOKENS = pulled from File 03 for every
+                            character appearing in the audited content
+CHARACTER_CHECK_POINTS   = specific elements to verify (physical
+                            appearance, wardrobe, established mannerisms,
+                            voice consistency if dialogue present)
+LOCATIONS_PRESENT + ENVIRONMENT_TOKENS = pulled from File 09
+ENVIRONMENT_CHECK_POINTS = specific elements to verify (architecture,
+                            established practical light sources, locked
+                            vs. flexible details per File 09)
+CINEMATOGRAPHY_LOCKED_ELEMENTS = pulled from File 06
+CINEMATOGRAPHY_CHECK_POINTS = specific elements to verify (stock
+                            emulation consistency, contrast philosophy,
+                            grain, color temperature logic)
+STORY_STRUCTURAL_CONTEXT = pulled from File 01, used to verify the
+                            audited content still serves its intended
+                            structural/thematic function
+TECHNICAL_ARTIFACT_CHECKLIST = common AI generation quality issues to
+                            scan for (anatomical errors, morphing/
+                            flickering, unnatural motion, resolution/
+                            quality inconsistency across shots)
+CONTINUITY_ELEMENTS      = specific continuity handoff details from File
+                            04 (costume state, prop position, emotional
+                            carry-in) to verify against adjacent scenes
+SEVERITY_LEVELS           = "Critical (breaks project coherence, must
+                            fix before proceeding)" | "Moderate (noticeable
+                            but not project-breaking, should fix)" |
+                            "Minor (subtle, fix if time/budget allows)"
+REMEDIATION_APPROACH     = for each flagged issue, whether it requires
+                            full regeneration, a targeted prompt
+                            adjustment and re-generation, or a
+                            post-production fix (color correction, minor
+                            edit trim)
+
+INPUT STRUCTURE
+----------------
+AUDIT_SCOPE: <required>
+CONTENT_BEING_AUDITED: <required — description or the actual generated
+  output being reviewed>
+ALL RELEVANT CONSISTENCY TOKENS (Character, Environment, Cinematography):
+  <required, gather from Files 03, 06, 09 for everything present in scope>
+STORY_STRUCTURAL_CONTEXT: <required, from File 01>
+ADJACENT_SCENE_CONTINUITY_HANDOFFS: <required if AUDIT_SCOPE includes
+  multiple scenes, from File 04>
+
+OUTPUT STRUCTURE
+-----------------
+1. AUDIT SCOPE CONFIRMATION (what's being reviewed, against which
+   standards)
+2. CHARACTER CONSISTENCY REPORT (per character, per element, pass/flag
+   status)
+3. ENVIRONMENT CONSISTENCY REPORT (per location, per element, pass/flag
+   status)
+4. CINEMATOGRAPHY IDENTITY REPORT (adherence check, pass/flag status)
+5. NARRATIVE COHERENCE REPORT (does this content still serve its
+   established story function)
+6. TECHNICAL QUALITY REPORT (artifact scan results)
+7. CONTINUITY REPORT (handoff verification against adjacent content)
+8. ISSUE LOG (every flagged item, severity-classified, with specific
+   remediation guidance)
+9. OVERALL VERDICT (pass / pass-with-minor-notes / requires-remediation-
+   before-proceeding)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Every check must reference the SPECIFIC established token/standard, not
+  a general impression — "the character looks a bit different" is
+  insufficient; the report must specify exactly which established
+  attribute (e.g. "eyebrow scar position") appears inconsistent.
+- Severity classification must be applied honestly and usefully — not
+  everything is Critical, and over-flagging dilutes the signal for
+  genuinely project-breaking issues; reserve Critical for issues that
+  would be visibly jarring to an audience or that break narrative
+  logic, and use Moderate/Minor for genuinely lesser concerns.
+- Narrative Coherence checking is not just a technical/visual audit — it
+  must verify the content still serves the story's actual dramatic
+  function (per File 01), catching cases where technically well-executed
+  content has drifted from its intended narrative purpose.
+- Remediation guidance must be specific and actionable — never just flag
+  a problem without suggesting the most efficient fix (targeted
+  regeneration vs. full regeneration vs. post-production correction),
+  since efficient remediation is the actual point of running this audit.
+- When auditing an AUDIT_SCOPE of "entire project," prioritize checking
+  the connective tissue between scenes/sequences most heavily — individual
+  shot quality is important, but project-breaking consistency failures
+  most often occur at the boundaries between separately generated
+  content.
+- Technical Quality checking should scan for both universal AI-generation
+  artifacts (anatomical errors, morphing) AND platform-specific known
+  issues if the target platform's tendencies are known (cross-reference
+  File 17's platform-specific notes).
+
+BEST PRACTICES
+----------------
+- Run this audit at multiple scope levels throughout a project: per-shot
+  immediately after generation (catching individual failures early),
+  per-scene after assembly (catching scene-internal consistency issues),
+  and full-project before final delivery (catching project-wide drift
+  that might not be visible at smaller scope).
+- Don't treat this as a one-time final step — the earlier a consistency
+  issue is caught, the cheaper it is to fix (a single shot needing
+  regeneration is far less costly than discovering a character's
+  established features have drifted across ten already-assembled scenes).
+- Build a running "issue pattern" log across a project — if the same type
+  of consistency failure recurs across multiple audits, this signals a
+  need to strengthen the relevant Consistency Token (File 03/06/09) or
+  Negative Prompt (File 17) rather than just fixing each instance
+  individually.
+- Treat the Overall Verdict as an actual gate — content that receives
+  "requires remediation before proceeding" should not move forward to
+  final editorial assembly (File 15) or delivery until addressed, even
+  under production time pressure, since downstream costs of uncaught
+  inconsistency compound.
+- For collaborative or multi-person production workflows, this audit's
+  output format (specific, severity-classified, remediation-attached) is
+  designed to be directly actionable by whoever handles the fix, without
+  requiring them to re-derive context.
+
+EXAMPLE INPUT
+---------------
+AUDIT_SCOPE: Full scene (Scene 2, all three beats, as generated)
+CONTENT_BEING_AUDITED: The three generated clips for Scene 2's beats
+CONSISTENCY TOKENS: Marcus Delacroix (File 03), Bullpen Desk Area (File
+09), Cinematography identity (File 06)
+STORY_STRUCTURAL_CONTEXT: Inciting Incident beat — Marcus discovers his
+daughter is the source; this scene must land as the story's turning point
+ADJACENT_SCENE_CONTINUITY_HANDOFFS: From Scene 1 (Marcus already frozen,
+analyst present) into Scene 2, and Scene 2's own internal handoffs between
+beats
+
+EXAMPLE OUTPUT
+-----------------
+AUDIT SCOPE CONFIRMATION: Reviewing all three generated beats of Scene 2
+against Character (Marcus), Environment (Bullpen Desk), and Cinematography
+standards, plus narrative function and internal continuity.
+
+CHARACTER CONSISTENCY REPORT: 
+- Physical appearance (scar, hair, build): PASS across all three beats.
+- Wardrobe (charcoal shirt, wedding band): PASS in Beats 1 and 3
+  (visible). FLAG in Beat 2 — generated clip shows wedding band on LEFT
+  hand rather than the established right hand. Severity: Moderate (a
+  clear established-detail deviation, but isolated to one shot and
+  correctable).
+- Established mannerism (stillness before speaking, controlled breath):
+  PASS — the performance direction from File 10 appears to have rendered
+  correctly.
+
+ENVIRONMENT CONSISTENCY REPORT: Desk clutter, monitor positioning, and
+photo frame placement: PASS across all beats, consistent with File 09's
+token and File 04's continuity handoff (photo frame remains face-down and
+undisturbed throughout, as required).
+
+CINEMATOGRAPHY IDENTITY REPORT: Grain structure and contrast: PASS,
+consistent across all three beats. Color temperature: PASS — the subtle
+warm shift specified for Beat 2 is present but appropriately subtle, not
+overdone; the return to cool baseline in Beat 3 reads correctly.
+
+NARRATIVE COHERENCE REPORT: PASS — the scene's function (establishing
+Marcus's controlled exterior cracking under a devastating discovery)
+reads clearly across the three-beat arc; the performance and camera
+choices successfully serve File 01's structural requirement for this to
+function as a compelling inciting incident.
+
+TECHNICAL QUALITY REPORT: No anatomical errors detected in Beats 1 and 3.
+Beat 2 (the hand close-up) shows generally clean rendering aside from the
+wedding-band-side flag noted above; finger count and hand geometry are
+correct.
+
+CONTINUITY REPORT: Beat-to-beat handoffs within Scene 2 are consistent.
+Handoff FROM Scene 1 into Scene 2 also verified consistent (Marcus's
+frozen posture at Scene 1's end matches his starting position in Scene
+2 Beat 1).
+
+ISSUE LOG:
+1. [MODERATE] Beat 2: Wedding band appears on left hand instead of
+   established right hand. Remediation: targeted regeneration of Beat 2
+   with strengthened Character consistency token emphasis on "wedding
+   band on RIGHT hand" (consider moving this detail earlier/more
+   prominently in the compiled positive prompt per File 16, and adding
+   explicit "wedding band on left hand" to the negative prompt per File
+   17) rather than full scene regeneration.
+
+OVERALL VERDICT: Pass-with-minor-notes. Scene 2 is narratively and
+technically strong overall; the single Moderate flag (Beat 2's wedding
+band placement) should be corrected via targeted regeneration before
+this scene is considered final, but does not block continued work on
+subsequent scenes in parallel.
+
+ADVANCED VERSION
+-------------------
+For feature-length or high-shot-count productions, extend with:
+
+"Additionally generate: (a) a PROJECT-WIDE CONSISTENCY DASHBOARD
+aggregating audit results across all completed scenes into a single
+tracked view, highlighting any character/environment/cinematography
+element with a recurring flag pattern across multiple scenes, (b) a
+ROOT-CAUSE ANALYSIS for any recurring issue type, tracing whether the
+problem originates in the Consistency Token itself (File 03/06/09 needs
+strengthening), the Compilation process (File 16 needs different
+priority-ordering), or the Negative Prompt (File 17 needs a new
+exclusion), (c) a PRE-DELIVERY FINAL AUDIT CHECKLIST formatted for rapid
+completion before final project delivery, (d) explicit QUALITY BENCHMARK
+COMPARISON NOTES if generation was split across {MULTIPLE_AI_MODELS:
+Sora/Veo/Kling/Runway/Pika/Luma/Hailuo}, flagging any noticeable quality
+or style inconsistency introduced specifically by the platform-mixing
+itself, separate from the standard consistency checks."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for audit analysis. Applicable to content generated by any combination of
+Sora, Veo, Kling, Runway, Pika, Luma, Hailuo.
+PIPELINE POSITION: Requires consistency tokens from Files 03, 06, 09 and
+structural context from File 01; ideally run after File 16/17 generation
+and before File 15's final editorial assembly.
+Feeds into: 15_Editing_&_Transitions.txt (gate), 19_Hollywood_Movie_
+Master_Prompt.txt, 20_Ultimate_AI_Filmmaking_System.txt
+================================================================================

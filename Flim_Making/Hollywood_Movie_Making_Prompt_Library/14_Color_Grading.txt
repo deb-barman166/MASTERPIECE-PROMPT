@@ -1,0 +1,260 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 14: COLOR GRADING
+================================================================================
+
+TITLE
+-----
+The Post-Production Palette Engine — Color Grade Specification System
+
+PURPOSE
+-------
+Specify the post-production color manipulation layered on top of the base
+Cinematography identity (File 06) and scene-specific Lighting (File 07).
+Where Cinematography establishes CAPTURE-level characteristics
+(stock/sensor emulation, base contrast) and Lighting establishes what's
+actually ON SET, Color Grading is the deliberate, additional color
+manipulation applied afterward — LUTs, secondary color adjustments,
+selective color isolation, and the final polish that unifies disparate
+shots into one coherent visual world.
+
+PROMPT FORMULA
+---------------
+[BASE IDENTITY INHERITANCE] + [PRIMARY GRADE] + [SECONDARY/SELECTIVE
+ADJUSTMENTS] + [SHADOW/MIDTONE/HIGHLIGHT TREATMENT] + [SATURATION
+STRATEGY] + [SKIN TONE PROTECTION] + [SCENE-SPECIFIC DEVIATION] +
+[CONSISTENCY VERIFICATION]
+
+Master formula string:
+
+"Apply color grading to {SCENE_BEAT_CONTEXT}, inheriting the base identity
+from {CINEMATOGRAPHY_LOCKED_ELEMENTS}. Primary grade: overall color cast
+{PRIMARY_CAST}, applied at {GRADE_INTENSITY}. Secondary/selective
+adjustments: isolate and adjust {SELECTIVE_TARGET} to {SELECTIVE_
+ADJUSTMENT}, while preserving {PROTECTED_ELEMENT} unchanged. Tonal range
+treatment: shadows {SHADOW_TREATMENT}, midtones {MIDTONE_TREATMENT},
+highlights {HIGHLIGHT_TREATMENT}. Saturation strategy: {SATURATION_
+APPROACH}, with skin tones specifically protected at
+{SKIN_TONE_HANDLING}. This scene's deviation from project baseline:
+{DEVIATION_REASON}, magnitude {DEVIATION_MAGNITUDE}. Verify consistency
+against {REFERENCE_SCENES} to confirm the grade reads as part of the same
+unified project."
+
+VARIABLES
+---------
+SCENE_BEAT_CONTEXT       = pulled from File 04
+CINEMATOGRAPHY_LOCKED_ELEMENTS = pulled verbatim from File 06
+PRIMARY_CAST             = the overall color direction of the grade (e.g.
+                            "cool blue-teal shadows, warm-neutral
+                            midtones," a specific describable cast, never
+                            just "cinematic color")
+GRADE_INTENSITY          = "subtle, naturalistic" | "moderate,
+                            noticeably stylized" | "heavy, highly
+                            stylized/expressionist"
+SELECTIVE_TARGET         = specific color/object being isolated for
+                            adjustment (e.g. "the red data-wall glow")
+SELECTIVE_ADJUSTMENT     = what happens to the isolated target
+PROTECTED_ELEMENT        = what must remain visually unaffected by the
+                            selective adjustment (commonly skin tones)
+SHADOW_TREATMENT         = "lifted (detail visible, slightly desaturated
+                            or tinted)" | "crushed (deep, minimal detail,
+                            often cooled)" | "neutral baseline"
+MIDTONE_TREATMENT        = the primary tonal range where most image
+                            information lives — treatment here has the
+                            largest visual impact
+HIGHLIGHT_TREATMENT      = "protected/rolled off (retains detail)" |
+                            "allowed to clip (blown out for effect)" |
+                            "warmed/cooled specifically"
+SATURATION_APPROACH      = "naturalistic, close to source" | "desaturated
+                            for mood/realism" | "boosted for
+                            vibrancy/heightened reality"
+SKIN_TONE_HANDLING       = explicit protection level — skin tones are the
+                            single most scrutinized color element by
+                            human viewers and must remain believable even
+                            under stylized grades
+DEVIATION_REASON         = why THIS scene's grade differs from project
+                            baseline (must be narratively motivated, tied
+                            to File 01's structural beats or File 06's
+                            Visual Metaphor evolution)
+DEVIATION_MAGNITUDE      = "subtle" | "noticeable" | "dramatic" — should
+                            correspond to the significance of the
+                            narrative moment
+REFERENCE_SCENES         = other scenes in the project to check
+                            consistency against
+
+INPUT STRUCTURE
+----------------
+SCENE_BEAT_CONTEXT: <required, from File 04>
+CINEMATOGRAPHY_LOCKED_ELEMENTS: <required, from File 06>
+PRIMARY_CAST: <required, should relate to File 06's Visual Metaphor>
+DEVIATION_REASON + MAGNITUDE: <required if this scene deviates from
+  baseline; state "no deviation, baseline applies" if not>
+REFERENCE_SCENES: <optional but recommended for consistency verification>
+
+OUTPUT STRUCTURE
+-----------------
+1. BASE IDENTITY INHERITANCE CONFIRMATION (restates locked Cinematography
+   elements this grade must respect)
+2. PRIMARY GRADE SPECIFICATION (overall cast, intensity)
+3. SECONDARY/SELECTIVE ADJUSTMENTS (isolated targets and their treatment)
+4. TONAL RANGE BREAKDOWN (shadows/midtones/highlights, each specified)
+5. SATURATION & SKIN TONE STRATEGY
+6. DEVIATION JUSTIFICATION (if applicable — why and how much this scene
+   differs from baseline, tied to story significance)
+7. CONSISTENCY VERIFICATION (explicit check against reference
+   scenes/project baseline)
+8. COMPILED COLOR GRADE PROMPT LINE (dense, generation-ready description)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Every Color Grade specification must explicitly inherit from File 06's
+  Cinematography identity — color grading is refinement and evolution of
+  the established base identity, never a contradiction of it, unless the
+  deviation is deliberately motivated and explicitly justified.
+- Skin tones must always be explicitly addressed, even in scenes with
+  aggressive stylized grading — human viewers are exceptionally sensitive
+  to unnatural skin tones, and an otherwise successful grade can be
+  undermined entirely by neglecting this protection.
+- Any DEVIATION from project baseline must trace to a specific story
+  reason (tied to File 01's structural beats or File 06's established
+  Visual Metaphor evolution triggers) — never let a scene's grade drift
+  from baseline arbitrarily.
+- Highlight and shadow treatment should generally preserve enough detail
+  to remain "readable" (not fully clipped/crushed) unless the specific
+  narrative moment calls for that loss of detail as a deliberate
+  expressive choice (e.g. deliberately blown-out highlights during a
+  disorientation beat).
+- Selective/secondary color adjustments must specify exactly what's
+  protected from the adjustment — an isolated color change that
+  inadvertently affects skin tones or other important frame elements is a
+  common and easily prevented error.
+- The Consistency Verification step is not optional — always explicitly
+  state whether this grade would read as belonging to the same project as
+  its reference scenes, and flag any concerning divergence.
+
+BEST PRACTICES
+----------------
+- Establish a project-wide baseline grade specification once, early
+  (can be generated alongside File 06's Cinematography identity), then
+  generate scene-specific deviations from that baseline rather than
+  designing each scene's grade independently from scratch.
+- Track DEVIATION_MAGNITUDE across the full project as a kind of "color
+  temperature/intensity map" — this becomes a powerful tool for verifying
+  that visual intensity escalates and resolves in the same pattern as the
+  story's emotional structure (from File 01).
+- When grading scenes featuring the same character across multiple
+  locations/times, cross-reference the Character Consistency Token (File
+  03) to ensure their established skin tone and coloring reads
+  consistently even as the surrounding grade shifts.
+- For AI-generated footage specifically, understand that grading is often
+  most reliably achieved as a specification passed alongside generation
+  (in the Compiled Prompt Line) rather than assumed as a separate
+  post-process step, since not all AI video platforms support true
+  post-generation color grading — specify grade intent directly in
+  generation prompts as the primary strategy.
+- Periodically review a full sequence of Compiled Color Grade Prompt
+  Lines together (not just individual scenes) to catch any drift that
+  might not be obvious scene-by-scene but becomes apparent across a
+  longer sequence.
+
+EXAMPLE INPUT
+---------------
+SCENE_BEAT_CONTEXT: Scene 2, the photo-frame reach sequence
+CINEMATOGRAPHY_LOCKED_ELEMENTS: [From File 06 — digital clean base,
+moderate grain, classical balanced contrast, high dynamic range]
+PRIMARY_CAST: Cool blue-neutral baseline (per File 06's fluorescent/
+monitor-dominant palette), consistent with the project's "clinical
+detachment" Visual Metaphor
+DEVIATION_REASON: Beat 2's brief warmth (per File 06 and File 07) requires
+a corresponding, very subtle grade support
+DEVIATION_MAGNITUDE: Subtle — this should barely register consciously
+REFERENCE_SCENES: Scene 1 (establishing baseline), for consistency check
+
+EXAMPLE OUTPUT
+-----------------
+BASE IDENTITY INHERITANCE CONFIRMATION: Confirmed — this grade builds on
+File 06's digital-clean base with moderate 35mm grain overlay, classical
+balanced contrast, and full dynamic range preservation. No changes to
+these locked foundational elements.
+
+PRIMARY GRADE SPECIFICATION: Cool blue-neutral cast (subtle push toward
+6000K-equivalent color temperature in the overall image), applied at
+subtle/naturalistic intensity — this should feel like an authentic
+reflection of the space's actual lighting conditions (File 07), not an
+obviously "graded" stylistic choice.
+
+SECONDARY/SELECTIVE ADJUSTMENTS: Isolate and slightly enhance the
+practical monitor glow's cool-blue quality (a subtle saturation boost, no
+more than 5-10% above neutral) to reinforce it as the dominant color
+force in the frame, while fully preserving Marcus's skin tone at its
+natural, unadjusted value — the skin should never take on the blue cast
+that affects the rest of the frame, maintaining believability even as
+the environment reads cold.
+
+TONAL RANGE BREAKDOWN:
+- Shadows: Slightly lifted, cool-neutral tint, detail fully preserved
+  (per File 06's dynamic range mandate — we never crush blacks)
+- Midtones: Primary location of the cool-cast application, naturalistic
+  intensity
+- Highlights: Protected/rolled off, no clipping — the monitor glow itself
+  should read as bright but not blown out, retaining a sense of its
+  actual light-emitting quality
+
+SATURATION & SKIN TONE STRATEGY: Overall saturation naturalistic, close
+to source — no aggressive boost or desaturation. Skin tone explicitly
+protected: Marcus's established coloring (File 03: weathered olive skin
+tone) must remain warm and natural-reading even against the cool
+environmental cast, creating a deliberate, subtle visual tension between
+his human warmth and his clinical surroundings — this is not just
+technical skin protection but a storytelling choice.
+
+DEVIATION JUSTIFICATION: During Beat 2 specifically (the photo-frame
+reach), apply a barely perceptible warm shift — approximately 2-3% warmth
+increase isolated to the midtone range near Marcus's hand and face only,
+NOT affecting the broader environmental cool cast. Magnitude: subtle,
+intended to be felt rather than consciously seen, mirroring File 07's
+lighting-level warm shift at the same beat. Returns to full baseline cool
+cast by Beat 3.
+
+CONSISTENCY VERIFICATION: Checked against Scene 1's baseline — the cool
+blue-neutral cast, grain structure, and contrast approach all match.
+Confirmed this reads as continuous with the established project identity;
+the Beat 2 deviation is subtle enough not to create a jarring
+inconsistency even on close inspection.
+
+COMPILED COLOR GRADE PROMPT LINE: "Cool blue-neutral color grade,
+naturalistic intensity, monitor glow subtly enhanced in saturation, skin
+tones protected and warm-natural despite cool environment, shadows
+lifted with full detail preserved, highlights protected from clipping,
+moderate 35mm grain, classical balanced contrast — barely perceptible
+warm shift isolated to hand and face during the emotional beat only."
+
+ADVANCED VERSION
+-------------------
+For feature-length projects requiring full-timeline color consistency, extend
+with:
+
+"Additionally generate: (a) a FULL PROJECT COLOR ARC DOCUMENT charting
+every major scene's PRIMARY_CAST and DEVIATION_MAGNITUDE against the
+story's emotional structure (from File 01), visualized as a progression,
+(b) SCENE-TRANSITION GRADE BRIDGING NOTES specifying how consecutive
+scenes' grades should relate to each other (hard contrast vs. gradual
+evolution) at cut points, (c) a LUT-EQUIVALENT DESCRIPTION — a technical
+description precise enough to be recreated as an actual grading LUT if
+this project moves to traditional post-production tools, (d) explicit
+PLATFORM COLOR RENDERING NOTES for {TARGET_AI_MODEL: Sora/Veo/Kling/
+Runway/Pika/Luma/Hailuo} on that platform's known color rendering
+tendencies (oversaturation bias, contrast bias, etc.) as of current
+tooling, with compensation guidance for achieving the intended grade
+despite those tendencies."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for grade specification. Compiled Prompt Lines designed for direct
+inclusion in Sora, Veo, Kling, Runway, Pika, Luma, Hailuo generation
+prompts, or as post-production grading direction for hybrid pipelines.
+PIPELINE POSITION: Requires 06_Cinematography.txt locked elements and
+07_Lighting_Master.txt scene context.
+Feeds into: 12_VFX_&_CGI.txt (cross-reference), 15_Editing_&_
+Transitions.txt, 16_Video_Generation_Master.txt
+================================================================================

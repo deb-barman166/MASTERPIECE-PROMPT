@@ -1,1 +1,243 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 01: STORY GENERATOR
+================================================================================
 
+TITLE
+-----
+The Hollywood Story Architect — Feature-Grade Narrative Generation Engine
+
+PURPOSE
+-------
+Generate a complete, structurally sound story premise and outline suitable as
+the foundation for a screenplay, short film, trailer, or AI-generated video
+narrative. This template forces three-act (or chosen alternative) structure,
+character want/need clarity, thematic coherence, and genre-appropriate stakes
+BEFORE any scene or dialogue writing begins. It is the root node all other 19
+templates in this library build on — Screenplay, Scene, and Character
+templates all assume a story generated here already exists.
+
+Use this when you have: a genre, a rough idea, a theme, or nothing but a mood
+— and need Hollywood-level narrative architecture out the other end.
+
+PROMPT FORMULA
+---------------
+[ROLE ANCHOR] + [STORY SEED] + [STRUCTURAL FRAMEWORK] + [GENRE CONSTRAINTS] +
+[CHARACTER CORE] + [THEME] + [TONE/COMP TITLES] + [OUTPUT FORMAT] +
+[LENGTH TARGET] + [CONSTRAINTS/EXCLUSIONS]
+
+Master formula string (fill every {VARIABLE}):
+
+"Act as a {ROLE} with credits comparable to {COMP_WRITERS}. Generate a
+{STRUCTURE_TYPE} story in the {GENRE} genre, tonally similar to
+{COMP_TITLES}. The core seed is: {STORY_SEED}. The protagonist is defined by
+an external WANT of {EXTERNAL_WANT} and an internal NEED of {INTERNAL_NEED},
+currently obstructed by {FLAW_OR_WOUND}. The central theme to dramatize
+(never state directly) is {THEME}. Antagonistic force: {ANTAGONIST_TYPE}.
+World/setting: {SETTING}. Target format: {TARGET_FORMAT} at approximately
+{LENGTH_TARGET}. Structure the output using {STRUCTURAL_FRAMEWORK} with
+explicit act/beat labels. Exclude: {EXCLUSIONS}. Rating/content ceiling:
+{CONTENT_RATING}."
+
+VARIABLES
+---------
+ROLE                    = e.g. "veteran Hollywood story consultant / studio
+                           development executive / Pixar story artist"
+COMP_WRITERS            = 2-3 real or archetypal writer styles for calibration
+                           (e.g. "Aaron Sorkin's dialogue-driven tension,
+                           Christopher Nolan's structural ambition")
+STORY_SEED              = the raw idea, one to three sentences, can be as
+                           vague as a single image or as specific as a logline
+STRUCTURE_TYPE           = "short film" | "feature film" | "trailer concept" |
+                           "single AI-generated video sequence" | "TV pilot"
+GENRE                   = primary genre + optional subgenre
+                           (e.g. "sci-fi thriller with noir elements")
+COMP_TITLES             = 2-4 tonal reference films (for calibration only,
+                           never for copying plot/IP)
+EXTERNAL_WANT           = concrete, visible goal the protagonist pursues
+INTERNAL_NEED           = the true psychological resolution required
+FLAW_OR_WOUND           = the internal obstacle causing the want/need gap
+THEME                   = the thesis statement the story argues for/against
+ANTAGONIST_TYPE         = "person" | "system" | "self" | "nature" |
+                           "concept/force" — with one line of specificity
+SETTING                 = time period, location, world rules if speculative
+TARGET_FORMAT           = "feature outline" | "short film beat sheet" |
+                           "60-second trailer narrative" | "3-scene sequence"
+LENGTH_TARGET           = word count or runtime target
+STRUCTURAL_FRAMEWORK    = "Three-Act Structure" | "Save the Cat 15-beat" |
+                           "Hero's Journey (12 stage)" | "Kishōtenketsu" |
+                           "Freytag's Pyramid" | "Non-linear/fractured"
+EXCLUSIONS              = tropes, plot devices, or content to avoid
+CONTENT_RATING          = "G" | "PG-13 equivalent" | "R equivalent" |
+                           "platform-safe (no violence/gore/sexual content)"
+
+INPUT STRUCTURE
+----------------
+Provide as a structured block. Minimum viable input is STORY_SEED + GENRE +
+TARGET_FORMAT — everything else can be auto-inferred, but explicit input
+always outranks inference.
+
+STORY_SEED: <required>
+GENRE: <required>
+STRUCTURE_TYPE: <required>
+TARGET_FORMAT: <required>
+LENGTH_TARGET: <optional, default = format-appropriate standard>
+COMP_TITLES: <optional, improves tonal accuracy>
+THEME: <optional, will be inferred from seed if omitted>
+CONTENT_RATING: <optional, default = PG-13 equivalent>
+EXCLUSIONS: <optional>
+
+OUTPUT STRUCTURE
+-----------------
+The generator must return output in this exact shape, every time:
+
+1. LOGLINE (1-2 sentences, industry-standard format: protagonist + want +
+   obstacle + stakes)
+2. THEME STATEMENT (1 sentence, the argument the story makes)
+3. PROTAGONIST CORE
+   - Want (external)
+   - Need (internal)
+   - Flaw/Wound
+   - Arc direction (positive/negative/flat)
+4. ANTAGONISTIC FORCE (what opposes the want, and why it's thematically
+   necessary, not arbitrary)
+5. STRUCTURAL BREAKDOWN (formatted per chosen STRUCTURAL_FRAMEWORK, with
+   every beat labeled and given 1-3 sentences — e.g. for 3-Act: Setup,
+   Inciting Incident, Break into Two, Midpoint, Break into Three, Climax,
+   Resolution)
+6. STAKES LADDER (what happens if protagonist fails — personal, then
+   relational, then world-level if applicable)
+7. TONAL NOTES (2-3 sentences on how this should FEEL on screen —
+   pacing, mood, visual register)
+8. ONE-PARAGRAPH PROSE SYNOPSIS (200-400 words, readable standalone)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Never let theme be stated as dialogue ("the theme is family") — it must be
+  DRAMATIZED through plot choices only. Flag this constraint explicitly in
+  the generated output as a rule the writer (human or AI) must follow
+  downstream.
+- Want and Need must be in tension, not alignment. If they're the same thing,
+  reject the input and request clarification — that's a structural error,
+  not a valid premise.
+- Every antagonistic force must be the SPECIFIC pressure that exposes the
+  protagonist's flaw. Generic obstacles ("a villain who is evil") must be
+  rejected and reworked into something thematically load-bearing.
+- Stakes must escalate across the structural framework, never plateau.
+- Do not resolve the story with unearned coincidence, deus ex machina, or an
+  antagonist that simply gives up. The resolution must be a direct
+  consequence of the protagonist's arc (they change and that change causes
+  the outcome).
+- If STRUCTURE_TYPE is "short film" or a single AI-video sequence, compress
+  aggressively — cut all subplots, keep exactly one A-story, and make the
+  inciting incident occur in the first 10% of runtime.
+- Genre conventions must be honored (a thriller needs escalating tension
+  beats; comedy needs a "dark night of the soul" that's still funny in tone)
+  but never at the expense of the specific story's internal logic.
+
+BEST PRACTICES
+----------------
+- Feed COMP_TITLES even when uncertain — even two loosely-related films sharp-
+  ens tonal calibration enormously versus leaving it blank.
+- For AI video generation downstream (Sora/Veo/Kling etc.), keep
+  TARGET_FORMAT tight (3-7 scenes max) — these models generate short clips,
+  so an overloaded story structure will get truncated badly at the Scene
+  Generator stage. Match story scope to eventual output medium NOW.
+- Run the STAKES LADDER check manually: if you can't articulate what's lost
+  at each level, the story isn't ready to move to Screenplay Generator (File
+  02) yet — regenerate with a sharper FLAW_OR_WOUND.
+- Reuse THEME and PROTAGONIST CORE outputs verbatim as inputs into every
+  downstream template (Character Design, Dialogue Generator, Emotion &
+  Acting) to guarantee narrative consistency across the full pipeline.
+- When exploring options, generate 3 LOGLINE variants at low cost before
+  committing to a full structural breakdown — cheaper to iterate at the
+  logline stage than after full generation.
+
+EXAMPLE INPUT
+---------------
+STORY_SEED: A retired bomb-disposal veteran now defuses viral disinformation
+for a living, and discovers the next "bomb" was built by his own daughter.
+GENRE: Techno-thriller with family drama undertones
+STRUCTURE_TYPE: Short film
+TARGET_FORMAT: 8-scene short film beat sheet
+LENGTH_TARGET: ~12 minute runtime
+COMP_TITLES: The Hurt Locker (tension craft), Ordinary People (family rupture)
+CONTENT_RATING: PG-13 equivalent
+
+EXAMPLE OUTPUT
+-----------------
+LOGLINE: A disinformation-defusal expert with a lethal talent for detecting
+lies must decide whether to expose the viral conspiracy his estranged
+daughter engineered, or protect her from the consequences of her own genius.
+
+THEME STATEMENT: The truth you're trained to protect can't save the people
+you love if you never learned to actually listen to them.
+
+PROTAGONIST CORE:
+- Want: Identify and neutralize the disinformation source before it triggers
+  real-world violence.
+- Need: Reconnect with his daughter as a person, not a threat to be managed.
+- Flaw/Wound: He treats every relationship like ordnance — defuse, contain,
+  move on — since surviving his last deployment.
+- Arc: Positive — moves from tactical detachment to emotional presence.
+
+ANTAGONISTIC FORCE: His daughter's ideology isn't villainy — it's a mirror
+of his own binary, threat-assessment worldview, radicalized. Opposing her
+means confronting the parenting philosophy that made her this way.
+
+STRUCTURAL BREAKDOWN (3-Act, 8 beats):
+1. SETUP — He defuses a minor disinfo campaign with clinical precision;
+   we see the isolation his skill has cost him.
+2. INCITING INCIDENT — Forensic trace on the new viral conspiracy leads to
+   his daughter's IP address.
+3. BREAK INTO TWO — He goes to confront her instead of reporting her.
+4. RISING ACTION — Their conversation reveals she built it to expose HIS
+   employer's own disinformation operation — she thinks she's the hero.
+5. MIDPOINT — He realizes she's right about the target, wrong about the
+   method; the "threat" reframes as a plea for his attention.
+6. BREAK INTO THREE — He must choose: report her (protect the mission) or
+   help her do it right (protect her).
+7. CLIMAX — He walks into his own agency and blows the whistle himself,
+   using her research but taking the fall.
+8. RESOLUTION — She visits him after, first real conversation in years —
+   not about ordnance, about her.
+
+STAKES LADDER: Personal (his career, his freedom) → Relational (his last
+chance with his daughter) → Systemic (implied: the disinformation operation
+his own agency runs continues unless someone exposes it).
+
+TONAL NOTES: Coiled, procedural tension in the first half (handheld,
+clinical framing) dissolving into something warmer and more vulnerable by
+the resolution — the camera itself should "exhale."
+
+PROSE SYNOPSIS: [200-400 word version follows the beats above in flowing
+prose — omitted here for brevity, generator produces this in full.]
+
+ADVANCED VERSION
+-------------------
+For multi-model pipelines and studio-grade development, extend the base
+formula with:
+
+"Additionally generate: (a) THREE ALTERNATE MIDPOINT TWISTS ranked by
+thematic strength, (b) a SUBTEXT MAP showing what each major scene is
+'really about' beneath its surface action, (c) a COMPARABLE BOX
+OFFICE/AUDIENCE POSITIONING paragraph for pitch purposes, (d) a
+FRANCHISE/SEQUEL POTENTIAL note if relevant, (e) explicit AI-VIDEO-MODEL
+SCENE COUNT RECOMMENDATION — given {TARGET_PLATFORM: Sora/Veo/Kling/Runway/
+Pika/Luma/Hailuo}, recommend the maximum number of distinct generated clips
+this story should be broken into to remain coherent and character-
+consistent across generations, accounting for that platform's known clip-
+length and continuity constraints as of your knowledge."
+
+This Advanced Version output feeds directly and losslessly into File 04
+(Scene Generator) and File 16 (Video Generation Master) without requiring
+re-derivation of story fundamentals.
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude (all tiers), Gemini,
+Grok, DeepSeek reasoning models for generation. Output format is platform-
+agnostic and feeds text-to-video systems (Sora, Veo, Kling, Runway Gen,
+Pika, Luma Dream Machine, Hailuo/MiniMax) via downstream templates in this
+library, not directly.
+NEXT IN PIPELINE: 02_Screenplay_Generator.txt
+================================================================================

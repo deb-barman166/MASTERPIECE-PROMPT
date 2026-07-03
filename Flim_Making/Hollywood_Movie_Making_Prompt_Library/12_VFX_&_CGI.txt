@@ -1,0 +1,257 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 12: VFX & CGI
+================================================================================
+
+TITLE
+-----
+The Invisible-to-Spectacle Effects Engine — VFX & CGI Specification System
+
+PURPOSE
+-------
+Specify visual effects and CGI elements — from invisible/seamless effects
+(digital set extension, cleanup) to full spectacle (creatures, destruction,
+magic/sci-fi phenomena) — with the technical precision needed for AI
+generation to render them believably. This template governs the gap
+between "practical" reality established in Environment (File 09) and
+whatever needs to be digitally created, composited, or enhanced, ensuring
+effects serve story rather than existing as empty spectacle.
+
+PROMPT FORMULA
+---------------
+[EFFECT CATEGORY] + [STORY FUNCTION] + [REALISM TARGET] + [INTEGRATION
+WITH PRACTICAL ELEMENTS] + [PHYSICS/BEHAVIOR RULES] + [SCALE
+SPECIFICATION] + [INTERACTION WITH LIGHT/ENVIRONMENT] + [RESTRAINT
+PRINCIPLE]
+
+Master formula string:
+
+"Specify the VFX/CGI element for {SCENE_BEAT_CONTEXT}: {EFFECT_
+DESCRIPTION}, category {EFFECT_CATEGORY}. Story function: this effect
+must communicate {STORY_FUNCTION} — never spectacle for its own sake.
+Realism target: {REALISM_LEVEL}. Integration: this element must interact
+correctly with the established practical environment
+({ENVIRONMENT_CONSISTENCY_TOKEN}) and lighting ({LIGHTING_CONTEXT}) —
+specifically, {LIGHT_INTERACTION_BEHAVIOR}. Physics/behavior rules:
+{PHYSICS_LOGIC}, remaining consistent with {WORLD_RULES if applicable}.
+Scale: {SCALE_SPEC} relative to established reference points in frame.
+Restraint principle: {RESTRAINT_NOTE} — the effect should feel
+{INTEGRATION_QUALITY} rather than obviously composited or artificial."
+
+VARIABLES
+---------
+SCENE_BEAT_CONTEXT       = pulled from File 04
+EFFECT_DESCRIPTION       = what the effect actually is, in plain language
+EFFECT_CATEGORY          = "invisible/seamless (set extension, cleanup,
+                            de-aging, weather enhancement)" | "practical-
+                            enhancing (muzzle flash, blood, debris
+                            augmentation)" | "creature/character CGI" |
+                            "destruction/disaster" | "magic/energy/sci-fi
+                            phenomena" | "digital double/crowd
+                            multiplication"
+STORY_FUNCTION           = the narrative purpose this effect serves —
+                            must trace back to File 01's story needs, not
+                            exist arbitrarily
+REALISM_LEVEL            = "photorealistic, indistinguishable from
+                            practical" | "heightened/stylized but
+                            internally consistent" | "deliberately
+                            artificial (genre-appropriate, e.g. certain
+                            fantasy/animated aesthetics)"
+ENVIRONMENT_CONSISTENCY_TOKEN = pulled verbatim from File 09
+LIGHTING_CONTEXT         = pulled from File 07
+LIGHT_INTERACTION_BEHAVIOR = specifically how the effect should catch,
+                            cast, or emit light consistent with the
+                            established scene lighting (e.g. "the energy
+                            phenomenon should cast colored light onto
+                            nearby practical surfaces, not just exist as
+                            an isolated overlay")
+PHYSICS_LOGIC            = how the effect behaves according to physical
+                            (or established world-rule) logic — weight,
+                            momentum, material behavior
+WORLD_RULES              = pulled from File 09 if speculative fiction
+SCALE_SPEC               = precise scale relative to known reference
+                            objects/characters in frame (critical for
+                            avoiding scale-inconsistency errors)
+RESTRAINT_NOTE           = guidance on how much is actually needed — most
+                            Hollywood-grade VFX work is invisible or
+                            restrained; full spectacle should be reserved
+                            for genuinely climactic, earned moments
+INTEGRATION_QUALITY      = the target feeling (grounded, weighty,
+                            seamless) the effect should achieve
+
+INPUT STRUCTURE
+----------------
+SCENE_BEAT_CONTEXT: <required, from File 04>
+EFFECT_DESCRIPTION + CATEGORY: <required>
+STORY_FUNCTION: <required — reject any VFX request without a clear story
+  function, redirect to ask what purpose it serves>
+ENVIRONMENT_CONSISTENCY_TOKEN + LIGHTING_CONTEXT: <required, from Files
+  09 and 07>
+SCALE_SPEC: <required>
+WORLD_RULES: <required if GENRE from File 01 is speculative fiction>
+
+OUTPUT STRUCTURE
+-----------------
+1. EFFECT SPECIFICATION (category, description, story function stated
+   explicitly)
+2. REALISM & INTEGRATION TARGET (realism level, and specific integration
+   requirements with practical environment/lighting)
+3. PHYSICS & BEHAVIOR RULES (how the effect moves, reacts, and obeys — or
+   deliberately breaks, with justification — physical logic)
+4. SCALE VERIFICATION (explicit scale relationship to in-frame reference
+   points)
+5. LIGHT INTERACTION SPECIFICATION (how the effect emits/reflects/blocks
+   light consistent with File 07's lighting design)
+6. RESTRAINT AUDIT (confirms the effect is proportionate to its story
+   function — flags over-spectacle relative to narrative need)
+7. COMPILED VFX PROMPT LINE (dense, generation-ready description)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- No VFX/CGI element may exist without an explicit, stated STORY_FUNCTION.
+  If a requested effect's only function is "looking cool," push back and
+  either find its genuine narrative purpose or recommend removing/reducing
+  it — spectacle without function is the single most common amateur-
+  filmmaking mistake in the VFX category.
+- Every effect must respect the established Environment (File 09) and
+  Lighting (File 07) — an effect that doesn't cast appropriate shadows,
+  doesn't catch ambient color correctly, or exists at an inconsistent
+  scale relative to established reference points will read as
+  "obviously fake" regardless of how detailed the effect itself is.
+- Default toward realism and restraint unless GENRE (File 01) and
+  Cinematography identity (File 06) specifically call for heightened/
+  stylized visual language — Hollywood-grade VFX, even in fantastical
+  genres, is generally most effective when grounded in believable
+  physics and proportionate use.
+- For speculative fiction, WORLD_RULES established in File 09 must be
+  respected consistently — if a world's "magic system" or technology has
+  established limitations, every VFX specification must honor those
+  limitations rather than introducing convenient new capabilities.
+- Physics/behavior rules must be internally consistent even when
+  depicting impossible phenomena — the impossible thing should still
+  obey ITS OWN consistent logic (weight, momentum, cause-effect) rather
+  than behaving arbitrarily.
+- Scale must always be verified against an actual in-frame reference
+  (a known character's established height, a building's established
+  proportions) — never leave scale as a vague impression, since scale
+  errors are one of the fastest ways to break visual credibility.
+
+BEST PRACTICES
+----------------
+- Apply the Restraint Audit rigorously — before finalizing any VFX
+  specification, ask whether the scene would actually be weaker without
+  this effect, or whether it's being added by default/habit rather than
+  genuine need.
+- For invisible/seamless effects (the largest category of real Hollywood
+  VFX work), resist the urge to make them visually noticeable — the goal
+  of set extension, cleanup, or subtle enhancement is that the audience
+  never consciously registers an effect occurred at all.
+- Build effects incrementally in complexity — establish the core
+  phenomenon's basic behavior/physics first, then layer secondary details
+  (light interaction, particle behavior, interaction with practical
+  elements) rather than attempting maximum complexity in a single
+  specification pass.
+- Cross-reference every VFX specification against File 14 (Color Grading)
+  — effects should be graded consistently with the rest of the frame, not
+  exist as a visually separate "layer" that reads as obviously composited.
+- When multiple VFX elements interact in a single beat (e.g. an energy
+  effect illuminating a character who is also affected by practical
+  lighting), specify the interaction explicitly rather than treating each
+  effect as isolated.
+
+EXAMPLE INPUT
+---------------
+SCENE_BEAT_CONTEXT: A later beat (illustrative, extending the story) —
+the monitor wall in the bullpen suddenly floods with red as the viral
+conspiracy trend spikes past a critical threshold
+EFFECT_DESCRIPTION + CATEGORY: Data visualization escalation — the
+existing monitor wall display shifts from its baseline amber-glow state
+to an urgent red flood, category: practical-enhancing (augmenting an
+already-established practical element, not creating something new)
+STORY_FUNCTION: Visually communicates the escalating stakes without
+dialogue — the audience should feel the danger spike through color alone
+ENVIRONMENT_CONSISTENCY_TOKEN: [Bullpen token from File 09]
+LIGHTING_CONTEXT: [Scene lighting from File 07, monitor-glow as
+established key element]
+SCALE_SPEC: Effect confined to the established monitor wall dimensions,
+no scale change to the wall itself
+
+EXAMPLE OUTPUT
+-----------------
+EFFECT SPECIFICATION: The bullpen's established data-visualization
+monitor wall (File 09, already a practical light source) shifts its
+display state from baseline amber-glow to urgent, saturated red as the
+threat metric crosses a critical threshold. Category: practical-
+enhancing — this augments an existing established element rather than
+introducing anything new to the world.
+
+REALISM & INTEGRATION TARGET: Photorealistic — this must read as a
+completely plausible, grounded evolution of the near-future data-
+visualization technology already established (File 09's world rules
+specify grounded, plausible tech, not exotic sci-fi). Integration
+requirement: the red glow must affect the SAME surfaces and characters
+the amber glow was already affecting (per File 07's lighting design) —
+this is a color/intensity shift of an existing light source, not a new
+light source.
+
+PHYSICS & BEHAVIOR RULES: The color shift should propagate the way
+real display technology would — not an instant hard cut, but a rapid
+transition (under one second) as the data crosses threshold, consistent
+with how real-time monitoring dashboards actually update. No unrealistic
+effects like particle bursts or lens flares that would break the
+grounded-tech aesthetic.
+
+SCALE VERIFICATION: Effect is entirely contained within the monitor
+wall's already-established physical dimensions (File 09) — no scale
+change occurs; this is a color/intensity change only, not a size or
+geometry change.
+
+LIGHT INTERACTION SPECIFICATION: Per File 07, the monitor wall already
+functions as a colored practical light source affecting nearby analysts
+and surfaces. This effect requires that same light-casting behavior to
+shift from warm amber to urgent red — any character or surface
+previously catching amber ambient light from the wall must now catch red
+ambient light instead, at equivalent intensity, maintaining the
+established light-source relationship rather than treating the new color
+as isolated to the wall itself.
+
+RESTRAINT AUDIT: Confirmed proportionate — this effect uses an already-
+established practical element (no new spectacle introduced) and directly
+serves a clear story function (silent stakes escalation). No excess
+spectacle flagged.
+
+COMPILED VFX PROMPT LINE: "Monitor wall display rapidly transitions from
+warm amber-glow to saturated urgent red within one second as data crosses
+threshold, red ambient light now casting onto previously amber-lit
+surfaces and analysts nearby, photorealistic near-future dashboard
+aesthetic, no particle effects or unrealistic flourishes, grounded
+practical light source behavior maintained."
+
+ADVANCED VERSION
+-------------------
+For major set-piece or creature/character VFX work, extend with:
+
+"Additionally generate: (a) a REFERENCE-BASED BEHAVIOR NOTE grounding
+the effect's motion/physics in a real-world comparable phenomenon for
+calibration (e.g. 'fluid dynamics comparable to X' — for internal
+reference only, not for direct copying), (b) a MULTI-STAGE ESCALATION
+BREAKDOWN if the effect builds/evolves across multiple beats or scenes,
+with specific trigger points for each stage, (c) an INTERACTION LEDGER
+cataloguing every practical element/character the effect must correctly
+interact with across the full sequence, (d) explicit PLATFORM VFX SYNTAX
+NOTES for {TARGET_AI_MODEL: Sora/Veo/Kling/Runway/Pika/Luma/Hailuo} on
+known strengths/limitations for this effect category as of current
+tooling, including whether a multi-pass generate-then-composite approach
+is recommended over single-pass generation for this specific effect
+complexity level."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for VFX specification generation. Compiled Prompt Lines designed for
+direct use in Sora, Veo, Kling, Runway, Pika, Luma, Hailuo generation
+calls, or as compositing direction for hybrid pipelines.
+PIPELINE POSITION: Requires 07_Lighting_Master.txt and 09_Environment_&_
+World_Building.txt consistency tokens.
+Feeds into: 14_Color_Grading.txt, 16_Video_Generation_Master.txt,
+18_Quality_&_Consistency_Checker.txt
+================================================================================

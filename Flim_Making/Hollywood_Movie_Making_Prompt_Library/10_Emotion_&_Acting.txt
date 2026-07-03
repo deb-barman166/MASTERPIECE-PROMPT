@@ -1,0 +1,271 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 10: EMOTION & ACTING
+================================================================================
+
+TITLE
+-----
+The Performance Direction Engine — Micro-Expression & Physical Performance
+Specification System
+
+PURPOSE
+-------
+Translate a character's internal emotional state (established in File 01's
+Protagonist Core and File 03's psychological profile) into specific,
+filmable physical performance detail — the actual micro-expressions, body
+language, breath patterns, and behavioral choices an actor (or an AI video
+model generating a "performance") should execute. This is the template
+that prevents AI-generated characters from looking emotionally blank or
+generically "acted" — it forces specificity down to the level of what a
+face and body actually DO.
+
+PROMPT FORMULA
+---------------
+[CHARACTER + CONSISTENCY TOKEN] + [EMOTIONAL STATE] + [SUBTEXT LAYER] +
+[MICRO-EXPRESSION SPECIFICATION] + [BODY LANGUAGE] + [BREATH/VOICE
+PHYSICALITY] + [RESTRAINT LEVEL] + [PERFORMANCE ARC WITHIN BEAT]
+
+Master formula string:
+
+"Direct the performance for {CHARACTER_NAME} ({CHARACTER_CONSISTENCY_
+TOKEN}) in this beat: {BEAT_CONTEXT}. Surface emotional state:
+{SURFACE_EMOTION}. Subtext (what they're actually feeling/hiding beneath
+the surface): {SUBTEXT_EMOTION}. Micro-expression: {FACIAL_DETAIL} at
+{INTENSITY_LEVEL}. Body language: {POSTURE}, {GESTURE_OR_STILLNESS},
+{PROXIMITY_BEHAVIOR}. Breath/voice physicality: {BREATH_PATTERN},
+{VOICE_QUALITY_SHIFT}. Performance restraint: {RESTRAINT_LEVEL} —
+{RESTRAINT_JUSTIFICATION}. This performance must arc from
+{PERFORMANCE_START} to {PERFORMANCE_END} within the beat, revealing
+{WHAT_IS_REVEALED} without stating it in dialogue."
+
+VARIABLES
+---------
+CHARACTER_NAME              = character name
+CHARACTER_CONSISTENCY_TOKEN = pulled verbatim from File 03
+BEAT_CONTEXT                = pulled from File 04
+SURFACE_EMOTION             = the emotion the character is outwardly
+                               presenting/attempting to present
+SUBTEXT_EMOTION             = the true emotion beneath the surface — should
+                               almost always differ from surface emotion in
+                               well-written dramatic beats (the gap between
+                               the two IS the performance)
+FACIAL_DETAIL               = specific micro-expression (e.g. "a flicker
+                               of tightness at the jaw," "eyes widen
+                               fractionally before narrowing," "a held
+                               half-second where nothing moves at all")
+INTENSITY_LEVEL             = "barely perceptible" | "subtle but
+                               readable" | "moderate, clearly visible" |
+                               "full/unguarded"
+POSTURE                     = specific body positioning and what it
+                               communicates
+GESTURE_OR_STILLNESS        = specific movement OR the deliberate absence
+                               of movement (stillness is often more
+                               powerful and should be treated as an equally
+                               valid, specific choice)
+PROXIMITY_BEHAVIOR          = how the character relates spatially to
+                               others/objects in the scene (leaning in,
+                               creating distance, physical barriers)
+BREATH_PATTERN              = "held breath" | "shallow/rapid" | "deep,
+                               controlled" | "audible exhale" | "normal,
+                               unremarkable" — breath is one of the most
+                               underused and effective performance tools
+VOICE_QUALITY_SHIFT         = if the beat includes dialogue, how vocal
+                               quality shifts from the character's
+                               baseline (established in File 03) —
+                               cross-reference File 11
+RESTRAINT_LEVEL             = "highly restrained (Hollywood-grade
+                               subtlety — the performance should be
+                               almost invisible on first viewing, clear
+                               on rewatch)" | "moderate" | "expressive/
+                               unguarded (appropriate only for specific
+                               character types or breakthrough moments)"
+RESTRAINT_JUSTIFICATION     = why this restraint level is correct for
+                               this specific character and moment (ties
+                               back to File 03's psychological profile)
+PERFORMANCE_START/END       = the emotional state the performance begins
+                               and ends on within this single beat
+WHAT_IS_REVEALED            = the narrative/psychological information this
+                               performance communicates to the audience
+                               without any dialogue stating it directly
+
+INPUT STRUCTURE
+----------------
+CHARACTER_NAME + CONSISTENCY_TOKEN: <required, from File 03>
+BEAT_CONTEXT: <required, from File 04>
+SURFACE_EMOTION + SUBTEXT_EMOTION: <required>
+RESTRAINT_LEVEL: <required, should generally default to "highly
+  restrained" for Hollywood-grade work unless character/genre specifically
+  calls for expressiveness>
+WHAT_IS_REVEALED: <required — the whole point of the performance>
+
+OUTPUT STRUCTURE
+-----------------
+1. EMOTIONAL LAYER MAP (surface emotion vs. subtext emotion, explicitly
+   distinguished)
+2. MICRO-EXPRESSION SPECIFICATION (facial detail, intensity, timing within
+   the beat)
+3. BODY LANGUAGE BREAKDOWN (posture, gesture/stillness, proximity behavior)
+4. BREATH & VOICE PHYSICALITY (if applicable)
+5. RESTRAINT CALIBRATION (level, and justification tied to character
+   psychology)
+6. PERFORMANCE ARC (start state → end state within the beat, the specific
+   turn)
+7. REVELATION STATEMENT (what the audience understands from this
+   performance that dialogue never says)
+8. COMPILED PERFORMANCE PROMPT LINE (dense, generation-ready description
+   for AI video model performance direction)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Surface emotion and subtext emotion must be DIFFERENT in any beat with
+  genuine dramatic weight — a performance where surface and subtext are
+  identical is emotionally flat and should be flagged for revision unless
+  the beat specifically calls for a moment of total transparency (rare,
+  usually reserved for climactic beats).
+- Favor restraint over expressiveness as the default — the most
+  memorable, "Hollywood-grade" performances are built on withheld emotion
+  that leaks through in small, specific ways, not broad demonstrative
+  acting. Broad expressiveness should be a deliberate exception, not habit.
+- Every micro-expression must be something an AI video model can actually
+  attempt to render — avoid purely literary/internal descriptions ("he
+  feels the weight of his choices") in favor of physically specific,
+  observable detail ("his exhale is a half-second longer than the breath
+  before it").
+- Breath is a critically underused performance tool — always consider
+  whether breath pattern adds information the face alone doesn't
+  communicate, especially in beats without dialogue.
+- The Performance Arc must connect logically to the BEAT's function within
+  the larger scene (from File 04) — a performance that doesn't advance or
+  complicate the scene's emotional throughline is disconnected from its
+  purpose.
+- Never let RESTRAINT_JUSTIFICATION be generic — it must connect
+  specifically to what File 03 established about this character's
+  psychology (e.g. "Marcus's restraint here isn't generic stoicism — it's
+  the specific, trained control of someone whose job requires him to never
+  show his hand").
+
+BEST PRACTICES
+----------------
+- Generate this template for every beat with significant emotional weight,
+  not necessarily every single beat in a scene — reserve full Emotion &
+  Acting specification for beats where performance carries the primary
+  narrative load, and note simpler beats with abbreviated direction.
+- Always cross-reference File 03's Variant Notes (emotional state
+  variants of the Consistency Token) — the physical performance described
+  here should be consistent with how that character's appearance shifts
+  under stress/vulnerability as already established.
+- When directing an ensemble scene, generate Emotion & Acting for each
+  character present, then read them side by side to confirm no two
+  characters are giving redundant or competing performances — Hollywood-
+  grade scenes typically have each character playing a DISTINCT emotional
+  note even within the same beat.
+- Pair this template's output directly with File 05 (Camera Master) —
+  the camera choice should serve the performance (an extreme close-up on
+  a barely-perceptible micro-expression requires exactly that: an
+  extremely close, patient camera) rather than the two being generated
+  independently.
+- For AI video generation specifically, understand that subtle
+  micro-expression rendering is one of the harder tasks for current
+  models — when a beat's entire function rests on a very subtle
+  performance beat, consider whether a tighter shot (per File 05) or
+  additional generation iterations may be needed to achieve the intended
+  subtlety.
+
+EXAMPLE INPUT
+---------------
+CHARACTER_NAME + CONSISTENCY_TOKEN: Marcus Delacroix [full token from File
+03]
+BEAT_CONTEXT: Scene 2, Beat 2 — the aborted reach toward the photo frame
+SURFACE_EMOTION: Continued professional composure
+SUBTEXT_EMOTION: A sudden, overwhelming pull toward a personal connection
+he's spent years suppressing
+RESTRAINT_LEVEL: Highly restrained
+WHAT_IS_REVEALED: That his detachment is a choice he actively maintains,
+not an absence of feeling — the crack proves the wall was always there
+for a reason
+
+EXAMPLE OUTPUT
+-----------------
+EMOTIONAL LAYER MAP: Surface — nothing visibly changes; Marcus appears to
+still be simply reading data. Subtext — a sudden, involuntary pull toward
+the photo frame, representing years of suppressed longing for connection
+breaking through for a fraction of a second.
+
+MICRO-EXPRESSION SPECIFICATION: A barely perceptible widening at the
+corners of his eyes — not fear, but the physical signature of an
+unguarded impulse — occurring in the half-second before his hand begins
+to move. Intensity: barely perceptible, should be almost subliminal on
+first viewing.
+
+BODY LANGUAGE BREAKDOWN: Posture remains otherwise unchanged (seated,
+professional alignment) — this is critical, the impulse must be isolated
+to the hand and eyes only, not a full-body shift, to maintain the
+"aborted" quality. Gesture: his right hand lifts approximately half an
+inch off the desk surface, fingers slightly curling as if already
+anticipating the texture of the frame, then stops completely — a dead
+halt, not a gradual deceleration. Proximity behavior: the hand's brief
+trajectory is directly toward the photo frame, the only moment in the
+beat where his body orients toward something personal rather than
+professional.
+
+BREATH & VOICE PHYSICALITY: A single breath is held for the duration of
+the hand's movement (approximately one second), then released as a
+controlled, silent exhale the moment the hand stops — the breath itself
+tells the story of impulse and suppression more clearly than the hand
+movement alone.
+
+RESTRAINT CALIBRATION: Highly restrained. Justification: Marcus's
+established psychology (File 03) is built on trained emotional control —
+this isn't a character who has never felt this pull before, but one who
+has specifically trained himself never to act on it. The restraint level
+must reflect discipline, not absence of feeling — an expressive
+performance here would contradict his established character entirely.
+
+PERFORMANCE ARC: Begins in professional composure (identical to Beat 1's
+end state) → brief, almost involuntary physical impulse toward personal
+connection → ends in a harder, more effortful version of the same
+composure (the "return to baseline" costs him something visible, however
+small).
+
+REVELATION STATEMENT: The audience understands, without a single word of
+dialogue, that Marcus's detachment isn't the absence of feeling — it's an
+active, ongoing act of will. This reframes every "cold" choice he's made
+so far as effortful rather than natural, deepening audience sympathy at
+the exact moment his flaw is on clearest display.
+
+COMPILED PERFORMANCE PROMPT LINE: "Marcus's expression remains outwardly
+composed; a barely perceptible widening at the eyes precedes his right
+hand lifting half an inch off the desk, fingers slightly curling, before
+stopping in a sudden dead halt. Breath held during the hand's brief
+movement, then released as a controlled silent exhale. Posture otherwise
+unchanged. Extremely subtle, restrained performance — the moment should
+be almost imperceptible on casual viewing."
+
+ADVANCED VERSION
+-------------------
+For pivotal/climactic beats requiring maximum performance precision,
+extend with:
+
+"Additionally generate: (a) a FRAME-BY-FRAME TIMING BREAKDOWN specifying
+exactly which fraction of the beat's duration each micro-expression
+element should occupy, (b) a COMPARATIVE RESTRAINT CALIBRATION showing
+what this performance would look like at one level MORE expressive and
+one level LESS, to help select the precisely correct intensity, (c) an
+ACTOR-DIRECTION-STYLE NOTE phrased as if giving direction to a human actor
+(useful for hybrid productions combining AI-generated and live-action
+footage), (d) explicit NOTES ON KNOWN AI PERFORMANCE RENDERING LIMITATIONS
+for {TARGET_AI_MODEL: Sora/Veo/Kling/Runway/Pika/Luma/Hailuo} — which
+elements of this performance specification that model is known to render
+reliably versus which may require multiple generation attempts or a
+tighter/simpler specification to achieve as of current tooling."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for performance direction generation. Compiled Prompt Lines designed for
+direct use in Sora, Veo, Kling, Runway, Pika, Luma, Hailuo generation
+calls, layered with Camera Master output.
+PIPELINE POSITION: Requires 03_Character_Design.txt and
+04_Scene_Generator.txt.
+Feeds into: 05_Camera_Master.txt (cross-reference), 11_Dialogue_
+Generator.txt, 16_Video_Generation_Master.txt
+================================================================================

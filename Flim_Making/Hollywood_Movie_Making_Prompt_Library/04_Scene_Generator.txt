@@ -1,0 +1,244 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 04: SCENE GENERATOR
+================================================================================
+
+TITLE
+-----
+The Scene Construction Engine — Beat-to-Shot Scene Realization Generator
+
+PURPOSE
+-------
+Convert a single screenplay scene (from File 02) plus locked character
+bibles (from File 03) into a fully realized, generation-ready scene
+description: setting, blocking, beat-by-beat action, and the specific
+visual/emotional information every downstream template (Camera,
+Cinematography, Lighting, VFX, Sound) needs to build on. This is the
+central assembly point of the pipeline — it takes narrative and character
+data and turns it into "what the camera sees and when," without yet
+specifying HOW the camera sees it (that's File 05 onward).
+
+PROMPT FORMULA
+---------------
+[SCENE CONTEXT] + [SETTING SPECIFICATION] + [CHARACTER TOKENS] + [BEAT-BY-
+BEAT BLOCKING] + [SENSORY DETAIL LAYER] + [EMOTIONAL THROUGHLINE] +
+[DURATION TARGET] + [CONTINUITY ANCHORS]
+
+Master formula string:
+
+"Construct scene {SCENE_NUMBER}: {SCENE_HEADING} from the screenplay
+context: {SCREENPLAY_EXCERPT}. Characters present, using locked consistency
+tokens: {CHARACTER_TOKENS}. Setting specification: {LOCATION_DETAIL}, time
+of day {TIME_OF_DAY}, weather/atmosphere {ATMOSPHERE}. Break the scene into
+{BEAT_COUNT} discrete beats, each describing: physical blocking (where
+characters are and how they move), the specific action occurring, and the
+emotional temperature. Sensory layer: sound present {AMBIENT_SOUND}, key
+textures/materials visible {TEXTURES}, practical light sources in-frame
+{PRACTICAL_LIGHT_SOURCES}. Emotional throughline: scene begins at
+{EMOTIONAL_START} and ends at {EMOTIONAL_END}. Target duration:
+{DURATION_SECONDS} seconds of screen time. Maintain continuity with:
+{PREVIOUS_SCENE_CONTEXT}."
+
+VARIABLES
+---------
+SCENE_NUMBER            = scene identifier from screenplay
+SCENE_HEADING           = slug line, pulled directly from File 02
+SCREENPLAY_EXCERPT      = the actual scene text from File 02, pasted in full
+CHARACTER_TOKENS        = all Consistency Tokens (File 03) for characters
+                           present in this scene, pasted verbatim
+LOCATION_DETAIL         = expanded physical description of the setting
+                           beyond the slug line (architecture, scale,
+                           condition, era)
+TIME_OF_DAY             = specific (not just DAY/NIGHT — "late afternoon,
+                           low sun angle" or "3am, deepest part of night")
+ATMOSPHERE              = weather, air quality, ambient mood-setting
+                           conditions
+BEAT_COUNT              = how many discrete beats/moments to break the
+                           scene into (typically 3-8 depending on scene
+                           length and complexity)
+AMBIENT_SOUND           = what's audible in the space (diegetic sound
+                           present in the world, not score — score is
+                           File 13)
+TEXTURES                = key materials/surfaces the camera will encounter
+                           (rain-slicked concrete, worn leather, sterile
+                           steel)
+PRACTICAL_LIGHT_SOURCES = actual light sources visible or implied in the
+                           scene (window light, desk lamp, monitor glow,
+                           streetlight) — full lighting design is File 07,
+                           but sources must be established here
+EMOTIONAL_START/END     = the emotional state characters begin and end the
+                           scene in — must show change or held tension, not
+                           be identical unless deliberately static for effect
+DURATION_SECONDS        = target runtime, critical for AI video generation
+                           since most platforms have hard clip-length limits
+PREVIOUS_SCENE_CONTEXT  = one line summarizing what just happened, for
+                           continuity (costume state, emotional carryover,
+                           props in hand)
+
+INPUT STRUCTURE
+----------------
+SCENE_NUMBER + SCENE_HEADING: <required, from File 02>
+SCREENPLAY_EXCERPT: <required, full scene text>
+CHARACTER_TOKENS: <required, one per present character, from File 03>
+LOCATION_DETAIL: <required>
+TIME_OF_DAY: <required>
+BEAT_COUNT: <optional, default = auto-determined by scene complexity>
+DURATION_SECONDS: <required if feeding into AI video generation — always
+  specify, even if approximate>
+PREVIOUS_SCENE_CONTEXT: <optional but strongly recommended after scene 1>
+
+OUTPUT STRUCTURE
+-----------------
+1. SCENE HEADER (number, heading, duration target)
+2. SETTING BREAKDOWN (expanded location detail, atmosphere, practical light
+   sources catalogued)
+3. CHARACTER STATE AT SCENE START (position, costume state, emotional
+   carry-in from previous scene, using locked tokens)
+4. BEAT-BY-BEAT BREAKDOWN, each beat containing:
+   - Beat number and approximate timestamp within the scene
+   - Blocking (physical position/movement)
+   - Action (what happens)
+   - Emotional temperature (1 short phrase)
+   - Sensory note (one specific sound/texture/light detail active in this
+     beat)
+5. EMOTIONAL ARC SUMMARY (start state → end state, and the turn that
+   connects them)
+6. CONTINUITY HANDOFF (costume/prop/emotional state at scene END, formatted
+   for direct input as PREVIOUS_SCENE_CONTEXT in the next scene's
+   generation)
+7. DOWNSTREAM FLAGS (explicit notes for which specialist templates this
+   scene will need — e.g. "requires VFX File 12 for the map overlay,"
+   "requires Sound File 13 for the tonal shift at Beat 4")
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Every beat must be physically stageable — describe only what could
+  actually happen in the specified space with the specified characters. No
+  beat should require a location detail or prop not established in Setting
+  Breakdown.
+- Character blocking must respect physical continuity — if a character sits
+  in Beat 2, they don't stand in Beat 3 without an explicit standing action
+  described.
+- Emotional temperature must shift gradually and legibly across beats — a
+  scene that jumps from "calm" to "devastated" with no intermediate beat is
+  a structural failure and must be revised to include the missing turn.
+- Sensory notes are not decoration — each one should be something a
+  cinematographer or sound designer could actually use, meaning it must be
+  specific (not "ambient noise" but "the low hum of server fans, one
+  intermittent printer jam three desks over").
+- Duration targets must be realistic — a beat involving significant
+  dialogue or complex blocking cannot be compressed into 2 seconds; check
+  that BEAT_COUNT × average beat length ≈ DURATION_SECONDS before finalizing.
+- Continuity Handoff must be specific enough to prevent visual drift —
+  vague handoffs ("he's sad") cause downstream generations to lose
+  consistency; specific handoffs ("he's still holding the printout, now
+  crumpled in his left fist, jaw tighter than scene start") preserve it.
+
+BEST PRACTICES
+----------------
+- Always generate scenes in story order, never out of sequence, so
+  PREVIOUS_SCENE_CONTEXT can chain correctly across the whole project.
+- For AI video generation pipelines with strict clip-length limits (many
+  platforms cap at 5-20 seconds per generation as of current tooling), set
+  DURATION_SECONDS conservatively and be willing to split a single
+  screenplay scene into multiple Scene Generator passes (4A, 4B, 4C) rather
+  than forcing an overloaded single generation.
+- Cross-check every character token pasted into CHARACTER_TOKENS against
+  the master Character Design files — never paraphrase a token, always
+  paste verbatim, since even small wording changes can shift AI-generated
+  appearance.
+- When a scene involves a location used more than once in the story,
+  maintain a running LOCATION_DETAIL reference document (similar to
+  Character Consistency Tokens) so environmental details don't drift scene
+  to scene — feeds directly into File 09 (Environment & World Building).
+- Flag DOWNSTREAM FLAGS aggressively and specifically — this is what
+  prevents forgetting a needed VFX pass or sound cue later in a long
+  production pipeline.
+
+EXAMPLE INPUT
+---------------
+SCENE_NUMBER: 2
+SCENE_HEADING: INT. DISINFORMATION RESPONSE UNIT - MARCUS'S TERMINAL -
+CLOSE - CONTINUOUS
+SCREENPLAY_EXCERPT: [Scene 2 text from File 02 example]
+CHARACTER_TOKENS: [Marcus Delacroix token from File 03 example]
+LOCATION_DETAIL: Same bullpen as Scene 1, now isolated to Marcus's desk —
+dual monitors, cable clutter, a single desk photo turned face-down
+TIME_OF_DAY: Continuous from previous scene, daytime, fluorescent-lit interior
+BEAT_COUNT: 3
+DURATION_SECONDS: 8
+PREVIOUS_SCENE_CONTEXT: Marcus just received the trace results and went
+completely still; analyst is still standing nearby, uncertain
+
+EXAMPLE OUTPUT
+-----------------
+SCENE HEADER: Scene 2 — INT. TERMINAL, CLOSE, CONTINUOUS — Target: 8 seconds
+
+SETTING BREAKDOWN: Marcus's desk within the larger bullpen, now isolated by
+framing. Dual monitors casting cool blue-white glow, cable clutter beneath
+the desk, a single photo frame face-down near the keyboard (established
+detail, not yet explained). Fluorescent overhead remains constant from
+Scene 1 — no lighting change, this is a continuous moment.
+
+CHARACTER STATE AT SCENE START: Marcus — [consistency token], seated, already
+frozen from Scene 1's final beat, eyes locked on screen, hands motionless
+above keyboard.
+
+BEAT-BY-BEAT BREAKDOWN:
+- Beat 1 (0:00-0:03): Blocking — static, Marcus seated, camera holds on
+  his face. Action — his eyes move fractionally, reading the resolved
+  address on screen. Emotional temperature — controlled shock. Sensory
+  note — the faint electronic hum of the monitor is the only sound; even
+  the bullpen's ambient chatter seems to recede.
+- Beat 2 (0:03-0:06): Blocking — his hand, previously motionless, moves a
+  half-inch toward the face-down photo frame, then stops. Action — a
+  half-completed gesture, immediately aborted. Emotional temperature —
+  the shock cracking into something more personal. Sensory note — the
+  photo frame's edge catches monitor light as his hand passes near it.
+- Beat 3 (0:06-0:08): Blocking — he withdraws his hand fully, sits back
+  half an inch. Action — a single, controlled exhale. Emotional
+  temperature — forced composure reasserting itself. Sensory note — his
+  exhale is barely audible but present, the first sound he's made since
+  Scene 1.
+
+EMOTIONAL ARC SUMMARY: Controlled shock → involuntary personal impulse →
+forced composure. The turn is the aborted reach toward the photo frame —
+the first crack in his professional detachment, immediately suppressed.
+
+CONTINUITY HANDOFF: Marcus remains seated at terminal, hand withdrawn from
+photo frame (frame still face-down, untouched), jaw set, composure visibly
+effortful rather than natural. Carries into next scene as barely-contained
+tension.
+
+DOWNSTREAM FLAGS: Requires Camera Master (File 05) for an extreme close-up
+on the aborted hand gesture — this is the scene's emotional core and needs
+precise shot specification. Requires Sound (File 13) for the "recession"
+of ambient bullpen noise during Beat 1 — likely a subtle sound design
+choice, not just silence.
+
+ADVANCED VERSION
+-------------------
+For complex multi-character or action-heavy scenes, extend with:
+
+"Additionally generate: (a) a SPATIAL DIAGRAM description (text-based
+blocking map noting relative positions of all characters/objects in the
+frame, useful for maintaining geographic continuity across multiple shots
+of the same scene), (b) ALTERNATE BEAT PACING — a faster-cut version and a
+slower/held version of the same beats for editorial flexibility, (c) a
+PROP CONTINUITY LEDGER tracking every object touched, moved, or changed
+state during the scene, (d) explicit CLIP-SPLIT RECOMMENDATIONS for
+{TARGET_AI_MODEL: Sora/Veo/Kling/Runway/Pika/Luma/Hailuo} noting exactly
+where this scene should be divided into separate generation calls given
+that platform's known duration constraints, with a one-line generation
+prompt seed for each resulting sub-clip."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for scene construction. Beat structure and duration targets are formatted
+for direct hand-off to Sora, Veo, Kling, Runway, Pika, Luma, Hailuo clip
+generation via File 16.
+PIPELINE POSITION: Requires 02_Screenplay_Generator.txt scene text and
+03_Character_Design.txt consistency tokens.
+Feeds into: 05_Camera_Master.txt, 07_Lighting_Master.txt,
+09_Environment_&_World_Building.txt, 13_Sound_&_Music.txt
+================================================================================

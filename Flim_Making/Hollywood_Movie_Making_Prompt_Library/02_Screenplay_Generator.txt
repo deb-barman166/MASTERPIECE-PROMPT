@@ -1,0 +1,224 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 02: SCREENPLAY GENERATOR
+================================================================================
+
+TITLE
+-----
+The Format-Perfect Screenplay Engine — Industry-Standard Script Generation
+
+PURPOSE
+-------
+Convert a story outline (from File 01) into an actual formatted screenplay
+using correct industry standard: scene headings (slug lines), action lines,
+character cues, dialogue, parentheticals, and transitions. This template
+exists because AI models frequently produce "screenplay-flavored prose"
+instead of real format — this formula forces strict compliance so the
+output is usable in Final Draft, Fade In, WriterDuet, or as clean input to
+AI video generation tools that parse scene structure.
+
+PROMPT FORMULA
+---------------
+[FORMAT MANDATE] + [STORY INPUT] + [SCENE LIST] + [CHARACTER VOICE ANCHORS]
++ [PAGE LENGTH TARGET] + [FORMATTING RULES] + [TONE CALIBRATION] +
+[OUTPUT CONSTRAINTS]
+
+Master formula string:
+
+"Write a screenplay in strict industry-standard format (Courier-equivalent
+structure, ALL CAPS scene headings, standard slug line format INT./EXT.
+LOCATION - TIME). Source material: {STORY_OUTLINE_FROM_FILE_01}. Scenes to
+render: {SCENE_LIST}. Character voice anchors: {CHARACTER_VOICES}. Target
+length: {PAGE_COUNT} pages (1 page ≈ 1 minute screen time). Action lines
+must be present-tense, visual-only (nothing a camera can't see — no internal
+thoughts, no 'he feels sad', only observable behavior). Dialogue must pass
+the 'cover the names' test — each character's speech pattern must be
+distinguishable without the character cue. Include parentheticals only when
+line delivery is genuinely ambiguous without one. Format constraint:
+{FORMAT_STRICTNESS}. Genre pacing: {GENRE_PACING_NOTE}."
+
+VARIABLES
+---------
+STORY_OUTLINE_FROM_FILE_01 = the structural breakdown output from the Story
+                              Generator template (logline, beats, character
+                              core) — paste in full
+SCENE_LIST                 = which beats/scenes to actually script (can be
+                              "all" or a specific subset, e.g. "beats 1-4
+                              only, opening sequence")
+CHARACTER_VOICES           = short descriptors per major character defining
+                              speech pattern (e.g. "MARCUS: clipped,
+                              military economy of words, never uses
+                              contractions when stressed")
+PAGE_COUNT                 = target page length (industry rule: 1 page ≈ 1
+                              minute of screen time)
+FORMAT_STRICTNESS          = "strict Hollywood standard (WGA-compliant)" |
+                              "loose/readable draft" | "shooting script with
+                              scene numbers"
+GENRE_PACING_NOTE          = pacing guidance (e.g. "thriller — short
+                              paragraphs, white space, urgency"; "drama —
+                              can breathe, longer action description
+                              permitted")
+DIALOGUE_DENSITY           = "dialogue-heavy" | "visual-heavy/minimal
+                              dialogue" | "balanced"
+CONTENT_RATING             = carried over from File 01, maintain consistency
+
+INPUT STRUCTURE
+----------------
+STORY_OUTLINE: <paste full output from File 01, required>
+SCENE_LIST: <required — which scenes to script this pass>
+CHARACTER_VOICES: <required for any scene with 2+ speaking characters>
+PAGE_COUNT: <optional, default = derive from scene count at ~1-2 pages/scene>
+FORMAT_STRICTNESS: <optional, default = "strict Hollywood standard">
+DIALOGUE_DENSITY: <optional, default = "balanced">
+
+OUTPUT STRUCTURE
+-----------------
+1. TITLE PAGE BLOCK (Title, "Written by," placeholder, draft date)
+2. FORMATTED SCREENPLAY PAGES, each scene following:
+   - Scene heading (INT./EXT. LOCATION - TIME)
+   - Action line(s), present tense, visual-only, max 4 lines per paragraph
+     block before a break
+   - Character cue (ALL CAPS, centered convention noted even in plain text)
+   - Dialogue (natural, voice-distinct)
+   - Parentheticals (sparse, bracketed, lowercase)
+   - Transition only where earned (CUT TO:, SMASH CUT TO:, etc. — not every
+     scene needs one; modern spec scripts often omit these entirely)
+3. SCENE-BY-SCENE PAGE COUNT TALLY (running total, for pacing verification)
+4. FORMAT COMPLIANCE NOTE (confirms slug line format, action line tense,
+   and dialogue attribution all meet spec)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Action lines are NEVER allowed to contain unfilmable content: no "she
+  remembers her childhood," no "he feels conflicted" — only what a camera
+  physically records. If the story needs an internal state conveyed,
+  translate it into a visible action, expression, or behavior instead, and
+  state this translation explicitly in the output.
+- Character cues must be 100% consistent in spelling and formatting
+  throughout — no drift between "MARCUS" and "Marcus" and "MARCUS (V.O.)"
+  without deliberate, marked intent.
+- Every scene heading must specify INT. or EXT., a specific location (not
+  vague — "APARTMENT" is wrong, "MARCUS'S APARTMENT - KITCHEN" is right),
+  and time of day (DAY/NIGHT/CONTINUOUS/LATER).
+- Dialogue must never explain plot the audience can already see (avoid "on-
+  the-nose" exposition). If a line's only function is delivering
+  information the visuals already conveyed, cut or subtext it.
+- Enforce the "one page = one minute" pacing rule as a hard constraint —
+  if a scene is running long relative to its dramatic weight, flag it in
+  the page count tally and suggest a trim.
+- Parentheticals are a LAST RESORT, not a habit — overuse is a signature
+  amateur-script mistake and must be actively avoided.
+- Never use "we see" or "the camera shows" — write action as if it's simply
+  happening; camera direction belongs in File 05 (Camera Master), not here,
+  unless a specific shot is absolutely essential to understanding the
+  story (rare, and should be flagged as an exception when used).
+
+BEST PRACTICES
+----------------
+- Always paste the FULL File 01 output as STORY_OUTLINE — partial context
+  causes character/theme drift that compounds across scenes.
+- Generate one SCENE_LIST batch at a time for anything over 15 pages;
+  screenplay quality degrades when models try to hold too much scene-to-
+  scene continuity in one generation pass. Batch by act.
+- After generation, run the "cover the names" test manually: read dialogue
+  blocks with character cues hidden — if you can't tell who's speaking,
+  regenerate that character's voice anchor with sharper distinguishing
+  detail and re-run only that scene.
+- For downstream AI video generation, keep individual scenes short (under
+  1 page / 1 minute equivalent) — long unbroken scenes don't map well to
+  clip-based generation tools and will need manual splitting later anyway,
+  so build the split in now.
+- Reuse this file's CHARACTER_VOICES block verbatim in File 11 (Dialogue
+  Generator) and File 10 (Emotion & Acting) to keep voice consistent across
+  the entire pipeline.
+
+EXAMPLE INPUT
+---------------
+STORY_OUTLINE: [Full output from File 01 example — bomb-disposal/
+disinformation short film]
+SCENE_LIST: Beat 1 (Setup) and Beat 2 (Inciting Incident) only, this pass
+CHARACTER_VOICES: MARCUS — clipped, tactical vocabulary, avoids
+contractions under stress. ANALYST (minor) — fast, jargon-heavy, over-
+caffeinated energy.
+PAGE_COUNT: ~2.5 pages for these two scenes
+FORMAT_STRICTNESS: Strict Hollywood standard
+
+EXAMPLE OUTPUT
+-----------------
+FADE IN:
+
+INT. DISINFORMATION RESPONSE UNIT - BULLPEN - DAY
+
+Fluorescent light. A wall of monitors tracks viral spread in real time,
+red nodes multiplying across a map like an infection.
+
+MARCUS DELACROIX (50s, stillness that reads as either calm or exhaustion)
+sits alone at a terminal, headphones on, isolated from three younger
+analysts clustered nearby.
+
+An ANALYST breaks from the group, drops a printout on his desk.
+
+                    ANALYST
+          Got a live one. Started as a
+          weather bot, mutated into
+          election fraud claims in nine
+          hours. Velocity's off the charts.
+
+Marcus doesn't look up from his current screen.
+
+                    MARCUS
+          Nine hours is slow. Send the
+          trace.
+
+He reads. His expression does not change. His hand, however, stops moving
+across the keyboard entirely.
+
+                    MARCUS (CONT'D)
+          Run it again.
+
+                    ANALYST
+          Already did. Twice.
+
+Marcus stares at the IP trace results. We don't see the screen — we see
+his stillness intensify into something colder.
+
+CUT TO:
+
+INT. DISINFORMATION RESPONSE UNIT - MARCUS'S TERMINAL - CLOSE - CONTINUOUS
+
+A single line of resolved geolocation data on screen:
+"SOURCE ORIGIN: RESIDENTIAL - 4 CEDAR LANE."
+
+Marcus's home address.
+
+FADE OUT.
+
+[Page count: 1.5 pages for this sequence — on pace]
+
+FORMAT COMPLIANCE NOTE: Slug lines confirmed INT./EXT. + specific location
++ time. Action lines visual-only (Marcus's internal shock conveyed via
+observable stillness, not stated feeling). Character cues consistent.
+Zero unnecessary parentheticals used.
+
+ADVANCED VERSION
+-------------------
+For shooting-script-grade output or multi-format delivery, extend with:
+
+"Additionally produce: (a) SCENE NUMBERS in shooting-script format for
+each scene heading, (b) a DAY-OUT-OF-DAYS style CHARACTER APPEARANCE INDEX
+listing which scenes each character appears in, (c) an ESTIMATED SCREEN
+TIME per scene alongside the page tally, (d) a DIALOGUE-TO-ACTION RATIO
+percentage per scene for pacing analysis, (e) a PLATFORM EXPORT NOTE
+converting this scene into a {TARGET_AI_MODEL: Sora/Veo/Kling/Runway/Pika/
+Luma/Hailuo}-ready natural-language shot description as a parallel output
+block beneath each scene, bridging directly into File 16 (Video Generation
+Master) without losing the formatted screenplay's narrative precision."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for generation and revision. Formatted output is directly convertible to
+Sora/Veo/Kling/Runway/Pika/Luma/Hailuo prompt language via File 16.
+PIPELINE POSITION: Requires 01_Story_Generator.txt output as input.
+Feeds into: 03_Character_Design.txt, 04_Scene_Generator.txt,
+11_Dialogue_Generator.txt
+================================================================================

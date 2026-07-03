@@ -1,0 +1,271 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 16: VIDEO GENERATION MASTER
+================================================================================
+
+TITLE
+-----
+The Universal Clip Compiler — Multi-Platform AI Video Generation Assembly
+System
+
+PURPOSE
+-------
+This is the CONVERGENCE template — where every prior template's output
+(Story, Screenplay, Character, Scene, Camera, Cinematography, Lighting,
+Composition, Environment, Emotion, Dialogue, VFX, Sound, Color, Editing)
+is compiled into the actual, final, platform-specific generation prompt
+sent to an AI video model. This template teaches the compilation
+DISCIPLINE — how to layer 15 templates' worth of specification into one
+coherent, appropriately-prioritized prompt without exceeding what any
+single generation call can actually process, and how to adapt that
+compiled prompt's phrasing for each specific target platform's known
+conventions.
+
+PROMPT FORMULA
+---------------
+[LAYER COMPILATION ORDER] + [PRIORITY HIERARCHY] + [PLATFORM ADAPTATION] +
+[LENGTH/COMPLEXITY BUDGET] + [CONSISTENCY TOKEN INJECTION] + [NEGATIVE
+SPACE FOR MODEL INTERPRETATION] + [ITERATION STRATEGY]
+
+Master formula string:
+
+"Compile the final generation prompt for {BEAT_OR_SHOT_IDENTIFIER} by
+layering, in priority order: (1) Character Consistency Token(s):
+{CHARACTER_TOKENS}. (2) Shot specification: {CAMERA_MASTER_OUTPUT}. (3)
+Composition: {COMPOSITION_OUTPUT}. (4) Environment: {ENVIRONMENT_TOKEN}.
+(5) Lighting: {LIGHTING_OUTPUT}. (6) Cinematography base:
+{CINEMATOGRAPHY_LOCKED_ELEMENTS}. (7) Color grade: {COLOR_GRADE_OUTPUT}.
+(8) Performance/emotion: {EMOTION_ACTING_OUTPUT}. (9) VFX if present:
+{VFX_OUTPUT}. Compress into a single coherent prompt under
+{LENGTH_BUDGET}, prioritizing {TOP_PRIORITY_ELEMENTS} if compression
+forces cuts. Adapt phrasing for {TARGET_PLATFORM}'s known conventions:
+{PLATFORM_SPECIFIC_ADAPTATION}. Leave appropriate interpretive space for
+{MODEL_DISCRETION_AREAS} where over-specification would constrain rather
+than help. Duration: {CLIP_DURATION}, within {TARGET_PLATFORM}'s known
+constraints."
+
+VARIABLES
+---------
+BEAT_OR_SHOT_IDENTIFIER  = which specific beat/shot is being compiled for
+                            generation
+CHARACTER_TOKENS         = from File 03, verbatim
+CAMERA_MASTER_OUTPUT     = Compiled Prompt Line from File 05
+COMPOSITION_OUTPUT       = Compiled Prompt Line from File 08
+ENVIRONMENT_TOKEN        = from File 09, verbatim
+LIGHTING_OUTPUT          = Compiled Prompt Line from File 07
+CINEMATOGRAPHY_LOCKED_ELEMENTS = from File 06
+COLOR_GRADE_OUTPUT       = Compiled Prompt Line from File 14
+EMOTION_ACTING_OUTPUT    = Compiled Prompt Line from File 10
+VFX_OUTPUT               = Compiled Prompt Line from File 12, if applicable
+LENGTH_BUDGET            = the practical prompt length ceiling for the
+                            target platform (varies by platform and
+                            changes over time — always verify current
+                            limits rather than assuming)
+TOP_PRIORITY_ELEMENTS    = which 2-3 elements MUST survive compression if
+                            the full compiled prompt exceeds budget
+                            (typically: character consistency, core shot
+                            specification, and the single most important
+                            emotional/action beat)
+TARGET_PLATFORM          = "Sora" | "Veo" | "Kling" | "Runway" | "Pika" |
+                            "Luma" | "Hailuo/MiniMax" | other
+PLATFORM_SPECIFIC_ADAPTATION = how phrasing should shift for this
+                            platform's known strengths/conventions (e.g.
+                            some platforms respond better to structured
+                            tag-style input, others to flowing natural-
+                            language paragraphs — verify current
+                            platform documentation, as this evolves
+                            frequently)
+MODEL_DISCRETION_AREAS   = elements deliberately left less specified to
+                            allow the model's own strengths to contribute
+                            (avoids the common error of over-specifying
+                            every micro-detail, which can produce stiff,
+                            over-constrained results)
+CLIP_DURATION            = target duration, must be verified against the
+                            target platform's actual current maximum clip
+                            length
+
+INPUT STRUCTURE
+----------------
+BEAT_OR_SHOT_IDENTIFIER: <required>
+ALL PRIOR TEMPLATE OUTPUTS for this beat: <required, gather Compiled
+  Prompt Lines from Files 03, 05, 06, 07, 08, 09, 10, 12, 14 as applicable>
+TARGET_PLATFORM: <required>
+CLIP_DURATION: <required, verify against current platform limits>
+TOP_PRIORITY_ELEMENTS: <required if compression is anticipated>
+
+OUTPUT STRUCTURE
+-----------------
+1. LAYER INVENTORY (confirms which of the 9 possible input layers are
+   present/applicable for this specific shot)
+2. PRIORITY-ORDERED COMPILATION (the layering process shown explicitly,
+   in priority order)
+3. COMPRESSION DECISIONS (if the full compilation exceeds the platform's
+   practical length budget, explicit notes on what was trimmed and why,
+   preserving TOP_PRIORITY_ELEMENTS)
+4. PLATFORM-ADAPTED FINAL PROMPT (the actual, ready-to-paste generation
+   prompt, phrased according to the target platform's known conventions)
+5. MODEL DISCRETION NOTES (explicit list of what was deliberately left
+   underspecified, and why)
+6. ITERATION GUIDANCE (what to adjust first if the initial generation
+   doesn't match intent — which layer is most likely responsible for
+   common failure modes)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Priority order matters enormously when compression is necessary:
+  character consistency and core shot specification should almost never
+  be sacrificed, since these are the elements most responsible for
+  maintaining project-wide coherence; secondary elements (fine-grained
+  color grade detail, minor VFX texture) can be trimmed with less
+  narrative cost if length constraints force a choice.
+- Always verify the TARGET_PLATFORM's current actual constraints (max
+  clip duration, effective prompt length, supported input types like
+  image-conditioning) before finalizing — these specifications change
+  frequently as platforms update, and assuming outdated limits produces
+  either wasted effort or under-utilized capability.
+- Resist the urge to over-specify every possible detail from every prior
+  template — a prompt that attempts to cram all 9 layers at maximum
+  detail often produces worse results than a well-prioritized compilation
+  that leaves appropriate room for the model's own generative strengths.
+  MODEL_DISCRETION_AREAS should be a deliberate, stated choice, not an
+  oversight.
+- Different platforms genuinely respond differently to the same
+  conceptual instruction — a phrasing that works excellently on one
+  platform may need restructuring for another (some favor comma-separated
+  descriptive tags, others favor complete natural-language sentences,
+  others support structured camera-control parameters as separate
+  fields). Always adapt rather than assuming one universal phrasing works
+  identically everywhere.
+- When a project uses multiple AI video platforms across different shots
+  (common for leveraging each platform's particular strengths), ensure
+  Character and Environment Consistency Tokens are phrased in a
+  sufficiently platform-agnostic way that they translate reasonably well
+  across all target platforms, even if other layers are adapted more
+  aggressively per-platform.
+
+BEST PRACTICES
+----------------
+- Build this compilation only after all relevant upstream templates (03
+  through 14, as applicable to the specific shot) have been generated —
+  attempting to compile before upstream specification is complete
+  produces gaps that will need to be filled reactively rather than
+  proactively.
+- Maintain a running log of which compiled prompts produced strong
+  results on which platforms — this becomes an invaluable practical
+  reference for calibrating PLATFORM_SPECIFIC_ADAPTATION on future
+  shots, since platform behavior is often best learned empirically
+  alongside documentation.
+- When a generation doesn't match intent, use the Iteration Guidance
+  output to diagnose systematically rather than randomly adjusting the
+  whole prompt — check character consistency first (the most common
+  failure point), then shot specification, then the more granular layers.
+- For projects requiring maximum cross-shot consistency, consider
+  generating multiple candidate outputs per shot on the same platform
+  and selecting the best match, rather than assuming the first generation
+  will be production-final — budget for iteration as a normal part of the
+  process, not a failure state.
+- Keep TOP_PRIORITY_ELEMENTS consistent across an entire project's
+  compilation passes (e.g. always prioritize character consistency and
+  core action first) rather than re-deciding priority shot-by-shot, to
+  maintain a predictable, disciplined compilation process at scale.
+
+EXAMPLE INPUT
+---------------
+BEAT_OR_SHOT_IDENTIFIER: Scene 2, Beat 2 — the aborted photo-frame reach
+ALL PRIOR TEMPLATE OUTPUTS: [Compiled Prompt Lines gathered from Files 03,
+05, 06, 07, 08, 09, 10, 14 examples used throughout this library]
+TARGET_PLATFORM: Runway Gen (chosen for its strength in nuanced
+performance/close-up work, per general platform reputation)
+CLIP_DURATION: 3 seconds (Beat 2's target duration per File 04)
+TOP_PRIORITY_ELEMENTS: Character consistency token, the rack-focus camera
+move, the specific hand gesture performance detail
+
+EXAMPLE OUTPUT
+-----------------
+LAYER INVENTORY: All 9 layers present and applicable for this shot —
+Character (File 03), Camera (File 05), Composition (File 08), Environment
+(File 09), Lighting (File 07), Cinematography (File 06), Color Grade
+(File 14), Performance (File 10). VFX (File 12) not applicable to this
+specific beat.
+
+PRIORITY-ORDERED COMPILATION:
+1. Character: "Marcus Delacroix: man, 52, lean-muscled wiry build, medium
+   height, angular jaw, gray-blue deep-set eyes, close-cropped salt-and-
+   pepper hair, weathered olive skin, thin white scar through left
+   eyebrow. Wears charcoal button-down shirt top button undone, black
+   trousers, plain silver wedding band on right hand."
+2. Camera: "Extreme close-up insert shot, slight high angle looking down,
+   slow dolly in with rack focus shifting from face to hand, 85mm lens,
+   shallow depth of field with heavy background blur, focus pulls sharply
+   onto hand as it enters frame, subtle natural motion blur."
+3. Composition: "Hand positioned at lower-right third intersection, sharp
+   focus, dominant negative space above and left, softly blurred desk
+   clutter in extreme foreground, face-down photo frame visible softly
+   out-of-focus at upper-left third."
+4. Performance: "Right hand lifts half an inch off desk, fingers slightly
+   curling, then stops in sudden dead halt. Breath held during movement,
+   released as controlled silent exhale."
+5. Lighting/Color/Environment/Cinematography: cool blue-white monitor
+   glow key light, soft-edged shadows, digital-clean with moderate grain,
+   classical contrast, cluttered office desk setting.
+
+COMPRESSION DECISIONS: Full compilation exceeds Runway's practical
+effective prompt length for reliable single-pass interpretation. Trimmed:
+detailed grain/contrast technical language (retained as general "cinematic
+naturalistic" descriptor instead of full technical specification) and
+some environmental clutter detail (retained core "cluttered desk"
+descriptor, trimmed itemized object list). Preserved at full detail per
+TOP_PRIORITY_ELEMENTS: character consistency token, the rack-focus camera
+movement, and the specific hand gesture performance beats.
+
+PLATFORM-ADAPTED FINAL PROMPT: "Extreme close-up insert shot of a man's
+hand and desk, slight high angle, slow dolly in with rack focus shifting
+from soft to sharp on the hand. A weathered hand with a plain silver
+wedding band lifts half an inch off a cluttered desk surface, fingers
+slightly curling, then stops in a sudden dead halt. 85mm lens, shallow
+depth of field, heavy background blur, cool blue-white monitor glow
+lighting, soft shadows, cinematic naturalistic color, subtle grain, 3
+second duration."
+
+MODEL DISCRETION NOTES: Left underspecified deliberately: exact texture
+of desk clutter (allowing the model's own object-generation tendencies to
+populate a plausible cluttered desk rather than over-constraining every
+item), precise grain percentage (a general "subtle grain" descriptor
+trusts the model's typical cinematic-mode rendering rather than
+over-specifying a numeric value the model can't precisely target anyway).
+
+ITERATION GUIDANCE: If the generated hand doesn't match Marcus's
+established characteristics (skin tone, wedding band position), the
+Character layer likely needs stronger positioning earlier in the prompt
+or a follow-up generation with character-reference conditioning if the
+platform supports it. If the rack focus doesn't register clearly, try
+isolating the focus-shift instruction as its own clearly separated
+clause rather than embedding it within a longer descriptive sentence.
+
+ADVANCED VERSION
+-------------------
+For production pipelines generating dozens or hundreds of shots, extend
+with:
+
+"Additionally generate: (a) a BATCH COMPILATION TEMPLATE — a reusable
+structure allowing rapid compilation of many shots by simply substituting
+per-shot variables while preserving the priority-ordering and
+compression logic established here, (b) a CROSS-PLATFORM VARIANT SET —
+the same shot compiled for 2-3 different target platforms simultaneously,
+for comparison testing or platform-specific strength exploitation, (c) a
+FAILURE MODE LIBRARY documenting common generation failures observed for
+this shot type/platform combination and their corrective prompt
+adjustments, (d) a VERSION HISTORY LOG tracking iterative refinements to
+this specific shot's compiled prompt across multiple generation attempts,
+useful for understanding what specific phrasing changes improved results."
+
+================================================================================
+COMPATIBILITY: This is the master compilation point for Sora, Veo, Kling,
+Runway, Pika, Luma, Hailuo. Also generates well-structured input reference
+material useful for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek if used
+to further refine or troubleshoot generation prompts.
+PIPELINE POSITION: Requires outputs from Files 03, 05, 06, 07, 08, 09, 10,
+12 (if applicable), 14 for the specific shot being compiled.
+Feeds into: 17_Negative_Prompt_Master.txt (paired generation), 18_
+Quality_&_Consistency_Checker.txt
+================================================================================

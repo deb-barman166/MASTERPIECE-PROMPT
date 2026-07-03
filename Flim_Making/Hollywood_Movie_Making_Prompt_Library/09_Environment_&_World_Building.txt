@@ -1,0 +1,264 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 09: ENVIRONMENT & WORLD BUILDING
+================================================================================
+
+TITLE
+-----
+The World Consistency Engine — Location, Set & World Rules Bible Generator
+
+PURPOSE
+-------
+Produce a locked, reusable "location bible" for every significant setting
+in a project — the environmental equivalent of File 03's Character Design.
+Solves the same core problem (AI generation drift) but for PLACES instead
+of PEOPLE: a location must look, feel, and behave consistently every time
+it reappears across a multi-scene project, and for speculative genres,
+world rules (technology level, physics, culture) must remain internally
+consistent throughout.
+
+PROMPT FORMULA
+---------------
+[LOCATION IDENTITY] + [ARCHITECTURAL/NATURAL SPECIFICATION] + [SCALE &
+GEOGRAPHY] + [SENSORY SIGNATURE] + [LIGHTING DEFAULT CONDITIONS] +
+[INHABITANT/ACTIVITY LOGIC] + [WORLD RULES IF SPECULATIVE] + [CONSISTENCY
+TOKEN]
+
+Master formula string:
+
+"Design a complete location bible for {LOCATION_NAME}, appearing in
+{SCENE_COUNT} scenes of {PROJECT_TITLE}. Type: {LOCATION_TYPE}.
+Architectural/natural specification: {STRUCTURE_DESCRIPTION}, era/style
+{ERA_STYLE}, condition {CONDITION}. Scale: {SCALE_IMPRESSION}, geography
+{GEOGRAPHIC_CONTEXT}. Sensory signature: dominant colors
+{COLOR_SIGNATURE}, key materials/textures {MATERIALS}, ambient sound
+{AMBIENT_SOUND_DEFAULT}, smell/atmosphere implied {ATMOSPHERE_IMPLIED}.
+Default lighting conditions: {DEFAULT_LIGHT_LOGIC}. Inhabitant/activity
+logic: who/what populates this space and how {INHABITANT_LOGIC}. World
+rules (if speculative): {WORLD_RULES}. Generate a locked CONSISTENCY TOKEN
+— a compressed 40-60 word reusable description for this location, to
+paste verbatim into every future scene set here."
+
+VARIABLES
+---------
+LOCATION_NAME            = the location's identifier
+SCENE_COUNT              = how many scenes use this location
+PROJECT_TITLE            = inherited from File 06
+LOCATION_TYPE            = "interior — built/architectural" | "exterior —
+                            urban" | "exterior — natural" | "interior —
+                            natural/found space" | "speculative/
+                            constructed world"
+STRUCTURE_DESCRIPTION    = detailed physical description of the space's
+                            architecture or natural formation
+ERA_STYLE                = time period and design style
+CONDITION                = "pristine/new" | "worn/lived-in" | "decayed/
+                            abandoned" | "under construction/transitional"
+SCALE_IMPRESSION         = how large/small the space feels, and why
+                            (ceiling height, openness, density)
+GEOGRAPHIC_CONTEXT       = where this fits in the broader world (climate,
+                            region, relationship to other locations in the
+                            story)
+COLOR_SIGNATURE          = dominant palette of this specific location
+                            (distinct from but harmonious with the
+                            project-wide Cinematography identity, File 06)
+MATERIALS                = key surfaces/textures present (concrete, wood
+                            grain, glass, rust, fabric)
+AMBIENT_SOUND_DEFAULT    = baseline soundscape of this location when
+                            "nothing is happening" — feeds File 13
+ATMOSPHERE_IMPLIED       = non-visual sensory implication (must be
+                            conveyed visually — e.g. "implies must and
+                            dust" through visible particulate in light
+                            shafts)
+DEFAULT_LIGHT_LOGIC      = the location's natural/practical light
+                            behavior across a typical day, informing File
+                            07's scene-specific lighting choices
+INHABITANT_LOGIC         = who/what normally occupies this space, their
+                            typical density/behavior pattern
+WORLD_RULES              = for speculative fiction: technology level,
+                            physical laws, social/political structure
+                            relevant to this specific location — must
+                            remain consistent with the project's overall
+                            world logic
+
+INPUT STRUCTURE
+----------------
+LOCATION_NAME: <required>
+LOCATION_TYPE: <required>
+SCENE_COUNT + WHICH_SCENES: <required, cross-reference File 04>
+STRUCTURE_DESCRIPTION: <required>
+COLOR_SIGNATURE: <required, should relate to but not duplicate File 06's
+  project-wide palette>
+WORLD_RULES: <required only if GENRE from File 01 is speculative
+  fiction/sci-fi/fantasy>
+
+OUTPUT STRUCTURE
+-----------------
+1. LOCATION SNAPSHOT (name, type, one-line essence)
+2. ARCHITECTURAL/NATURAL SPECIFICATION SHEET (full physical description,
+   itemized)
+3. SENSORY SIGNATURE (color, materials, sound, implied atmosphere)
+4. DEFAULT LIGHTING LOGIC (baseline light behavior, time-of-day variants)
+5. INHABITANT/ACTIVITY LOGIC (who populates it, typical behavior)
+6. WORLD RULES (if applicable — technology, physics, social structure
+   specific to this location)
+7. CONSISTENCY TOKEN — the critical output: 40-60 word compressed
+   description for verbatim reuse
+8. SCENE VARIANT NOTES (how this location should visually shift under
+   different story conditions — different times of day, weather,
+   emotional context — while remaining recognizably the same place)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- The Consistency Token must be as specific and unambiguous as a
+  Character Consistency Token — vague location descriptions drift across
+  multiple AI generations exactly as vague character descriptions do.
+- Every location must have an internally consistent DEFAULT_LIGHT_LOGIC —
+  if a room has windows on one side, that must remain true and be
+  respected in every future scene set there, regardless of which specific
+  lighting mood File 07 applies for a given scene's emotional needs.
+- For recurring locations, track exactly which physical layout elements
+  are LOCKED (unchangeable — the room's basic geometry, fixed architecture)
+  versus FLEXIBLE (can vary — clutter state, occupancy, weather visible
+  through windows) to prevent both drift AND unnecessary rigidity.
+- World rules for speculative genres must be established ONCE at the
+  first location that requires them and then referenced (never
+  re-invented) at every subsequent location — inconsistent world rules
+  are one of the fastest ways to break audience trust in genre fiction.
+- Scale impression must be consistent with the story's needs — a location
+  meant to feel oppressive/confining should maintain that scale
+  impression even when composition (File 08) or camera choice (File 05)
+  varies shot-to-shot.
+- Distinguish clearly between locations that should feel similar
+  (reinforcing a thematic connection) and locations that must feel
+  DISTINCT from one another (avoiding viewer confusion about where a
+  scene is taking place) — cross-check new location designs against
+  previously generated ones in the project.
+
+BEST PRACTICES
+----------------
+- Generate a location bible for every setting that appears in 2+ scenes
+  before generating any individual scene content — treat this the same
+  way you'd treat Character Design, as foundational pre-production work
+  rather than something to improvise scene-by-scene.
+- For single-use locations (appearing in only one scene), a lighter-weight
+  version of this template is acceptable — full World Rules and Scene
+  Variant Notes sections can be abbreviated or skipped, but the
+  Consistency Token should still be generated for internal consistency
+  within that scene's multiple shots.
+- Cross-reference every location's COLOR_SIGNATURE against every other
+  location in the project to ensure locations are visually distinguishable
+  from one another, especially in projects with several similar space
+  types (e.g. multiple office/interior settings).
+- When world-building for speculative fiction, resist over-explaining —
+  establish only the rules that will actually be visually or narratively
+  relevant; excessive unused world-building detail dilutes focus without
+  adding generation value.
+- Maintain a running "location index" across a project the same way you'd
+  maintain a character index — this becomes essential for continuity
+  checking as a project scales beyond a handful of scenes.
+
+EXAMPLE INPUT
+---------------
+LOCATION_NAME: Disinformation Response Unit Bullpen
+LOCATION_TYPE: Interior — built/architectural (modern office/government
+facility)
+SCENE_COUNT + WHICH_SCENES: Scenes 1-2, possibly recurring later
+STRUCTURE_DESCRIPTION: Open-plan office floor, low-partition cubicle
+clusters, wall of monitors displaying real-time data visualization at one
+end, drop ceiling with fluorescent panel lighting throughout
+COLOR_SIGNATURE: Cool grays and institutional blues, punctuated by the
+warm data-visualization glow from the monitor wall
+WORLD_RULES: Near-future setting, technology is recognizable/plausible
+extrapolation of current tech (not exotic sci-fi) — this is a grounded
+techno-thriller, not speculative far-future fiction
+
+EXAMPLE OUTPUT
+-----------------
+LOCATION SNAPSHOT: The Disinformation Response Unit Bullpen — a modern,
+institutional open-office space where human isolation persists despite
+(or because of) constant digital connectivity.
+
+ARCHITECTURAL SPECIFICATION SHEET:
+- Layout: Open-plan floor, low-partition cubicle clusters (partitions
+  approximately chest-height, allowing visual sightlines across the
+  space), no private offices visible in the main bullpen area
+- Monitor wall: One end of the room dominated by a large-format data
+  visualization display, tracking viral content spread in real time
+  (established in File 02's screenplay text)
+- Ceiling: Standard drop ceiling, fluorescent panel grid, consistent even
+  coverage
+- Windows: Present but limited — a row of windows along one exterior
+  wall, providing secondary natural light that's largely overwhelmed by
+  the fluorescent baseline (LOCKED detail: windows exist on the wall
+  OPPOSITE the monitor wall)
+
+SENSORY SIGNATURE: Cool grays and institutional blues dominate furniture
+and wall color; warm amber/red data-visualization glow from the monitor
+wall provides the only significant warm color note in the space,
+functioning almost like a hearth/focal point despite its clinical
+purpose. Materials: laminate desk surfaces, fabric cubicle partitions,
+industrial carpet tile flooring. Ambient sound default: keyboard
+clatter, HVAC hum, occasional distant phone conversation, notably absent
+of any personal/social chatter (reinforcing isolation). Implied
+atmosphere: recycled air, the faint ozone smell of many active
+electronics (conveyed visually through the slightly hazy quality of light
+under fluorescent panels).
+
+DEFAULT LIGHTING LOGIC: Fluorescent-dominant baseline year-round due to
+limited window exposure and the deliberate design choice of overhead
+even-coverage lighting typical of institutional spaces. Windows (LOCKED
+position: wall opposite monitor wall) provide secondary light that
+shifts with time of day but never becomes the dominant source. Monitor
+wall provides a secondary, colored light source affecting anyone near
+that end of the room.
+
+INHABITANT/ACTIVITY LOGIC: Populated by analysts at varying density
+(sparse during off-hours, fuller during active incidents), typically
+working in isolated focus rather than collaborative clusters — reinforces
+the location's thematic function.
+
+WORLD RULES: Near-future, plausible technology extrapolation — the
+monitor wall's data visualization should look like a natural evolution of
+current dashboard/monitoring technology, not exotic or fantastical.
+Grounded realism is the genre requirement throughout.
+
+CONSISTENCY TOKEN (40-60 words): "Disinformation Response Unit Bullpen:
+open-plan modern office, low cubicle partitions, large data-visualization
+monitor wall on one end glowing warm amber-red, windows on opposite wall,
+fluorescent panel ceiling lighting, cool gray-blue color palette,
+laminate desks, industrial carpet, institutional near-future government
+facility aesthetic."
+
+SCENE VARIANT NOTES: Time of day affects secondary window light only
+(LOCKED fluorescent baseline never changes). Occupancy density can vary
+per scene's narrative needs (empty for late-night scenes, full for
+active-incident scenes) without altering the fixed architecture.
+
+ADVANCED VERSION
+-------------------
+For projects with complex speculative world-building or many interconnected
+locations, extend with:
+
+"Additionally generate: (a) a WORLD MAP RELATIONSHIP NOTE describing how
+this location physically/geographically relates to other established
+locations in the project, (b) a full DAY-CYCLE LIGHTING VARIANT SET
+showing this location's appearance at dawn/midday/dusk/night if the story
+requires multiple time-of-day visits, (c) an ENVIRONMENTAL STORYTELLING
+LEDGER cataloguing background details that convey story information
+without dialogue (props, wear patterns, signage) for production designers
+or AI generation detail requests, (d) explicit PLATFORM CONSISTENCY NOTES
+for {TARGET_AI_MODEL: Sora/Veo/Kling/Runway/Pika/Luma/Hailuo} on
+maintaining architectural consistency across multiple separate generation
+calls returning to this same location, including recommended reference-
+image strategies if the platform supports image-conditioned generation."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for location bible generation. CONSISTENCY TOKEN engineered for reuse
+across Sora, Veo, Kling, Runway, Pika, Luma, Hailuo generation calls
+whenever this location reappears.
+PIPELINE POSITION: Requires 01_Story_Generator.txt setting context and
+06_Cinematography.txt project palette.
+Feeds into: 04_Scene_Generator.txt, 07_Lighting_Master.txt,
+16_Video_Generation_Master.txt
+================================================================================

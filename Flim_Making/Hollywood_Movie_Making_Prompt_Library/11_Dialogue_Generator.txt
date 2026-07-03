@@ -1,0 +1,283 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 11: DIALOGUE GENERATOR
+================================================================================
+
+TITLE
+-----
+The Voice-Distinct Dialogue Engine — Subtext-Driven Speech Generation
+System
+
+PURPOSE
+-------
+Generate dialogue that is voice-distinct per character, subtext-driven
+rather than on-the-nose, and functionally efficient (every line earning
+its place). This template exists because generic AI-generated dialogue
+tends toward two failure modes: characters who all sound identical, and
+dialogue that states emotional/plot information directly instead of
+implying it. This template forces both voice distinction and subtext
+discipline simultaneously.
+
+PROMPT FORMULA
+---------------
+[SCENE/BEAT CONTEXT] + [CHARACTERS PRESENT + VOICE ANCHORS] + [SCENE GOAL/
+CONFLICT] + [WHAT EACH CHARACTER WANTS FROM THE EXCHANGE] + [SUBTEXT LAYER]
++ [DIALOGUE CONSTRAINTS] + [RHYTHM/PACING] + [OUTPUT FORMAT]
+
+Master formula string:
+
+"Write dialogue for {SCENE_BEAT_CONTEXT} between {CHARACTERS_PRESENT},
+using established voice anchors: {VOICE_ANCHORS}. Scene goal: each
+character enters this exchange wanting {CHARACTER_A_WANTS} /
+{CHARACTER_B_WANTS} respectively — these wants should be in tension or
+conflict. Subtext: what's actually being negotiated beneath the surface
+topic is {SUBTEXT_TOPIC}; characters should rarely if ever state this
+directly. Constraints: no line may exceed {MAX_LINE_LENGTH}, avoid
+exposition the audience can already see, avoid stating emotions directly
+('I'm angry') in favor of behavior/implication, pass the 'cover the names'
+test. Rhythm: {PACING_STYLE} — {INTERRUPTION_PATTERN}. The exchange must
+end with {END_STATE} — a change in the power/emotional dynamic from where
+it started."
+
+VARIABLES
+---------
+SCENE_BEAT_CONTEXT      = pulled from File 04
+CHARACTERS_PRESENT      = all speaking characters in this exchange
+VOICE_ANCHORS           = each character's distinct speech pattern
+                           descriptor, pulled from File 02/03 (e.g.
+                           "MARCUS: clipped, avoids contractions under
+                           stress, answers questions with questions when
+                           deflecting")
+CHARACTER_X_WANTS       = what each character is trying to get out of
+                           THIS SPECIFIC conversation (information,
+                           reassurance, control, escape) — distinct from
+                           their overall story Want (File 01)
+SUBTEXT_TOPIC           = the real, unstated subject of the conversation
+                           beneath its surface topic
+MAX_LINE_LENGTH         = word/character constraint per line, keeps
+                           dialogue punchy and filmable (Hollywood
+                           dialogue rarely runs long unbroken speeches
+                           except for deliberate monologue moments)
+PACING_STYLE            = "rapid-fire/overlapping" | "measured, weighted
+                           pauses" | "escalating tempo" | "deliberately
+                           mismatched (one character rushes, one stalls)"
+INTERRUPTION_PATTERN    = whether/how characters interrupt each other, and
+                           what that reveals about the power dynamic
+END_STATE               = how the power/emotional dynamic between
+                           characters should have shifted by the exchange's
+                           end
+GENRE_DIALOGUE_NORM     = inherited from File 01, affects acceptable
+                           stylization level (naturalistic drama vs. more
+                           heightened genre dialogue)
+
+INPUT STRUCTURE
+----------------
+SCENE_BEAT_CONTEXT: <required, from File 04>
+CHARACTERS_PRESENT + VOICE_ANCHORS: <required, from File 02/03>
+CHARACTER_WANTS (per character): <required>
+SUBTEXT_TOPIC: <required>
+END_STATE: <required>
+MAX_LINE_LENGTH: <optional, default = "1-2 sentences typical, occasional
+  single word/fragment for punch">
+
+OUTPUT STRUCTURE
+-----------------
+1. EXCHANGE SETUP (scene context, characters, individual wants restated)
+2. SUBTEXT MAP (surface topic vs. real topic, explicitly distinguished)
+3. FORMATTED DIALOGUE EXCHANGE (character cue + line, following standard
+   screenplay dialogue format, with sparse parentheticals only where
+   genuinely necessary)
+4. POWER DYNAMIC TRACKING (brief note on how control of the conversation
+   shifts line-by-line or in clusters)
+5. VOICE DISTINCTION AUDIT (confirms each character's lines are
+   attributable without cues — the "cover the names" test, explicitly
+   performed)
+6. SUBTEXT COMPLIANCE CHECK (confirms no line directly states the
+   emotional/subtext information that should remain implied)
+7. END STATE CONFIRMATION (how the final lines demonstrate the required
+   shift in dynamic)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Every character must have at least ONE distinguishing verbal habit
+  (word choice, sentence length tendency, question-vs-statement ratio,
+  contraction use) that remains consistent throughout the exchange and
+  across the whole project — cross-reference File 02/03 voice anchors and
+  never contradict them.
+- Dialogue must never be the primary vehicle for information the audience
+  can see (from File 04's blocking/action) or already knows — if a line's
+  only function is relaying visible information, cut it or find its
+  subtext function instead.
+- Characters should rarely directly ask for what they want in
+  emotionally loaded scenes — real conversational subtext involves
+  characters talking AROUND the real issue, using a surface topic as a
+  proxy battleground. Only allow direct statement of want in scenes
+  specifically depicting a character's breakthrough moment of honesty
+  (and even then, sparingly).
+- Interruptions, silences, and incomplete sentences are as valuable as
+  complete lines — Hollywood-grade dialogue uses naturalistic speech
+  patterns including trailing off, talking over each other, and
+  non-answers, not just clean question-answer exchanges.
+- Every exchange must have a clear power dynamic that SHIFTS — if
+  character A has control at the start and character A still has
+  identical control at the end, the scene lacks dramatic movement and
+  should be revised.
+- Match dialogue density to genre and moment — some scenes call for
+  sparse, weighted dialogue with long silences implied; others call for
+  rapid-fire exchange. Never default to a uniform density across an entire
+  project.
+
+BEST PRACTICES
+----------------
+- Always run the "cover the names" test as an explicit, stated step in
+  the output, not just an internal check — this keeps the discipline
+  visible and catches voice-collapse errors before they compound across a
+  project.
+- Generate the Subtext Map BEFORE writing any actual dialogue lines —
+  dialogue written without a clear subtext plan tends to default to
+  on-the-nose statement, which is exactly the failure mode this template
+  exists to prevent.
+- For dialogue-heavy scenes, consider generating TWO passes: a first pass
+  focused purely on getting the subtext and power dynamic right (even if
+  the actual words are rough), then a second pass polishing word choice
+  and voice distinction — trying to nail both simultaneously often
+  produces weaker results than sequential passes.
+- Cross-reference File 10 (Emotion & Acting) for any beat where dialogue
+  and performance occur together — a line's delivery (per File 10) should
+  never contradict its subtext (e.g. a line stating calm confidence
+  delivered with a performance note indicating suppressed panic is a
+  powerful combination; make sure the two templates' outputs are read
+  together, not generated in isolation).
+- When a scene's dialogue reveals it isn't actually necessary (the beat
+  works better in silence, per File 04's blocking), don't force dialogue
+  to exist — flag this explicitly and recommend a dialogue-free
+  performance beat instead.
+
+EXAMPLE INPUT
+---------------
+SCENE_BEAT_CONTEXT: A later scene (not yet fully outlined) — Marcus
+confronts his daughter directly for the first time
+CHARACTERS_PRESENT: Marcus, his daughter ELENA (23, sharp, wounded
+idealism beneath practiced calm)
+VOICE_ANCHORS: MARCUS — clipped, avoids contractions under stress,
+answers questions with questions when deflecting. ELENA — fast, precise,
+uses technical/data language as emotional armor, drops the jargon
+entirely in moments of real vulnerability.
+CHARACTER_WANTS: Marcus wants confirmation she understands the danger
+she's in. Elena wants him to admit he's actually there because he cares,
+not because it's protocol.
+SUBTEXT_TOPIC: Whether Marcus is capable of loving her without treating
+her like a security threat
+END_STATE: Elena forces a moment of unguarded honesty from Marcus for the
+first time in years, even if brief
+
+EXAMPLE OUTPUT
+-----------------
+EXCHANGE SETUP: Marcus arrives at Elena's apartment. Surface topic: the
+security risk of her actions. Real topic: whether he sees her as a
+daughter or a case file.
+
+SUBTEXT MAP: Surface — Marcus interrogating the technical/legal danger of
+what Elena built. Real topic — Elena testing whether he's capable of
+seeing her as anything other than a threat to be managed, the same way he
+manages every other threat.
+
+FORMATTED DIALOGUE EXCHANGE:
+
+                    MARCUS
+          You understand what you've
+          triggered.
+
+                    ELENA
+          I understand exactly what I've
+          triggered. Question is whether
+          you're here to shut it down or
+          because you actually—
+
+She stops herself.
+
+                    MARCUS
+          Because I actually what.
+
+                    ELENA
+          Nothing. Forget it.
+
+                    MARCUS
+          Elena.
+
+                    ELENA
+          It's fine. This is fine. You run
+          the assessment, I get the
+          report, we both go back to
+          pretending this is a normal
+          Tuesday.
+
+                    MARCUS
+          Is that what you want?
+
+                    ELENA
+                    (finally dropping the armor)
+          I want you to answer the
+          question you keep dodging.
+
+A long beat. Marcus doesn't answer immediately — and that silence says
+more than a denial would.
+
+                    MARCUS
+          I am not here on assignment.
+
+It's the most direct thing he's said all conversation.
+
+POWER DYNAMIC TRACKING: Marcus opens with interrogative control
+("You understand..."). Elena briefly seizes control by almost naming the
+subtext directly, then retreats defensively when he calls her on it —
+control oscillates. The final exchange inverts the dynamic entirely: Elena
+forces the confrontation, and Marcus's uncharacteristic directness ("I am
+not here on assignment") represents total capitulation of his usual
+deflection pattern — she wins control of the conversation by winning
+honesty from him.
+
+VOICE DISTINCTION AUDIT: Marcus — clipped, avoids contractions
+("I am not," not "I'm not") especially in the final, most vulnerable line,
+consistent with his established stress-pattern. Elena — faster, uses a
+mix of clinical distancing ("the assessment," "the report") and then
+sudden emotional directness when armor drops, consistent with her
+established pattern. Confirmed distinguishable without character cues.
+
+SUBTEXT COMPLIANCE CHECK: Confirmed — neither character directly states
+"I love you" or "I only see you as a threat." The emotional information is
+entirely carried through Elena's interrupted sentence, Marcus's evasive
+question-answering, and the loaded silence before his final line.
+
+END STATE CONFIRMATION: Marcus's final line ("I am not here on
+assignment") is the first unguarded, non-deflecting statement he's made —
+directly fulfilling Elena's want (forcing honesty) and representing
+genuine movement in a dynamic that opened with him in full interrogative
+control.
+
+ADVANCED VERSION
+-------------------
+For complex multi-character scenes or dialogue requiring maximum
+naturalism, extend with:
+
+"Additionally generate: (a) an ALTERNATE VERSION at a different
+PACING_STYLE for editorial comparison (e.g. a faster, more clipped
+version of the same exchange versus the original's more measured pace),
+(b) a THIRD-CHARACTER REACTION LAYER if a silent/listening character is
+present, describing how their unspoken presence affects the dialogue's
+tension, (c) a TABLE READ NOTE flagging any line that might not land as
+written and offering one alternate phrasing, (d) explicit VOICE
+SYNTHESIS/TTS DELIVERY NOTES for {TARGET_PLATFORM} if this dialogue will
+be paired with AI voice generation, specifying pacing, emphasis, and pause
+points using standard notation for downstream voice synthesis tools."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for dialogue generation. Formatted output feeds directly into voice
+synthesis tools and Sora, Veo, Kling, Runway, Pika, Luma, Hailuo lip-
+sync/performance generation via File 16.
+PIPELINE POSITION: Requires 02_Screenplay_Generator.txt voice anchors and
+04_Scene_Generator.txt beat context.
+Feeds into: 10_Emotion_&_Acting.txt (cross-reference), 13_Sound_&_
+Music.txt, 16_Video_Generation_Master.txt
+================================================================================

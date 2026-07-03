@@ -1,0 +1,262 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 13: SOUND & MUSIC
+================================================================================
+
+TITLE
+-----
+The Sonic Architecture Engine — Diegetic Sound, Score & Sound Design
+Specification System
+
+PURPOSE
+-------
+Design the complete audio layer for a scene — diegetic sound (sound that
+exists within the story world), non-diegetic score (music the audience
+hears but characters don't), and sound design (constructed sonic textures
+that heighten mood/tension) — all working together to serve the story
+established across every prior template. Sound is frequently treated as
+an afterthought in AI filmmaking workflows; this template ensures it's
+specified with the same rigor as visual elements.
+
+PROMPT FORMULA
+---------------
+[SCENE/BEAT CONTEXT] + [DIEGETIC SOUND LAYER] + [SCORE/MUSIC LAYER] +
+[SOUND DESIGN LAYER] + [SILENCE AS TOOL] + [MIX PRIORITY] + [EMOTIONAL
+FUNCTION] + [TRANSITION BEHAVIOR]
+
+Master formula string:
+
+"Design the audio for {SCENE_BEAT_CONTEXT}. Diegetic sound layer:
+{DIEGETIC_SOUNDS} at {DIEGETIC_LEVEL}, sourced from
+{ENVIRONMENT_CONSISTENCY_TOKEN}. Score/music layer: {MUSICAL_APPROACH},
+instrumentation {INSTRUMENTATION}, tempo/energy {TEMPO_ENERGY}, entering
+at {SCORE_ENTRY_POINT} and {SCORE_BEHAVIOR_ACROSS_BEAT}. Sound design
+layer: {CONSTRUCTED_SOUND_ELEMENTS} serving {SOUND_DESIGN_FUNCTION}.
+Silence: {SILENCE_USAGE} at {SILENCE_MOMENT}, serving
+{SILENCE_FUNCTION}. Mix priority: {MIX_HIERARCHY} — ensure
+{PRIORITY_ELEMENT} remains audible above all other layers when present.
+Emotional function: this audio must make the audience feel
+{TARGET_EMOTION} without the visual alone achieving it. Transition:
+{TRANSITION_TYPE} into/out of adjacent scenes."
+
+VARIABLES
+---------
+SCENE_BEAT_CONTEXT       = pulled from File 04
+DIEGETIC_SOUNDS          = actual in-world sounds (footsteps, dialogue,
+                            ambient room tone, mechanical sounds) —
+                            cross-reference File 09's AMBIENT_SOUND_
+                            DEFAULT for the location
+DIEGETIC_LEVEL           = relative volume/presence in the mix
+ENVIRONMENT_CONSISTENCY_TOKEN = pulled from File 09, ensures sound matches
+                            established location
+MUSICAL_APPROACH         = "score present, subtle/underscoring" | "score
+                            present, prominent/driving" | "no score,
+                            diegetic-only" | "source music (music that
+                            exists within the story world, e.g. a radio)"
+INSTRUMENTATION          = specific instrument palette (e.g. "sparse
+                            piano and low string drone" not just "sad
+                            music")
+TEMPO_ENERGY             = pace and intensity of the musical approach
+SCORE_ENTRY_POINT        = the specific moment within the beat where
+                            score begins (never arbitrary — should be
+                            motivated by a story beat)
+SCORE_BEHAVIOR_ACROSS_BEAT = how the score evolves during the beat
+                            (builds, sustains, drops out, resolves)
+CONSTRUCTED_SOUND_ELEMENTS = non-naturalistic sound design choices that
+                            heighten mood (a subtle low-frequency rumble
+                            under tension, a hyper-real amplified detail
+                            sound) — distinct from pure diegetic realism
+SOUND_DESIGN_FUNCTION    = what psychological/narrative job the
+                            constructed sound elements do
+SILENCE_USAGE            = "hard silence (complete audio drop)" | "near-
+                            silence (minimal room tone only)" | "not used
+                            this beat"
+SILENCE_MOMENT           = the specific point where silence is deployed,
+                            if used
+SILENCE_FUNCTION         = why silence is being used here (emphasis,
+                            dread, arrested attention)
+MIX_HIERARCHY            = which audio layer takes priority when multiple
+                            elements compete (typically dialogue > key
+                            sound design element > score > ambient
+                            diegetic, but can be deliberately inverted for
+                            effect)
+PRIORITY_ELEMENT         = the single most important audio element in
+                            this specific beat
+TARGET_EMOTION           = pulled from File 04's beat-level emotional
+                            temperature and File 10's performance
+                            direction
+TRANSITION_TYPE          = "hard cut" | "cross-fade" | "score bridges the
+                            cut" | "sound effect bridges the cut (a sound
+                            that starts in one scene and completes in the
+                            next)"
+
+INPUT STRUCTURE
+----------------
+SCENE_BEAT_CONTEXT: <required, from File 04>
+ENVIRONMENT_CONSISTENCY_TOKEN: <required, from File 09>
+TARGET_EMOTION: <required, from File 04/10>
+MUSICAL_APPROACH: <required>
+MIX_HIERARCHY: <optional, default = "dialogue priority, all else
+  subordinate">
+
+OUTPUT STRUCTURE
+-----------------
+1. DIEGETIC SOUND LAYER (itemized in-world sounds, sourced from
+   established environment)
+2. SCORE/MUSIC LAYER (approach, instrumentation, entry point, evolution
+   across the beat)
+3. SOUND DESIGN LAYER (constructed elements and their psychological
+   function)
+4. SILENCE STRATEGY (if used — placement and function)
+5. MIX HIERARCHY (explicit priority ordering for this beat)
+6. EMOTIONAL FUNCTION STATEMENT (what feeling this audio design achieves
+   that visuals alone don't)
+7. TRANSITION SPECIFICATION (how audio bridges into/out of adjacent
+   scenes)
+8. COMPILED AUDIO PROMPT LINE (dense, generation-ready description for
+   audio generation tools or as direction accompanying video generation)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Score entry must always be motivated by a specific story beat, never
+  arbitrary — music that starts "because the scene needs music" rather
+  than at a specific dramatic trigger point reads as generic and
+  undermines the emotional precision the rest of this pipeline has built.
+- Diegetic sound must be sourced from and consistent with the established
+  Environment (File 09) — never invent ambient sounds that contradict a
+  location's established sonic signature.
+- Silence is an active tool, not the absence of design — every deployment
+  of silence must have a stated function (dread, emphasis, arrested
+  attention) exactly like any other sound choice; unmotivated silence is
+  as much an error as unmotivated sound.
+- Mix hierarchy must be explicit for every beat with multiple competing
+  audio elements — never leave it ambiguous which element the audience's
+  attention should be drawn to.
+- Sound design elements should generally be felt rather than consciously
+  noticed by the audience — favor subtle, texturally integrated
+  constructed sound over obvious, attention-drawing effects unless the
+  moment specifically calls for an audible sonic event.
+- Avoid "mickey-mousing" (score that literally mimics on-screen action
+  beat-for-beat in an obvious, cartoonish way) unless the genre
+  specifically calls for that heightened style — Hollywood-grade scoring
+  generally works more subtly, supporting emotional truth rather than
+  illustrating physical action.
+
+BEST PRACTICES
+----------------
+- Generate Sound & Music after Emotion & Acting (File 10) and Dialogue
+  (File 11) are locked for a given beat — audio design should respond to
+  and enhance the performance/dialogue choices already made, not be
+  generated in isolation and risk working against them.
+- Build a project-wide "sonic identity" document (similar to File 06's
+  Cinematography identity) early in a project — establish a consistent
+  scoring palette/instrumentation approach that can flex per scene while
+  remaining recognizably unified across the whole piece.
+- Use the Mix Hierarchy specification as a discipline tool even for
+  simple scenes — explicitly stating "dialogue priority" even when
+  obvious prevents the habit of leaving audio relationships unspecified
+  in more complex scenes later.
+- Cross-reference every SCORE_ENTRY_POINT against File 04's beat
+  breakdown to confirm it aligns with an actual emotional turn in the
+  scene, not just a scene boundary.
+- For AI generation pipelines that separate visual and audio generation,
+  ensure the COMPILED AUDIO PROMPT LINE explicitly references timing
+  relative to the visual beat structure so the two can be synchronized
+  in post.
+
+EXAMPLE INPUT
+---------------
+SCENE_BEAT_CONTEXT: Scene 2, Beats 1-3 — Marcus reading the trace results
+and the aborted photo-frame reach
+ENVIRONMENT_CONSISTENCY_TOKEN: [Bullpen token from File 09]
+TARGET_EMOTION: Controlled shock cracking into suppressed vulnerability,
+then forced composure
+MUSICAL_APPROACH: Score present, subtle/underscoring — this is a
+restrained, internal moment, not one that should be musically overstated
+
+EXAMPLE OUTPUT
+-----------------
+DIEGETIC SOUND LAYER: Per File 09's established ambient signature —
+keyboard clatter from distant desks (reduced/receded per File 04 Beat 1's
+"recession" note), HVAC hum, the electronic hum of Marcus's own dual
+monitors (closer, more present than the distant bullpen sounds). No
+dialogue in this sequence.
+
+SCORE/MUSIC LAYER: Sparse, subtle underscoring — a single sustained low
+string note (cello, close to its lowest register) enters precisely at
+Beat 1's midpoint, the exact moment Marcus's eyes register the resolved
+address. Instrumentation: solo cello only, no other instruments, no
+percussion, no harmonic movement — a static, held tone rather than a
+melodic phrase. Tempo/energy: near-static, barely perceptible bow
+pressure variation. Behavior across the beat: the note sustains
+continuously through Beats 1 and 2, developing a barely perceptible
+tremolo (bow shake) precisely as his hand begins its aborted reach in
+Beat 2, then resolves — a single subtle downward pitch bend, not a full
+release — as composure reasserts in Beat 3.
+
+SOUND DESIGN LAYER: The "recession" of ambient bullpen noise established
+in File 04 Beat 1 should be achieved partly through sound design rather
+than pure diegetic realism — a subtle low-pass filter effect making
+distant sounds feel muffled/far away, as if Marcus's own perception is
+narrowing. This serves the function of putting the audience inside his
+subjective experience without any visual point-of-view shot being
+necessary.
+
+SILENCE STRATEGY: Not full silence, but the described "recession" creates
+a near-silence quality relative to Scene 1's fuller ambient bullpen sound.
+Function: isolates Marcus psychologically from his environment at the
+exact moment his composure is tested.
+
+MIX HIERARCHY: Priority order: (1) the sustained cello note — this is the
+emotional throughline of the sequence and must remain clearly audible
+throughout, (2) Marcus's own monitor hum (close, personal, isolating),
+(3) the receded/filtered distant bullpen ambience (present but
+subordinate).
+
+EMOTIONAL FUNCTION STATEMENT: The sustained cello note does the emotional
+work that Marcus's restrained performance (File 10) can't fully carry
+alone — it gives the audience access to the internal intensity beneath
+his controlled exterior, without requiring him to visibly "act" more than
+his established restraint allows.
+
+TRANSITION SPECIFICATION: The cello note's final subtle pitch-bend
+resolution should occur just before the cut to the next scene, functioning
+as a score bridge — the emotional "settling" the note performs should
+feel connected to, not abruptly cut off from, whatever follows.
+
+COMPILED AUDIO PROMPT LINE: "Sparse ambient office soundscape with
+distant keyboard clatter and HVAC hum, filtered/muffled to suggest
+narrowing perception, close electronic monitor hum. Single sustained low
+cello note enters at the moment of recognition, develops subtle tremolo
+during the hand's aborted movement, resolves with a gentle downward pitch
+bend as composure returns. No dialogue, no percussion, minimal harmonic
+movement — restrained, internal scoring."
+
+ADVANCED VERSION
+-------------------
+For complex multi-scene scoring or full sequence sound design, extend
+with:
+
+"Additionally generate: (a) a PROJECT-WIDE MOTIF NOTE if this musical
+material should recur/develop as a leitmotif across later scenes tied to
+this character or theme, (b) a FULL FREQUENCY SPECTRUM MAP noting which
+frequency ranges each audio layer occupies to prevent mix conflicts
+(especially important when dialogue, score, and sound design compete for
+similar frequency space), (c) a TEMP-TRACK REFERENCE NOTE describing the
+general sonic tradition/tonal reference this score draws from (for
+calibration only, never for direct copying, and never naming specific
+copyrighted compositions to replicate), (d) explicit AUDIO GENERATION
+PLATFORM NOTES for whichever AI audio/music generation tool is being
+used, phrased in that tool's known effective prompt conventions as of
+current best practice, including how to specify the precise timing
+synchronization needed against the visual beat structure from File 05."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for audio design specification. Compiled Prompt Lines are formatted for
+use with AI music/audio generation tools and as synchronized direction
+alongside Sora, Veo, Kling, Runway, Pika, Luma, Hailuo visual generation.
+PIPELINE POSITION: Requires 04_Scene_Generator.txt, 09_Environment_&_
+World_Building.txt, 10_Emotion_&_Acting.txt.
+Feeds into: 15_Editing_&_Transitions.txt, 16_Video_Generation_Master.txt
+================================================================================

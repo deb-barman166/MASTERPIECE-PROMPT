@@ -1,0 +1,260 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 07: LIGHTING MASTER
+================================================================================
+
+TITLE
+-----
+The Motivated Light Design Engine — Complete Lighting Specification System
+
+PURPOSE
+-------
+Design precise, motivated lighting for any scene or shot — key/fill/rim
+ratios, practical source integration, shadow behavior, and mood-serving
+light quality — translated into language AI video models can render
+consistently. Lighting is the primary tool for conveying mood, time, and
+psychological state visually; this template ensures every light choice is
+deliberate, technically specific, and consistent with the Cinematography
+identity (File 06) and Environment (File 09) already established.
+
+PROMPT FORMULA
+---------------
+[SCENE/BEAT CONTEXT] + [MOTIVATING SOURCE] + [KEY LIGHT SPEC] + [FILL LIGHT
+SPEC] + [RIM/BACK LIGHT SPEC] + [SHADOW QUALITY] + [COLOR TEMPERATURE] +
+[MOOD FUNCTION] + [CONSISTENCY WITH CINEMATOGRAPHY IDENTITY]
+
+Master formula string:
+
+"Design lighting for {SCENE_BEAT_CONTEXT} within the established
+cinematographic identity: {CINEMATOGRAPHY_LOCKED_ELEMENTS}. Motivating
+source(s) visible or implied in-frame: {PRACTICAL_SOURCES}. Key light:
+{KEY_LIGHT_QUALITY} from {KEY_LIGHT_DIRECTION}, at {KEY_INTENSITY}. Fill
+light: {FILL_RATIO} relative to key, creating {CONTRAST_RESULT}. Rim/
+backlight: {RIM_PRESENCE}, {RIM_PURPOSE}. Shadow quality: {SHADOW_
+HARDNESS}, falling {SHADOW_DIRECTION}. Color temperature: {COLOR_TEMP}
+Kelvin-equivalent, {WARM_COOL_BALANCE}. This lighting must serve the mood
+function of {MOOD_FUNCTION} and remain motivated by {MOTIVATION_LOGIC} —
+never appearing as unmotivated 'movie lighting' unless the genre
+specifically calls for stylization."
+
+VARIABLES
+---------
+SCENE_BEAT_CONTEXT      = which scene/beat, pulled from File 04
+CINEMATOGRAPHY_LOCKED_ELEMENTS = pulled verbatim from File 06 output
+PRACTICAL_SOURCES       = actual visible/implied light sources in the
+                           world (window, lamp, monitor, fire, streetlight,
+                           sky) — the lighting design must be traceable to
+                           these unless deliberately expressionist
+KEY_LIGHT_QUALITY        = "hard/direct (sharp shadows, high contrast)" |
+                           "soft/diffused (gentle falloff, flattering)" |
+                           "mixed/textured"
+KEY_LIGHT_DIRECTION      = "front" | "3/4 front (classic portrait
+                           position)" | "side/split" | "back" | "top-down"
+                           | "under-lit (specify if motivated, e.g.
+                           monitor glow)"
+KEY_INTENSITY            = relative brightness description, tied to
+                           practical source logic (e.g. "bright as a
+                           single desk lamp would realistically cast")
+FILL_RATIO               = "high-key (fill nearly matches key, low
+                           contrast, minimal shadow)" | "low-key (fill
+                           much dimmer than key, deep shadows, high
+                           contrast)" | "no fill (natural falloff into
+                           near-black)"
+CONTRAST_RESULT          = describes the visual outcome of the key:fill
+                           relationship (e.g. "one side of the face
+                           fully lit, the other falling into near-total
+                           shadow")
+RIM_PRESENCE             = "present, subtle separation from background" |
+                           "present, strong dramatic edge" | "absent"
+RIM_PURPOSE              = why rim light exists here if present (subject
+                           separation, mood, motivated by an actual
+                           backlight source)
+SHADOW_HARDNESS          = "hard-edged (small/distant source or direct
+                           sun)" | "soft-edged (large/close source or
+                           overcast)"
+SHADOW_DIRECTION         = where shadows fall relative to subject, must be
+                           physically consistent with KEY_LIGHT_DIRECTION
+COLOR_TEMP               = specific Kelvin-equivalent (e.g. "2700K warm
+                           tungsten," "5600K neutral daylight," "6500K+
+                           cool/blue")
+WARM_COOL_BALANCE        = overall temperature mood descriptor, consistent
+                           with File 06's color temperature guidance for
+                           this scene
+MOOD_FUNCTION            = the psychological/narrative job this lighting
+                           does (e.g. "isolation," "false safety,"
+                           "interrogation pressure," "intimacy")
+MOTIVATION_LOGIC         = the in-world justification for why light
+                           behaves this way (critical — prevents
+                           "floating unmotivated light" errors common in
+                           AI generation)
+
+INPUT STRUCTURE
+----------------
+SCENE_BEAT_CONTEXT: <required, from File 04>
+CINEMATOGRAPHY_LOCKED_ELEMENTS: <required, from File 06>
+PRACTICAL_SOURCES: <required, from File 04's setting breakdown>
+MOOD_FUNCTION: <required>
+TIME_OF_DAY: <required, affects natural light logic if exterior/window-lit>
+GENRE: <required, affects whether stylized/unmotivated lighting is
+  permitted — horror and stylized genres have more latitude than realism-
+  grounded drama>
+
+OUTPUT STRUCTURE
+-----------------
+1. MOTIVATING SOURCE INVENTORY (every practical light source in the scene,
+   itemized, with realistic intensity/color/direction logic)
+2. THREE-POINT (OR MOTIVATED EQUIVALENT) BREAKDOWN — Key, Fill, Rim/Back,
+   each fully specified
+3. SHADOW BEHAVIOR (hardness, direction, what falls into shadow and why
+   that's meaningful)
+4. COLOR TEMPERATURE SPECIFICATION (Kelvin-equivalent, warm/cool balance,
+   consistency check against Cinematography identity)
+5. MOOD FUNCTION STATEMENT (explicit articulation of what this lighting
+   design is doing psychologically)
+6. MOTIVATION AUDIT (confirms every light choice traces back to a
+   practical source or deliberate, justified stylization)
+7. COMPILED LIGHTING PROMPT LINE (dense, generation-ready natural language
+   combining all specs)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Every light source must be motivated unless GENRE explicitly permits
+  expressionist/stylized lighting (certain horror, fantasy, or musical
+  sequences). Default assumption is realism-grounded motivation.
+- Shadow direction must be physically consistent with key light direction
+  — this is a common AI generation failure point (shadows falling in
+  directions inconsistent with the stated light source) and must be
+  explicitly specified to prevent it.
+- Color temperature choices must be cross-checked against File 06's
+  Cinematography identity — if File 06 established a "cold, clinical"
+  baseline, individual scene lighting must justify any deviation through
+  MOOD_FUNCTION and MOTIVATION_LOGIC, not contradict it arbitrarily.
+- Avoid "flat" lighting (high-key, minimal shadow, low contrast) for
+  anything except explicitly high-key genre contexts (broad comedy,
+  certain commercial aesthetics) — most Hollywood-grade dramatic lighting
+  uses meaningful shadow as an active compositional and emotional tool.
+- When multiple characters are in frame, specify whether they share the
+  same lighting setup or require individually differentiated treatment
+  (e.g. an interrogator lit harshly while the subject sits in softer,
+  more sympathetic light) — this differentiation is a powerful and
+  underused tool.
+- Practical source color must be realistic to its type (tungsten reads
+  warm/orange, fluorescent reads cool/green-tinted, monitor glow reads
+  cool-blue, candlelight reads very warm/amber) unless deliberately
+  filtered/gelled for effect, which should be stated explicitly.
+
+BEST PRACTICES
+----------------
+- Generate lighting AFTER Cinematography (File 06) and Environment (File
+  09) are locked, since lighting must respond to both the project's visual
+  identity and the specific physical space's available practical sources.
+- Build a lighting continuity reference for recurring locations — if a
+  scene returns to the same room, its established practical sources and
+  baseline lighting logic should carry forward unless time-of-day or
+  narrative circumstance justifies a change.
+- Use lighting shifts as a primary tool for tracking emotional arcs across
+  a scene or project — a gradual shift from soft/warm to hard/cool (or vice
+  versa) is one of the most reliable ways to communicate psychological
+  change without dialogue.
+- For AI video generation, be more explicit and mechanical in the Compiled
+  Lighting Prompt Line than you might be in natural filmmaking language —
+  specify actual direction, hardness, and color rather than relying on
+  mood words alone, since models respond more reliably to concrete
+  technical specification.
+- Cross-reference this file's shadow/contrast output against File 08
+  (Composition & Framing) — lighting and composition should work together
+  to guide the eye toward the same point of interest, not compete.
+
+EXAMPLE INPUT
+---------------
+SCENE_BEAT_CONTEXT: Scene 2, Beat 1-3, Marcus at his terminal
+CINEMATOGRAPHY_LOCKED_ELEMENTS: Digital clean base, moderate grain,
+classical balanced contrast, high dynamic range, fluorescent baseline
+color temperature with subtle warm-shift capability
+PRACTICAL_SOURCES: Overhead fluorescent panels (bullpen-wide), dual
+monitor glow (close, directional, cool-blue)
+MOOD_FUNCTION: Isolation and clinical detachment, with a flicker of
+warmth during the vulnerability beat
+TIME_OF_DAY: Daytime interior, but fluorescent-dominant (little natural
+window light reaches this desk)
+GENRE: Techno-thriller with family drama undertones (realism-grounded,
+motivated lighting expected)
+
+EXAMPLE OUTPUT
+-----------------
+MOTIVATING SOURCE INVENTORY:
+- Overhead fluorescent panels: wide, soft, slightly cool-green tinted,
+  even coverage across the bullpen (ambient fill function)
+- Dual monitor glow: close-range, directional, cool-blue (5600K+
+  equivalent), the dominant KEY light source on Marcus's face given his
+  proximity to the screens
+
+THREE-POINT BREAKDOWN:
+- Key: Monitor glow, soft/diffused quality (large flat screen source),
+  from front-low angle (screens are below eye level, casting light
+  slightly upward onto his face — an unusual and slightly unflattering
+  angle, intentionally so, reinforcing clinical isolation), moderate-low
+  intensity consistent with actual monitor brightness in a lit room
+- Fill: Overhead fluorescent, low-key ratio relative to monitor key
+  (fluorescent is ambient/soft but overpowered by the close monitor glow
+  on his face specifically), creating mild shadow definition beneath his
+  brow and jaw
+- Rim/Back: Absent — no motivated backlight source exists at this desk;
+  this is a deliberate choice reinforcing the "boxed in" isolation of the
+  moment rather than a heroic/separated silhouette
+
+SHADOW BEHAVIOR: Soft-edged shadows (both sources are diffused/large
+relative to subject distance), falling slightly upward and back from the
+monitor's low-front position — creating subtle under-eye and under-jaw
+shadow that reads as fatigue/tension rather than classic dramatic
+villainy-lighting.
+
+COLOR TEMPERATURE SPECIFICATION: Baseline 5600K-6000K equivalent (cool,
+clinical, monitor-dominant), consistent with File 06's fluorescent
+baseline. During Beat 2 (the photo frame reach), introduce a barely
+perceptible warm shift — approximately 200K warmer — as if his own
+body/hand briefly occludes part of the cool monitor light, creating a
+fractional, almost subconscious warmth cue. Returns to full cool baseline
+by Beat 3.
+
+MOOD FUNCTION STATEMENT: The unusual low-angle monitor key creates
+subtle unease and clinical detachment — Marcus is lit by his own
+work, isolated by the very tool that isolates him from human connection.
+
+MOTIVATION AUDIT: Confirmed — every light source traces to an established
+practical (monitors, overhead fluorescents) already catalogued in File
+04's setting breakdown. No unmotivated stylization present.
+
+COMPILED LIGHTING PROMPT LINE: "Cool blue-white monitor glow as primary
+key light from low-front angle, soft diffused quality, overhead
+fluorescent ambient fill creating mild shadow beneath brow and jaw, no
+backlight, soft-edged shadows, 5600K cool clinical color temperature,
+isolated and slightly unflattering angle reinforcing detachment."
+
+ADVANCED VERSION
+-------------------
+For complex multi-source or day-for-night/practical-heavy scenes, extend
+with:
+
+"Additionally generate: (a) a LIGHT SOURCE INTENSITY MAP assigning
+relative brightness values (e.g. on a 1-10 scale) to every practical
+source for precise ratio control, (b) a TIME-OF-DAY LIGHTING PROGRESSION
+if the scene spans changing natural light, with specific Kelvin shifts at
+defined intervals, (c) MULTI-CHARACTER DIFFERENTIATED LIGHTING notes when
+2+ characters require distinct treatment within the same frame, (d)
+explicit PLATFORM LIGHTING SYNTAX NOTES for {TARGET_AI_MODEL: Sora/Veo/
+Kling/Runway/Pika/Luma/Hailuo} on how that platform is known to best
+interpret light direction and color temperature language as of current
+tooling, including any known tendency toward over-brightening or color
+temperature drift to proactively counteract in the prompt phrasing."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for lighting design generation. Compiled Prompt Lines designed for direct
+use in Sora, Veo, Kling, Runway, Pika, Luma, Hailuo generation calls,
+layered with Camera Master and Cinematography outputs.
+PIPELINE POSITION: Requires 04_Scene_Generator.txt, 06_Cinematography.txt,
+09_Environment_&_World_Building.txt.
+Feeds into: 08_Composition_&_Framing.txt, 14_Color_Grading.txt,
+16_Video_Generation_Master.txt
+================================================================================

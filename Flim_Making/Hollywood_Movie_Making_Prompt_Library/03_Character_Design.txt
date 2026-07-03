@@ -1,0 +1,248 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 03: CHARACTER DESIGN
+================================================================================
+
+TITLE
+-----
+The Character Consistency Engine — Visual & Psychological Character Bible
+Generator
+
+PURPOSE
+-------
+Produce a locked, reusable "character bible" combining psychological depth
+(for writing/acting direction) with hyper-specific visual description (for
+AI image/video generation consistency). The single biggest failure mode in
+AI filmmaking is character drift — the same character looking different in
+every generated shot. This template exists to produce a description so
+precise and constrained that it can be pasted verbatim into every downstream
+image/video prompt to lock appearance across an entire project.
+
+PROMPT FORMULA
+---------------
+[CHARACTER ROLE] + [STORY CONTEXT] + [PSYCHOLOGICAL CORE] + [PHYSICAL LOCK
+SPECIFICATION] + [WARDROBE SYSTEM] + [DISTINGUISHING MARKERS] + [VOICE/
+MANNERISM] + [REFERENCE ANCHORING] + [CONSISTENCY TOKEN]
+
+Master formula string:
+
+"Design a complete character bible for {CHARACTER_NAME}, the {ROLE_IN_STORY}
+in {STORY_CONTEXT_SUMMARY}. Psychological core: driven by {WANT}, secretly
+needing {NEED}, wounded by {BACKSTORY_WOUND}, and prone to {FLAW} under
+pressure. Physical lock: age {AGE}, build {BUILD}, height impression
+{HEIGHT_IMPRESSION}, face shape {FACE_SHAPE}, eye color/shape {EYES}, hair
+{HAIR_DESCRIPTION}, skin tone {SKIN_TONE}, distinguishing features
+{DISTINGUISHING_FEATURES}. Wardrobe system: primary outfit
+{PRIMARY_OUTFIT}, color palette {WARDROBE_PALETTE}, condition/wear
+{WARDROBE_CONDITION}, secondary/variant outfit if needed
+{SECONDARY_OUTFIT}. Consistent props/accessories: {SIGNATURE_PROPS}. Voice
+and mannerism: {VOICE_QUALITY}, {PHYSICAL_MANNERISM}, {SPEECH_PATTERN}.
+Visual style reference: {ART_STYLE_REFERENCE}. Generate a locked
+CONSISTENCY TOKEN — a compressed, reusable 40-60 word visual description to
+paste verbatim into every future image/video generation prompt for this
+character."
+
+VARIABLES
+---------
+CHARACTER_NAME          = character's name
+ROLE_IN_STORY           = "protagonist" | "antagonist" | "supporting" |
+                           "ensemble member"
+STORY_CONTEXT_SUMMARY   = one-line story context (pull from File 01 logline)
+WANT / NEED / BACKSTORY_WOUND / FLAW = pull directly from File 01 Protagonist
+                           Core output for narrative consistency
+AGE                     = specific number or tight range, not vague ("30s"
+                           is acceptable, "adult" is not)
+BUILD                   = body type, specific (e.g. "lean, wiry, runner's
+                           build" not just "fit")
+HEIGHT_IMPRESSION       = relative descriptor (e.g. "tall, dominates
+                           doorframes" or "compact, economical movement")
+FACE_SHAPE              = specific (oval, angular/square jaw, round, etc.)
+EYES                    = color AND shape/quality (e.g. "dark brown, deep-
+                           set, perpetually assessing")
+HAIR_DESCRIPTION        = color, length, texture, style — must be specific
+                           enough to reproduce identically across shots
+SKIN_TONE               = specific tone description, avoid vague terms
+DISTINGUISHING_FEATURES = scars, tattoos, asymmetries, unique identifiers —
+                           these are the highest-value consistency anchors
+PRIMARY_OUTFIT          = full outfit description, garment by garment
+WARDROBE_PALETTE        = specific colors (not "dark clothes" — "charcoal
+                           canvas jacket, black tactical trousers")
+WARDROBE_CONDITION      = new/worn/damaged and how (adds realism + story
+                           info)
+SECONDARY_OUTFIT        = if character needs a costume change, describe with
+                           equal precision
+SIGNATURE_PROPS         = recurring objects (weapon, jewelry, tool, etc.)
+VOICE_QUALITY           = pitch, texture, pace (e.g. "low, gravelled,
+                           unhurried")
+PHYSICAL_MANNERISM      = recurring physical tic or habit (e.g. "touches
+                           collar when lying")
+SPEECH_PATTERN          = carried from File 02 CHARACTER_VOICES for
+                           consistency
+ART_STYLE_REFERENCE     = "photorealistic cinematic" | "stylized animation"
+                           | specific director/DP visual reference for
+                           calibration only
+
+INPUT STRUCTURE
+----------------
+CHARACTER_NAME: <required>
+ROLE_IN_STORY: <required>
+STORY_CONTEXT_SUMMARY: <required — pull from File 01>
+PSYCHOLOGICAL_CORE (Want/Need/Wound/Flaw): <required — pull from File 01>
+PHYSICAL_ATTRIBUTES: <required, be as specific as possible even if guessing>
+WARDROBE: <required>
+ART_STYLE_REFERENCE: <optional, default = "photorealistic cinematic,
+  35mm film quality">
+
+OUTPUT STRUCTURE
+-----------------
+1. CHARACTER SNAPSHOT (name, role, one-line essence)
+2. PSYCHOLOGICAL PROFILE (want, need, wound, flaw, arc — inherited from
+   Story Generator, restated for reference)
+3. PHYSICAL LOCK SHEET (every physical variable, itemized, unambiguous)
+4. WARDROBE SYSTEM (primary + secondary outfits, palette, condition)
+5. SIGNATURE ELEMENTS (props, mannerisms, voice)
+6. CONSISTENCY TOKEN — the critical output: a single 40-60 word paragraph
+   compressing all visual-lock information into copy-paste form for reuse
+   in every future generation prompt
+7. VARIANT NOTES (how the character should visually shift under different
+   story conditions — injured, disguised, emotional extremes — while
+   staying recognizably the same person)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- The CONSISTENCY TOKEN must be dense and unambiguous — every AI image/video
+  model interprets vague descriptors differently, so specificity is the
+  entire function of this document. "Attractive" or "handsome" are banned
+  words; describe actual bone structure, actual coloring, actual proportion.
+- Distinguishing features are the single highest-leverage consistency tool
+  — always include at least one unmistakable, unusual marker (a scar
+  location, a specific tattoo, an asymmetrical feature) because generic
+  descriptions drift far more than specific ones across multiple AI
+  generations.
+- Age, build, and face shape must never contradict the psychological
+  profile without narrative reason — a character whose wound is "learned to
+  disappear in a room" should have a visual design that could plausibly
+  disappear in a room (avoid arbitrarily striking/unusual designs unless the
+  story calls for it).
+- Wardrobe condition should tell a story on its own — wear patterns, care
+  level, and fit all communicate character history nonverbally.
+- Every physical descriptor must be something an AI video model can
+  actually render consistently — avoid purely abstract or subjective
+  descriptions ("has an old soul") in the PHYSICAL LOCK SHEET; save those
+  for the psychological profile only.
+- If STORY_CONTEXT involves multiple characters, ensure this character's
+  visual design is legibly DISTINCT from every other character's — cross-
+  check silhouette, palette, and coloring against companion Character
+  Design files to avoid visual confusion in ensemble shots.
+
+BEST PRACTICES
+----------------
+- Generate the CONSISTENCY TOKEN first as a draft, then stress-test it by
+  imagining it pasted into five different scene contexts (calm dialogue,
+  action, close-up, wide shot, different lighting) — if any context would
+  cause the description to become ambiguous, tighten it further.
+- Store every character's Consistency Token in a single running reference
+  document as you build out a project — paste this token verbatim (never
+  paraphrase) into File 04 (Scene Generator), File 07 (Lighting Master),
+  and File 16 (Video Generation Master) every single time this character
+  appears.
+- For ensemble casts, generate all Character Design files back-to-back in
+  the same session so palette/silhouette differentiation is actively cross-
+  checked while context is fresh, rather than discovering visual overlap
+  later.
+- When designing antagonists, resist the urge toward cartoonish visual
+  villainy unless the genre explicitly calls for it — the most effective
+  Hollywood-grade antagonist designs are visually plausible, even sympathetic.
+- Revisit and regenerate VARIANT NOTES whenever the story outline changes
+  significantly — a physical lock sheet is only as good as its sync with
+  current narrative reality.
+
+EXAMPLE INPUT
+---------------
+CHARACTER_NAME: Marcus Delacroix
+ROLE_IN_STORY: Protagonist
+STORY_CONTEXT_SUMMARY: Disinformation-defusal expert discovers his daughter
+built the threat he's tracking.
+PSYCHOLOGICAL_CORE: Want = neutralize the threat. Need = reconnect with
+daughter. Wound = treats relationships like ordnance since his last
+deployment. Flaw = emotional detachment as control mechanism.
+PHYSICAL_ATTRIBUTES: Age 52, lean-muscled but not gym-built, medium height,
+angular jaw, gray-blue eyes, close-cropped salt-and-pepper hair, weathered
+olive skin tone, a thin scar through his left eyebrow.
+WARDROBE: Charcoal button-down, black trousers, worn but well-maintained,
+no jewelry except a plain wedding band he still wears.
+ART_STYLE_REFERENCE: Photorealistic cinematic, Roger Deakins-adjacent
+naturalistic lighting sensibility
+
+EXAMPLE OUTPUT
+-----------------
+CHARACTER SNAPSHOT: Marcus Delacroix — a man who defuses digital threats
+with the same clinical precision he once used on physical ones, and treats
+his daughter like an unexploded device.
+
+PHYSICAL LOCK SHEET:
+- Age: 52
+- Build: Lean-muscled, wiry rather than bulky — a body kept functional, not
+  aesthetic
+- Height impression: Medium height, but occupies space with stillness
+  rather than size
+- Face shape: Angular, defined jaw, slight hollow beneath the cheekbones
+- Eyes: Gray-blue, deep-set, rarely blinks first
+- Hair: Close-cropped, salt-and-pepper, military-grade maintenance
+- Skin tone: Weathered olive, sun damage around the eyes from years
+  outdoors
+- Distinguishing feature: Thin white scar bisecting his left eyebrow,
+  visible in profile and three-quarter angles
+
+WARDROBE SYSTEM: Primary — charcoal button-down shirt (top button always
+undone), black tactical-adjacent trousers, black leather belt. Worn but
+meticulously maintained, no visible fraying, creases pressed. Secondary
+(field/stress scenes) — same palette, sleeves rolled to forearm.
+
+SIGNATURE ELEMENTS: Plain silver wedding band, worn on right hand (a story-
+relevant detail — left is more common, note this if narratively
+significant). Mannerism: goes completely still before speaking under
+stress, rather than fidgeting. Voice: low register, unhurried pace, drops
+contractions entirely when emotionally compromised.
+
+CONSISTENCY TOKEN (40-60 words, paste verbatim into all future prompts):
+"Marcus Delacroix: man, 52, lean-muscled wiry build, medium height,
+angular jaw, gray-blue deep-set eyes, close-cropped salt-and-pepper hair,
+weathered olive skin, thin white scar through left eyebrow. Wears charcoal
+button-down shirt top button undone, black trousers, plain silver wedding
+band on right hand. Photorealistic cinematic style, naturalistic lighting."
+
+VARIANT NOTES: Under emotional extremes, his stillness should intensify
+rather than break — hands may tremble almost imperceptibly, but face
+remains controlled until the resolution beat. If injured, the scar through
+his eyebrow becomes a visual anchor for continuity even when other injuries
+are added.
+
+ADVANCED VERSION
+-------------------
+For multi-scene production pipelines and strict visual continuity across
+dozens of generated shots, extend with:
+
+"Additionally generate: (a) a NEGATIVE VISUAL LIST of common AI-generation
+errors specific to this character to explicitly avoid (e.g. 'do not
+generate: symmetrical undamaged eyebrows, clean-shaven jaw, corporate
+business suit, youthful unlined skin'), (b) THREE EMOTIONAL STATE VARIANTS
+of the consistency token — calm/neutral, under-stress, and breakthrough/
+vulnerable — each adjusting only expression and micro-posture while
+preserving all physical lock details verbatim, (c) a MULTI-ANGLE
+DESCRIPTOR SET covering front, three-quarter, and profile views
+specifically worded for {TARGET_AI_MODEL: Sora/Veo/Kling/Runway/Pika/Luma/
+Hailuo} image-to-video or text-to-video consistency conventions as best
+known, (d) explicit CASTING-EQUIVALENT REFERENCE NOTE (real-world
+descriptive calibration only, never naming a specific real person, to
+avoid IP/likeness issues) describing the general 'type' for human visual
+calibration purposes."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for bible generation. CONSISTENCY TOKEN is specifically engineered for
+reuse across Sora, Veo, Kling, Runway, Pika, Luma, Hailuo prompt inputs.
+PIPELINE POSITION: Requires 01_Story_Generator.txt Protagonist Core output.
+Feeds into: 04_Scene_Generator.txt, 07_Lighting_Master.txt,
+10_Emotion_&_Acting.txt, 16_Video_Generation_Master.txt
+================================================================================

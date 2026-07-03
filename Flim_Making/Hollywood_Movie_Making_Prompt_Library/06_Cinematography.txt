@@ -1,0 +1,249 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 06: CINEMATOGRAPHY
+================================================================================
+
+TITLE
+-----
+The Visual Language Engine — Holistic Cinematographic Style System
+
+PURPOSE
+-------
+Where Camera Master (File 05) specifies individual shot mechanics,
+Cinematography defines the unified visual PHILOSOPHY that ties every shot
+in a scene or project together — film stock/sensor feel, contrast
+philosophy, texture, grain, dynamic range treatment, and overall visual
+signature. This template exists because even technically correct
+individual shots (from File 05) will look disjointed without a governing
+cinematographic identity binding them. This is the "why does this whole
+film look like ONE film" layer.
+
+PROMPT FORMULA
+---------------
+[PROJECT VISUAL IDENTITY] + [FILM STOCK/SENSOR EMULATION] + [CONTRAST
+PHILOSOPHY] + [TEXTURE & GRAIN] + [DYNAMIC RANGE TREATMENT] + [MOTIVATED
+VISUAL METAPHOR] + [CONSISTENCY RULES] + [SCENE-SPECIFIC APPLICATION]
+
+Master formula string:
+
+"Establish the cinematographic identity for {PROJECT_TITLE}, a
+{GENRE} project. Visual reference calibration: {DP_STYLE_REFERENCE}.
+Film stock/sensor emulation: {STOCK_EMULATION}. Contrast philosophy:
+{CONTRAST_APPROACH}. Texture and grain: {GRAIN_STRUCTURE}. Dynamic range
+treatment: {DYNAMIC_RANGE}. Motivated visual metaphor governing the whole
+piece: {VISUAL_METAPHOR}. This identity must remain consistent across
+{SCENE_COUNT} scenes while allowing {PERMITTED_VARIATION} for
+scene-specific emotional shifts. Apply to current scene: {CURRENT_SCENE_
+CONTEXT}, adjusting only {SCENE_SPECIFIC_ADJUSTMENT} while preserving the
+core identity."
+
+VARIABLES
+---------
+PROJECT_TITLE            = project name/working title
+GENRE                    = inherited from File 01
+DP_STYLE_REFERENCE       = cinematographer/visual tradition reference for
+                            calibration (e.g. "Roger Deakins naturalism,"
+                            "Christopher Doyle kinetic color," "Greig
+                            Fraser high-contrast minimalism") — for tonal
+                            calibration only, never for direct copying
+STOCK_EMULATION          = "digital clean/modern" | "35mm film emulation
+                            (specify stock character: e.g. Kodak Vision3
+                            warm, Fuji cool-neutral)" | "16mm gritty/
+                            documentary texture" | "large format
+                            (65mm/IMAX) epic clarity"
+CONTRAST_APPROACH        = "high contrast, crushed blacks, punchy" | "low
+                            contrast, lifted blacks, flat/naturalistic" |
+                            "classical Hollywood balanced contrast" |
+                            "expressionist extreme contrast"
+GRAIN_STRUCTURE          = "clean/minimal grain" | "moderate organic
+                            grain" | "heavy visible grain for texture/
+                            era authenticity"
+DYNAMIC_RANGE            = "high dynamic range, detail preserved in
+                            highlights and shadows" | "compressed range,
+                            deliberate highlight clipping or shadow
+                            crush for mood" | "HDR showcase clarity"
+VISUAL_METAPHOR          = the underlying visual concept the whole
+                            cinematography serves (e.g. "the world gets
+                            colder and bluer as Marcus loses control of
+                            the situation" or "handheld instability
+                            increases as the protagonist's grip on truth
+                            weakens")
+SCENE_COUNT              = total scenes this identity must span
+PERMITTED_VARIATION      = what's allowed to flex scene-to-scene (usually:
+                            lighting mood, color temperature within the
+                            established palette, camera stability) versus
+                            what's LOCKED (usually: stock emulation,
+                            grain structure, base contrast philosophy)
+CURRENT_SCENE_CONTEXT    = the specific scene being cinematographically
+                            "dressed," pulled from File 04/05
+SCENE_SPECIFIC_ADJUSTMENT = what's shifting for this particular scene
+                            within the locked identity
+
+INPUT STRUCTURE
+----------------
+PROJECT_TITLE + GENRE: <required>
+DP_STYLE_REFERENCE: <optional but strongly recommended>
+STOCK_EMULATION: <required>
+CONTRAST_APPROACH: <required>
+VISUAL_METAPHOR: <required — this is the throughline that makes
+  cinematography feel intentional rather than decorative>
+CURRENT_SCENE_CONTEXT: <required for scene-specific application>
+
+OUTPUT STRUCTURE
+-----------------
+1. PROJECT VISUAL IDENTITY STATEMENT (2-3 sentences defining the governing
+   cinematographic philosophy)
+2. TECHNICAL SPECIFICATION SHEET (stock emulation, contrast philosophy,
+   grain, dynamic range — itemized and locked)
+3. VISUAL METAPHOR ARTICULATION (how the visual treatment evolves across
+   the project to serve the story, with specific trigger points — e.g.
+   "from Scene 12 onward, introduce handheld instability")
+4. LOCKED vs. FLEXIBLE ELEMENTS TABLE (explicit list of what never changes
+   scene-to-scene versus what's permitted to shift)
+5. SCENE-SPECIFIC APPLICATION (for the current scene: which locked
+   elements apply as-is, which flexible elements are being adjusted, and
+   why)
+6. COMPILED CINEMATOGRAPHY PROMPT LINE (dense, generation-ready sentence
+   combining stock/contrast/grain/range specs for the current scene, to be
+   layered alongside the Camera Master output for that scene)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- The Visual Metaphor is not optional decoration — every cinematographic
+  choice should be traceable back to it. If a choice can't be justified by
+  the metaphor or the story's emotional needs, it should default to the
+  LOCKED baseline identity rather than being arbitrarily distinct.
+- Consistency is the primary technical challenge in AI-generated
+  cinematography — LOCKED elements (stock emulation, grain, base contrast)
+  must be repeated verbatim in every scene's Compiled Prompt Line, exactly
+  like a Character Consistency Token, to prevent visual drift across a
+  multi-scene project.
+- Avoid emulation language that's too vague to be useful ("cinematic
+  look") — always specify actual technical characteristics (contrast
+  curve behavior, specific grain visibility, actual dynamic range
+  treatment) since AI models respond far more reliably to concrete
+  technical description than genre-adjacent buzzwords.
+- When referencing a DP style, extract the TECHNICAL characteristics of
+  their work (how they handle contrast, their typical lens choices, their
+  color sensibility) rather than just naming them — a name alone gives an
+  AI model much less to work with than the decomposed technical qualities.
+- Ensure PERMITTED_VARIATION genuinely serves the story's emotional arc —
+  if lighting mood is allowed to shift, that shift must correspond to an
+  actual narrative beat (from File 01's structural breakdown), not be
+  arbitrary scene-to-scene noise.
+
+BEST PRACTICES
+----------------
+- Generate this template ONCE per project, immediately after Story
+  Generator (File 01) and before any individual scene work begins — this
+  document becomes the visual constitution every subsequent Camera,
+  Lighting, and Color Grading template must reference and respect.
+- Keep a running "cinematography bible" the same way you'd keep a
+  Character Consistency Token library — paste the LOCKED elements verbatim
+  into every scene's cinematography application, only ever modifying the
+  explicitly flexible elements.
+- When the Visual Metaphor calls for gradual change across the project
+  (e.g. "the world gets colder as trust erodes"), map out the specific
+  scene numbers where each shift threshold occurs BEFORE generating
+  individual scenes — this prevents the change from happening too early,
+  too late, or too abruptly.
+- Cross-reference this template's output directly against File 14 (Color
+  Grading) — Cinematography establishes the base technical visual identity
+  (capture-level characteristics), while Color Grading determines the
+  post-production color manipulation layered on top; the two must agree
+  philosophically even though they operate at different pipeline stages.
+- For projects blending multiple AI video generation tools, apply this
+  template's LOCKED elements identically across all tools to maximize
+  cross-platform visual consistency — this is one of the few places where
+  matching output across different AI models actually matters most.
+
+EXAMPLE INPUT
+---------------
+PROJECT_TITLE: "Ordnance" (working title)
+GENRE: Techno-thriller with family drama undertones
+DP_STYLE_REFERENCE: Roger Deakins naturalism — motivated practical light
+sources, restrained camera movement, contrast that respects shadow detail
+STOCK_EMULATION: Digital clean/modern with subtle 35mm film emulation
+overlay — not nostalgic, but textured rather than sterile
+CONTRAST_APPROACH: Classical Hollywood balanced contrast, shifting toward
+higher contrast as tension escalates
+VISUAL_METAPHOR: The world becomes colder and more clinical (blue-skewed,
+harder shadows) as Marcus's professional detachment dominates; warms and
+softens in the rare moments his humanity breaks through
+CURRENT_SCENE_CONTEXT: Scene 2, the photo frame reach — the moment his
+detachment first cracks
+
+EXAMPLE OUTPUT
+-----------------
+PROJECT VISUAL IDENTITY STATEMENT: "Ordnance" is shot with restrained,
+motivated naturalism — light sources are always justified within the
+frame, camera movement is earned rather than habitual, and the color
+temperature itself becomes a psychological instrument, tracking Marcus's
+emotional distance from the people around him.
+
+TECHNICAL SPECIFICATION SHEET:
+- Stock emulation: Digital clean base with subtle 35mm grain overlay
+  (moderate, present but not distracting)
+- Contrast: Classical Hollywood balance as baseline, escalating toward
+  higher contrast (deeper shadows, more separation) during tension peaks
+- Grain: Consistent moderate organic grain throughout, never varies
+  (LOCKED)
+- Dynamic range: High, shadow detail always preserved even in
+  high-contrast moments (LOCKED — we never fully crush blacks, mirroring
+  Marcus's never-fully-suppressed humanity)
+
+VISUAL METAPHOR ARTICULATION: Color temperature is the primary flexible
+instrument. Baseline is neutral-cool (fluorescent-office reality).
+Trigger points: shifts colder/bluer during scenes of pure professional
+detachment; shifts warmer during the rare vulnerability beats (Scene 2's
+photo frame reach is the FIRST such warm-shift trigger in the story).
+
+LOCKED vs FLEXIBLE ELEMENTS TABLE:
+LOCKED: Stock emulation, grain structure, dynamic range preservation, base
+contrast philosophy, camera movement restraint (from File 05's governing
+principle).
+FLEXIBLE: Color temperature (per Visual Metaphor triggers), contrast
+intensity (escalates with tension), practical light source warmth.
+
+SCENE-SPECIFIC APPLICATION: Scene 2 is the first vulnerability trigger.
+LOCKED elements apply exactly as specified. FLEXIBLE adjustment: color
+temperature shifts approximately 200K warmer than the scene's established
+fluorescent baseline specifically during Beat 2 (the reach toward the
+photo frame), then returns toward neutral by Beat 3 as composure
+reasserts — a subtle, almost subliminal shift, not an obvious lighting
+change.
+
+COMPILED CINEMATOGRAPHY PROMPT LINE: "Digital clean cinematography with
+subtle 35mm grain overlay, classical balanced contrast, high dynamic range
+with full shadow detail preserved, fluorescent office color temperature
+with a subtle warm shift during the emotional beat, naturalistic motivated
+lighting, restrained camera movement philosophy."
+
+ADVANCED VERSION
+-------------------
+For feature-length or multi-episode projects requiring long-term visual
+consistency tracking, extend with:
+
+"Additionally generate: (a) a full PROJECT COLOR TEMPERATURE MAP charting
+every scene's position on the cold-to-warm spectrum against the story's
+emotional arc, (b) a CINEMATOGRAPHIC EVOLUTION TIMELINE showing exactly
+which scenes trigger each Visual Metaphor threshold shift, (c) CROSS-TOOL
+CONSISTENCY NOTES specifying how to phrase the Compiled Prompt Line
+differently (while preserving identical technical meaning) across
+{TARGET_AI_MODELS: Sora/Veo/Kling/Runway/Pika/Luma/Hailuo} to account for
+each platform's known stylistic tendencies and biases as of current
+tooling, (d) a REFERENCE FRAME DESCRIPTION LIBRARY — three to five fully
+described 'ideal frame' examples from different points in the story that
+exemplify the cinematographic identity at its clearest, useful as
+calibration anchors when generation drifts."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for identity generation. Compiled Prompt Lines designed for layering
+alongside Camera Master output in Sora, Veo, Kling, Runway, Pika, Luma,
+Hailuo generation calls.
+PIPELINE POSITION: Generate once after 01_Story_Generator.txt; apply
+per-scene alongside 04_Scene_Generator.txt and 05_Camera_Master.txt.
+Feeds into: 07_Lighting_Master.txt, 14_Color_Grading.txt,
+16_Video_Generation_Master.txt
+================================================================================

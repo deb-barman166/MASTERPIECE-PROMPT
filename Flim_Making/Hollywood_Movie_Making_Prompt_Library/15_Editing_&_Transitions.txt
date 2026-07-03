@@ -1,0 +1,283 @@
+================================================================================
+ULTIMATE HOLLYWOOD AI FILMMAKING PROMPT LIBRARY
+FILE 15: EDITING & TRANSITIONS
+================================================================================
+
+TITLE
+-----
+The Rhythm & Cut Engine — Editorial Pacing & Transition Specification
+System
+
+PURPOSE
+-------
+Specify how individual generated shots (from Files 04-14) are assembled
+into a coherent sequence — cut timing, rhythm, transition type, and the
+editorial logic connecting one shot to the next. This template exists
+because even perfectly generated individual shots will fail to create a
+coherent viewing experience without deliberate editorial architecture;
+editing is where pacing, tension, and narrative momentum are ultimately
+made or broken.
+
+PROMPT FORMULA
+---------------
+[SEQUENCE CONTEXT] + [SHOT-TO-SHOT CUT LOGIC] + [PACING RHYTHM] +
+[TRANSITION TYPE PER CUT] + [CONTINUITY RULES] + [MATCH CUTS/MOTIVATED
+CUTS] + [MONTAGE LOGIC IF APPLICABLE] + [OVERALL SEQUENCE ARC]
+
+Master formula string:
+
+"Edit the sequence spanning {SHOT_LIST}, part of {SCENE_CONTEXT}. Cut
+logic for each transition: cut FROM {SHOT_A} TO {SHOT_B} is motivated by
+{CUT_MOTIVATION} — {CUT_TYPE}. Pacing rhythm: overall sequence tempo is
+{TEMPO_DESCRIPTION}, with cut frequency {CUTS_PER_MINUTE_EQUIVALENT}.
+Transition type: {TRANSITION_STYLE} at this specific cut point.
+Continuity: verify {CONTINUITY_CHECKPOINTS} remain consistent across the
+cut (screen direction, eyeline, prop/costume state, lighting
+continuity). Match cuts/motivated cuts: {MATCH_CUT_OPPORTUNITIES} if
+present. Montage logic: {MONTAGE_STRUCTURE if applicable}. Overall
+sequence arc: pacing should {PACING_ARC_DIRECTION} across the full
+sequence, serving {SEQUENCE_EMOTIONAL_FUNCTION}."
+
+VARIABLES
+---------
+SHOT_LIST                = the ordered list of shots being assembled,
+                            pulled from File 05's beat-by-beat camera
+                            specifications
+SCENE_CONTEXT             = pulled from File 04
+SHOT_A / SHOT_B           = the two shots being joined at each cut point
+CUT_MOTIVATION            = why the cut happens HERE specifically (a
+                            look, a sound, a completed action, a line of
+                            dialogue ending) — cuts should almost always
+                            be motivated by something within the shot,
+                            not arbitrary timing
+CUT_TYPE                  = "straight cut (standard)" | "match cut
+                            (visual/conceptual continuity across the
+                            cut)" | "jump cut (deliberate discontinuity
+                            for effect)" | "cutaway (brief shot to
+                            secondary subject before returning)" | "L-cut
+                            /J-cut (audio from one shot bleeds into the
+                            next before/after the visual cut)"
+TEMPO_DESCRIPTION         = "slow, contemplative, long holds" |
+                            "moderate, standard dramatic pacing" |
+                            "fast, urgent, quick cuts" | "escalating
+                            (starts slow, accelerates)" | "variable/
+                            syncopated for effect"
+CUTS_PER_MINUTE_EQUIVALENT = rough guide to cut frequency appropriate to
+                            the tempo (helps calibrate — contemplative
+                            drama might be 4-8 cuts/minute, action might
+                            be 30+)
+TRANSITION_STYLE          = "hard cut" | "cross-dissolve (specify
+                            duration)" | "fade to black/from black" |
+                            "wipe (rare in modern Hollywood work, use
+                            sparingly)" | "match cut transition"
+CONTINUITY_CHECKPOINTS    = specific elements that must remain consistent
+                            across the cut (drawn from Files 03, 08, 09
+                            consistency tokens)
+MATCH_CUT_OPPORTUNITIES   = specific visual or conceptual rhymes between
+                            shots that could be exploited as a deliberate
+                            match cut
+MONTAGE_STRUCTURE         = if this sequence is a montage (compressed
+                            time/multiple locations), the organizing
+                            principle connecting the shots (thematic,
+                            chronological, parallel action)
+PACING_ARC_DIRECTION      = "accelerate" | "decelerate" | "sustain" |
+                            "build then release" — how tempo should
+                            evolve across the sequence
+SEQUENCE_EMOTIONAL_FUNCTION = what feeling this sequence's editorial
+                            rhythm should create in the audience
+
+INPUT STRUCTURE
+----------------
+SHOT_LIST: <required, from File 05's beat breakdown for the relevant
+  scene/sequence>
+SCENE_CONTEXT: <required, from File 04>
+TEMPO_DESCRIPTION: <required, should align with File 01's structural
+  pacing needs at this point in the story>
+CONTINUITY_CHECKPOINTS: <required, pull from relevant Character/
+  Environment consistency tokens>
+SEQUENCE_EMOTIONAL_FUNCTION: <required>
+
+OUTPUT STRUCTURE
+-----------------
+1. SEQUENCE OVERVIEW (shot list restated, overall sequence function)
+2. CUT-BY-CUT BREAKDOWN, for each transition:
+   - Shots being joined
+   - Cut motivation (what specifically triggers this cut)
+   - Cut type and transition style
+   - Continuity verification (screen direction, eyeline, prop/costume/
+     lighting state)
+3. PACING RHYTHM MAP (tempo across the full sequence, cut frequency
+   pattern)
+4. MATCH CUT / MOTIVATED CUT HIGHLIGHTS (any particularly deliberate
+   editorial choices worth flagging)
+5. MONTAGE STRUCTURE (if applicable)
+6. SEQUENCE ARC SUMMARY (how pacing serves the sequence's emotional
+   function overall)
+7. EDITORIAL ASSEMBLY NOTES (practical guidance for actually assembling
+   the AI-generated clips in sequence, including any needed overlap/
+   trim guidance)
+
+PROFESSIONAL INSTRUCTIONS
+---------------------------
+- Every cut must be motivated — a hard rule. Cuts should occur at natural
+  attention-shift points (end of an action, a look toward something off-
+  screen, a completed line of dialogue, a sound cue) rather than at
+  arbitrary time intervals. If a cut point can't be justified by
+  something happening in the shot, reconsider its placement.
+- Screen direction (the 180-degree rule) must be explicitly verified at
+  every cut involving character movement or eyeline — characters and
+  objects must maintain consistent left-right spatial relationships
+  across cuts unless a deliberate direction-crossing shot is used to
+  signal disorientation (and even then, this should be a rare, marked
+  choice, not an accident).
+- Continuity checkpoints must be actively verified, not assumed —
+  explicitly confirm that costume state, prop position, and established
+  lighting logic remain consistent shot-to-shot, especially in AI-
+  generated pipelines where each shot may be a separate generation call
+  vulnerable to unprompted drift.
+- Pacing rhythm must serve the STORY's needs (from File 01's structural
+  breakdown), not be applied uniformly — a midpoint revelation beat
+  likely needs different cut rhythm than a climactic action sequence, and
+  this template should reflect that story-driven variation.
+- Match cuts and other highly deliberate editorial techniques should be
+  used sparingly and only when they genuinely serve meaning — overuse
+  dilutes their impact and can read as showing off technique rather than
+  serving story.
+- L-cuts and J-cuts (audio bleeding across a visual cut) are a powerful,
+  underused tool for creating smoother, more sophisticated-feeling
+  editorial flow — actively look for opportunities to use them rather than
+  defaulting to hard cuts throughout.
+
+BEST PRACTICES
+----------------
+- Generate this template only after the full shot list for a
+  scene/sequence exists (Files 04, 05, and ideally 07-14 for full
+  specification) — editing decisions should respond to what's actually
+  been specified for each shot, not be planned in isolation beforehand.
+- Cross-reference File 13 (Sound & Music) for any planned score
+  entry/transition points — audio and editorial rhythm should be designed
+  together, since a cut landing exactly on a musical beat (or deliberately
+  NOT landing on one) is a powerful and commonly used technique.
+- For AI-generated footage specifically, build in slightly more overlap/
+  handle at the start and end of each generated clip than you think
+  you'll need — this gives editorial flexibility to adjust exact cut
+  timing without needing to regenerate footage.
+- Map the full sequence's Pacing Rhythm against File 01's structural
+  beats before finalizing — verify that editorial tempo actually
+  escalates/decelerates in alignment with the story's stakes ladder,
+  rather than being disconnected from narrative structure.
+- When working with multiple AI generation tools across a single
+  sequence, pay special attention to Continuity Checkpoints since
+  different platforms may render the "same" specified detail with subtle
+  variation — flag any point where cross-platform consistency is
+  especially at risk.
+
+EXAMPLE INPUT
+---------------
+SHOT_LIST: Scene 2's three beats — MCU eye-level static (Beat 1), ECU
+insert high-angle dolly-in (Beat 2), MCU eye-level static bookend (Beat 3)
+— per File 05
+SCENE_CONTEXT: Marcus reading the trace results, the aborted photo-frame
+reach
+TEMPO_DESCRIPTION: Slow, contemplative, long holds — this is an internal,
+restrained moment
+CONTINUITY_CHECKPOINTS: Marcus's consistency token (File 03), desk/prop
+state (photo frame remains face-down throughout, per File 04's continuity
+handoff), established cool-blue lighting (File 07)
+SEQUENCE_EMOTIONAL_FUNCTION: The audience should feel the weight of a
+single held breath — restraint and internal pressure, not urgency
+
+EXAMPLE OUTPUT
+-----------------
+SEQUENCE OVERVIEW: A three-shot sequence (Beats 1-3 of Scene 2) depicting
+Marcus's controlled reaction to a devastating discovery, cut with maximum
+restraint to mirror his own suppressed emotional state.
+
+CUT-BY-CUT BREAKDOWN:
+
+Cut 1 (Beat 1 → Beat 2): Shots joined — MCU eye-level static (reading the
+address) → ECU insert high-angle dolly-in (the hand's aborted reach). Cut
+motivation: triggered by the completion of his reading — a beat of
+stillness after his eyes stop moving across the screen, then cut,
+mirroring the exact moment his conscious control gives way to
+involuntary impulse. Cut type: straight cut, but held slightly longer
+than a standard reaction cut (approximately half a second longer than
+tempo would typically dictate) to let the stillness register before the
+cut occurs. Transition style: hard cut, no dissolve — this moment
+requires the abruptness of a straight cut, not the softness of a
+dissolve. Continuity verification: Marcus's position at the desk remains
+consistent (File 03 token, File 09 environment token); no screen-
+direction conflict since both shots are effectively axis-neutral
+(camera positioned directly at/above the subject).
+
+Cut 2 (Beat 2 → Beat 3): Shots joined — ECU insert high-angle dolly-in
+(hand stopping) → MCU eye-level static bookend (composure reasserting).
+Cut motivation: triggered by the hand's dead-stop — the cut occurs the
+instant the movement ceases completely, not before or after, emphasizing
+the abruptness of the self-interruption. Cut type: straight cut. Transition
+style: hard cut. Continuity verification: hand position at end of Beat 2
+(withdrawn, per File 04's handoff) must match hand position visible (if
+any) at start of Beat 3; lighting continuity (File 07's cool baseline,
+with the barely perceptible warm shift resolving) must read consistently
+across the cut.
+
+PACING RHYTHM MAP: Two cuts across an 8-second sequence — deliberately
+sparse cutting for a moment this internal. Cut frequency equivalent to
+roughly 15 cuts/minute if sustained, but functionally the sequence reads
+as even slower due to the held stillness before Cut 1 specifically.
+
+MATCH CUT / MOTIVATED CUT HIGHLIGHTS: Beat 1 and Beat 3 use matching
+shot specifications (MCU, eye-level, static) as a deliberate bookend —
+this isn't a match cut in the traditional visual-rhyme sense, but a
+compositional echo that reinforces the "return to baseline" function
+of Beat 3, letting the audience register the return to composure partly
+through the camera's own return to its earlier position.
+
+MONTAGE STRUCTURE: Not applicable — this is a continuous real-time
+sequence, not a montage.
+
+SEQUENCE ARC SUMMARY: The pacing sustains a deliberately slow, restrained
+rhythm throughout — no acceleration, no release — mirroring Marcus's own
+suppression of his reaction. The two cuts that do occur are both
+tightly motivated by physical action completion (the end of reading, the
+end of the hand's movement) rather than arbitrary timing, reinforcing
+that even the editorial rhythm itself is "controlled" rather than
+free-flowing.
+
+EDITORIAL ASSEMBLY NOTES: When assembling the AI-generated clips for
+these three beats, ensure at least 0.5-1 second of handle/overlap at each
+clip's start and end beyond the stated beat duration, to allow precise
+cut-point adjustment without needing regeneration. Beat 1's ending
+stillness (the half-second hold before the cut) should be preserved in
+full when trimming — do not cut this moment short even if the generated
+clip runs slightly longer than the original 3-second target.
+
+ADVANCED VERSION
+-------------------
+For complex action sequences or full-scene montage editing, extend with:
+
+"Additionally generate: (a) a full EDIT DECISION LIST (EDL)-style table
+(Shot # | In-point | Out-point | Transition | Duration) for direct import
+into editing software, (b) a PARALLEL ACTION CUTTING PATTERN if the
+sequence intercuts between multiple simultaneous storylines, specifying
+the rhythm of alternation and how it should build tension, (c) a
+TEMP-MUSIC SYNC MAP aligning cut points against File 13's score
+structure for maximum rhythmic impact, (d) explicit CROSS-PLATFORM
+ASSEMBLY NOTES when different beats were generated using different
+{AI_MODELS: Sora/Veo/Kling/Runway/Pika/Luma/Hailuo}, flagging any
+resolution, frame-rate, or color-space matching considerations needed
+before final assembly to ensure the cut reads as visually seamless
+despite mixed generation sources."
+
+================================================================================
+COMPATIBILITY: Optimized for GPT-4/5-class, Claude, Gemini, Grok, DeepSeek
+for editorial specification generation. Output is platform-agnostic
+assembly guidance for footage generated via Sora, Veo, Kling, Runway,
+Pika, Luma, Hailuo, intended for use in any standard video editing
+timeline.
+PIPELINE POSITION: Requires 04_Scene_Generator.txt and
+05_Camera_Master.txt shot specifications; benefits from 13_Sound_&_
+Music.txt for sync points.
+Feeds into: 16_Video_Generation_Master.txt, 18_Quality_&_Consistency_
+Checker.txt
+================================================================================
