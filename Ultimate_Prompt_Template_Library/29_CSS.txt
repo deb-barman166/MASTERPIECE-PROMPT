@@ -1,0 +1,198 @@
+================================================================================
+29 — CSS
+================================================================================
+
+TITLE
+CSS Development Master Template
+
+PURPOSE
+Get maintainable, modern CSS (or Tailwind utility classes) from AI
+assistants that uses correct layout tools for the job (Flexbox vs. Grid),
+avoids specificity wars, and is responsive by default rather than
+desktop-only with mobile bolted on later.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini, v0, Cursor AI
+
+DIFFICULTY LEVEL
+Beginner → Expert
+
+WHEN TO USE
+- Layout implementation, component styling, responsive design,
+  animations/transitions, design-system token implementation
+
+EXPECTED OUTPUT
+Clean, responsive CSS (or Tailwind classes) using the layout tool best
+suited to the structure (Grid for 2D layouts, Flexbox for 1D), with
+mobile-first responsive behavior.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+COMPONENT/LAYOUT PURPOSE → CSS APPROACH (vanilla CSS / Tailwind / CSS
+Modules / styled-components) → LAYOUT STRUCTURE → RESPONSIVE BEHAVIOR
+(mobile-first breakpoints) → STATE VARIANTS (hover/focus/active/
+disabled) → BROWSER SUPPORT TARGET → DESIGN TOKENS (if design system
+exists)
+
+WHY EACH SECTION EXISTS
+- CSS Approach specification: vanilla CSS, Tailwind, CSS Modules, and
+  styled-components have fundamentally different syntax and mental
+  models — unspecified, models may default inconsistently across a
+  project.
+- Mobile-First Responsive: designing desktop-first and retrofitting
+  mobile support produces worse mobile experiences than starting from
+  the mobile constraint and progressively enhancing — this is a
+  deliberate methodology choice, not just a technical detail.
+- State Variants: interactive elements without hover/focus/active/
+  disabled states feel unfinished and fail accessibility (focus
+  indicators specifically are required for keyboard navigation) — must
+  be explicitly requested since base styling alone omits them.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{COMPONENT} {CSS_APPROACH} {LAYOUT_TYPE} (1D flex / 2D grid)
+{BREAKPOINTS} {STATE_VARIANTS} {DESIGN_TOKENS}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Write {CSS_APPROACH} for {COMPONENT}. Layout: {LAYOUT_TYPE} — use CSS
+Grid for 2D layouts, Flexbox for 1D alignment/distribution, not one
+forced into the other's use case. Mobile-first responsive: base styles
+for mobile, then progressively enhance at {BREAKPOINTS}. Include state
+variants: {STATE_VARIANTS} (hover, focus-visible, active, disabled as
+applicable) with visible focus indicators for accessibility. Use design
+tokens: {DESIGN_TOKENS} if provided, otherwise sensible CSS custom
+properties."
+
+OUTPUT STRUCTURE
+- Mobile-first CSS/Tailwind with correct layout tool per structure
+- All interactive states styled including visible focus indicators
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is the layout tool choice correct for the structure (Grid for
+   2-dimensional alignment needs, Flexbox for 1-dimensional)?
+2. Does this work correctly at the smallest target viewport first, with
+   enhancements added at larger breakpoints (not the reverse)?
+3. Is there a visible, sufficiently high-contrast focus indicator for
+   keyboard navigation, not just a hover state?
+
+SELF-CORRECTION LAYER
+Verify no `!important` overrides are used to fight specificity (a sign
+of underlying structural CSS problems); check that focus states aren't
+accidentally removed (`outline: none` without a replacement focus
+style is a common accessibility regression); confirm mobile styles are
+the base, not an override.
+
+REFLECTION LAYER
+"Does this layout hold together correctly at the narrowest realistic
+viewport (320px), or does it assume more space than mobile actually
+provides?"
+
+FACT VERIFICATION
+Verify any newer CSS feature used (container queries, :has(), subgrid)
+against current browser support data if the stated browser target
+requires broad compatibility.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Correct layout tool (Grid vs. Flexbox) for the structure
+[ ] Mobile-first, not desktop-first-then-retrofit
+[ ] All interactive states styled (hover/focus/active/disabled)
+[ ] Focus indicators visible and sufficiently contrasted
+[ ] No !important overrides masking specificity problems
+[ ] Uses design tokens/custom properties over hardcoded magic values
+
+OPTIMIZATION TIPS
+Use CSS custom properties for any value reused more than twice (colors,
+spacing units) even without a full design system, for easier maintenance.
+Prefer `gap` over margin-based spacing in Flexbox/Grid layouts — it's
+cleaner and avoids margin-collapse edge cases. Use `clamp()` for
+fluid typography/spacing instead of multiple fixed breakpoint overrides
+where appropriate.
+
+COMMON MISTAKES
+Using Flexbox for what should be a Grid (or vice versa); desktop-first
+design retrofitted for mobile; removing focus outlines without a
+replacement; !important as a specificity workaround; hardcoded pixel
+values instead of relative/token-based units.
+
+PROFESSIONAL TIPS
+Test every interactive component with keyboard-only navigation (Tab
+through and verify focus is always visible) before considering styling
+complete. Build and reuse a small set of CSS custom properties (spacing
+scale, color tokens) across a project even in the absence of a formal
+design system, for consistency.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Write Tailwind CSS for a pricing card component. Layout: single card
+with vertical content stacking, use Flexbox. Mobile-first responsive:
+base mobile styles, then a 3-column grid layout for the card container
+at md breakpoint and above. Include state variants: hover elevation on
+the card, focus-visible ring on the CTA button. Use design tokens: none
+provided, use Tailwind's default scale.
+
+EXAMPLE OUTPUT
+```html
+<!-- Card container: mobile stacks, md+ becomes 3-col grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-4">
+  <div class="flex flex-col gap-4 p-6 rounded-xl border border-gray-200
+              bg-white transition-shadow duration-200
+              hover:shadow-lg">
+    <h3 class="text-lg font-semibold text-gray-900">Starter</h3>
+    <p class="text-3xl font-bold text-gray-900">$0<span
+       class="text-sm font-normal text-gray-500">/mo</span></p>
+    <ul class="flex flex-col gap-2 text-sm text-gray-600">
+      <li>5 projects</li>
+      <li>Community support</li>
+    </ul>
+    <button class="mt-auto rounded-lg bg-gray-900 px-4 py-2
+                   text-white font-medium transition-colors
+                   hover:bg-gray-700
+                   focus-visible:outline focus-visible:outline-2
+                   focus-visible:outline-offset-2
+                   focus-visible:outline-blue-500">
+      Get Started
+    </button>
+  </div>
+  <!-- additional cards follow the same pattern -->
+</div>
+```
+Key decision: Grid governs the card container's responsive column
+count (a 2D layout concern), while Flexbox governs each card's internal
+vertical stacking (a 1D concern) — using the right tool for each level
+rather than forcing one for both.
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add container-query-based responsive behavior (component-level rather
+than viewport-level breakpoints) for components used in variable-width
+contexts, and a fallback: "If container query support is insufficient
+for the stated browser target, fall back to viewport-based breakpoints
+with a documented degradation note."
+
+EXPERT VERSION
+Layer in full CSS architecture methodology compliance (BEM/ITCSS/utility-
+first consistency across the codebase), critical-CSS/performance
+budget awareness (minimizing render-blocking CSS), and dark-mode
+implementation via CSS custom properties with proper color-scheme
+declaration.
+
+ENTERPRISE VERSION
+Add design-system token pipeline integration (Figma-to-CSS-variable
+sync documentation), cross-browser regression testing checklist, and
+CSS bundle-size budget enforcement for large-scale production
+applications.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Write [CSS_APPROACH] for [COMPONENT]. Correct layout tool, mobile-first
+responsive, all interactive states including visible focus."
+================================================================================

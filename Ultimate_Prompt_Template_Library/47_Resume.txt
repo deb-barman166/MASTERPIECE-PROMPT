@@ -1,0 +1,208 @@
+================================================================================
+47 — RESUME
+================================================================================
+
+TITLE
+Resume Writing Master Template
+
+PURPOSE
+Write resume bullet points that quantify impact and demonstrate
+specific, verifiable achievement — rather than vague responsibility
+descriptions that fail to differentiate a candidate from others who held
+similar titles.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Beginner → Intermediate
+
+WHEN TO USE
+- Resume writing/editing, bullet point strengthening, tailoring a resume
+  to a specific role, portfolio project descriptions
+
+EXPECTED OUTPUT
+Resume content with quantified, specific achievement bullets (using the
+action-context-result structure) tailored to the target role, avoiding
+generic responsibility language.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+ROLE/EXPERIENCE → TARGET JOB (what this resume is tailored toward) →
+RAW ACHIEVEMENTS (what actually happened, unpolished) → QUANTIFICATION
+(numbers/scale/impact) → ACTION-CONTEXT-RESULT STRUCTURE → RELEVANCE
+FILTER (what matters for the target role specifically) → KEYWORD
+ALIGNMENT (for ATS systems, without keyword-stuffing)
+
+WHY EACH SECTION EXISTS
+- Raw Achievements before polishing: asking for polish before capturing
+  the actual, specific facts of what happened produces generic-sounding
+  bullets even when the underlying work was impressive — facts must
+  come first.
+- Quantification: "improved performance" is forgettable; "reduced page
+  load time by 40%, from 3.2s to 1.9s" is specific and credible —
+  numbers are what separate a strong resume from a generic one, and
+  must be actively sought even when not obviously available.
+- Action-Context-Result structure: this structure (what I did, in what
+  situation, with what measurable outcome) is what makes a bullet
+  demonstrate actual impact rather than just list a responsibility.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{ROLE} {TARGET_JOB} {RAW_ACHIEVEMENTS} {AVAILABLE_METRICS}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Help me write resume bullets for my role as {ROLE}, tailoring toward a
+{TARGET_JOB} application. Here's what I actually did (raw, unpolished):
+{RAW_ACHIEVEMENTS}. Available metrics/numbers: {AVAILABLE_METRICS} (if
+I don't have exact numbers, help me identify what I could reasonably
+estimate or what alternative evidence of impact I could use instead).
+Structure each bullet as action-context-result. Filter for what's most
+relevant to {TARGET_JOB} specifically, not everything I did. Naturally
+incorporate relevant keywords for this role without keyword-stuffing."
+
+OUTPUT STRUCTURE
+- Polished bullets in action-context-result structure
+- Quantified where possible, with specific alternative evidence where
+  exact numbers aren't available
+- Filtered/prioritized for relevance to the target role
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does each bullet demonstrate a specific, quantified or otherwise
+   concrete outcome, or does it just describe a responsibility/duty?
+2. Is this the most relevant framing of this achievement for the
+   SPECIFIC target job, or a generic description that could apply to
+   any application?
+3. If exact numbers aren't available, is there a reasonable, honest way
+   to estimate scale/impact, or specific alternative evidence (before/
+   after comparison, scope description) that still demonstrates impact
+   without fabricating a false-precision number?
+
+SELF-CORRECTION LAYER
+Replace any responsibility-only bullet ("responsible for managing X")
+with an action-context-result version demonstrating actual outcome;
+push for a number/scale estimate on any currently-vague achievement
+claim; re-prioritize bullet order/selection based on genuine relevance
+to the specific target job rather than chronological/generic importance.
+
+REFLECTION LAYER
+"Would a hiring manager reading this bullet understand specifically what
+I accomplished and how it mattered, or would it read as
+interchangeable with any other candidate who held a similar title?"
+
+FACT VERIFICATION
+Never fabricate or inflate metrics — if an exact number isn't known,
+use honest, reasonably-justified estimation language or qualitative
+scope description rather than a false-precision invented statistic.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Each bullet uses action-context-result structure
+[ ] Quantified where genuinely possible, honestly estimated where not
+[ ] No fabricated or inflated metrics
+[ ] Filtered/prioritized for relevance to the specific target role
+[ ] Keywords incorporated naturally, not stuffed
+[ ] No generic responsibility-only descriptions remaining
+
+OPTIMIZATION TIPS
+Start every bullet with a strong action verb, varied across bullets (not
+"managed" five times in a row). For achievements without an obvious
+number, ask "compared to what would have happened otherwise" or "at what
+scale" to surface a reasonable quantification angle. Tailor bullet
+selection and emphasis per application rather than using one static
+resume for every job.
+
+COMMON MISTAKES
+Responsibility-only bullets with no demonstrated outcome; vague
+achievement claims without any quantification attempt; fabricated or
+suspiciously round/inflated numbers; generic, non-tailored resume used
+identically for every application; keyword-stuffing that reads
+unnaturally.
+
+PROFESSIONAL TIPS
+Keep a running personal "achievement log" throughout each role
+(specific numbers, scope, outcomes) as they happen — reconstructing
+quantified impact months or years later from memory is far harder and
+less accurate than capturing it in the moment. Tailor bullet emphasis
+(not fabricated content, just selection/framing) specifically to each
+target role's stated priorities.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Help me write resume bullets for my role as a self-taught AI developer
+(personal/portfolio projects, not formal employment), tailoring toward
+an AI/ML internship application. Here's what I actually did: built a
+RAG system combining vector and keyword search that performed better
+than a pure-vector baseline; built a multi-agent system with 100+
+coordinated agents using Google ADK. Available metrics: the RAG system's
+accuracy improvement was measured in testing but I'd need to check exact
+numbers; the multi-agent system doesn't have a clean metric, just the
+scale/complexity itself.
+
+EXAMPLE OUTPUT
+[Bullets:
+
+"Designed and built a hybrid dense/sparse retrieval system for RAG
+pipelines, combining vector and keyword search with re-ranking;
+benchmarked against a pure-vector baseline across multiple datasets to
+validate the accuracy improvement before finalizing the architecture."
+[Note: once you confirm the exact accuracy delta from your testing,
+replace the general "validate the accuracy improvement" phrase with the
+specific number — e.g. "...achieving a measured X% improvement in
+retrieval accuracy over baseline" — specific numbers here will
+meaningfully strengthen this bullet, so it's worth digging up your
+actual test results before finalizing.]
+
+"Architected a multi-agent orchestration system coordinating 100+
+autonomous agents using Google's Agent Development Kit (ADK), designing
+the communication/coordination layer to manage task delegation and
+state across the full agent swarm." [Note: since there's no clean single
+metric here, the scale itself (100+ coordinated agents) IS the
+quantification — this is honest and still demonstrates significant
+technical complexity without needing a fabricated metric.]
+
+Both bullets lead with a strong action verb (Designed/Architected),
+provide enough technical context for an ML-literate reader to understand
+what was actually built, and are framed toward what an AI/ML internship
+reviewer would specifically value (retrieval systems and agent
+orchestration are both directly relevant technical skills for that
+target role).]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add per-application tailoring workflow (how to adjust bullet emphasis/
+selection across 3-5 different target-role variants from the same base
+achievement set), and a fallback: "If a genuinely impressive achievement
+has no available quantification and no reasonable estimation angle,
+prioritize a specific qualitative scope/complexity description over
+omitting the achievement or inventing a number."
+
+EXPERT VERSION
+Layer in full ATS (applicant tracking system) keyword-optimization
+analysis against a specific job posting's actual language, competitive
+positioning analysis (how this resume compares to a typical
+competitive candidate pool for the target role), and narrative-
+coherence review across the full resume (does the story it tells
+support the target role convincingly as a whole, not just bullet-by-
+bullet).
+
+ENTERPRISE VERSION
+(For career-services/recruiting use) Add batch resume-review rubric for
+consistent feedback across many candidates, industry-specific
+benchmark-language libraries, and formal resume-screening-criteria
+alignment documentation.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Help me write resume bullets for [ROLE], tailored toward [TARGET_JOB].
+Raw achievements: [RAW_ACHIEVEMENTS]. Action-context-result structure,
+honestly quantified, filtered for relevance to this specific role."
+================================================================================

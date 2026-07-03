@@ -1,0 +1,240 @@
+================================================================================
+60 — CAREER PLANNING
+================================================================================
+
+TITLE
+Career Planning Master Template
+
+PURPOSE
+Develop a career plan grounded in an honest assessment of current
+skills/gaps relative to a specific target role, with a concrete,
+sequenced action plan — rather than generic career advice disconnected
+from the person's actual starting point and specific goal.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Beginner → Advanced
+
+WHEN TO USE
+- Career path planning, skill-gap analysis, career transition planning,
+  long-term learning roadmap design, evaluating career options
+
+EXPECTED OUTPUT
+A career plan with a specific target role, an honest gap analysis
+between current and required skills, and a concrete, time-sequenced
+action plan to close that gap.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+TARGET ROLE (specific) → CURRENT STATE (skills, experience, honestly
+assessed) → GAP ANALYSIS (what's actually required vs. what's currently
+present) → PRIORITIZATION (which gaps matter most for this specific
+role) → SEQUENCED ACTION PLAN (what to do first, second, third) →
+MILESTONES (checkpoints to assess progress) → REALISTIC TIMEFRAME
+
+WHY EACH SECTION EXISTS
+- Specific Target Role: generic career advice ("build your skills,
+  network more") is nearly useless without a specific target to plan
+  toward — the role must be specific enough to identify concrete actual
+  requirements.
+- Honest Gap Analysis: a plan built on an inflated self-assessment of
+  current skills will misallocate effort toward the wrong things —
+  genuine honesty about current gaps (not falsely modest, not falsely
+  confident) is what makes the resulting plan actually useful.
+- Prioritization: not every gap matters equally for a specific role —
+  identifying which 2-3 gaps are actually most consequential prevents
+  spreading limited time/effort too thin across everything at once.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{TARGET_ROLE} {CURRENT_SKILLS} {CURRENT_EXPERIENCE} {TIME_AVAILABLE}
+{TIMEFRAME_GOAL}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Help me plan toward this target role: {TARGET_ROLE}. My current skills/
+experience, honestly: {CURRENT_SKILLS}, {CURRENT_EXPERIENCE}. Time I can
+realistically dedicate: {TIME_AVAILABLE}. Goal timeframe: {TIMEFRAME_
+GOAL}. Identify what this role actually requires, compare honestly
+against my current state, and prioritize the 2-3 gaps that matter most.
+Build a sequenced action plan (what to focus on first, second, third)
+with milestones to check progress along the way."
+
+OUTPUT STRUCTURE
+- Specific role requirements identified
+- Honest gap analysis
+- Prioritized top gaps
+- Sequenced action plan with milestones
+- Realistic timeframe assessment
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is the target role specific enough to identify concrete, actual
+   requirements, or is it too vague ("something in AI") to plan against
+   meaningfully?
+2. Is the gap analysis genuinely honest (not inflating current skills to
+   make the gap look smaller, not being falsely modest about real
+   existing strengths), grounded in what the stated current experience
+   actually demonstrates?
+3. Are the prioritized gaps genuinely the ones that matter most for THIS
+   specific role, or a generic "improve everything" list that doesn't
+   help focus limited time?
+
+SELF-CORRECTION LAYER
+If the target role is too vague, ask for it to be narrowed to something
+specific enough to research actual requirements against; recalibrate the
+gap analysis if it seems to over- or under-state current skill level
+relative to what's actually described; narrow an overly broad
+prioritization list down to the genuinely highest-leverage 2-3 items.
+
+REFLECTION LAYER
+"If someone followed this exact action plan for the stated timeframe,
+would they genuinely be a credible candidate for this specific target
+role by the end, or does the plan not actually close the gaps that
+matter most?"
+
+FACT VERIFICATION
+Any claims about what a specific role/industry actually requires should
+be checked against current, real job postings/industry information
+rather than assumed from general/possibly outdated knowledge, since
+skill requirements for specific roles evolve.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Target role specific enough to identify concrete requirements
+[ ] Gap analysis is genuinely honest, not inflated or falsely modest
+[ ] Top gaps prioritized (2-3), not an unfocused long list
+[ ] Action plan is sequenced (what first, second, third), not a flat
+    list
+[ ] Milestones included to check progress along the way
+[ ] Timeframe is realistic given stated available time
+
+OPTIMIZATION TIPS
+Research actual current job postings for the target role (or roles one
+level below it, which are more attainable near-term) to ground the gap
+analysis in real, current requirements rather than assumption. Focus
+the action plan on building demonstrable evidence (projects, portfolio
+pieces) of the prioritized gap-closing skills, not just passive
+learning, since evidence is what actually matters to evaluators.
+Revisit and adjust the plan at each milestone rather than treating it as
+fixed once created.
+
+COMMON MISTAKES
+Planning toward a target role too vague to identify real requirements;
+inflated self-assessment leading to a plan that doesn't address real
+gaps; an unfocused list trying to improve everything at once instead of
+prioritizing; passive-learning-only plans with no demonstrable evidence-
+building; unrealistic timeframes given actually available time.
+
+PROFESSIONAL TIPS
+Revisit the plan every few months against real progress and any new
+information (e.g. actual interview feedback, evolving role requirements)
+rather than following an initial plan rigidly regardless of new
+evidence. Prioritize building a small number of genuinely strong,
+demonstrable projects/proof-points over broad but shallow exposure to
+many things — depth in the areas that matter most for the target role
+tends to matter more than breadth.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Help me plan toward this target role: AI/ML engineering internship at a
+mid-size tech company. My current skills, honestly: strong self-taught
+Python, have built several personal projects (RAG systems, multi-agent
+orchestration, a deep learning framework), but no formal internship/work
+experience, no published/peer-reviewed work, still in Class XI (high
+school). Time I can realistically dedicate: several hours most days
+after school. Goal timeframe: applying for internships in the next
+12-18 months.
+
+EXAMPLE OUTPUT
+[Role requirements (based on typical current AI/ML internship
+postings): most postings at this level look for demonstrated practical
+project experience, foundational ML/DL understanding (not necessarily
+formal credentials at internship level), some evidence of collaborative/
+version-controlled development practice, and increasingly, evidence of
+genuine understanding (not just AI-assisted output) through ability to
+explain design decisions.
+
+HONEST GAP ANALYSIS: your existing project portfolio (RAG systems,
+multi-agent orchestration) is a genuine, unusually strong asset for this
+stage — many internship candidates have far less hands-on build
+experience. Real gaps: (1) no public, well-documented portfolio that a
+recruiter/interviewer could actually review (project work may currently
+be scattered/undocumented) — this is likely your highest-leverage gap to
+close, since it's the most direct evidence a recruiter sees; (2) no
+demonstrated collaborative development practice (open-source
+contribution, working with others' code via PRs/reviews) — internship
+roles specifically often value this since interns join existing teams;
+(3) formal age/timeline eligibility for internships needs early
+research, since some programs have specific eligibility windows relative
+to graduation timing.
+
+PRIORITIZED TOP GAPS: (1) public portfolio documentation, (2)
+collaborative/open-source experience, (3) early research into specific
+target programs' actual eligibility requirements.
+
+SEQUENCED ACTION PLAN:
+Months 1-3: consolidate and properly document 2-3 of your strongest
+existing projects into a genuinely portfolio-ready state (clean READMEs,
+clear explanation of design decisions and tradeoffs, not just code
+dumps) — this directly addresses gap #1 using work you've largely
+already done, making it high-leverage relative to effort.
+Months 2-4 (overlapping): make small, genuine contributions to 1-2
+existing open-source AI/ML-adjacent projects — start small
+(documentation fixes, small bug fixes) to build real collaborative
+experience and a visible contribution history, addressing gap #2.
+Months 3-6: research specific target companies'/programs' actual
+internship eligibility and application timelines directly (gap #3),
+adjusting the plan's later timeline to match real application windows
+rather than an assumed generic schedule.
+Months 6-12: apply, using the now-documented portfolio and
+contribution history; use any interview experience gained (even
+unsuccessful applications) as a feedback milestone to refine the plan
+further.
+
+MILESTONE CHECK: by month 3, you should have at least one fully
+portfolio-ready project live and reviewable — if not, that's a signal to
+reassess whether the documentation approach needs simplifying rather
+than continuing to add more projects at lower quality.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add specific target-company research methodology (how to identify which
+2-3 companies/programs are the best realistic fit given the stated
+profile), networking/informational-interview strategy layered into the
+timeline, and a fallback: "If a milestone isn't met on schedule,
+diagnose whether the issue is time-availability, skill-gap
+underestimation, or plan-focus before simply extending the timeline
+uniformly."
+
+EXPERT VERSION
+Layer in personal-brand/visibility strategy (technical writing, talks,
+or community engagement that builds recognition alongside the direct
+skill-building), competitive-positioning analysis (how this specific
+profile compares to a typical competitive applicant pool for these
+specific target roles), and interview-pipeline preparation integrated
+into the later-stage timeline.
+
+ENTERPRISE VERSION
+(For career centers/bootcamps advising many students) Add cohort-level
+outcome tracking across similar career-plan profiles, employer-
+partnership-informed requirement calibration (direct current
+information from hiring partners rather than general research), and
+structured mentor/advisor-check-in scheduling aligned to the plan's
+milestones.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Plan toward [TARGET_ROLE]. Current state: [CURRENT_SKILLS],
+[CURRENT_EXPERIENCE]. Time available: [TIME_AVAILABLE]. Goal timeframe:
+[TIMEFRAME_GOAL]. Honest gap analysis, prioritize top gaps, sequenced
+action plan with milestones."
+================================================================================

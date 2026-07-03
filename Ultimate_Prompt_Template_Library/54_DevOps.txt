@@ -1,0 +1,226 @@
+================================================================================
+54 — DEVOPS
+================================================================================
+
+TITLE
+DevOps & CI/CD Master Template
+
+PURPOSE
+Design and troubleshoot CI/CD pipelines and deployment infrastructure
+that are reliable and appropriately automated for the team's actual
+scale — avoiding both fragile manual processes and unnecessarily complex
+automation that a small team can't maintain.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini, Cursor AI
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- CI/CD pipeline design, deployment automation, infrastructure-as-code,
+  containerization strategy, pipeline debugging, release process design
+
+EXPECTED OUTPUT
+A CI/CD pipeline or deployment configuration appropriately scoped to
+team size/scale, with reliable automated testing gates, clear rollback
+capability, and infrastructure-as-code where it adds genuine value.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+DEPLOYMENT TARGET (cloud provider/platform) → TEAM SIZE + DEPLOY
+FREQUENCY → PIPELINE STAGES (build/test/deploy) → TESTING GATES (what
+must pass before deploy) → ROLLBACK STRATEGY → INFRASTRUCTURE-AS-CODE
+NEEDS → SECRETS MANAGEMENT → MONITORING/ALERTING HOOKS
+
+WHY EACH SECTION EXISTS
+- Team Size + Deploy Frequency: a complex, highly-automated pipeline
+  appropriate for a 50-person team deploying dozens of times daily is
+  overkill (and a maintenance burden) for a solo developer deploying
+  weekly — pipeline complexity must match actual team scale and cadence.
+- Rollback Strategy: deployments WILL occasionally introduce problems;
+  a pipeline without a fast, tested rollback path turns a minor bug into
+  an extended outage — this must be designed explicitly, not assumed to
+  be "just revert the commit."
+- Secrets Management: hardcoded or improperly-handled secrets (API keys,
+  credentials) in CI/CD configuration is a common and serious security
+  issue — this must be explicitly addressed with a proper secrets-
+  management approach, not left implicit.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{DEPLOYMENT_TARGET} {TEAM_SIZE} {DEPLOY_FREQUENCY} {TESTING_REQUIREMENTS}
+{CI_PLATFORM} (GitHub Actions/GitLab CI/Jenkins/etc.)
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a CI/CD pipeline for deploying to {DEPLOYMENT_TARGET}, using
+{CI_PLATFORM}. Team size: {TEAM_SIZE}, deploy frequency: {DEPLOY_
+FREQUENCY}. Include testing gates: {TESTING_REQUIREMENTS} that must pass
+before deploy. Define a rollback strategy for failed deployments. Handle
+secrets via the platform's proper secrets-management mechanism, never
+hardcoded in config. Scope pipeline complexity appropriately to the
+stated team size — don't over-engineer for a scale this team doesn't
+have."
+
+OUTPUT STRUCTURE
+- CI/CD pipeline configuration (YAML or equivalent)
+- Explicit rollback procedure
+- Secrets handled via proper mechanism
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does the pipeline's complexity (number of stages, approval gates,
+   parallel jobs) match the actual stated team size and deploy
+   frequency, or does it over-engineer for a scale/cadence this team
+   doesn't have?
+2. Is there a genuinely fast, tested rollback path for a failed
+   deployment, not just an assumed "revert and redeploy" that hasn't
+   actually been verified to work quickly?
+3. Are secrets/credentials handled exclusively through the platform's
+   proper secrets management (never appearing in plaintext in
+   configuration files or logs)?
+
+SELF-CORRECTION LAYER
+Simplify any pipeline stage/gate that doesn't clearly serve the stated
+team size/frequency; verify the rollback strategy is concrete and
+specific (exact commands/process), not just conceptually mentioned;
+check for any secret/credential reference that isn't going through
+proper secrets management.
+
+REFLECTION LAYER
+"If a deployment breaks production at 2am, does this pipeline give a
+solo/small team a clear, fast, well-tested way to roll back, or would
+they be improvising under pressure?"
+
+FACT VERIFICATION
+For any specific CI platform syntax (GitHub Actions, GitLab CI YAML
+schema), verify current syntax against up-to-date documentation, since
+these platforms update their configuration schemas periodically.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Pipeline complexity matched to actual team size/deploy frequency
+[ ] Testing gates block deployment on failure, not just report it
+[ ] Explicit, concrete rollback strategy
+[ ] Secrets handled via proper platform mechanism, never hardcoded
+[ ] Pipeline runs efficiently (no unnecessary redundant steps)
+
+OPTIMIZATION TIPS
+Cache dependencies between pipeline runs to reduce build time
+meaningfully. For small teams specifically, favor a simple linear
+pipeline (build → test → deploy) over complex branching/approval-gate
+workflows unless there's a genuine stated need for multi-approver
+release processes. Always test the rollback procedure at least once
+before relying on it in a real incident.
+
+COMMON MISTAKES
+Over-engineered pipelines with unnecessary complexity for the team's
+actual scale; testing gates that report failures without actually
+blocking deployment; no tested rollback strategy; hardcoded secrets in
+configuration files; overly slow pipelines from missing dependency
+caching.
+
+PROFESSIONAL TIPS
+Regularly test the rollback path deliberately (not just when an
+incident happens) to ensure it actually works quickly under pressure.
+Keep pipeline configuration in version control alongside the
+application code, and treat pipeline changes with the same review
+rigor as application code changes.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design a CI/CD pipeline for deploying a Python FastAPI app to a single
+cloud VM (via Docker), using GitHub Actions. Team size: solo developer,
+deploy frequency: a few times per week. Include testing gates: unit
+tests must pass, basic linting must pass. Define a rollback strategy.
+
+EXAMPLE OUTPUT
+```yaml
+name: Deploy
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - run: pip install -r requirements.txt --break-system-packages
+      - run: ruff check .
+      - run: pytest
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and push Docker image
+        run: |
+          docker build -t myapp:${{ github.sha }} .
+          # push to registry (using secrets for credentials)
+        env:
+          REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
+      - name: Deploy to VM
+        run: |
+          ssh deploy@${{ secrets.VM_HOST }} \
+            "docker pull myapp:${{ github.sha }} && \
+             docker tag myapp:${{ github.sha }} myapp:current && \
+             docker stop myapp || true && \
+             docker run -d --name myapp myapp:current"
+        env:
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+```
+ROLLBACK STRATEGY: since each deployed image is tagged with its commit
+SHA (not just "latest"), rollback is: SSH to the VM and run
+`docker run` with the previous known-good SHA tag instead of the current
+one — this is fast (seconds, no rebuild needed) since the previous
+image is likely still cached locally on the VM. Recommend keeping the
+last 3-5 tagged images on the VM (simple cleanup cron) specifically to
+make this rollback always immediately available without needing to
+re-pull from the registry.
+
+Note: pipeline is intentionally simple (single linear flow, no multi-
+stage approval gates) matching the solo-developer, few-times-weekly
+deploy cadence — this would be under-built for a larger team with higher
+deploy frequency, but appropriately scoped here.
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add blue-green or canary deployment strategy if availability
+requirements tighten beyond what simple stop/start redeploy provides,
+automated smoke-test-after-deploy verification, and a fallback: "If the
+test suite becomes slow enough to meaningfully delay deployment
+frequency, parallelize test execution before adding pipeline complexity
+elsewhere."
+
+EXPERT VERSION
+Layer in full infrastructure-as-code (Terraform/Pulumi) for reproducible
+environment provisioning, multi-environment promotion strategy (staging
+→ production with appropriate gates), and deployment-frequency/lead-
+time/MTTR tracking (DORA metrics) for pipeline effectiveness measurement.
+
+ENTERPRISE VERSION
+Add multi-approver release-gate requirements for regulated changes,
+full audit-trail logging for compliance (who deployed what, when),
+and disaster-recovery runbook integration connecting the deployment
+pipeline to broader incident-response procedures.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Design a CI/CD pipeline for [DEPLOYMENT_TARGET] using [CI_PLATFORM],
+team size [TEAM_SIZE], deploy frequency [DEPLOY_FREQUENCY]. Testing
+gates: [TESTING_REQUIREMENTS]. Concrete rollback strategy. Proper
+secrets management."
+================================================================================

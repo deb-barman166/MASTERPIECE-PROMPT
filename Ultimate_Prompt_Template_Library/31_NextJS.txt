@@ -1,0 +1,250 @@
+================================================================================
+31 — NEXT.JS
+================================================================================
+
+TITLE
+Next.js Development Master Template
+
+PURPOSE
+Get correct Next.js App Router code (Server vs. Client Components used
+appropriately, correct data-fetching patterns, proper routing structure)
+from AI assistants — avoiding the common mistake of treating Next.js as
+plain React with file-based routing bolted on.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini, v0, Cursor AI, Bolt
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Full-stack Next.js apps, App Router pages/layouts, Server Actions,
+  API routes, SSR/SSG/ISR data-fetching decisions
+
+EXPECTED OUTPUT
+Correctly structured Next.js code with an explicit, justified Server/
+Client Component boundary, and data-fetching using the appropriate
+pattern (Server Component fetch, Server Action, or Route Handler) for
+the use case.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+FEATURE PURPOSE → ROUTER (App Router assumed unless stated) → SERVER OR
+CLIENT COMPONENT (with justification) → DATA FETCHING PATTERN (Server
+Component direct fetch / Server Action / Route Handler) → RENDERING
+STRATEGY (static/dynamic/ISR) → ROUTING STRUCTURE (file/folder
+implications) → ENVIRONMENT VARIABLE / SECRETS HANDLING
+
+WHY EACH SECTION EXISTS
+- Server vs. Client Component justification: this is the single most
+  consequential decision in App Router code — Client Components
+  ("use client") ship JS to the browser and lose direct backend access;
+  defaulting everything to Client Component (common AI mistake) forfeits
+  Next.js's core performance advantage.
+- Data Fetching Pattern: Next.js offers multiple valid data-fetching
+  approaches (Server Component async fetch, Server Actions for
+  mutations, Route Handlers for external API compatibility) — the
+  correct choice depends on whether it's a read/mutation and whether
+  external systems need to call it, and must be reasoned explicitly.
+- Rendering Strategy: static generation, dynamic rendering, and ISR have
+  very different performance/freshness tradeoffs — Next.js will pick a
+  default based on code patterns, which may not match actual intent
+  unless explicitly controlled.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{FEATURE} {COMPONENT_TYPE} (Server/Client, with reason) {DATA_PATTERN}
+{RENDERING_STRATEGY} {ROUTE_STRUCTURE}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Write Next.js App Router code for {FEATURE}. Default to Server
+Components; only use 'use client' where interactivity (state, event
+handlers, browser APIs) genuinely requires it — state which parts need
+it and why. Data fetching: {DATA_PATTERN} — use direct async fetch in a
+Server Component for reads, Server Actions for mutations initiated from
+the UI, Route Handlers only if an external client needs to call this
+endpoint. Rendering strategy: {RENDERING_STRATEGY}. Route structure:
+{ROUTE_STRUCTURE}. Keep secrets/API keys server-side only, never exposed
+to client bundles."
+
+OUTPUT STRUCTURE
+- Correctly split Server/Client Component code with justification
+- Appropriate data-fetching pattern for the read/mutation type
+- File/folder structure notes matching App Router conventions
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does every 'use client' boundary have a genuine reason (interactivity,
+   browser-only API, third-party client-only library), or is it applied
+   by default/unnecessarily?
+2. Is the data-fetching pattern matched correctly to whether this is a
+   read (Server Component fetch) or a mutation (Server Action), and
+   whether external non-Next.js clients need access (Route Handler)?
+3. Are any secrets/API keys accidentally referenced in a Client
+   Component or otherwise exposed to the browser bundle?
+
+SELF-CORRECTION LAYER
+Push 'use client' boundaries as far down the component tree as possible
+(leaf components needing interactivity, not entire page trees); verify
+no server-only secrets are imported into client-marked files; confirm
+mutations use Server Actions with proper revalidation
+(`revalidatePath`/`revalidateTag`) rather than manual refetch logic.
+
+REFLECTION LAYER
+"Is this the minimum client-side JavaScript needed for the required
+interactivity, or has more of the tree been marked client than
+necessary?"
+
+FACT VERIFICATION
+Next.js's App Router APIs have evolved significantly across versions
+(Server Actions stabilization, caching behavior changes); verify current
+behavior against official Next.js documentation for the specific
+version in use rather than assuming Pages Router conventions apply.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] 'use client' applied minimally, at the leaf level, with justification
+[ ] Correct data-fetching pattern for read vs. mutation vs. external-API
+[ ] No secrets/API keys exposed to client bundle
+[ ] Rendering strategy matches actual freshness/performance needs
+[ ] Server Actions include proper revalidation after mutations
+[ ] Route/folder structure follows App Router conventions
+
+OPTIMIZATION TIPS
+Fetch data directly in Server Components wherever possible rather than
+creating an API route and fetching from the client — this avoids an
+unnecessary network round-trip. Use `loading.js` and `error.js`
+conventions for route-level loading/error states rather than manual
+state management. Co-locate Server Actions near the components that use
+them for maintainability.
+
+COMMON MISTAKES
+Marking entire pages 'use client' instead of isolating interactivity to
+leaf components; fetching data client-side via useEffect when a Server
+Component fetch would be simpler and faster; creating unnecessary API
+routes for internal-only data needs; forgetting revalidation after
+Server Action mutations, leaving stale cached data displayed.
+
+PROFESSIONAL TIPS
+Default every new component to a Server Component and only add 'use
+client' when a build error or genuine interactivity need forces it —
+this default-server mindset is the single highest-leverage habit for
+correct Next.js code. Use the Next.js bundle analyzer periodically to
+verify client bundle size isn't growing from unnecessary client
+boundaries.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Write Next.js App Router code for a product page that displays product
+details (server-fetched) and includes an "Add to Cart" button
+(interactive). Default to Server Components; isolate client-side code to
+only what needs it. Data fetching: direct Server Component fetch for
+product data; Server Action for the add-to-cart mutation. Rendering
+strategy: static with ISR (revalidate every 60s) since product data
+changes infrequently. Route structure: app/products/[id]/page.tsx.
+
+EXAMPLE OUTPUT
+```tsx
+// app/products/[id]/page.tsx (Server Component — default, no directive needed)
+import { AddToCartButton } from "./add-to-cart-button";
+
+export const revalidate = 60;
+
+async function getProduct(id: string) {
+  const res = await fetch(`https://api.example.com/products/${id}`, {
+    next: { revalidate: 60 },
+  });
+  if (!res.ok) throw new Error("Failed to fetch product");
+  return res.json();
+}
+
+export default async function ProductPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const product = await getProduct(params.id);
+
+  return (
+    <main>
+      <h1>{product.name}</h1>
+      <p>{product.description}</p>
+      <p>${product.price}</p>
+      {/* Only this leaf component needs client interactivity */}
+      <AddToCartButton productId={product.id} />
+    </main>
+  );
+}
+```
+```tsx
+// app/products/[id]/add-to-cart-button.tsx
+"use client";
+
+import { useState, useTransition } from "react";
+import { addToCart } from "./actions";
+
+export function AddToCartButton({ productId }: { productId: string }) {
+  const [isPending, startTransition] = useTransition();
+  const [added, setAdded] = useState(false);
+
+  return (
+    <button
+      disabled={isPending}
+      onClick={() =>
+        startTransition(async () => {
+          await addToCart(productId);
+          setAdded(true);
+        })
+      }
+    >
+      {added ? "Added ✓" : isPending ? "Adding…" : "Add to Cart"}
+    </button>
+  );
+}
+```
+```tsx
+// app/products/[id]/actions.ts
+"use server";
+
+export async function addToCart(productId: string) {
+  // mutation logic (write to cart in DB/session)
+}
+```
+Key decision: the page itself stays a Server Component with a direct,
+ISR-cached fetch (matching the "changes infrequently" context), while
+'use client' is applied only to the button leaf component that actually
+needs `useState`/`useTransition` — not the whole page.
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add parallel/intercepting routes specification for modal-based UI
+patterns (e.g. product quick-view), streaming with Suspense boundaries
+for slow data dependencies, and a fallback: "If a Server Action mutation
+needs immediate UI feedback before the server responds, use optimistic
+UI (useOptimistic) rather than blocking on the full round-trip."
+
+EXPERT VERSION
+Layer in full caching-layer reasoning (Data Cache vs. Full Route Cache
+vs. Router Cache interactions), middleware-based auth/redirect logic
+specification, and edge-runtime compatibility constraints if targeting
+edge deployment.
+
+ENTERPRISE VERSION
+Add multi-tenant routing architecture (subdomain/path-based tenant
+isolation), CDN/caching strategy documentation for a production
+deployment, and monitoring/observability integration (structured
+logging compatible with the hosting platform's tooling).
+
+UNIVERSAL VERSION (model-agnostic core)
+"Write Next.js App Router code for [FEATURE]. Default Server Components,
+'use client' only where justified. Data pattern: [DATA_PATTERN].
+Rendering: [RENDERING_STRATEGY]."
+================================================================================

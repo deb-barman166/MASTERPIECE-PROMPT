@@ -1,0 +1,205 @@
+================================================================================
+04 — POSTER DESIGN
+================================================================================
+
+TITLE
+AI Poster Design Master Template
+
+PURPOSE
+Generate posters (event, movie-style, promotional, educational) that
+work at both close-viewing and across-the-room distances, with a clear
+information hierarchy from headline down to fine print.
+
+IDEAL AI MODELS
+Midjourney v6+, Ideogram v2 (text-heavy posters), DALL-E 3, Adobe
+Firefly
+
+DIFFICULTY LEVEL
+Intermediate
+
+WHEN TO USE
+- Event posters, movie/album-style key art, educational/classroom
+  posters, promotional campaign posters, print advertising
+
+EXPECTED OUTPUT
+A poster at standard print/digital dimensions with a clear three-tier
+hierarchy (headline visible from distance, key info at mid-range, detail
+at close range).
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+POSTER PURPOSE (event / promotional / educational / artistic)
+  ↓
+VIEWING CONTEXT (across-room / eye-level close / both)
+  ↓
+HEADLINE (readable from distance)
+  ↓
+HERO VISUAL (dominant image/illustration)
+  ↓
+KEY INFO (date/location/details — mid-range legible)
+  ↓
+FINE PRINT (close-range only: credits, terms, sponsors)
+  ↓
+STYLE DIRECTION
+  ↓
+COLOR/CONTRAST STRATEGY
+  ↓
+DIMENSIONS (print size or digital resolution)
+
+WHY EACH SECTION EXISTS
+- Viewing Context: a poster designed only for close-up screen viewing
+  often fails when actually printed and viewed from 10+ feet away — this
+  section forces the design to work at its intended real-world distance.
+- Three-Tier Hierarchy: posters are read in passes (glance from far,
+  approach, then read details) — collapsing all information into one
+  visual weight defeats this natural reading behavior.
+- Hero Visual: unlike banners (peripheral attention) or infographics
+  (data-first), posters are fundamentally image-led — the visual must
+  carry emotional/thematic weight, not just support text.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{PURPOSE} — event / promotional / educational / artistic
+{HEADLINE} — the large, distance-readable text
+{HERO_VISUAL} — the dominant image concept
+{KEY_INFO} — date, location, or core details
+{FINE_PRINT} — credits, sponsors, terms
+{STYLE} — visual direction/reference
+{DIMENSIONS} — e.g. 18x24in, 24x36in, A2, digital 1080x1350
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a {PURPOSE} poster at {DIMENSIONS}. Headline (large, readable
+from across a room): '{HEADLINE}'. Hero visual: {HERO_VISUAL} as the
+dominant compositional element. Key info (mid-range legible):
+{KEY_INFO}. Fine print (small, close-range only): {FINE_PRINT}. Style:
+{STYLE}. Ensure clear three-tier visual hierarchy: headline visible from
+distance, key info readable at normal viewing range, fine print
+legible up close."
+
+OUTPUT STRUCTURE
+- Poster with hero visual dominant, headline large and high-contrast,
+  key info clearly secondary, fine print present but unobtrusive
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Would the headline and hero visual alone communicate the poster's
+   purpose from 10+ feet away?
+2. Does the hero visual carry the emotional/thematic tone of the event/
+   subject, or is it generic stock-style imagery?
+3. Is there clear visual separation between the three information tiers
+   (size, weight, or placement distinguishing headline from key info
+   from fine print)?
+
+SELF-CORRECTION LAYER
+If the poster feels flat or the hierarchy unclear:
+- Increase the size differential between headline and key info (often
+  the gap is too small)
+- Strengthen the hero visual's compositional dominance (it should
+  occupy significant visual real estate, not compete equally with text)
+- Move any information competing with the headline for top visual
+  weight down into the key-info tier
+
+REFLECTION LAYER
+"Standing back from this poster, does the headline and image alone tell
+me what this is about, even before I read anything else?"
+
+FACT VERIFICATION
+Verify date, location, and any factual claims in the key info/fine
+print are accurate, since posters are often printed in bulk and
+difficult/costly to correct after production.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Headline legible from realistic viewing distance
+[ ] Hero visual is compositionally dominant and thematically relevant
+[ ] Clear three-tier hierarchy (headline > key info > fine print)
+[ ] Key info (date/location/etc.) accurate and complete
+[ ] Style matches the tone/genre of the subject
+[ ] Works at intended print or digital dimensions
+
+OPTIMIZATION TIPS
+- Design and test the headline at actual/simulated viewing distance
+  before finalizing — zoom out on screen to approximate real distance.
+- Let the hero visual bleed to the edges where appropriate for a more
+  dynamic, less "boxed-in" composition.
+- Reserve pure white/negative space deliberately — cluttered posters
+  read as amateur regardless of content quality.
+
+COMMON MISTAKES
+- Headline too small or low-contrast to read from a realistic distance
+- Hero visual treated as decoration rather than the primary
+  communicative element
+- Flat hierarchy where all text is similarly sized/weighted
+- Designing only for digital screen viewing when the poster will be
+  printed and viewed at true scale
+
+PROFESSIONAL TIPS
+- Reference genre conventions deliberately (film posters, concert
+  posters, and academic posters all have distinct, recognizable visual
+  languages) — leaning into or intentionally subverting these is a
+  stronger choice than ignoring them.
+- For print posters, always confirm color mode (CMYK) and bleed
+  requirements with the printer before finalizing the design file.
+- Create a digital-crop variant (e.g. Instagram square) alongside the
+  print version for promotional reuse.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design an event poster at 18x24in. Headline (large, readable from
+across a room): 'BUILD WEEKEND 2026'. Hero visual: an abstract
+illustration of interconnected nodes/circuits forming a rising arrow
+shape, as the dominant compositional element. Key info (mid-range
+legible): 'Aug 14-16 · Siliguri Tech Hub · Free for Students'. Fine
+print (small, close-range only): 'Organized by [Org] · Sponsored by
+[Sponsors] · Register at [URL]'. Style: bold geometric, high-energy
+tech-conference aesthetic, dark background with electric accent colors.
+Ensure clear three-tier visual hierarchy.
+
+EXAMPLE OUTPUT
+[Image: An 18x24in vertical poster with a dark navy background. The
+abstract circuit/arrow illustration dominates the upper two-thirds in
+glowing cyan and magenta. "BUILD WEEKEND 2026" spans in massive bold
+white type across the middle, clearly readable from a distance. Below
+it, medium-sized text reads "Aug 14-16 · Siliguri Tech Hub · Free for
+Students". A small footer strip at the bottom carries the fine print in
+a compact, legible but visually de-emphasized style.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: multi-format variant generation (print + Instagram story + square
+social crop from one master composition), typographic system
+specification (exact type pairing for headline/key-info/fine-print
+tiers), and a fallback: "If the hero visual competes visually with the
+headline for dominance, either enlarge the headline's contrast treatment
+(outline, background panel) or simplify the visual's detail level."
+
+EXPERT VERSION
+Layer in: genre-convention deconstruction (identifying and deliberately
+using or subverting specific visual tropes of the poster's category),
+print-production specification (CMYK color notes, bleed/trim marks,
+paper stock recommendation), and series/campaign consistency rules for
+posters that are part of a multi-piece set.
+
+ENTERPRISE VERSION
+Add: brand and sponsor compliance requirements (logo sizing/placement
+rules, required legal/safety text), multi-market localization
+(language variants maintaining the same visual system), and full
+print-vendor specification handoff (file format, resolution, color
+profile requirements).
+
+UNIVERSAL VERSION (model-agnostic core)
+"A [PURPOSE] poster at [DIMENSIONS]: headline '[HEADLINE]' large and
+distance-readable, hero visual of [HERO_VISUAL], key info
+'[KEY_INFO]' mid-tier, fine print '[FINE_PRINT]' small. Style: [STYLE]."
+Works across Midjourney and DALL-E for the visual concept; route to
+Ideogram specifically for reliable large-headline text rendering, then
+finish exact typography in a dedicated design tool for print production.
+================================================================================

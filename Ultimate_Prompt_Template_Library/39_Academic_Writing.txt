@@ -1,0 +1,253 @@
+================================================================================
+39 — ACADEMIC WRITING
+================================================================================
+
+TITLE
+Academic Writing Master Template
+
+PURPOSE
+Produce academically rigorous writing (essays, literature reviews,
+theses sections) with proper argumentation structure, appropriate
+academic register, and correct citation discipline — while using AI as a
+structuring/drafting aid rather than a substitute for the student's own
+understanding and original analysis.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Essay drafting/structuring, literature review organization, thesis
+  chapter drafting, argument development, academic editing/feedback
+
+EXPECTED OUTPUT
+Well-structured academic prose with clear thesis, logical argument
+progression, appropriate register, and a citation framework — always
+used in accordance with the student's institution's academic integrity
+policy.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+ASSIGNMENT CONTEXT (question/prompt, discipline, level)
+  ↓
+THESIS/ARGUMENT (the specific claim being argued)
+  ↓
+STRUCTURE (introduction → body arguments → counterargument → conclusion)
+  ↓
+EVIDENCE REQUIREMENTS (what sources/data support each point)
+  ↓
+ACADEMIC REGISTER (discipline-appropriate tone/conventions)
+  ↓
+CITATION STYLE (APA/MLA/Chicago/etc.)
+  ↓
+COUNTERARGUMENT HANDLING (acknowledging and addressing opposing views)
+  ↓
+INTEGRITY BOUNDARY (AI as structuring aid, not ghostwriter — student's
+  own analysis and understanding must be central)
+
+WHY EACH SECTION EXISTS
+- Thesis/Argument specificity: academic writing is fundamentally
+  argumentative — a vague or purely descriptive "thesis" produces weak
+  papers regardless of how well-structured the prose is; this must be a
+  specific, defensible, arguable claim.
+- Counterargument Handling: strong academic arguments engage seriously
+  with opposing positions rather than ignoring them — this section
+  ensures the writing doesn't just assert one side but demonstrates
+  critical engagement with the topic's actual complexity.
+- Integrity Boundary: this is the most important section for this
+  template category — AI assistance should help a student structure,
+  clarify, and strengthen their OWN thinking and research, not generate
+  submitted work wholesale in violation of academic integrity policies;
+  this must be explicit and non-negotiable.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{ASSIGNMENT} {DISCIPLINE} {THESIS} {CITATION_STYLE} {SOURCES_AVAILABLE}
+{WORD_COUNT}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"I'm working on {ASSIGNMENT} for a {DISCIPLINE} course, target
+{WORD_COUNT}. My thesis/argument: {THESIS}. Sources I'm drawing on:
+{SOURCES_AVAILABLE}. Help me structure this into a strong academic
+argument: introduction with clear thesis statement, body sections each
+developing one supporting point with evidence, explicit engagement with
+at least one counterargument, and a conclusion that synthesizes (not
+just repeats) the argument. Use {CITATION_STYLE} citation format. This
+should help me organize and strengthen MY OWN analysis and argument —
+flag if any part of what I'm asking for would cross into work that
+should be my own original writing rather than AI-generated."
+
+OUTPUT STRUCTURE
+- Structured outline or draft with clear thesis, body logic, and
+  counterargument engagement
+- Citation format applied consistently
+- Explicit notes distinguishing structural/organizational help from
+  content the student should develop themselves
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is the thesis a specific, arguable claim (something a reasonable
+   person could disagree with), or is it a purely descriptive statement
+   that doesn't actually require defending?
+2. Does the argument structure build logically, with each section's
+   evidence genuinely supporting the specific claim it's attached to?
+3. Does this response help the student think more clearly and develop
+   their own argument, or does it risk substituting for their own
+   required academic work in a way that would violate integrity
+   policies?
+
+SELF-CORRECTION LAYER
+If the thesis is too descriptive or the structure weak:
+- Sharpen a descriptive statement into an arguable claim by asking "so
+  what — why does this matter, and what would someone who disagrees
+  say?"
+- Check that each body section's evidence directly supports its
+  specific claim, not just the general topic
+- If a request risks crossing into "write my essay for me" territory,
+  redirect toward structuring/feedback/clarification support instead
+
+REFLECTION LAYER
+"Does this response help the student produce stronger work through
+their own understanding, or does it risk them submitting AI-generated
+content as their own original academic work?"
+
+FACT VERIFICATION
+Any factual claims, statistics, or citations referenced must be
+accurate; fabricated citations (a known AI failure mode) are especially
+serious in academic contexts and must never be presented — if a specific
+citation isn't verifiably known, this should be flagged rather than
+invented.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Thesis is a specific, arguable claim, not merely descriptive
+[ ] Each body section's evidence directly supports its specific point
+[ ] At least one counterargument seriously engaged, not strawmanned
+[ ] Citation format applied consistently and correctly
+[ ] No fabricated citations or sources
+[ ] Response supports the student's own thinking/authorship, doesn't
+    substitute for required original work
+
+OPTIMIZATION TIPS
+- Bring your own source material and rough ideas to the conversation
+  rather than asking for a thesis from scratch — the strongest use of
+  AI here is strengthening and organizing your existing thinking, not
+  generating it wholesale.
+- Ask for feedback/critique on your own draft paragraphs specifically,
+  which builds your own skill, rather than only requesting new AI-
+  generated prose.
+- Always independently verify any citation before including it in
+  submitted work — AI models can produce plausible-sounding but
+  incorrect or fabricated citations.
+
+COMMON MISTAKES
+- Purely descriptive "thesis" statements that don't require defending
+- Ignoring counterarguments entirely, weakening the paper's rigor
+- Inconsistent citation formatting
+- Accepting AI-suggested citations without independently verifying they
+  exist and say what's claimed
+- Using AI output as final submitted text rather than as a drafting/
+  structuring aid, risking academic integrity violations
+
+PROFESSIONAL TIPS
+- Check your institution's specific academic integrity policy on AI use
+  before starting — policies vary significantly by institution and even
+  by individual course/instructor.
+- Use AI most effectively for the "cold start" problem (organizing
+  scattered notes into a coherent outline) and for critique of your own
+  drafts, both of which build your skills rather than replacing them.
+- Independently verify every citation in the final version against the
+  actual source before submission, without exception.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+I'm working on a 2000-word essay for a Class XI economics course on
+whether AI-driven automation will increase or decrease income inequality
+in developing economies. Target 2000 words. My thesis/argument:
+automation's effect on inequality depends more on a country's existing
+labor-market flexibility and education infrastructure than on the
+technology itself, so the same automation wave could increase inequality
+in one country and decrease it in another. Sources I'm drawing on: two
+assigned readings on automation and labor markets, plus I want to bring
+in a recent example I read about. Help me structure this into a strong
+academic argument. Use APA citation format. Flag if any part crosses
+into work that should be my own.
+
+EXAMPLE OUTPUT
+[Structural guidance:
+
+Your thesis is genuinely arguable — good starting point, since it
+pushes back against the simpler "automation increases/decreases
+inequality" framing with a conditional claim. Here's a structure to
+develop it:
+
+I. Introduction: frame the simple binary question (does automation
+increase or decrease inequality), then introduce your more nuanced
+conditional thesis as the paper's contribution.
+
+II. Body 1 — Labor-market flexibility as a mediating factor: this is
+where you'd draw on your first assigned reading. [Note: you'll need to
+develop the specific mechanism/evidence from that reading yourself —
+I can help you organize and clarify it once you've drafted it, but the
+substantive analysis of your assigned reading should be your own work.]
+
+III. Body 2 — Education infrastructure as a mediating factor: similarly
+structured using your second reading.
+
+IV. Counterargument: engage seriously with the view that automation's
+effects are primarily driven by the technology's nature (e.g. skill-
+biased technical change) regardless of local context — this is the
+strongest objection to your conditional thesis, and addressing it will
+strengthen your paper significantly.
+
+V. Conclusion: synthesize — don't just restate — by returning to your
+conditional claim with the mediating factors established.
+
+On your "recent example" — bring me the specific facts once you've
+found and read the source, and I can help you integrate it into this
+structure with correct APA in-text citation, but I can't generate or
+verify a specific real-world example/citation for you from a vague
+memory, since that risks introducing an inaccurate or fabricated
+source into your paper.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add explicit rubric-alignment checking (structuring the argument against
+a provided grading rubric's specific criteria), peer-review-style
+feedback simulation (critiquing a draft the way a peer reviewer or
+professor might), and a fallback: "If a requested section would require
+substantive original analysis the student hasn't yet done, ask
+clarifying questions to help them develop that analysis themselves
+rather than generating it on their behalf."
+
+EXPERT VERSION
+Layer in full literature-synthesis methodology (organizing multiple
+sources into a coherent review structure that identifies genuine
+scholarly debates/gaps), discipline-specific argumentation convention
+coaching (how argument structure differs between, say, humanities and
+STEM academic writing), and iterative-draft-improvement tracking (before/
+after comparison showing specifically what feedback improved).
+
+ENTERPRISE VERSION
+(Institutional/educator use) Add rubric-based automated feedback
+generation for instructor use, plagiarism/originality-adjacent
+integrity-check integration notes, and cohort-level common-misconception
+pattern identification across multiple student submissions for
+instructional improvement.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Help me structure an academic argument for [ASSIGNMENT]. Thesis:
+[THESIS]. Body sections with evidence, counterargument engagement,
+[CITATION_STYLE] format. This should strengthen my own analysis, not
+replace it — flag anything that crosses that line."
+================================================================================

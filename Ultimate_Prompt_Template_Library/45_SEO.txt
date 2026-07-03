@@ -1,0 +1,198 @@
+================================================================================
+45 — SEO
+================================================================================
+
+TITLE
+SEO Content & Strategy Master Template
+
+PURPOSE
+Develop SEO strategy and content that genuinely serves search intent
+(and therefore ranks sustainably), rather than keyword-stuffed content
+optimized for outdated ranking signals that modern search algorithms
+actively penalize.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini (with web search for current SERP analysis)
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Content strategy, on-page optimization, keyword/topic research,
+  content briefs, technical SEO review
+
+EXPECTED OUTPUT
+Content strategy or on-page optimization matched to genuine search
+intent, with natural keyword integration and structure that both users
+and search engines can parse effectively.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+TARGET KEYWORD/TOPIC → SEARCH INTENT (informational/navigational/
+transactional/commercial) → CURRENT SERP LANDSCAPE (what's currently
+ranking and why) → CONTENT GAP (what existing results miss) →
+STRUCTURE (headings matching intent) → NATURAL KEYWORD INTEGRATION →
+E-E-A-T SIGNALS (experience, expertise, authority, trust)
+
+WHY EACH SECTION EXISTS
+- Search Intent identification: content that doesn't match the actual
+  intent behind a query (e.g. a product page for an informational
+  query) won't rank regardless of keyword optimization — intent match
+  is the foundational requirement.
+- Content Gap analysis: outranking current top results requires
+  genuinely offering something they don't (more current data, better
+  structure, missing subtopic) — copying the same angle as existing
+  top results rarely displaces them.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{KEYWORD_TOPIC} {SEARCH_INTENT} {TARGET_AUDIENCE} {CONTENT_TYPE}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Develop SEO content strategy for the keyword/topic: {KEYWORD_TOPIC}.
+Identify the genuine search intent: {SEARCH_INTENT}. Research what's
+currently ranking and identify a genuine content gap this content can
+fill. Structure headings to match how a searcher with this intent
+actually wants information organized. Integrate the target keyword and
+related terms naturally, not stuffed. Include E-E-A-T signals
+appropriate to {TARGET_AUDIENCE} and {CONTENT_TYPE}."
+
+OUTPUT STRUCTURE
+- Search intent analysis
+- Content gap identified vs. current top results
+- Heading structure matched to intent
+- Content brief or draft with natural keyword integration
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does this content genuinely match the search intent behind the
+   keyword, or does it optimize for the keyword text while missing what
+   the searcher actually wants?
+2. Is there a genuine content gap being filled versus current top
+   results, or would this content just be a similar restatement?
+3. Is keyword integration natural (reads well aloud) or does it show
+   signs of stuffing that would read poorly to an actual user?
+
+SELF-CORRECTION LAYER
+Re-examine intent match if the content type doesn't fit the query type
+(e.g. a listicle for a specific how-to query); strengthen the content
+gap if the current draft doesn't clearly differ from existing top
+results; remove any keyword repetition that reads unnaturally when read
+aloud.
+
+REFLECTION LAYER
+"If a search engine's quality rater manually reviewed this against the
+actual search intent, would they judge it genuinely more helpful than
+the current top-ranking results, or just similarly optimized?"
+
+FACT VERIFICATION
+Current SERP landscape and ranking-factor claims should be based on
+actual current search results (via web search) rather than potentially
+outdated SEO knowledge, since search algorithms and SERP features
+change frequently.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Content genuinely matches search intent, not just keyword text
+[ ] Clear content gap identified vs. current top results
+[ ] Heading structure matches how the intent-driven searcher wants
+    information organized
+[ ] Keyword integration reads naturally aloud
+[ ] E-E-A-T signals present and appropriate
+
+OPTIMIZATION TIPS
+Write for the searcher first, keyword integration second — content that
+genuinely serves intent naturally incorporates relevant terms without
+forced stuffing. Check current SERP results before writing, not just
+after, to identify the actual content gap rather than guessing at one.
+
+COMMON MISTAKES
+Optimizing for keyword text while missing actual search intent; keyword
+stuffing that reads unnaturally; content that's similar to (not better
+than) current top results; ignoring E-E-A-T signals that search engines
+increasingly weight; outdated SEO tactics (keyword density targets,
+exact-match anchor text overuse) that no longer align with current
+ranking factors.
+
+PROFESSIONAL TIPS
+Regularly verify SEO tactics against current search engine guidance
+(Google Search Central documentation specifically) rather than relying
+on older conventional SEO wisdom, since best practices evolve. Prioritize
+genuinely useful, well-structured content over any specific keyword-
+density formula — modern search algorithms are far better at detecting
+genuine helpfulness than older keyword-matching approaches.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Develop SEO content strategy for the keyword/topic: "how to monitor AI
+agents in production." Search intent: informational, likely from
+developers who've deployed something and are now realizing they need
+visibility into it. Target audience: indie/small-team developers.
+Content type: blog post/guide.
+
+EXAMPLE OUTPUT
+[Intent analysis: this is informational intent from developers at a
+specific realization point (post-deployment, pre-monitoring) — content
+should meet them exactly there, not assume beginner deployment
+knowledge (they've already deployed) nor assume enterprise-scale
+monitoring needs (likely solo/small team based on the query phrasing).
+
+Content gap (based on current SERP review): existing top results tend
+to be either enterprise-observability-vendor content (heavy on their
+own product, light on genuinely comparing approaches) or very generic
+"what is observability" explainers not specific to AI agents' unique
+failure modes (silent hallucination, tool-call failures, cost runaway)
+— a genuine gap exists for content specifically addressing AI-agent-
+specific monitoring needs (not generic app monitoring) written from a
+practitioner rather than vendor-marketing angle.
+
+Suggested heading structure (matching the searcher's likely mental
+journey): H1 addressing the core query → H2 "Why AI Agents Fail
+Differently Than Regular Apps" (establishing the specific gap) → H2
+"What to Actually Monitor" (concrete, specific) → H2 comparing
+approaches (DIY logging vs. purpose-built tools) → H2 practical
+starter approach for a solo dev. Keyword integration: primary term and
+natural variations ("agent monitoring," "production AI agents",
+"agent observability") woven into headings/body where they'd naturally
+occur in practitioner writing, not forced into every paragraph.
+
+E-E-A-T signals: written from genuine first-hand practitioner experience
+(specific examples of actual failure modes, not generic descriptions),
+which both serves the reader better and signals experience/expertise
+more credibly than generic vendor content.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add internal-linking strategy (connecting to related content for topic
+authority building), featured-snippet optimization structure for the
+specific query type, and a fallback: "If current top results already
+comprehensively serve this intent with no clear gap, consider targeting
+a more specific long-tail variant instead of competing head-on."
+
+EXPERT VERSION
+Layer in full topic-cluster/pillar-content strategy (how this piece fits
+into a broader content architecture for topical authority), technical
+SEO audit checklist (schema markup, page speed, mobile experience
+factors), and search-intent-shift monitoring (how intent for this query
+might evolve, requiring content updates).
+
+ENTERPRISE VERSION
+Add content-governance workflow for a multi-author content team,
+programmatic SEO strategy for scale (templated pages for long-tail
+variants), and SEO performance reporting structure tied to business
+KPIs (not just rankings).
+
+UNIVERSAL VERSION (model-agnostic core)
+"SEO content for [KEYWORD_TOPIC], intent: [SEARCH_INTENT]. Identify
+genuine content gap vs. current top results. Structure for intent, not
+just keyword. Natural integration, E-E-A-T signals present."
+Requires current web search for accurate SERP analysis.
+================================================================================

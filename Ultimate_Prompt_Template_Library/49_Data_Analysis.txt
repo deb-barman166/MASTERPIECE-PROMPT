@@ -1,0 +1,237 @@
+================================================================================
+49 — DATA ANALYSIS
+================================================================================
+
+TITLE
+Data Analysis Master Template
+
+PURPOSE
+Get rigorous, honest data analysis from AI assistants — correctly
+matched statistical/analytical methods, transparent handling of data
+quality issues, and conclusions that don't outrun what the data actually
+supports.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini (with code execution for actual computation)
+
+DIFFICULTY LEVEL
+Beginner → Expert
+
+WHEN TO USE
+- Exploratory data analysis, business metrics analysis, A/B test
+  analysis, dataset cleaning/preparation, trend/pattern identification,
+  data visualization planning
+
+EXPECTED OUTPUT
+An analysis with explicitly stated methodology, honest treatment of data
+quality/limitations, appropriately matched statistical methods, and
+conclusions calibrated to actual statistical confidence — not
+overstated pattern-claims from noisy or limited data.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+ANALYSIS QUESTION (specific) → DATASET DESCRIPTION (size, structure,
+known quality issues) → METHOD SELECTION (matched to data type/question)
+→ DATA CLEANING APPROACH (explicit handling of missing/outlier/
+duplicate data) → ANALYSIS EXECUTION → STATISTICAL CONFIDENCE
+(significance, effect size, uncertainty) → VISUALIZATION (matched to
+data type) → HONEST LIMITATIONS
+
+WHY EACH SECTION EXISTS
+- Specific Analysis Question: "analyze this data" produces unfocused,
+  shallow exploration — a specific question ("did conversion rate
+  differ significantly between these two groups") produces genuinely
+  useful, checkable analysis.
+- Explicit Data Cleaning: silent, undisclosed data-cleaning decisions
+  (how missing values were handled, which outliers were excluded) can
+  materially change results — these decisions must be stated explicitly
+  so they can be reviewed/challenged, not hidden inside a "cleaned"
+  dataset.
+- Statistical Confidence: a correlation or difference existing in a
+  sample doesn't automatically mean it's statistically meaningful or
+  practically significant — this section forces honest confidence/
+  uncertainty reporting rather than treating any observed pattern as
+  definitively real.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{ANALYSIS_QUESTION} {DATASET_DESCRIPTION} {DATA_QUALITY_ISSUES}
+{ANALYSIS_TYPE} (exploratory / hypothesis-testing / predictive)
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Analyze this data to answer: {ANALYSIS_QUESTION}. Dataset:
+{DATASET_DESCRIPTION}. Known data quality issues: {DATA_QUALITY_ISSUES}
+— handle explicitly and state how (don't silently drop/impute without
+noting it). Select the statistically appropriate method for
+{ANALYSIS_TYPE} given the data's actual properties (distribution, sample
+size, independence). Report not just the point result but statistical
+confidence (p-value/confidence interval/effect size as appropriate) —
+don't claim a pattern is meaningful without checking whether it's
+statistically supported. Suggest an appropriate visualization. State
+honest limitations of this analysis."
+
+OUTPUT STRUCTURE
+- Explicit data-cleaning log (what was done and why)
+- Method selection with justification
+- Result with statistical confidence, not just a point estimate
+- Appropriate visualization suggestion
+- Honest limitations section
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is the selected statistical/analytical method actually appropriate
+   for this data's real properties (sample size, distribution shape,
+   independence assumptions), or is it a default choice that might
+   violate key assumptions?
+2. Are data-cleaning decisions (missing value handling, outlier
+   treatment) disclosed explicitly, and are they defensible rather than
+   silently chosen to produce a cleaner-looking result?
+3. Is the stated conclusion calibrated to actual statistical confidence,
+   or does it claim more certainty than the data supports (e.g. treating
+   a small-sample, non-significant difference as a confirmed pattern)?
+
+SELF-CORRECTION LAYER
+If method or confidence reporting is off:
+- Re-verify the chosen statistical test's assumptions against the
+  data's actual properties; switch to a non-parametric alternative if
+  assumptions are violated
+- Add explicit confidence/uncertainty reporting if the current draft
+  states only a point result
+- Soften any conclusion that currently overstates certainty relative to
+  the actual statistical support found
+
+REFLECTION LAYER
+"If someone re-ran this exact analysis with the disclosed methodology on
+the same data, would they get the same result — and would a
+statistically literate reviewer agree the conclusion matches what the
+data actually supports?"
+
+FACT VERIFICATION
+For actual numeric computation (not just method selection reasoning),
+use code execution to compute real results from the actual data rather
+than estimating or approximating figures, since precision matters for
+data analysis credibility.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Analysis question is specific, not vague/open-ended
+[ ] Data-cleaning decisions explicitly disclosed
+[ ] Statistical method matches actual data properties
+[ ] Results include confidence/uncertainty, not just point estimates
+[ ] Visualization matched appropriately to the data/question type
+[ ] Conclusions calibrated honestly to statistical support
+[ ] Limitations explicitly and honestly stated
+
+OPTIMIZATION TIPS
+Always compute actual results via code execution rather than estimating
+by reasoning alone — precision matters and manual estimation introduces
+avoidable error. Check sample size against what's needed for the chosen
+statistical test to have reasonable power before drawing strong
+conclusions from a small dataset. Visualize the raw data distribution
+before choosing a summary statistic — means can be misleading for
+skewed distributions.
+
+COMMON MISTAKES
+Vague analysis questions producing unfocused exploration; silent,
+undisclosed data-cleaning choices; using a statistical method whose
+assumptions the data violates; reporting point estimates without
+confidence/uncertainty; overstating conclusions relative to actual
+statistical support; choosing a misleading visualization (e.g. truncated
+y-axis exaggerating a difference).
+
+PROFESSIONAL TIPS
+Always show your data-cleaning logic as reviewable steps (code, not just
+a final "cleaned" output) so decisions can be audited/challenged. For any
+analysis informing a real decision, explicitly state the sample size and
+whether it's adequate for the conclusion being drawn — small-sample
+"patterns" are a common source of costly business decisions gone wrong.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Analyze this data to answer: did our new onboarding flow (launched 3
+weeks ago) improve day-7 user retention compared to the old flow?
+Dataset: user signup records with onboarding_version (old/new),
+signup_date, and day_7_retained (boolean), roughly 800 users on old
+flow, 150 on new flow (new flow only ran 3 weeks). Known data quality
+issues: a few dozen users have null day_7_retained because they signed
+up too recently to have reached day 7 yet. Analysis type:
+hypothesis-testing.
+
+EXAMPLE OUTPUT
+[Analysis:
+
+DATA CLEANING: excluded users with null day_7_retained (haven't reached
+day 7 yet) rather than imputing — imputing retention status for users
+who haven't had the chance to retain would introduce bias; explicitly
+noting this reduces the new-flow sample size further, which matters for
+statistical power below. [Actual counts after exclusion computed via
+code: old flow n=780, new flow n=112]
+
+METHOD SELECTION: this is a comparison of two independent proportions
+(retention rate old vs. new) — a two-proportion z-test (or chi-square
+test of independence) is appropriate given binary outcome data and
+reasonably large samples on the old-flow side; however, the new-flow
+sample (n=112) is notably smaller due to the recent launch, which
+affects statistical power to detect a moderate difference.
+
+RESULT: [actual computed result, e.g.] old-flow day-7 retention: 34.2%;
+new-flow day-7 retention: 39.3%. This is a 5.1 percentage-point
+difference. Two-proportion z-test: p=0.24 (not statistically significant
+at conventional thresholds), 95% CI on the difference: [-3.4%, +13.6%].
+
+HONEST CONCLUSION: while the new flow shows a numerically higher
+retention rate, this difference is NOT statistically significant given
+the current sample size — the confidence interval includes zero, meaning
+we cannot confidently rule out that this observed difference is due to
+chance rather than a genuine effect of the new onboarding flow. This is
+directionally encouraging but not yet conclusive.
+
+LIMITATIONS: the new flow's smaller sample (n=112 vs. n=780) limits
+statistical power significantly; recommend re-running this exact
+analysis in 2-3 more weeks once the new-flow sample grows, before making
+a final decision on whether to fully roll out the new flow. Also note:
+this analysis doesn't control for potential seasonal/cohort differences
+between users who signed up during the old-flow period vs. the new
+3-week window specifically.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add power-analysis-based sample-size recommendation (how many more
+new-flow users are needed to reliably detect a 5-point difference if
+real), cohort/seasonality-control analysis (checking whether the
+comparison groups differ on other factors besides onboarding version),
+and a fallback: "If the result is inconclusive due to sample size,
+explicitly recommend the specific additional data collection needed
+rather than either overstating the current result or dismissing it."
+
+EXPERT VERSION
+Layer in Bayesian analysis as a complementary/alternative framing
+(posterior probability the new flow is genuinely better, given a
+reasonable prior), sequential-testing considerations if this metric will
+be checked repeatedly as more data arrives (avoiding p-hacking from
+repeated peeking), and full experimental-design critique (was this
+actually a controlled comparison or a natural/confounded before-after
+comparison).
+
+ENTERPRISE VERSION
+Add formal experimentation-platform methodology alignment (if using a
+company A/B testing tool, matching its statistical framework), executive-
+summary framing translating statistical results into business decision
+language without losing accuracy, and a pre-registered analysis-plan
+template for future experiments to avoid post-hoc method selection.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Analyze [DATASET_DESCRIPTION] to answer: [ANALYSIS_QUESTION]. Disclose
+data-cleaning steps explicitly. Use the statistically appropriate method
+for [ANALYSIS_TYPE]. Report confidence/uncertainty, not just point
+estimates. State honest limitations."
+Requires code execution capability for actual precise computation.
+================================================================================

@@ -1,0 +1,262 @@
+================================================================================
+25 — PYTHON
+================================================================================
+
+TITLE
+Python Development Master Template
+
+PURPOSE
+Get idiomatic, performant, production-grade Python from AI assistants —
+code that follows Pythonic conventions (PEP 8, type hints, proper use of
+the standard library) rather than syntactically-correct-but-non-idiomatic
+translations from other languages' mental models.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini, Cursor AI, Windsurf
+
+DIFFICULTY LEVEL
+Beginner → Expert
+
+WHEN TO USE
+- Scripts, data pipelines, backend services, ML/AI code, CLI tools,
+  automation, any Python-specific implementation task
+
+EXPECTED OUTPUT
+Idiomatic Python (PEP 8 compliant, properly typed, using appropriate
+standard-library/ecosystem tools) that a senior Python developer would
+approve in code review without significant style/convention feedback.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+TASK DEFINITION
+  ↓
+PYTHON VERSION (affects available syntax — match/case, walrus, etc.)
+  ↓
+FUNCTION/CLASS SIGNATURE (with type hints)
+  ↓
+DEPENDENCIES (stdlib-only vs. specific packages allowed)
+  ↓
+PERFORMANCE CONTEXT (script run-once vs. hot-path production code)
+  ↓
+EDGE CASES
+  ↓
+IDIOM PREFERENCE (explicit: comprehensions, context managers, dataclasses)
+  ↓
+ERROR HANDLING (specific exceptions, not bare except)
+  ↓
+TESTING (pytest conventions if tests needed)
+  ↓
+DOCSTRING STYLE (Google / NumPy / reStructuredText)
+
+WHY EACH SECTION EXISTS
+- Python Version: syntax like match/case (3.10+), walrus operator
+  (3.8+), or union types with | (3.10+) aren't universally available —
+  specifying version prevents generating code that won't run on the
+  target environment.
+- Idiom Preference: Python offers many ways to do the same thing (loop
+  vs. comprehension, manual resource management vs. context manager);
+  without explicit preference, AI models sometimes default to patterns
+  that work but aren't idiomatic Python style.
+- Performance Context: a one-off data-cleaning script and a hot-path
+  function called millions of times per second warrant very different
+  implementation choices (readability-first vs. optimization-first) —
+  this must be stated, not assumed.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{TASK} — what the code accomplishes
+{PY_VERSION} — target Python version (e.g. 3.11+)
+{SIGNATURE} — function/class signature with type hints
+{DEPENDENCIES} — allowed packages (or "stdlib only")
+{PERFORMANCE_CONTEXT} — one-off script / hot-path / async I/O-bound
+{EDGE_CASES} — specific cases to handle
+{DOCSTRING_STYLE} — Google / NumPy / reST / none
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Write Python {PY_VERSION} code that {TASK}. Signature: {SIGNATURE}.
+Dependencies allowed: {DEPENDENCIES}. Performance context:
+{PERFORMANCE_CONTEXT}. Handle edge cases: {EDGE_CASES}. Use idiomatic
+Python (PEP 8, appropriate use of comprehensions/context managers/
+dataclasses/pathlib where suited — not forced). Use specific exception
+types, not bare except. Include {DOCSTRING_STYLE}-style docstrings.
+Add type hints throughout."
+
+OUTPUT STRUCTURE
+- PEP 8-compliant, fully type-hinted Python code
+- Docstrings in specified style
+- Brief note on any non-obvious design choice
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is every language feature used actually available in the specified
+   Python version, or does the code assume a newer version's syntax?
+2. Is this the idiomatic Python approach, or does it read like code
+   translated from another language (e.g. manual index-based loops
+   where enumerate/zip would be cleaner, or Java-style getter/setter
+   patterns where a property or dataclass would be more Pythonic)?
+3. Does the exception handling catch specific, anticipated exceptions,
+   or does it use an overly broad bare `except:` that would silently
+   swallow unrelated bugs?
+
+SELF-CORRECTION LAYER
+If the code isn't idiomatic or version-correct:
+- Replace manual loops with comprehensions/generator expressions where
+  it improves clarity (but not where it hurts readability — nested
+  comprehensions are often worse than a loop)
+- Replace bare `except:` with specific exception types
+- Verify no syntax requires a newer Python version than specified
+- Check that mutable default arguments aren't used (a classic Python
+  pitfall: `def f(x=[])`)
+
+REFLECTION LAYER
+"Would this pass review from a Python core-team-adjacent developer
+without style comments, or does it show signs of being written by
+someone thinking in a different language's idioms?"
+
+FACT VERIFICATION
+For any use of a third-party library, verify the current API against
+up-to-date documentation — package APIs (especially fast-moving ones
+like pandas, FastAPI, PyTorch) change between versions, and training
+data may reflect a deprecated interface.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] No syntax beyond the specified Python version
+[ ] PEP 8 compliant (naming, spacing, line length)
+[ ] Type hints on all function signatures
+[ ] Specific exception types used, no bare except
+[ ] No mutable default argument pitfall
+[ ] Idiomatic constructs used appropriately (not forced)
+[ ] Docstrings present in specified style
+[ ] Uses pathlib over os.path for file operations (modern convention)
+
+OPTIMIZATION TIPS
+- For data-heavy code, explicitly ask whether pandas/numpy vectorized
+  operations should replace explicit loops — this is often the single
+  biggest performance lever in Python data code.
+- For I/O-bound tasks (API calls, file operations at scale), explicitly
+  request async/await with asyncio if concurrency would help, since
+  models default to synchronous code unless asked.
+- Request `__slots__` or dataclasses with `frozen=True` explicitly when
+  memory efficiency or immutability matters — these aren't default
+  behavior.
+
+COMMON MISTAKES
+- Using mutable default arguments (`def f(items=[])`)
+- Bare `except:` clauses that swallow all errors including bugs
+- Manual index loops (`for i in range(len(x))`) where iteration or
+  enumerate would be clearer
+- Mixing os.path and pathlib inconsistently
+- Missing type hints, especially on public function signatures
+
+PROFESSIONAL TIPS
+- Run generated code through a real linter (ruff, flake8) and formatter
+  (black) as a mechanical check — don't rely on the AI's self-assessment
+  of PEP 8 compliance alone.
+- For anything performance-critical, profile before optimizing — ask
+  the AI to reason about Big-O complexity, but verify with `timeit` or
+  `cProfile` on real data rather than trusting intuition.
+- Keep a personal snippet library of your preferred patterns
+  (error-handling style, logging setup, project structure) to paste as
+  context for consistent output across projects.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Write Python 3.11+ code that fetches data from multiple API endpoints
+concurrently and returns combined results, failing gracefully if
+individual endpoints error out. Signature: async def fetch_all(urls:
+list[str]) -> dict[str, dict | None]. Dependencies allowed: httpx,
+stdlib. Performance context: I/O-bound, called with 10-50 URLs at once.
+Handle edge cases: empty URL list, individual URL timeout, individual
+URL returning non-200 status, malformed JSON response. Use idiomatic
+Python. Use specific exception types, not bare except. Include Google-
+style docstrings. Add type hints throughout.
+
+EXAMPLE OUTPUT
+```python
+import asyncio
+import httpx
+
+
+async def fetch_all(urls: list[str]) -> dict[str, dict | None]:
+    """Fetch JSON data from multiple URLs concurrently.
+
+    Individual endpoint failures (timeout, non-200 status, malformed
+    JSON) are captured per-URL rather than aborting the whole batch,
+    since partial results are more useful than an all-or-nothing
+    failure for this I/O-bound fan-out use case.
+
+    Args:
+        urls: List of endpoint URLs to fetch.
+
+    Returns:
+        A dict mapping each URL to its parsed JSON response, or None
+        if that specific URL failed for any reason.
+    """
+    if not urls:
+        return {}
+
+    async def fetch_one(client: httpx.AsyncClient, url: str) -> dict | None:
+        try:
+            response = await client.get(url, timeout=10.0)
+            response.raise_for_status()
+            return response.json()
+        except httpx.TimeoutException:
+            return None
+        except httpx.HTTPStatusError:
+            return None
+        except ValueError:
+            # Malformed JSON raises ValueError from response.json()
+            return None
+
+    async with httpx.AsyncClient() as client:
+        results = await asyncio.gather(
+            *(fetch_one(client, url) for url in urls)
+        )
+
+    return dict(zip(urls, results))
+```
+Key decision: used `asyncio.gather` for concurrent fan-out rather than
+sequential awaits, and caught specific httpx/ValueError exceptions per-
+URL inside `fetch_one` so one failing endpoint doesn't cancel the whole
+batch — matching the stated "fail gracefully per endpoint" requirement.
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: explicit concurrency-limiting requirement (semaphore-based rate
+limiting for large URL batches to avoid overwhelming target servers),
+retry-with-backoff logic specification for transient failures, and a
+fallback: "If a requested idiom would meaningfully hurt readability for
+this specific case (e.g. an overly clever one-liner), default to the
+clearer multi-line version and note why."
+
+EXPERT VERSION
+Layer in: full memory-profiling awareness (generator vs. list
+materialization tradeoffs for large datasets), packaging/distribution
+considerations (pyproject.toml structure, entry points) if this is
+part of a distributable tool, and static-type-checking readiness (code
+that passes mypy --strict without suppressions).
+
+ENTERPRISE VERSION
+Add: logging/observability integration (structured logging with
+correlation IDs, not print statements), security review checklist
+(dependency vulnerability scanning readiness, secrets never hardcoded),
+and CI/CD compatibility requirements (test coverage thresholds, linting
+gate compliance).
+
+UNIVERSAL VERSION (model-agnostic core)
+"Write Python [PY_VERSION] code that [TASK]. Signature: [SIGNATURE].
+Idiomatic PEP 8 style, full type hints, specific exception handling,
+[DOCSTRING_STYLE] docstrings. Handle: [EDGE_CASES]."
+Works identically across Claude, GPT, Gemini, and IDE tools; IDE-
+integrated tools (Cursor, Windsurf) add the benefit of seeing your
+actual project's existing conventions automatically.
+================================================================================

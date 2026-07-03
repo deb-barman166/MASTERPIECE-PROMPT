@@ -1,0 +1,225 @@
+================================================================================
+21 — YOUTUBE SCRIPT
+================================================================================
+
+TITLE
+YouTube Video Script Master Template
+
+PURPOSE
+Write long-form YouTube scripts engineered for retention (the platform's
+core ranking signal), with a hook that survives the first 15 seconds and
+pacing that sustains watch-time through the full video.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Intermediate
+
+WHEN TO USE
+- Long-form YouTube videos (8+ minutes), tutorials, essays, deep-dives,
+  reviews, vlogs with scripted structure
+
+EXPECTED OUTPUT
+A full script with timestamped sections, a retention-engineered hook,
+open loops sustaining curiosity, and a clear CTA — written for spoken
+delivery, not silent reading.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+VIDEO TOPIC + CORE PROMISE
+  ↓
+TARGET AUDIENCE
+  ↓
+HOOK (0-15 seconds — the retention-critical opening)
+  ↓
+OPEN LOOP (curiosity gap sustained across the video)
+  ↓
+SECTION STRUCTURE (numbered content blocks with sub-hooks)
+  ↓
+PACING NOTES (where energy rises/falls, where to re-hook)
+  ↓
+B-ROLL/VISUAL CUES (what to show while narrating)
+  ↓
+CTA PLACEMENT (mid-roll + end)
+  ↓
+TARGET LENGTH
+
+WHY EACH SECTION EXISTS
+- Hook (0-15s): YouTube's retention curve drops most steeply in the
+  first 15 seconds; a script without a specifically engineered hook
+  loses the majority of potential viewers before the content even
+  begins.
+- Open Loop: sustained curiosity (a question raised early, answered
+  late) is the primary mechanism keeping viewers through a long video —
+  without it, viewers leave once their immediate question is answered.
+- Section Sub-hooks: long videos need re-hooking at each section
+  transition, or retention decays steadily; each section should open
+  with its own mini-curiosity-gap.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{TOPIC} — the video's subject
+{CORE_PROMISE} — what the viewer will get by watching
+{AUDIENCE} — who this is for + their existing knowledge level
+{TARGET_LENGTH} — target video duration
+{TONE} — energetic / calm-educational / conversational / authoritative
+{CTA} — the specific action requested (subscribe, comment, link click)
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Write a {TARGET_LENGTH} YouTube script about {TOPIC} for {AUDIENCE}.
+Core promise: '{CORE_PROMISE}'. Open with a hook (first 15 seconds) that
+creates a specific curiosity gap or states a surprising claim — no
+generic 'hey guys welcome back' opening. Establish an open loop
+sustained until late in the video. Structure content into numbered
+sections, each opening with its own mini-hook. Include pacing notes
+(energy shifts, re-hook points) and suggested visual/B-roll cues per
+section. Place a natural mid-roll CTA and a clear end-screen CTA:
+'{CTA}'. Tone: {TONE}. Written for spoken delivery."
+
+OUTPUT STRUCTURE
+- [HOOK] section (timestamped 0:00-0:15)
+- Numbered content sections with sub-hooks and visual cues
+- [MID-ROLL CTA] and [END CTA] clearly marked
+- Total estimated runtime
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does the hook create genuine curiosity/stakes within the first
+   sentence, or does it delay value with throat-clearing preamble?
+2. Is there a clear open loop that gives viewers a reason to stay
+   through less immediately-exciting middle sections?
+3. Is the script written the way a person actually talks (contractions,
+   natural rhythm, short sentences) rather than reading like a formal
+   essay?
+
+SELF-CORRECTION LAYER
+If retention would likely drop:
+- Cut any preamble/intro before the hook — start with the most
+  compelling sentence, not channel branding or "in this video"
+- Add a re-hook question or teaser at the start of any section that
+  risks feeling like a lull
+- Read the script aloud mentally; replace any sentence that sounds
+  written rather than spoken
+
+REFLECTION LAYER
+"If I only watched the first 15 seconds, would I be curious enough to
+keep watching? If I skipped to the middle, is there still a reason to
+stay?"
+
+FACT VERIFICATION
+Any factual claims, statistics, or quotes included in the script must
+be verified against reliable sources before recording, since spoken
+misinformation in video form spreads and is harder to correct than text.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Hook lands within the first sentence, no throat-clearing preamble
+[ ] Clear open loop sustained across the video
+[ ] Each section has its own sub-hook/re-engagement point
+[ ] Written in natural spoken rhythm, not formal written prose
+[ ] Visual/B-roll cues included per section
+[ ] CTA is specific and appropriately placed (not just at the very end)
+[ ] Factual claims verified
+
+OPTIMIZATION TIPS
+- Write the hook last, after knowing exactly what the video delivers —
+  the best hooks reference the most compelling specific payoff.
+- Vary sentence length deliberately; a string of same-length sentences
+  reads flat when spoken aloud.
+- Front-load the core promise's value; don't make viewers wait until
+  minute 5 for the actual useful content.
+
+COMMON MISTAKES
+- Generic channel-intro preamble before the hook ("hey guys, welcome
+  back to my channel, today we're going to...")
+- No open loop, causing viewers to leave once their initial question is
+  answered
+- Written in essay-style prose that sounds unnatural when spoken
+  aloud
+- CTA only at the very end, missing the mid-roll retention window
+
+PROFESSIONAL TIPS
+- Study your own or competitor retention graphs (YouTube Analytics) to
+  identify exactly where past videos lost viewers, and specifically
+  address those patterns in new scripts.
+- Record a rough read-through before final scripting to catch anything
+  that's awkward to actually say aloud.
+- Keep a swipe file of hooks that worked well (yours or others') to
+  study the underlying mechanism, not to copy verbatim.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Write a 12-minute YouTube script about why most self-taught Python
+developers plateau at intermediate level for developers who already
+know the basics and want to break through. Core promise: 'the specific,
+unglamorous habit that separates intermediate from advanced developers.'
+Establish an open loop sustained until late in the video. Structure
+content into numbered sections, each opening with its own mini-hook.
+Include pacing notes and suggested visual/B-roll cues per section. Place
+a natural mid-roll CTA and a clear end-screen CTA: 'subscribe for more
+deep technical breakdowns.' Tone: conversational, direct, no fluff.
+
+EXAMPLE OUTPUT
+[HOOK 0:00-0:15]: "There's one habit that separates developers who
+plateau at 'I can build things' from developers who get hired to
+architect systems — and almost nobody talks about it because it's not
+a cool framework or a new language. It's reading other people's bad
+code on purpose." [B-roll: split screen of clean vs. messy codebase]
+
+[Section 1 — "Why Tutorials Create a Ceiling" 0:15-2:30]: sub-hook:
+"Every tutorial you've ever followed has been quietly lying to you
+about what real code looks like." ... [continues with full section
+content, visual cues noted per beat]
+
+[Section 2 — "The Habit Itself" 2:30-6:00]: sub-hook: "Here's exactly
+what this looks like in practice, with a real example." ...
+
+[MID-ROLL CTA ~6:00]: natural CTA woven into a transition line, not an
+abrupt ad-style interruption.
+
+[Sections 3-4 continue...] 
+
+[END CTA 11:30-12:00]: reinforces core promise delivered, then: "If this
+kind of unglamorous, real-talk breakdown is useful, subscribe — I do
+this every week."]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: pattern-interrupt placement notes (specific points to insert a
+joke, visual gag, or tone shift to reset viewer attention), thumbnail/
+title-to-hook alignment check (ensuring the hook delivers on exactly
+what the thumbnail/title promised), and a fallback: "If a section runs
+long without a natural sub-hook, insert a rhetorical question or
+teaser referencing an upcoming section to bridge the gap."
+
+EXPERT VERSION
+Layer in: full retention-curve prediction annotations (where in the
+script attention is statistically most likely to drop, based on known
+retention patterns for this content type), A/B hook variant generation
+(2-3 distinct hook approaches for the same content), and SEO-optimized
+title/description generation aligned with the script's actual keyword-
+relevant content.
+
+ENTERPRISE VERSION
+Add: brand-voice consistency requirements across a channel's full script
+library, legal/compliance review notes for any claims made (especially
+in finance, health, or technical-advice content), and multi-language
+localization script structure maintaining hook/pacing integrity across
+translations.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Write a [TARGET_LENGTH] YouTube script on [TOPIC] for [AUDIENCE].
+Hook in first 15 seconds, open loop sustained throughout, numbered
+sections with sub-hooks, natural spoken tone, CTA: [CTA]."
+This is a pure text-reasoning template — works identically across
+Claude, GPT, and Gemini.
+================================================================================

@@ -1,0 +1,210 @@
+================================================================================
+15 — STORYBOARD
+================================================================================
+
+TITLE
+AI Storyboard Master Template
+
+PURPOSE
+Plan a video/film/animation sequence shot-by-shot before production,
+ensuring visual continuity, pacing, and narrative clarity are solved on
+paper (cheaply) rather than discovered expensively during filming/
+generation.
+
+IDEAL AI MODELS
+Midjourney v6+ (frame visualization), Claude/GPT (shot-list reasoning),
+Runway/Kling (turning storyboard frames into motion)
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Pre-production for video/film/animation, ad concept development,
+  AI-video sequence planning, explainer video planning
+
+EXPECTED OUTPUT
+A shot-by-shot storyboard: numbered frames with visual description,
+camera direction, dialogue/action notes, and duration estimate per shot.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+STORY SUMMARY (what happens overall)
+  ↓
+SHOT LIST (numbered sequence of shots)
+  ↓
+PER-SHOT: VISUAL DESCRIPTION
+  ↓
+PER-SHOT: CAMERA (angle, movement, shot type)
+  ↓
+PER-SHOT: ACTION/DIALOGUE
+  ↓
+PER-SHOT: DURATION ESTIMATE
+  ↓
+TRANSITION LOGIC (cut / dissolve / match-cut between shots)
+  ↓
+CONTINUITY NOTES (wardrobe, prop, lighting consistency across shots)
+  ↓
+TOTAL RUNTIME TARGET
+
+WHY EACH SECTION EXISTS
+- Per-Shot breakdown: a storyboard's entire value is in decomposing a
+  scene into individually plannable, filmable/generatable units — a
+  vague overall description doesn't achieve this.
+- Transition Logic: how shots connect is as important as what's within
+  them; unplanned transitions create jarring or confusing sequences.
+- Continuity Notes: this is where most amateur storyboards (and AI-
+  generated video sequences) break down — a character's shirt color or
+  the room's lighting shifting between shots destroys believability.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{STORY_SUMMARY} — the overall scene/sequence being boarded
+{SHOT_COUNT} — target number of shots
+{TOTAL_RUNTIME} — target total duration
+{CHARACTERS} — who appears, with consistent appearance descriptions
+{SETTING} — where this takes place
+{TONE} — the emotional register of the sequence
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Storyboard this sequence: {STORY_SUMMARY}, set in {SETTING}, featuring
+{CHARACTERS} (maintain consistent appearance description across all
+shots), with a {TONE} tone. Target {SHOT_COUNT} shots totaling
+{TOTAL_RUNTIME}. For each shot provide: visual description, camera
+(angle/movement/shot type), action/dialogue, duration estimate, and
+transition to next shot. Include a continuity note listing anything
+that must remain visually consistent across all shots (wardrobe, key
+props, lighting direction)."
+
+OUTPUT STRUCTURE
+- Numbered shot list, each with the 5 per-shot elements above
+- Continuity checklist covering the full sequence
+- Total runtime tally
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does each shot serve a specific narrative or visual purpose, or could
+   it be cut without losing anything (tightening pacing)?
+2. Do consecutive shots vary appropriately in framing (avoiding, for
+   example, five consecutive medium shots which reads as visually flat)?
+3. Is the continuity information (appearance, setting, lighting)
+   specific and consistent enough to actually be reused verbatim across
+   every shot's generation prompt?
+
+SELF-CORRECTION LAYER
+If the sequence feels visually monotonous or narratively unclear:
+- Vary shot type/angle between consecutive shots for visual rhythm
+  (e.g. wide → medium → close-up → wide, not all medium)
+- Check each shot's purpose against the story summary; cut shots that
+  don't advance action, emotion, or information
+- Tighten continuity descriptions into copy-pasteable blocks to prevent
+  drift when each shot is generated separately
+
+REFLECTION LAYER
+"If I only saw the storyboard frames in sequence with no other context,
+would the story/message be clear?"
+
+FACT VERIFICATION
+Not typically applicable to fictional storyboarding; for documentary/
+factual sequences, verify any depicted facts/events for accuracy before
+finalizing.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Every shot serves a clear narrative/visual purpose
+[ ] Shot type/angle varies for visual rhythm
+[ ] Character/setting appearance descriptions are consistent and reusable
+[ ] Transitions between shots are intentional, not default cuts only
+[ ] Duration estimates sum to the target runtime
+[ ] Continuity notes are specific enough to prevent drift across shots
+
+OPTIMIZATION TIPS
+- Write one master character/setting appearance description block and
+  literally copy-paste it into every relevant shot's visual description
+  to guarantee consistency when generating with AI video tools.
+- Storyboard in beats, not just shots — identify where the emotional or
+  informational "turn" happens and ensure the shot list serves it.
+- Keep individual shot durations realistic for current AI video model
+  capability (4-10 second clips) if this storyboard will be generated,
+  not filmed live-action.
+
+COMMON MISTAKES
+- Inconsistent character appearance descriptions across shots, causing
+  visual drift when each is generated independently
+- All shots using the same framing (no visual rhythm)
+- Storyboarding shots that don't serve the story (padding)
+- Ignoring transitions, leaving connective tissue between shots
+  unplanned
+
+PROFESSIONAL TIPS
+- For AI-video-generation pipelines specifically, maintain a single
+  "continuity bible" text block (character appearance, environment,
+  lighting) referenced in every individual shot prompt.
+- Storyboard the emotional arc first (where does tension rise/resolve)
+  before locking specific camera choices.
+- Review the boarded sequence read purely as thumbnails/frames — if the
+  story doesn't track without dialogue, the shot selection needs work.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Storyboard this sequence: a solo developer discovers their AI agent has
+been running successfully in production overnight, set in a small home
+office at dawn, featuring one character (mid-20s developer, tousled
+hair, wearing a gray hoodie, sitting at a desk with two monitors), with a
+quietly triumphant tone. Target 5 shots totaling 20 seconds. For each
+shot provide: visual description, camera, action/dialogue, duration
+estimate, and transition to next shot. Include a continuity note listing
+anything that must remain visually consistent across all shots.
+
+EXAMPLE OUTPUT
+[Shot list:
+1. Wide shot, static camera, dim room lit only by monitor glow. Developer
+   asleep at desk, head on arms. (3s) → Cut to
+2. Close-up, static, on a monitor showing a dashboard: "247 successful
+   runs, 0 errors" ticking upward. (3s) → Cut to
+3. Medium shot, slow push-in. Developer stirs, lifts head, blinking at
+   the screen. (4s) → Cut to
+4. Close-up on developer's face — slow dawning smile as they realize
+   what they're seeing. (4s) → Cut to
+5. Wide shot, static, warm dawn light now entering through a window
+   behind them as they lean back, satisfied. (6s) → End.
+Continuity note: gray hoodie, tousled dark hair, and the two-monitor
+desk setup must remain identical across all 5 shots; monitor glow
+transitions naturally to warm dawn light only in shot 5.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: sound-design cue notes per shot (what audio/music beat aligns with
+each visual beat), match-cut opportunity identification (visual elements
+that could connect consecutive shots more elegantly than a hard cut),
+and a fallback: "If a shot's described action is too complex for a
+single AI-video generation pass, split it into two simpler consecutive
+shots."
+
+EXPERT VERSION
+Layer in: full animatic-style pacing notes (exact frame-to-frame timing
+suitable for a rough edit), alternate-take shot options (a secondary
+framing choice per key shot for editorial flexibility), and coverage
+planning (which shots need multiple angles for edit-room flexibility).
+
+ENTERPRISE VERSION
+Add: production-budget implications per shot (complexity/cost tier),
+client-approval checkpoint structure (which storyboard frames require
+sign-off before proceeding to production), and brand/legal compliance
+notes for any depicted products, locations, or trademarked elements.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Storyboard [STORY_SUMMARY] in [SHOT_COUNT] shots, [TOTAL_RUNTIME] total.
+Each shot: visual description, camera, action, duration, transition.
+Maintain consistent [CHARACTERS] appearance across all shots."
+This is a pure reasoning/planning template — the resulting shot list
+feeds directly into the Video Generator or Cinematic Video templates for
+per-shot AI generation.
+================================================================================

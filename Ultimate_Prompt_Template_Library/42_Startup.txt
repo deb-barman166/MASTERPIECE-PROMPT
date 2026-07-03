@@ -1,0 +1,174 @@
+================================================================================
+42 — STARTUP
+================================================================================
+
+TITLE
+Startup Strategy Master Template
+
+PURPOSE
+Reason through startup-stage-specific decisions (MVP scope, positioning,
+fundraising narrative) using the lens appropriate to the company's
+actual stage, rather than generic business advice mismatched to
+pre-product-market-fit reality.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- MVP scoping, pre-PMF positioning, pitch narrative development,
+  early hiring decisions, fundraising strategy, pivot evaluation
+
+EXPECTED OUTPUT
+Stage-appropriate startup strategy reasoning — advice calibrated to
+whether the company is pre-product, pre-PMF, or scaling, not generic
+"grow the business" advice.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+COMPANY STAGE (idea / MVP / pre-PMF / post-PMF / scaling) → CORE
+PROBLEM/QUESTION → CONSTRAINTS (runway, team size) → RISK BEING TESTED
+(the single riskiest assumption) → OPTIONS CONSIDERED → STAGE-
+APPROPRIATE REASONING → RECOMMENDED NEXT STEP (small, testable)
+
+WHY EACH SECTION EXISTS
+- Company Stage: advice appropriate for a scaling Series B company
+  (org structure, process) is actively harmful if applied to a 2-person
+  pre-product team — stage must anchor every subsequent recommendation.
+- Riskiest Assumption identification: startups fail most often from
+  building the wrong thing well, not building the right thing poorly —
+  identifying and prioritizing the single riskiest unvalidated
+  assumption focuses effort on what actually matters at this stage.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{STAGE} {CORE_QUESTION} {CONSTRAINTS} {RISKIEST_ASSUMPTION}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"My startup is at {STAGE} stage. Question: {CORE_QUESTION}. Constraints:
+{CONSTRAINTS}. I believe the riskiest unvalidated assumption right now
+is: {RISKIEST_ASSUMPTION} — confirm or challenge this. Reason through
+options appropriate specifically to {STAGE} stage (not generic growth-
+company advice). Recommend a small, fast, testable next step rather than
+a large committed plan."
+
+OUTPUT STRUCTURE
+- Stage-calibrated reasoning
+- Confirmed/challenged riskiest assumption
+- Small, specific, testable recommended next step
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is this advice genuinely calibrated to the stated stage, or is it
+   generic startup advice that would apply equally at any stage?
+2. Is the identified "riskiest assumption" actually the thing most
+   likely to kill the company if wrong, or a secondary concern?
+3. Is the recommended next step small and fast enough to test cheaply,
+   or does it commit significant resources before validating the
+   assumption?
+
+SELF-CORRECTION LAYER
+Re-examine whether advice assumes resources/team size the company
+doesn't have at this stage; check the "riskiest assumption" against the
+classic pre-PMF question ("will anyone actually pay for/use this") if
+that hasn't been validated yet; shrink any recommended next step that
+looks like a multi-month commitment into a smaller test.
+
+REFLECTION LAYER
+"Would a stage-appropriate startup advisor who has seen many companies
+at exactly this stage recognize this as sound, or as advice from a
+later-stage playbook applied too early?"
+
+FACT VERIFICATION
+Any cited startup benchmarks (typical runway, typical time-to-PMF)
+should be verified against current, credible sources rather than
+outdated conventional wisdom.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Advice genuinely calibrated to stated company stage
+[ ] Riskiest assumption correctly identified/challenged
+[ ] Recommended next step is small, fast, and cheaply testable
+[ ] Constraints (runway, team) respected in the recommendation
+[ ] Avoids premature scaling advice for pre-PMF stage
+
+OPTIMIZATION TIPS
+Before any stage-specific advice, explicitly confirm what's actually
+been validated so far (do customers exist, has anyone paid) since this
+often reveals the stage is earlier than assumed. Bias every
+recommendation toward the fastest, cheapest possible test of the
+riskiest assumption over a comprehensive plan.
+
+COMMON MISTAKES
+Applying scaling-stage advice (org design, process) to pre-PMF
+companies; treating a secondary risk as the primary one while the real
+existential risk goes unaddressed; recommending large committed plans
+before validating the core assumption cheaply first.
+
+PROFESSIONAL TIPS
+Revisit "what's our riskiest assumption right now" explicitly at every
+major milestone — it changes as the company progresses, and yesterday's
+answer may no longer be today's biggest risk. Resist the pull toward
+comprehensive planning at early stages; speed of learning matters more
+than plan completeness pre-PMF.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+My startup is at pre-PMF stage (have an MVP, ~40 free users, 0 paying).
+Question: should we spend the next month building more features
+users have requested, or focus on converting existing users to paid?
+Constraints: 4 months runway, 2-person team. I believe the riskiest
+unvalidated assumption right now is: whether anyone will actually pay
+for this at all — confirm or challenge this.
+
+EXAMPLE OUTPUT
+[Your instinct is correct and this is exactly the right question to
+prioritize: with 0 paying users despite 40 free users, "will anyone pay"
+is unambiguously the riskiest unvalidated assumption — more features for
+free users doesn't test this and actively burns runway you can't afford
+to spend on the wrong risk. Recommended next step: before building
+anything new, directly ask your most engaged free users to pay (even a
+manual, unscalable "here's a Stripe link" ask to your top 5-10 most
+active users this week) — this tests the core assumption in days, not a
+month, and costs no build time. If several genuinely convert, that
+validates willingness-to-pay and justifies investing the next month in
+building requested features for paying customers specifically. If
+none convert even among your most engaged users, that's critical
+information suggesting either pricing, packaging, or the core value
+proposition needs rethinking before any further feature investment —
+information worth having now, with 4 months of runway left, rather
+than discovering it after a month of building.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add explicit kill-criteria definition (what result from this test would
+signal a pivot is needed) and a fallback: "If the riskiest assumption
+can't be tested within 2 weeks given current constraints, find a
+smaller/cheaper proxy test that approximates it."
+
+EXPERT VERSION
+Layer in cohort-based PMF-signal analysis (retention curves, not just
+raw conversion), and competitive-positioning stress-testing against the
+riskiest assumption specifically.
+
+ENTERPRISE VERSION
+(For accelerators/incubators advising portfolio companies) Add
+portfolio-pattern-matching notes (how similar-stage companies commonly
+succeed/fail at this decision point) and structured advisor-session
+prep documentation.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Startup at [STAGE] stage. Question: [CORE_QUESTION]. Constraints:
+[CONSTRAINTS]. Riskiest assumption: [RISKIEST_ASSUMPTION] — confirm/
+challenge and recommend a small, fast test."
+================================================================================

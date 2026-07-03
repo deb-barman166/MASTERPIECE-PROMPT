@@ -1,0 +1,213 @@
+================================================================================
+58 — EDUCATION
+================================================================================
+
+TITLE
+AI-Assisted Learning Master Template
+
+PURPOSE
+Learn genuinely, using AI as a Socratic guide that builds real
+understanding through explanation calibrated to your actual level and
+active engagement — rather than as a shortcut that produces answers
+without the understanding needed to use them.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Beginner → Expert (self-calibrating)
+
+WHEN TO USE
+- Learning a new concept/skill, understanding something you're stuck on,
+  self-directed study planning, checking your own understanding,
+  exam/test preparation
+
+EXPECTED OUTPUT
+An explanation calibrated to your actual current understanding, using
+active-learning techniques (analogies, checking questions, worked
+examples) that build genuine comprehension rather than just delivering
+an answer to copy.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+TOPIC/CONCEPT → CURRENT UNDERSTANDING (what you already know, honestly)
+→ LEARNING GOAL (understand a concept vs. solve a specific problem vs.
+prepare for an exam) → EXPLANATION APPROACH (analogy, first-principles,
+worked example) → CHECK FOR UNDERSTANDING (question back to you) →
+PRACTICE OPPORTUNITY
+
+WHY EACH SECTION EXISTS
+- Current Understanding stated honestly: an explanation pitched above or
+  below your actual level either loses you or wastes time on things you
+  already know — accurately stating your starting point is what allows
+  genuinely calibrated explanation.
+- Check for Understanding: without a check (a question back to you, or
+  asking you to explain it back), it's easy to feel like you understood
+  something you've only passively read — active recall is what actually
+  builds retained understanding.
+- Practice Opportunity: understanding an explanation and being able to
+  apply it independently are different skills — a genuine learning
+  interaction should move toward the requester practicing, not just
+  receiving.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{TOPIC} {CURRENT_UNDERSTANDING} {LEARNING_GOAL}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Help me learn/understand {TOPIC}. Here's what I already know/
+understand about it: {CURRENT_UNDERSTANDING} (be honest, including gaps).
+My goal: {LEARNING_GOAL}. Explain in a way calibrated to my actual
+level — don't over-simplify what I already know or skip past what I
+don't. After explaining, check my understanding with a question, and
+give me something to practice rather than just the answer."
+
+OUTPUT STRUCTURE
+- Explanation calibrated to stated current understanding
+- A check-for-understanding question
+- A practice opportunity or worked example to try independently
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is this explanation genuinely calibrated to the stated current
+   understanding, or is it a generic explanation that doesn't account
+   for what the learner already knows or specifically struggles with?
+2. Does this response include a genuine check for understanding (a
+   question requiring active engagement), or does it just deliver
+   information passively?
+3. Does this move the learner toward being able to do/explain this
+   themselves, or does it just hand them a usable answer without
+   building the underlying capability?
+
+SELF-CORRECTION LAYER
+Re-pitch the explanation if it seems to be over- or under-shooting the
+stated current understanding; add an explicit check-for-understanding
+question if the response is currently pure explanation with no active
+component; ensure a practice opportunity is included, not just a final
+answer.
+
+REFLECTION LAYER
+"If the learner closed this conversation right now, would they be able
+to explain this concept to someone else, or would they only be able to
+recognize the explanation if they saw it again?"
+
+FACT VERIFICATION
+Any factual content being taught must be accurate — since this content
+is specifically meant to build the learner's understanding, an inaccurate
+explanation is especially costly as it becomes part of their knowledge
+base.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Explanation genuinely calibrated to stated current understanding
+[ ] Uses effective explanation techniques (analogy, worked example,
+    first-principles) matched to the concept
+[ ] Includes a genuine check-for-understanding question
+[ ] Includes a practice opportunity, not just a final answer
+[ ] Builds toward independent capability, not just an immediate answer
+
+OPTIMIZATION TIPS
+Be genuinely honest (not falsely modest or falsely confident) about your
+current understanding — the calibration only works if the starting
+point is accurate. Actually attempt the check-for-understanding question
+and practice problem rather than skipping to ask for the answer
+directly — the active engagement is where real learning happens. Ask
+"why" and "what if" follow-up questions to deepen understanding beyond
+the initial explanation.
+
+COMMON MISTAKES
+Asking only for the final answer to a problem without engaging with the
+underlying concept; accepting a generic explanation without confirming
+it's actually calibrated to your level; skipping the practice/check-for-
+understanding step; using AI purely as an answer-generation shortcut in
+contexts (like coursework) where genuine understanding is the actual
+goal.
+
+PROFESSIONAL TIPS
+Periodically test your own understanding by trying to explain a
+recently-learned concept from memory, without notes, before moving to
+the next topic — this "explain it back" step reveals gaps that passive
+review misses. Build a personal record of concepts you've learned and
+revisit them periodically (spaced repetition) rather than learning once
+and assuming permanent retention.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Help me learn/understand gradient descent. Here's what I already know: I
+understand it's used to train ML models and involves "adjusting
+weights," but I don't actually understand the math of why it works or
+what a "gradient" specifically is in this context. My goal: understand
+it well enough to explain it correctly to someone else, not just
+recognize the term.
+
+EXAMPLE OUTPUT
+[Calibrated explanation: Since you already know the high-level purpose
+(training models by adjusting weights), let's build the actual mechanism
+from there rather than starting from scratch.
+
+Think of it like being blindfolded on a hilly landscape, trying to reach
+the lowest point (the "valley"). You can't see the whole landscape, but
+you CAN feel the slope of the ground right where you're standing. The
+sensible strategy: take a step in the direction that goes downhill most
+steeply from your current position, then repeat.
+
+The "gradient" is exactly this: the mathematical measure of the slope
+(specifically, the direction of steepest increase) of your model's error
+function at your model's current weight values. Since gradient descent
+wants to DECREASE error, it steps in the OPPOSITE direction of the
+gradient — hence "descent."
+
+Concretely: for each weight in your model, the gradient tells you "if
+you nudge this weight slightly, does the error go up or down, and by
+how much." Gradient descent uses this information to nudge every weight
+slightly in the error-reducing direction, repeatedly, until it settles
+near a low-error point (a "valley" in the landscape).
+
+CHECK YOUR UNDERSTANDING: given this, what do you think would happen if
+the "step size" (how big a step you take downhill each time) were way
+too large? Try reasoning through it before I explain.
+
+[After your answer] PRACTICE: here's a simple 1-variable function
+(error = (w - 3)² ) — try manually computing what the gradient descent
+update would be for one step, starting from w = 0, with a small step
+size, using what we just covered, before I walk through the correct
+calculation with you.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add spaced-repetition scheduling suggestions (when to revisit this
+concept for durable retention), Feynman-technique prompting (explicitly
+asking the learner to write their own explanation as if teaching a
+beginner, then reviewing it for gaps), and a fallback: "If the check-
+for-understanding reveals a misconception, address that specific
+misconception directly before moving forward, rather than re-explaining
+the whole concept from scratch."
+
+EXPERT VERSION
+Layer in full concept-dependency mapping (identifying prerequisite
+concepts that might need reinforcing first if the check-for-
+understanding reveals a gap upstream), multiple-representation teaching
+(explaining the same concept via analogy, formal notation, AND code/
+visual, since different representations solidify understanding
+differently), and metacognitive prompting (asking the learner to reflect
+on their own learning process, not just the content).
+
+ENTERPRISE VERSION
+(For educators/tutoring platforms) Add rubric-aligned explanation
+calibration to a specific curriculum standard, misconception-pattern
+library for common student errors on this topic, and progress-tracking
+integration across a learning sequence for instructor visibility.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Help me understand [TOPIC]. I currently know: [CURRENT_UNDERSTANDING].
+Goal: [LEARNING_GOAL]. Calibrate explanation to my level, check my
+understanding, give me practice."
+================================================================================

@@ -1,0 +1,277 @@
+================================================================================
+35 — AI AGENT
+================================================================================
+
+TITLE
+AI Agent Design & Prompting Master Template
+
+PURPOSE
+Design AI agents (single-agent or multi-agent systems) with correctly
+scoped tool access, clear decision boundaries, and robust failure
+handling — avoiding the two most common agent failure modes: over-broad
+autonomy causing unpredictable behavior, and under-specified reasoning
+causing brittle, single-path execution.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini (as agent "brains"); frameworks: LangGraph,
+Google ADK, CrewAI, AutoGen, custom orchestration
+
+DIFFICULTY LEVEL
+Advanced → Expert
+
+WHEN TO USE
+- Autonomous task agents, multi-agent orchestration systems, tool-using
+  agents, agentic workflows with decision branching, agent system
+  architecture design
+
+EXPECTED OUTPUT
+An agent specification (system prompt + tool definitions + decision
+logic) or multi-agent architecture with clearly scoped responsibilities,
+explicit failure/escalation handling, and bounded autonomy appropriate
+to the task's risk level.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+AGENT PURPOSE (single clear responsibility)
+  ↓
+AUTONOMY LEVEL (fully autonomous / human-in-loop / human-approval-gated)
+  ↓
+TOOL ACCESS (exact tools, with scope limits per tool)
+  ↓
+DECISION BOUNDARIES (what the agent can decide vs. must escalate)
+  ↓
+REASONING APPROACH (ReAct / plan-then-execute / reflexive)
+  ↓
+MEMORY/STATE (what persists across turns, what doesn't)
+  ↓
+FAILURE HANDLING (what happens when a tool fails or task is ambiguous)
+  ↓
+SUCCESS CRITERIA (how the agent knows it's done)
+  ↓
+GUARDRAILS (explicit things the agent must never do)
+  ↓
+MULTI-AGENT COORDINATION (if applicable: who talks to whom, how)
+
+WHY EACH SECTION EXISTS
+- Single Clear Responsibility: agents given multiple loosely-related
+  responsibilities ("manage my calendar and also write code and also
+  monitor my servers") produce worse results on all three than three
+  focused agents would — this section forces scope discipline upfront.
+- Decision Boundaries: the difference between a useful agent and a
+  dangerous one is often not capability but boundary clarity — an agent
+  without explicit escalation rules will either be overly cautious
+  (asking permission for everything, defeating automation) or overly
+  autonomous (taking consequential actions without oversight) — this
+  must be deliberately calibrated to the task's actual risk.
+- Failure Handling: agents WILL encounter tool failures, ambiguous
+  states, and unexpected inputs — an agent without explicit failure-mode
+  instructions either hallucinates a plausible-seeming success or
+  hangs/loops — this must be designed for, not left to emerge.
+- Guardrails: explicit "never do X" instructions are the single highest-
+  leverage safety mechanism for agents with real-world tool access
+  (financial transactions, code deployment, external communication) —
+  these must be stated even when they seem obvious.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{AGENT_PURPOSE} — the single, clear responsibility
+{AUTONOMY_LEVEL} — fully autonomous / approval-gated / human-in-loop
+{TOOLS} — exact tool list with per-tool scope limits
+{ESCALATION_TRIGGERS} — what conditions require human input
+{REASONING_PATTERN} — ReAct / plan-then-execute / simple reflexive
+{FAILURE_BEHAVIOR} — what to do when a tool call fails
+{SUCCESS_CRITERIA} — explicit definition of task completion
+{GUARDRAILS} — explicit prohibited actions
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design an AI agent with this single responsibility: {AGENT_PURPOSE}.
+Autonomy level: {AUTONOMY_LEVEL}. Available tools: {TOOLS}, each scoped
+to exactly what's needed (no broader permissions than required). Decision
+boundaries: the agent can autonomously decide [X], but must escalate to
+a human when {ESCALATION_TRIGGERS}. Reasoning approach: {REASONING_
+PATTERN}. When a tool call fails: {FAILURE_BEHAVIOR} — never fabricate a
+plausible-seeming result to mask a failure. Success criteria: explicitly
+{SUCCESS_CRITERIA} — the agent must be able to determine when it's done,
+not run indefinitely. Guardrails (never do): {GUARDRAILS}."
+
+OUTPUT STRUCTURE
+- Agent system prompt with clear scope, tools, and decision boundaries
+- Explicit failure-handling and escalation logic
+- (If multi-agent) coordination protocol between agents
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is the agent's responsibility genuinely singular and clear, or does
+   it secretly bundle multiple distinct jobs that would be better served
+   by separate agents with a coordination layer?
+2. Given the actual risk/reversibility of this agent's available actions
+   (read-only vs. state-changing, reversible vs. irreversible), is the
+   autonomy level appropriately calibrated — not more autonomous than
+   the risk justifies, not so gated it defeats the automation purpose?
+3. When a tool fails or returns unexpected/ambiguous data, does the
+   agent have an explicit instruction for what to do, or would it need
+   to improvise (risking either a hang or a fabricated result)?
+
+SELF-CORRECTION LAYER
+If the agent design has bloated scope or unclear boundaries:
+- Split any agent with 2+ genuinely distinct responsibilities into
+  separate agents with defined handoff/coordination logic
+- Reduce autonomy level for any tool/action that is irreversible or
+  high-consequence (financial, destructive, externally-visible
+  communication) unless explicitly justified
+- Add explicit escalation triggers for any decision point currently
+  left to the agent's implicit judgment where a wrong call would be
+  costly
+
+REFLECTION LAYER
+"If this agent encountered a scenario I didn't anticipate while writing
+this spec, does it have enough guardrail/escalation guidance to fail
+safely rather than improvising into a bad outcome?"
+
+FACT VERIFICATION
+For any specific framework/tool API referenced (LangGraph, ADK, MCP tool
+schemas), verify current syntax/capabilities against up-to-date
+documentation rather than potentially outdated training knowledge, since
+agent frameworks evolve rapidly.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Single, genuinely clear responsibility (not bundled jobs)
+[ ] Tool access scoped minimally to what the task requires
+[ ] Autonomy level matches actual action risk/reversibility
+[ ] Explicit escalation triggers for high-stakes decisions
+[ ] Explicit failure-handling (no fabricating success on tool failure)
+[ ] Clear, checkable success criteria (agent can determine "done")
+[ ] Explicit guardrails stated even for "obvious" prohibitions
+[ ] (Multi-agent) clear coordination protocol, no ambiguous ownership
+
+OPTIMIZATION TIPS
+- Grant the narrowest tool scope that accomplishes the task (read-only
+  where possible, write-scoped to specific resources, not blanket
+  access) — this is the single highest-leverage safety lever.
+- For multi-agent systems, design explicit handoff contracts (what
+  exactly one agent passes to the next) rather than relying on agents
+  to infer what the other needs.
+- Build in a maximum iteration/step count for any looping agent to
+  prevent runaway execution on an unexpected edge case.
+
+COMMON MISTAKES
+- Vague, multi-responsibility agent scope ("a general assistant agent
+  that helps with everything")
+- Granting broader tool permissions than the task requires "just in
+  case"
+- No explicit failure-handling, leading to hallucinated success reports
+  when a tool actually failed
+- No maximum step/iteration bound, risking infinite loops on edge cases
+- Missing guardrails for consequential actions (irreversible deletes,
+  financial transactions, external communications)
+
+PROFESSIONAL TIPS
+- Start every new agent design at the most conservative autonomy level
+  (human-approval-gated) and deliberately loosen it only for specific,
+  tested, low-risk actions — not the reverse.
+- Log every tool call and decision an agent makes during development/
+  testing, not just final outputs, to debug reasoning failures rather
+  than just result failures.
+- For multi-agent systems specifically, test each agent's behavior in
+  isolation before testing the full coordinated system — isolate
+  whether a failure is in one agent's logic or in the coordination
+  layer.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design an AI agent with this single responsibility: monitor a set of
+deployed AI agent processes and restart any that have crashed, without
+taking any other action. Autonomy level: fully autonomous for restarts,
+but escalate (notify, don't act) if an agent has crashed and restarted 3+
+times within an hour. Available tools: get_process_status (read-only),
+restart_process (scoped to only the specific monitored process IDs, no
+broader system access), send_notification (for escalation only).
+Decision boundaries: can autonomously restart, cannot modify code/config,
+cannot restart processes outside its monitored list. Reasoning approach:
+simple reflexive loop (check status, act if needed, repeat). When a tool
+call fails: log the failure and retry once after 30s, then escalate if
+still failing — never assume success without confirmation. Success
+criteria: not applicable (continuous monitoring, not a completable task)
+— instead define a healthy steady-state. Guardrails: never restart a
+process more than 3 times per hour without escalating first; never
+access or modify any process outside the explicitly monitored list;
+never take any action other than status-check, restart, or notify.
+
+EXAMPLE OUTPUT
+[Agent specification:
+
+RESPONSIBILITY: Monitor N specified processes; restart on crash;
+escalate on repeated crash-loop.
+
+TOOLS (scoped):
+- get_process_status(process_id) — read-only, monitored IDs only
+- restart_process(process_id) — write, monitored IDs only, no other
+  system access
+- send_notification(message) — escalation channel only
+
+LOOP LOGIC:
+1. For each monitored process_id, call get_process_status
+2. If status == "crashed": check restart count for this process in the
+   last 60 minutes
+   - If count < 3: call restart_process, log the action, increment
+     count
+   - If count >= 3: do NOT restart; call send_notification with crash-
+     loop details; wait for human intervention before further action on
+     this specific process
+3. If get_process_status or restart_process fails (tool error, not
+   process-crashed): log the failure explicitly, retry once after 30s,
+   then send_notification if still failing — never report "restarted
+   successfully" without a confirmed post-restart status check
+
+GUARDRAILS (hard-coded, non-negotiable):
+- Max 3 restarts per process per rolling hour before mandatory
+  escalation
+- No access to any process_id outside the explicit monitored list
+- No tool calls beyond the three defined above under any circumstance
+
+SUCCESS STATE: steady-state healthy = all monitored processes report
+"running" status; escalations are the expected signal for anything
+requiring human judgment, not a failure of the agent itself.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: exponential backoff specification for repeated tool failures
+(rather than fixed 30s retry), structured logging schema for every
+decision the agent makes (for later audit/debugging), and a fallback:
+"If get_process_status itself becomes unreliable (frequent tool
+failures), escalate the monitoring reliability issue itself rather than
+continuing to act on potentially stale/incorrect status data."
+
+EXPERT VERSION
+Layer in: full state-machine formalization of the agent's decision
+logic (explicit states and transitions, not just prose rules), multi-
+agent handoff protocol if this monitoring agent needs to coordinate
+with a separate remediation/deployment agent, and formal chaos-testing
+scenarios (what happens if the notification tool itself fails during an
+escalation-required event).
+
+ENTERPRISE VERSION
+Add: full audit-trail requirements (every autonomous action logged with
+justification, retained per compliance policy), human-override protocol
+(how a human can pause/take manual control mid-operation), and incident-
+response integration (how agent-detected crash-loops feed into a
+broader on-call/incident-management system).
+
+UNIVERSAL VERSION (model-agnostic core)
+"Design an agent for [AGENT_PURPOSE], autonomy: [AUTONOMY_LEVEL], tools:
+[TOOLS] (minimally scoped), escalate when: [ESCALATION_TRIGGERS], never:
+[GUARDRAILS]."
+This reasoning framework applies identically regardless of the
+underlying orchestration framework (LangGraph, Google ADK, CrewAI,
+custom) — the framework changes implementation syntax, not the
+underlying scope/boundary/failure-handling design principles.
+================================================================================

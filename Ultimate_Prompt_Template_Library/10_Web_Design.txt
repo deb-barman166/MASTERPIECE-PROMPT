@@ -1,0 +1,198 @@
+================================================================================
+10 — WEB DESIGN
+================================================================================
+
+TITLE
+AI Website Design Master Template
+
+PURPOSE
+Generate full webpage layouts (landing pages, marketing sites) with
+correct conversion-focused structure, not just visually appealing but
+structurally arbitrary sections.
+
+IDEAL AI MODELS
+v0, Lovable, Bolt, Framer AI, Midjourney (visual concepts only)
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Landing pages, marketing sites, portfolio sites, product pages, SaaS
+  homepages
+
+EXPECTED OUTPUT
+A full-page layout with conversion-appropriate section order, clear
+value proposition placement, and (for code-capable tools) working
+responsive code.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+SITE PURPOSE (convert / inform / showcase)
+  ↓
+TARGET AUDIENCE
+  ↓
+VALUE PROPOSITION (above-the-fold core message)
+  ↓
+SECTION STRUCTURE (hero → proof → features → CTA → footer)
+  ↓
+VISUAL STYLE DIRECTION
+  ↓
+BRAND ELEMENTS (color, type, imagery style)
+  ↓
+CONVERSION GOAL (signup / purchase / contact / download)
+  ↓
+RESPONSIVE BEHAVIOR (mobile-first considerations)
+  ↓
+TECH STACK (if code output needed)
+
+WHY EACH SECTION EXISTS
+- Section Structure: web pages that convert follow known patterns (hero
+  hook → social proof → feature/benefit breakdown → objection handling →
+  CTA); skipping this and asking for "a nice landing page" produces
+  aesthetically fine but structurally random results.
+- Value Proposition placement: the single biggest lever on a landing
+  page is whether the visitor understands the offer within 3 seconds of
+  landing — this must be explicitly engineered, not left to chance.
+- Conversion Goal: every design decision should serve one primary
+  action; unclear goals produce pages that ask visitors to do five
+  things at once (which results in none of them happening).
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{SITE_PURPOSE} — convert / inform / showcase
+{AUDIENCE} — who's visiting this page
+{VALUE_PROP} — the core one-sentence offer
+{CONVERSION_GOAL} — the single primary action wanted
+{SECTIONS} — ordered list of page sections
+{STYLE} — visual direction (minimal / bold / corporate / playful)
+{BRAND_COLORS} — palette
+{TECH_STACK} — React/Tailwind/Next.js, if code output needed
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a {SITE_PURPOSE} webpage for {AUDIENCE}. Value proposition:
+'{VALUE_PROP}' must be clear above the fold. Primary conversion goal:
+{CONVERSION_GOAL}. Section structure: {SECTIONS}. Style: {STYLE}, using
+{BRAND_COLORS}. Mobile-first responsive. {TECH_STACK if applicable:
+generate as [stack] code.}"
+
+OUTPUT STRUCTURE
+- Full page layout/code with hero, supporting sections, and CTA
+- Clear single conversion path
+- Mobile-responsive behavior notes/code
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does the above-the-fold section alone communicate what this is,
+   who it's for, and why it matters — without scrolling?
+2. Does each section build the case toward the conversion goal, or are
+   there sections that exist without a clear persuasive purpose?
+3. Is there exactly one primary CTA repeated appropriately, rather than
+   competing calls to action?
+
+SELF-CORRECTION LAYER
+If the page feels unfocused:
+- Audit every section against "does this move the visitor toward the
+  conversion goal?" — cut or demote anything that doesn't
+- Simplify the hero to value prop + single CTA, removing secondary asks
+- Reorder sections to follow proof-before-ask logic (establish
+  credibility before requesting commitment)
+
+REFLECTION LAYER
+"If a visitor only read the headline and looked at the hero image,
+would they understand the offer and know what to do next?"
+
+FACT VERIFICATION
+Verify any social proof (testimonials, stats, logos) referenced in the
+copy is real and permitted for use, not fabricated placeholder content
+presented as genuine.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Value prop clear above the fold
+[ ] Single, consistent primary CTA
+[ ] Section order follows persuasion logic (hook→proof→detail→ask)
+[ ] Mobile-responsive behavior addressed
+[ ] Visual hierarchy guides eye toward conversion goal
+[ ] No competing/conflicting CTAs
+
+OPTIMIZATION TIPS
+- Write the headline before designing anything else — if the value prop
+  isn't clear in one sentence, no layout will fix that.
+- Keep the hero CTA visible without scrolling on both desktop and mobile.
+- Use real (or realistic) social proof early — trust signals before
+  the third scroll dramatically affect conversion.
+
+COMMON MISTAKES
+- Multiple competing CTAs ("Sign Up," "Learn More," "Contact Us," "Free
+  Trial" all equally weighted)
+- Burying the value proposition below decorative hero imagery
+- Generic stock-photo aesthetic with no brand distinctiveness
+- Ignoring mobile layout until after desktop is "done"
+
+PROFESSIONAL TIPS
+- Study 3-5 high-converting pages in the same category before writing
+  the prompt — pattern-match structure, not copy content.
+- For code-output tools, always specify the exact stack/component
+  library to avoid unusable framework mismatches.
+- Treat the first version as a draft to test, not a final deliverable —
+  real conversion optimization happens through iteration on live data.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design a convert-focused webpage for early-stage indie developers.
+Value proposition: 'Ship your AI agent to production in one command.'
+must be clear above the fold. Primary conversion goal: free account
+signup. Section structure: hero with CTA, 3-logo social proof strip,
+3-feature benefit breakdown, code-snippet demo section, pricing teaser,
+final CTA, footer. Style: minimal, developer-tool aesthetic, dark theme,
+using deep charcoal and electric green accents. Mobile-first responsive.
+Generate as React + Tailwind code.
+
+EXAMPLE OUTPUT
+[Code: A React/Tailwind landing page component with a dark hero section
+featuring the headline, a subhead explaining the "one command" promise,
+and a prominent green "Get Started Free" button. Below: a muted logo
+strip, then three icon+benefit cards, a syntax-highlighted terminal
+demo showing the actual deploy command, a simple 3-tier pricing teaser
+with the middle tier highlighted, and a final CTA section repeating the
+signup button. Fully responsive with mobile breakpoints collapsing the
+feature grid to single-column.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: scroll-depth-based section prioritization (what must be seen even
+by a visitor who only scrolls 50%), explicit micro-copy for form fields
+and button states, and a fallback: "If the value prop can't fit in one
+headline, split into headline + supporting subhead rather than a longer
+run-on headline."
+
+EXPERT VERSION
+Layer in: full copywriting pass per section (not just structure — actual
+persuasive copy following a framework like PAS or AIDA), conversion-rate-
+optimization annotations per section (why this specific structure
+statistically improves conversion), and multi-variant generation for
+A/B testing the hero specifically.
+
+ENTERPRISE VERSION
+Add: full design-system/component-library compliance, SEO-technical
+requirements layered into the code output (semantic HTML, meta tags,
+schema markup), performance budget constraints (image optimization,
+lazy-loading), and legal/compliance copy requirements (privacy notices,
+required disclaimers).
+
+UNIVERSAL VERSION (model-agnostic core)
+"A [SITE_PURPOSE] landing page for [AUDIENCE]: hero with '[VALUE_PROP]'
+and [CONVERSION_GOAL] CTA, followed by [SECTIONS]. Style: [STYLE],
+[BRAND_COLORS]. Mobile-responsive."
+Works as a structural brief across all tools; route to v0/Lovable/Bolt
+specifically when working code output is the goal rather than a visual
+concept only.
+================================================================================

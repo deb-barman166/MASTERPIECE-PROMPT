@@ -1,0 +1,176 @@
+================================================================================
+46 — EMAIL
+================================================================================
+
+TITLE
+Email Writing Master Template
+
+PURPOSE
+Write emails (professional, sales, or personal) that get read and acted
+upon by respecting the recipient's time — clear purpose stated
+immediately, appropriate length, and one clear ask — rather than
+rambling messages that bury the point.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Beginner → Intermediate
+
+WHEN TO USE
+- Professional correspondence, cold outreach, follow-ups, difficult/
+  sensitive emails, newsletters, internal team communication
+
+EXPECTED OUTPUT
+A clear, appropriately-concise email with the purpose stated early, one
+specific ask, and a tone matched to the relationship and context.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+RECIPIENT + RELATIONSHIP → PURPOSE (one clear thing) → CONTEXT NEEDED
+(minimum necessary) → TONE (matched to relationship/context) → SPECIFIC
+ASK → SUBJECT LINE (states the purpose, not vague)
+
+WHY EACH SECTION EXISTS
+- Purpose stated as ONE clear thing: emails trying to accomplish
+  multiple unrelated things often result in the recipient acting on
+  none of them — reducing to one primary purpose per email dramatically
+  increases response/action rate.
+- Specific Ask: emails that describe a situation without a clear
+  request leave the recipient unsure what to do, often resulting in no
+  response at all — the ask must be explicit and specific ("can you
+  approve X by Friday" not "let me know your thoughts").
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{RECIPIENT} {RELATIONSHIP} {PURPOSE} {TONE} {ASK} {DEADLINE}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Write an email to {RECIPIENT} ({RELATIONSHIP}). Purpose (one clear
+thing): {PURPOSE}. Tone: {TONE}. Include only the minimum context needed
+to understand the ask. Specific ask: {ASK}, {DEADLINE if applicable}.
+Write a subject line that states the purpose clearly, not vague. Keep
+length appropriate — as short as possible while still being complete and
+appropriately warm for the relationship."
+
+OUTPUT STRUCTURE
+- Clear subject line
+- Email with purpose stated early, minimum necessary context, specific
+  ask, appropriate tone
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is there genuinely one clear purpose, or is this email trying to
+   accomplish multiple unrelated things that would be better as
+   separate emails?
+2. Would the recipient know exactly what's being asked of them and by
+   when, without needing to ask a clarifying question back?
+3. Is the tone appropriately matched to the actual relationship (not
+   overly formal for a close colleague, not overly casual for a first
+   cold outreach)?
+
+SELF-CORRECTION LAYER
+Split any email trying to accomplish multiple unrelated purposes; make
+any vague or implied ask explicit and specific; cut any context that
+isn't strictly necessary for understanding the ask; adjust tone if
+mismatched to the stated relationship.
+
+REFLECTION LAYER
+"If the recipient only read the first two sentences and the last
+sentence, would they still understand what's being asked?"
+
+FACT VERIFICATION
+Not typically applicable beyond ensuring any factual claims/details
+referenced in the email are accurate.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] One clear purpose, not multiple bundled asks
+[ ] Purpose/ask stated early, not buried
+[ ] Specific, actionable ask with deadline if relevant
+[ ] Minimum necessary context only
+[ ] Tone matched to actual relationship
+[ ] Subject line states the purpose clearly
+
+OPTIMIZATION TIPS
+Put the ask in the first 1-2 sentences for busy recipients, with
+supporting context after rather than before. Use a specific, scannable
+subject line ("Approval needed: Q3 budget by Fri" beats "Quick
+question"). For sensitive/difficult emails specifically, write a draft,
+then reread it as if you were the recipient before sending.
+
+COMMON MISTAKES
+Burying the actual ask several paragraphs in; bundling multiple
+unrelated requests into one email; vague subject lines; mismatched tone
+(too casual or too formal for the relationship); unnecessarily long
+emails that could be half the length without losing clarity.
+
+PROFESSIONAL TIPS
+For any email requesting action, always include an explicit deadline or
+timeframe — "whenever you get a chance" often means never. Before
+sending a sensitive/difficult email, wait at least a few minutes and
+reread it once more, ideally after a short break, to catch tone issues.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Write an email to a potential mentor (a senior AI engineer I met briefly
+at a meetup, relationship: new/cold, not close). Purpose: ask if they'd
+be willing to do a 20-minute call to give feedback on my project
+portfolio. Tone: respectful, appreciative of their time, not
+presumptuous. Include only minimum context. Specific ask: a 20-minute
+call sometime in the next 2 weeks, at their convenience. Deadline: n/a,
+flexible on timing.
+
+EXAMPLE OUTPUT
+Subject: 20 min for portfolio feedback? (met at [meetup name])
+
+Hi [Name],
+
+We spoke briefly at [meetup] a couple weeks ago about RAG systems — I
+mentioned I was building out a portfolio of AI projects, and you were
+kind enough to offer some thoughts if I ever wanted feedback.
+
+I've put together a small portfolio now and would really value your
+perspective, if you have 20 minutes sometime in the next couple of
+weeks. Completely understand if you're too busy — no pressure either
+way, and thank you for even considering it.
+
+If you're up for it, I'm happy to work around your schedule — just let
+me know what works.
+
+Best,
+[Name]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add follow-up-sequence planning (what a polite follow-up looks like if
+no response after a reasonable period), and a fallback: "If the purpose
+genuinely requires covering two related items, structure clearly with
+one primary ask and one secondary note explicitly marked as secondary,
+rather than presenting both with equal weight."
+
+EXPERT VERSION
+Layer in relationship-stage-specific tone calibration (cold outreach vs.
+warm introduction vs. ongoing relationship require different opening
+conventions), and cultural/regional email-convention awareness for
+cross-cultural professional correspondence.
+
+ENTERPRISE VERSION
+Add brand-voice compliance for customer-facing email templates, legal
+review requirements for any binding commitments referenced, and
+template-system design for recurring email types (onboarding sequences,
+support responses) at scale.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Write an email to [RECIPIENT] ([RELATIONSHIP]). Purpose: [PURPOSE].
+Tone: [TONE]. Specific ask: [ASK]. Minimum necessary context, clear
+subject line."
+================================================================================

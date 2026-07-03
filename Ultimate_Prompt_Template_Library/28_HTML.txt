@@ -1,0 +1,198 @@
+================================================================================
+28 — HTML
+================================================================================
+
+TITLE
+HTML Development Master Template
+
+PURPOSE
+Get semantic, accessible HTML from AI assistants — proper element choice
+(not div-soup), correct document structure, and accessibility attributes
+included by default rather than as an afterthought.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini, v0, Cursor AI
+
+DIFFICULTY LEVEL
+Beginner → Intermediate
+
+WHEN TO USE
+- Page structure/markup, email templates, semantic content structure,
+  accessibility-focused markup, SEO-relevant document structure
+
+EXPECTED OUTPUT
+Semantic HTML5 using appropriate elements (nav, article, section,
+button vs. div/span), with accessibility attributes (alt, aria-*, labels)
+included by default.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+CONTENT/PURPOSE → SEMANTIC STRUCTURE NEEDS → ACCESSIBILITY REQUIREMENTS
+→ SEO CONSIDERATIONS → BROWSER TARGET → CSS/JS INTEGRATION CONTEXT →
+VALIDATION REQUIREMENT
+
+WHY EACH SECTION EXISTS
+- Semantic Structure: div-soup (everything as `<div>`) works visually
+  but fails accessibility, SEO, and maintainability — explicitly
+  requesting semantic elements (`<nav>`, `<main>`, `<article>`) forces
+  correct element choice.
+- Accessibility Requirements: screen-reader users and assistive
+  technology depend on correct markup (alt text, labels, ARIA roles)
+  that AI models often omit unless explicitly requested — this isn't
+  optional polish, it's functional access for real users.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{CONTENT_PURPOSE} {STRUCTURE_ELEMENTS} {A11Y_REQUIREMENTS}
+{SEO_NEEDS} {CSS_JS_CONTEXT}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Write semantic HTML5 for {CONTENT_PURPOSE}. Use appropriate semantic
+elements ({STRUCTURE_ELEMENTS} — nav/main/article/section/aside/footer
+as fitting, not generic divs). Include accessibility attributes: alt
+text on all images, proper label associations on form inputs, ARIA
+roles/attributes where semantic HTML alone is insufficient. SEO: proper
+heading hierarchy (single h1, logical h2-h6 nesting), meta description
+if full page. Integration context: {CSS_JS_CONTEXT}. Ensure the markup
+validates against HTML5 spec."
+
+OUTPUT STRUCTURE
+- Semantic, accessible HTML with correct heading hierarchy
+- All interactive elements properly labeled
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is each element the most semantically correct choice (button for
+   actions, a for navigation, not div with onclick)?
+2. Would a screen reader user be able to understand and navigate this
+   content correctly based on the markup alone?
+3. Is heading hierarchy logical (no skipped levels, single h1 per page)?
+
+SELF-CORRECTION LAYER
+Replace any div/span used for interactive or structural purposes with
+the correct semantic element; add missing alt/label/aria attributes;
+verify heading hierarchy has no skipped levels.
+
+REFLECTION LAYER
+"If all CSS were removed, would this page's structure still make sense
+when read linearly (as a screen reader would present it)?"
+
+FACT VERIFICATION
+Not typically applicable beyond verifying current HTML5 spec element
+usage (e.g. confirming an element isn't deprecated).
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Semantic elements used correctly (not div-soup)
+[ ] All images have meaningful alt text
+[ ] Form inputs have associated labels
+[ ] Single h1, logical heading hierarchy
+[ ] Interactive elements are keyboard-accessible by default (button/a,
+    not div with click handlers)
+[ ] Validates against HTML5 spec
+
+OPTIMIZATION TIPS
+Use `<button>` for actions and `<a href>` for navigation — never the
+reverse or a div substituting for either, since this breaks keyboard
+navigation and screen-reader expectations by default. Add `lang`
+attribute on `<html>` for correct screen-reader pronunciation.
+
+COMMON MISTAKES
+Div-soup instead of semantic elements; missing alt text; missing form
+labels; multiple h1s or skipped heading levels; non-interactive elements
+(div/span) with click handlers instead of button/a.
+
+PROFESSIONAL TIPS
+Run generated markup through an accessibility checker (axe, WAVE) and
+the W3C HTML validator as mechanical verification steps, not just visual
+review. Test critical flows with keyboard-only navigation (Tab, Enter,
+Space) before considering markup complete.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Write semantic HTML5 for a blog post page with a header, article
+content with a hero image, an author bio section, and a comment form.
+Use appropriate semantic elements. Include accessibility attributes.
+SEO: proper heading hierarchy. Integration context: Tailwind CSS classes
+will be added separately, structure only for now.
+
+EXAMPLE OUTPUT
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="How hybrid retrieval improves RAG accuracy">
+  <title>Why Hybrid Retrieval Beats Vector-Only Search</title>
+</head>
+<body>
+  <header>
+    <nav aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/blog">Blog</a>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <h1>Why Hybrid Retrieval Beats Vector-Only Search</h1>
+      <img src="hero.jpg" alt="Diagram comparing vector-only and hybrid retrieval accuracy">
+      <section>
+        <h2>The Problem with Pure Vector Search</h2>
+        <p>...</p>
+      </section>
+      <section>
+        <h2>How Hybrid Search Fixes It</h2>
+        <p>...</p>
+      </section>
+      <aside aria-label="Author bio">
+        <h2>About the Author</h2>
+        <p>...</p>
+      </aside>
+    </article>
+    <section aria-label="Comments">
+      <h2>Comments</h2>
+      <form>
+        <label for="comment-text">Your comment</label>
+        <textarea id="comment-text" name="comment" required></textarea>
+        <button type="submit">Post Comment</button>
+      </form>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2026</p>
+  </footer>
+</body>
+</html>
+```
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add structured data (JSON-LD schema.org markup for rich search results),
+Open Graph/Twitter Card meta tags, and a fallback: "If a component's
+correct ARIA pattern is uncertain, default to the WAI-ARIA Authoring
+Practices reference pattern for that widget type."
+
+EXPERT VERSION
+Layer in full WCAG 2.2 AA compliance annotation per interactive element,
+skip-navigation link implementation, and focus-management specification
+for any dynamic content regions.
+
+ENTERPRISE VERSION
+Add multi-language/i18n markup structure (hreflang, RTL support
+considerations), CMS-integration-ready templating notes, and formal
+accessibility audit documentation suitable for legal compliance (ADA/
+Section 508) review.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Write semantic, accessible HTML5 for [CONTENT_PURPOSE]. Correct
+elements, alt text, labels, single h1 logical hierarchy."
+================================================================================

@@ -1,0 +1,212 @@
+================================================================================
+09 — UX DESIGN
+================================================================================
+
+TITLE
+AI UX Strategy & Flow Design Master Template
+
+PURPOSE
+Use AI to reason through user experience problems — flows, information
+architecture, friction points — before any visual design happens,
+ensuring the underlying experience logic is sound.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini (reasoning-heavy, not image models)
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- New feature flow design, onboarding design, checkout/conversion flow
+  optimization, information architecture planning, usability problem
+  diagnosis
+
+EXPECTED OUTPUT
+A reasoned user flow (steps, decision points, edge cases) or IA structure,
+with explicit friction points identified and mitigation proposed —
+text/diagram output, not visual mockup.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+PRODUCT CONTEXT
+  ↓
+USER GOAL (what the user is trying to accomplish)
+  ↓
+CURRENT STATE (existing flow, if any, and its problems)
+  ↓
+CONSTRAINTS (technical, business, platform)
+  ↓
+USER MENTAL MODEL (what the user already expects/knows)
+  ↓
+FLOW MAPPING (step-by-step with decision points)
+  ↓
+FRICTION IDENTIFICATION (where users likely drop off/confuse)
+  ↓
+EDGE CASE HANDLING (errors, empty states, alternate paths)
+  ↓
+SUCCESS METRIC (how you'll know the flow works)
+
+WHY EACH SECTION EXISTS
+- User Mental Model: UX failures most often come from designing the flow
+  the business wants rather than the flow users expect based on prior
+  experience with similar products — this section forces that check.
+- Friction Identification: the core value of AI-assisted UX reasoning is
+  catching problems before build, not after — this section must be
+  explicit and adversarial, not just descriptive.
+- Success Metric: without a defined metric, "good UX" is subjective;
+  tying the flow to a measurable outcome keeps the reasoning grounded.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{PRODUCT} — what the product/feature is
+{USER_GOAL} — the task the user wants to complete
+{CURRENT_FLOW} — existing steps, if redesigning
+{CONSTRAINTS} — technical/business/platform limitations
+{USER_TYPE} — persona and their prior expectations
+{SUCCESS_METRIC} — the measurable outcome (conversion rate, completion
+  rate, time-to-task, support ticket reduction)
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"For {PRODUCT}, a {USER_TYPE} wants to {USER_GOAL}. Current flow (if any):
+{CURRENT_FLOW}. Constraints: {CONSTRAINTS}. Map the ideal step-by-step
+flow including decision points. Identify every point where a user might
+drop off, get confused, or make an error, and propose a specific
+mitigation for each. Include edge cases (first-time user, error state,
+returning user with existing data). Success metric: {SUCCESS_METRIC}."
+
+OUTPUT STRUCTURE
+- Numbered step-by-step flow with decision branches
+- Friction point list with specific mitigation per point
+- Edge case handling notes
+- Recommended success metric tracking points
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. At each step, what does the user need to know/decide, and is that
+   information available to them at exactly that moment (not before,
+   not after)?
+2. Where does this flow deviate from patterns the user already knows
+   from other products, and is that deviation justified or just
+   unfamiliar-for-no-reason?
+3. What's the single most likely point of abandonment, and does the flow
+   minimize cognitive/effort load specifically there?
+
+SELF-CORRECTION LAYER
+If the flow has too many steps or unclear decision points:
+- Identify any step that could be merged, removed, or deferred
+  (progressive disclosure) without harming task completion
+- Re-order steps so the highest-commitment ask comes after the user has
+  invested effort (foot-in-the-door principle), not before
+- Explicitly re-examine any step requiring information the user may not
+  have readily available
+
+REFLECTION LAYER
+"If I were a first-time user with zero context, would I know what to do
+at every single step without needing external help?"
+
+FACT VERIFICATION
+Not typically applicable; if citing specific UX research/heuristics
+(e.g. Nielsen's heuristics, Fitts's Law), ensure correct application
+rather than name-dropping without substantiation.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Every step justified by user goal, not business convenience alone
+[ ] Decision points explicitly mapped, not assumed
+[ ] Friction points identified with specific (not generic) mitigations
+[ ] Edge cases covered (first-time, error, returning user)
+[ ] Flow aligns with user's existing mental models where possible
+[ ] Success metric is measurable and tied to the flow's steps
+
+OPTIMIZATION TIPS
+- Map the flow as a real user would experience it in real time, not as
+  a system diagram — include what they're thinking/feeling at each step.
+- Explicitly design the "unhappy path" (errors, backing out, changing
+  their mind) — this is where most real-world UX breaks down.
+- Use the "5-second rule" test mentally at each screen: can the user
+  tell what to do within 5 seconds of arriving?
+
+COMMON MISTAKES
+- Designing for the ideal user path only, ignoring realistic behavior
+- Adding steps that serve business/data-collection goals at the expense
+  of user goal completion
+- Assuming users share the designer's context/vocabulary
+- Treating UX as a synonym for UI polish rather than flow/logic design
+
+PROFESSIONAL TIPS
+- Always separate UX reasoning (this template) from UI visual design
+  (see UI Design template) — solve the flow logic first, then design
+  the screens.
+- Validate AI-proposed flows against real user testing when possible;
+  AI reasoning is a strong first pass, not a replacement for observation.
+- Keep a friction-point log across projects — many UX problems repeat
+  across different products (e.g. form abandonment causes are similar
+  everywhere).
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+For a personal finance app, a first-time user wants to connect their
+bank account and see a spending overview. Current flow: none, this is a
+new onboarding flow. Constraints: must use a third-party bank-linking
+API (Plaid-style) that requires leaving the app UI briefly; must comply
+with financial data consent requirements. Map the ideal step-by-step flow
+including decision points. Identify every point where a user might drop
+off, get confused, or make an error, and propose a specific mitigation
+for each. Include edge cases (first-time user, error state, returning
+user with existing data). Success metric: percentage of new users who
+successfully link a bank account within their first session.
+
+EXAMPLE OUTPUT
+[Flow: 1) Value-prop screen explaining why bank connection is needed
+before asking for it (mitigates: users abandoning at unexplained
+permission request) 2) Explicit consent/security explanation screen
+before handoff to bank-linking API (mitigates: financial trust concerns)
+3) Handoff to third-party linking flow 4) Return-to-app loading state
+with progress indicator (mitigates: users assuming the app froze) 5)
+Success confirmation showing immediate value — a real spending snapshot
+(mitigates: anticlimactic "you're connected!" with no visible payoff).
+Friction points: step 2 is highest-drop-off risk — mitigation is
+showing bank-level encryption badges and a one-line "we never see your
+password" statement. Edge cases: failed linking shows a specific retry
+path, not a generic error; returning users skip straight to dashboard.
+Success metric tracked at step 5 completion.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: multi-persona flow variance (how the flow should differ for a
+novice vs. power user), quantitative friction estimation (rank each
+friction point by likely severity/frequency), and a fallback: "If a step
+requires information the user doesn't have, insert a 'find this later'
+deferred-completion path rather than blocking progress."
+
+EXPERT VERSION
+Layer in: full information-architecture mapping for the surrounding
+product (how this flow connects to broader navigation), A/B test
+hypothesis generation for the highest-risk friction points, and
+behavioral-psychology-grounded rationale (specific principles like
+loss aversion, social proof, commitment consistency) tied to each design
+decision.
+
+ENTERPRISE VERSION
+Add: cross-team handoff documentation structure (engineering
+feasibility notes, legal/compliance checkpoints, analytics event
+specification), accessibility-inclusive flow variants (screen-reader
+flow logic, motor-impairment-friendly alternate paths), and stakeholder
+presentation framing connecting flow decisions to business KPIs.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Map the ideal user flow for [USER_TYPE] to [USER_GOAL] in [PRODUCT].
+Identify friction points and mitigations. Include edge cases. Success
+metric: [SUCCESS_METRIC]."
+This is a pure reasoning template — works identically across Claude,
+GPT, and Gemini since it depends on language reasoning, not model-
+specific visual generation capability.
+================================================================================

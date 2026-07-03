@@ -1,0 +1,241 @@
+================================================================================
+41 — BUSINESS PLAN
+================================================================================
+
+TITLE
+Business Plan Development Master Template
+
+PURPOSE
+Develop a business plan that stress-tests assumptions and quantifies
+unit economics realistically, rather than producing an optimistic
+narrative document that reads well but wouldn't survive investor or
+lender scrutiny.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- New business planning, pivot evaluation, lender/investor plan
+  preparation, internal strategic planning, business model validation
+
+EXPECTED OUTPUT
+A structured business plan with realistic (not just optimistic) unit
+economics, explicit assumption-testing, and honest risk assessment
+alongside the opportunity case.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+BUSINESS CONCEPT → TARGET MARKET (specific, sized) → VALUE PROPOSITION
+→ REVENUE MODEL → UNIT ECONOMICS (CAC, LTV, margins, realistic
+assumptions) → COMPETITIVE LANDSCAPE → GO-TO-MARKET STRATEGY → RISK
+ASSESSMENT (honest, not just a token section) → FINANCIAL PROJECTIONS
+(with stated assumptions, not just output numbers)
+
+WHY EACH SECTION EXISTS
+- Unit Economics with realistic assumptions: the most common business
+  plan failure is optimistic, unstated assumptions baked into
+  projections (unrealistically low CAC, unrealistically high retention)
+  — this section forces every key number to have an explicit,
+  challengeable assumption behind it.
+- Risk Assessment as substantive, not token: plans that only list risks
+  superficially ("competition" as a one-word risk) fail to demonstrate
+  the founder has actually thought through failure modes — this must be
+  specific and genuinely considered.
+- Financial Projections with stated assumptions: projections presented
+  as bare numbers invite (correctly) skepticism; showing the assumption
+  behind each number allows the reader to evaluate whether they agree
+  with the underlying logic, which is far more persuasive than the
+  numbers alone.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{BUSINESS_CONCEPT} {TARGET_MARKET} {REVENUE_MODEL} {KEY_ASSUMPTIONS}
+{TIME_HORIZON} {PLAN_PURPOSE} (internal / investor / lender)
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Help me develop a business plan for {BUSINESS_CONCEPT}, targeting
+{TARGET_MARKET}. Purpose: {PLAN_PURPOSE}. Revenue model: {REVENUE_MODEL}.
+Build out unit economics with explicit, realistic assumptions (not
+optimistic defaults) for: customer acquisition cost, lifetime value,
+gross margin, payback period. State each assumption explicitly so it can
+be challenged/validated. Include competitive landscape analysis. Provide
+an honest risk assessment — specific risks, not generic categories, with
+realistic mitigation (or honest acknowledgment where mitigation is
+weak). Financial projections over {TIME_HORIZON} with every key driver's
+assumption stated alongside the output number."
+
+OUTPUT STRUCTURE
+- Structured plan sections with explicit assumptions throughout
+- Unit economics table with assumption-to-output traceability
+- Substantive risk section with specific, non-generic risks
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is each key financial assumption (CAC, conversion rate, retention)
+   realistic for this specific business/industry, or is it an
+   optimistic default that wouldn't survive scrutiny from someone who
+   knows the space?
+2. Are the identified risks specific and genuinely considered (with
+   real, even if imperfect, mitigation thinking), or are they generic
+   placeholders ("market risk," "competition")?
+3. Does the target market sizing use a credible, traceable methodology
+   (bottom-up from realistic assumptions) rather than an inflated top-
+   down "if we just capture 1% of a huge market" calculation?
+
+SELF-CORRECTION LAYER
+If projections or assumptions look unrealistic:
+- Cross-check any CAC/conversion/retention assumption against known
+  industry benchmarks for a similar business type and flag significant
+  deviations for justification
+- Replace any "if we capture X% of the total market" sizing with a
+  bottom-up calculation from realistic reach/conversion assumptions
+- Expand any generic one-line risk into a specific scenario with an
+  honest assessment of how well (or poorly) it's currently mitigated
+
+REFLECTION LAYER
+"If a skeptical, experienced investor or lender in this specific
+industry reviewed these assumptions, would they find them credible, or
+would they immediately identify unrealistic optimism?"
+
+FACT VERIFICATION
+Any cited market size, industry benchmark, or competitive data should be
+verified against current, reliable sources rather than estimated from
+general knowledge, since these figures materially affect the plan's
+credibility and decision-usefulness.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Every key financial assumption stated explicitly and realistically
+[ ] Market sizing uses credible bottom-up methodology
+[ ] Unit economics assumptions checked against realistic benchmarks
+[ ] Risk section is specific and substantive, not generic
+[ ] Financial projections traceable to stated assumptions
+[ ] Competitive landscape reflects actual current competitors
+
+OPTIMIZATION TIPS
+- Build unit economics from the most conservative realistic assumption
+  first, then show a sensitivity range (what happens if CAC is 20%
+  higher, if retention is 10% lower) rather than presenting a single
+  optimistic point estimate.
+- For market sizing, always show the bottom-up calculation (realistic
+  reach × realistic conversion × realistic price) alongside any top-down
+  reference figure, since bottom-up is far more credible to sophisticated
+  readers.
+- Have the plan explicitly address "why now" and "why us" — timing and
+  team advantage are often more persuasive than market size alone.
+
+COMMON MISTAKES
+- Optimistic default assumptions presented without acknowledgment
+- Top-down market sizing ("just 1% of a $50B market") without bottom-up
+  validation
+- Generic, superficial risk sections that don't demonstrate real
+  founder awareness
+- Financial projections presented as bare numbers with no visible
+  assumption trail
+- Outdated or unverified competitive landscape information
+
+PROFESSIONAL TIPS
+- Pressure-test your own assumptions by asking "what would have to be
+  true for this number to be wrong by 50%?" for every key driver before
+  finalizing.
+- Show the plan to someone knowledgeable in the specific industry (not
+  just business-general) before finalizing — industry-specific
+  unrealistic assumptions are often invisible to generalists.
+- For investor/lender contexts specifically, prepare to defend every
+  assumption verbally — a plan's credibility often rests more on how
+  well the founder can defend the numbers in conversation than on the
+  document itself.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Help me develop a business plan for a subscription-based AI prompt
+template marketplace for developers and creators, targeting indie
+developers and content creators who use multiple AI tools. Purpose:
+internal strategic planning, not investor-facing yet. Revenue model:
+monthly subscription ($15/mo) for access to a curated, updated template
+library. Build out unit economics with realistic assumptions. Include
+competitive landscape. Provide honest risk assessment. Financial
+projections over 18 months.
+
+EXAMPLE OUTPUT
+[Plan excerpt:
+
+UNIT ECONOMICS (stated assumptions):
+- CAC assumption: $35/customer, based on realistic content-marketing +
+  small paid-ad-spend blended cost for a developer-tool-adjacent
+  audience (not the optimistic $10-15 sometimes assumed for organic-
+  only growth — flagging that achieving sub-$20 CAC would require
+  strong organic/community traction not yet proven)
+- Monthly churn assumption: 8%/month initially (realistic for an early-
+  stage subscription product without strong retention hooks yet, not
+  the 2-3% assumed by mature SaaS benchmarks — this is a key risk area,
+  addressed below)
+- LTV (at 8% monthly churn, $15/mo): ~$187 per customer
+- LTV:CAC ratio: ~5.3:1 — healthy on paper, but highly sensitive to the
+  churn assumption; at 12% monthly churn (plausible for an unproven
+  early product) LTV drops to ~$125, ratio to ~3.6:1 — still viable but
+  meaningfully worse
+
+COMPETITIVE LANDSCAPE: [current competitor analysis with recency-
+verified positioning]
+
+RISK ASSESSMENT (specific, not generic):
+1. Content commoditization risk: prompt templates are inherently easy
+   to screenshot/copy and redistribute for free once purchased —
+   mitigation is weak (some products in this space rely on continuous
+   new-content velocity + community/tooling lock-in rather than content
+   scarcity alone; this needs a real product-differentiation answer
+   beyond "better prompts")
+2. Retention risk: without a strong reason to keep the subscription
+   beyond initial template download, churn could exceed even the
+   already-conservative 8-12% assumption above — mitigation requires
+   genuinely recurring value (new templates, tooling, community) not
+   yet built
+3. Platform dependency risk: value proposition depends on continued
+   relevance of current AI tools/platforms; a major shift in how people
+   prompt (e.g. more capable default AI behavior needing less template
+   engineering) could reduce the core value proposition over the
+   18-month horizon
+
+FINANCIAL PROJECTION (18mo, assumption-traceable): [monthly projection
+table with each row's growth/churn/CAC inputs shown alongside the
+output revenue figure]]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add scenario planning (base/optimistic/pessimistic cases with explicitly
+different assumption sets, not just one point estimate), cohort-based
+retention modeling instead of a single blended churn rate, and a
+fallback: "If a specific industry benchmark isn't confidently known,
+state the uncertainty explicitly and provide a reasoned range rather
+than a false-precision single number."
+
+EXPERT VERSION
+Layer in full sensitivity analysis (tornado chart of which assumptions
+most affect the bottom line), break-even analysis with explicit
+timeline, and cap-table/funding-requirement modeling if the plan
+involves raising capital.
+
+ENTERPRISE VERSION
+Add formal financial-statement projections (P&L, cash flow, balance
+sheet) suitable for lender underwriting, market-research methodology
+documentation for investor due diligence, and governance/organizational
+structure planning for a scaling team.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Develop a business plan for [BUSINESS_CONCEPT] targeting
+[TARGET_MARKET]. Realistic unit economics with stated assumptions.
+Bottom-up market sizing. Specific, substantive risk assessment.
+Assumption-traceable financial projections over [TIME_HORIZON]."
+================================================================================

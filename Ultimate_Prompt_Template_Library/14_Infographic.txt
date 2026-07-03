@@ -1,0 +1,202 @@
+================================================================================
+14 — INFOGRAPHIC
+================================================================================
+
+TITLE
+AI Infographic Design Master Template
+
+PURPOSE
+Transform data or a process into a visually digestible infographic that
+communicates through visual hierarchy and iconography, not by simply
+decorating a wall of text with a border.
+
+IDEAL AI MODELS
+Midjourney v6+, Ideogram v2, Canva Magic Design, DALL-E 3, Claude/GPT
+(for data-to-narrative structuring first)
+
+DIFFICULTY LEVEL
+Intermediate
+
+WHEN TO USE
+- Data storytelling, process/how-it-works explainers, comparison charts,
+  statistical summaries, educational one-pagers, social-shareable stats
+
+EXPECTED OUTPUT
+A single-page visual with clear visual hierarchy, appropriate
+iconography/charts, and a scannable structure that communicates the core
+insight even to someone who only glances at it for a few seconds.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+CORE INSIGHT (the one thing this infographic proves/explains)
+  ↓
+DATA/CONTENT INVENTORY
+  ↓
+STRUCTURE TYPE (statistical / process-flow / comparison / timeline)
+  ↓
+VISUAL HIERARCHY (headline stat → supporting data → detail)
+  ↓
+ICONOGRAPHY STYLE
+  ↓
+COLOR CODING LOGIC (if comparing categories)
+  ↓
+LAYOUT FLOW (top-to-bottom / left-to-right / radial)
+  ↓
+SOURCE/CREDIBILITY LINE
+
+WHY EACH SECTION EXISTS
+- Core Insight: infographics fail when they try to show "all the data"
+  rather than prove one clear point — this section forces reduction to
+  a single thesis before any visual design begins.
+- Structure Type: different content shapes need different infographic
+  structures (a process needs a flow, a comparison needs parallel
+  columns, a stat needs a hero-number layout) — picking the wrong
+  structure for the content type is the most common infographic mistake.
+- Source/Credibility Line: infographics are widely shared without
+  context; citing the data source is both an accuracy practice and a
+  credibility signal.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{CORE_INSIGHT} — the single takeaway
+{DATA_POINTS} — the specific numbers/facts to include
+{STRUCTURE_TYPE} — statistical / process-flow / comparison / timeline
+{HEADLINE_STAT} — the single biggest/most important number
+{ICON_STYLE} — flat / line-art / 3D / hand-drawn
+{COLOR_SCHEME} — palette, with coding logic if comparing categories
+{SOURCE} — data source citation
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a {STRUCTURE_TYPE} infographic proving: '{CORE_INSIGHT}'.
+Headline stat (largest visual element): {HEADLINE_STAT}. Supporting data:
+{DATA_POINTS}. Icon style: {ICON_STYLE}. Color scheme: {COLOR_SCHEME}.
+Layout flow: top-to-bottom scannable in under 15 seconds. Include source
+citation: {SOURCE}. Clear visual hierarchy, minimal text, icon-supported
+data points."
+
+OUTPUT STRUCTURE
+- Single-page visual with headline stat prominent, supporting data
+  clearly hierarchized below, source cited at bottom
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Could a viewer state the core insight after looking at this for 10
+   seconds, or does understanding require reading dense paragraphs?
+2. Does the structure type actually fit the content (a timeline
+   structure forced onto comparison data will confuse rather than
+   clarify)?
+3. Is each icon/visual chosen because it reinforces the specific data
+   point, or is it generic decoration?
+
+SELF-CORRECTION LAYER
+If the infographic feels dense or unclear:
+- Cut supporting data points to the 3-5 that most directly support the
+  core insight; move the rest to a linked full report
+- Increase the size/prominence differential between headline stat and
+  supporting data (the hierarchy is often too flat)
+- Replace generic icons with ones that specifically represent their
+  associated data point
+
+REFLECTION LAYER
+"If this were shared on social media with no caption, would the core
+insight still land based on the visual alone?"
+
+FACT VERIFICATION
+Every statistic must be traceable to the cited source and represented
+accurately (no rounding that changes meaning, no chart proportions that
+visually exaggerate differences beyond the actual data).
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Single core insight, not a data dump
+[ ] Structure type matches content type
+[ ] Headline stat has clear largest visual weight
+[ ] Icons reinforce specific data, not generic decoration
+[ ] Source cited
+[ ] Scannable/understandable within 15 seconds
+
+OPTIMIZATION TIPS
+- Design the headline number/stat first at full intended size, then
+  build supporting elements around it — this prevents hierarchy drift.
+- Use consistent icon style throughout (mixing flat and 3D icons looks
+  unintentional and cheap).
+- Limit color palette to 2-3 colors plus neutral — infographics with
+  too many colors lose their hierarchy signal.
+
+COMMON MISTAKES
+- Trying to fit too much data onto one infographic
+- Using decorative icons unrelated to the specific data they sit next to
+- Choosing a trendy structure (e.g. circular/radial) that doesn't
+  actually suit the content's logical shape
+- Omitting the data source, undermining credibility
+
+PROFESSIONAL TIPS
+- Sketch the information hierarchy as a rough wireframe before any
+  visual generation — solve the "what's biggest, what's smallest" problem
+  in text first.
+- Reuse a consistent icon/color system across a series of infographics
+  for brand recognizability over time.
+- Always fact-check numbers against the original source immediately
+  before publishing, not just when first drafting.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design a statistical infographic proving: 'Hybrid search dramatically
+outperforms pure vector search in RAG retrieval accuracy.' Headline stat
+(largest visual element): "+34% Retrieval Accuracy". Supporting data:
+pure vector search baseline 61% accuracy, hybrid search 82% accuracy,
+tested across 3 benchmark datasets, re-ranking adds a further +6%. Icon
+style: flat, minimal line-art. Color scheme: navy and cyan, with cyan
+highlighting the "hybrid" data specifically. Layout flow: top-to-bottom
+scannable in under 15 seconds. Include source citation: "Internal
+benchmark, n=500 queries across 3 datasets." Clear visual hierarchy,
+minimal text, icon-supported data points.
+
+EXAMPLE OUTPUT
+[Image: A vertical infographic with "+34%" as a massive cyan headline
+number at top with the subhead "Retrieval Accuracy Gain: Hybrid vs.
+Vector-Only Search." Below, two simple horizontal bar comparisons show
+61% (navy, "Vector Only") vs. 82% (cyan, "Hybrid Search"), each with a
+small magnifying-glass/search icon. A smaller callout below notes "+6%
+more with re-ranking" alongside a layered-funnel icon. Footer shows the
+source citation in small, legible text. Clean visual flow top-to-bottom,
+readable at a glance.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: multi-panel infographic structure for more complex data stories
+(a 3-act structure: setup stat → comparison → conclusion), explicit
+data-to-visual-encoding rules (bar length must be proportional to actual
+value, no truncated axes that exaggerate differences), and a fallback:
+"If the data has more than 5 supporting points, split into a series of
+2-3 linked infographics rather than one overcrowded piece."
+
+EXPERT VERSION
+Layer in: full data-visualization-integrity annotations (why each chart
+type was chosen over alternatives, explicit avoidance of common
+misleading-chart patterns), platform-specific export variants (square
+for Instagram, vertical for Pinterest, wide for Twitter/X), and
+narrative-sequencing for multi-slide infographic carousels.
+
+ENTERPRISE VERSION
+Add: brand-compliance requirements (exact palette/font/logo placement),
+legal/compliance review notes for any comparative claims (especially
+competitor comparisons), and a source-documentation appendix suitable
+for methodology transparency requests.
+
+UNIVERSAL VERSION (model-agnostic core)
+"An infographic proving '[CORE_INSIGHT]'. Headline: [HEADLINE_STAT].
+Supporting data: [DATA_POINTS]. [ICON_STYLE] icons, [COLOR_SCHEME]
+palette, source: [SOURCE]."
+Works across Midjourney/DALL-E for the visual base; for reliable
+in-image text and numbers specifically, route to Ideogram or finish
+text/data labels in Canva post-generation.
+================================================================================

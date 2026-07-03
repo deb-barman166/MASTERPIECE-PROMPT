@@ -1,0 +1,207 @@
+================================================================================
+48 — INTERVIEW
+================================================================================
+
+TITLE
+Interview Preparation Master Template
+
+PURPOSE
+Prepare specific, structured interview answers (using STAR method for
+behavioral questions, and genuine problem-solving reasoning for
+technical questions) grounded in real experience — rather than generic,
+memorized-sounding responses that fail to differentiate a candidate.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Beginner → Advanced
+
+WHEN TO USE
+- Behavioral interview prep, technical interview prep, mock interview
+  practice, answer structuring, post-interview reflection
+
+EXPECTED OUTPUT
+Structured, specific interview answers grounded in real personal
+experience (behavioral) or clear reasoning process (technical), tailored
+to the specific role/company context.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+INTERVIEW TYPE (behavioral / technical / case) → TARGET ROLE/COMPANY →
+QUESTION → RAW EXPERIENCE (what actually happened, for behavioral) →
+STRUCTURE (STAR for behavioral; reasoning process for technical) →
+RELEVANCE TO ROLE → PRACTICE FEEDBACK LOOP
+
+WHY EACH SECTION EXISTS
+- Raw Experience first: asking for a polished answer before capturing
+  what actually happened produces generic, forgettable responses even
+  when the underlying experience was strong — specifics must be
+  extracted first, then structured.
+- STAR Structure (Situation-Task-Action-Result): behavioral answers
+  without this structure tend to be either too vague (no concrete
+  situation) or too long (no clear result) — the structure forces both
+  specificity and conciseness.
+- Reasoning Process for technical: interviewers evaluate HOW a candidate
+  thinks through a problem, not just whether they reach the right
+  answer — technical prep must practice narrating reasoning aloud, not
+  just solving silently.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{INTERVIEW_TYPE} {TARGET_ROLE} {QUESTION} {RAW_EXPERIENCE}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Help me prepare for this {INTERVIEW_TYPE} interview question for a
+{TARGET_ROLE} role: '{QUESTION}'. Here's what actually happened (raw):
+{RAW_EXPERIENCE}. Structure this into a {STAR method for behavioral /
+clear step-by-step reasoning for technical} answer. Keep it specific and
+concise — not generic. Tailor the framing toward what matters for this
+specific role. After the answer, give me feedback on where it could be
+stronger."
+
+OUTPUT STRUCTURE
+- Structured answer (STAR or reasoning-process format)
+- Specific, not generic
+- Brief feedback on strengthening it further
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is this answer specific to the candidate's real experience, or does
+   it read as a generic template that could apply to almost anyone?
+2. For behavioral answers, is the Result quantified/concrete, or does it
+   trail off vaguely without a clear outcome?
+3. For technical answers, does the reasoning process demonstrate actual
+   problem-solving thinking (considering tradeoffs, edge cases), or does
+   it jump straight to a memorized-sounding solution?
+
+SELF-CORRECTION LAYER
+Push for more specific detail anywhere the answer feels generic; ensure
+the Result section has a concrete, ideally quantified outcome; for
+technical answers, add explicit reasoning narration ("I'd first
+consider X because...") if the answer currently jumps straight to a
+conclusion.
+
+REFLECTION LAYER
+"Would this answer sound distinctly like MY experience if I said it
+aloud in an interview, or does it sound like it could be anyone's
+generic answer to this question?"
+
+FACT VERIFICATION
+Not typically applicable beyond ensuring the candidate isn't
+inadvertently encouraged to embellish or fabricate experience — answers
+should be grounded in what genuinely happened.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Answer is specific to real experience, not generic
+[ ] Behavioral: clear STAR structure with a concrete Result
+[ ] Technical: reasoning process narrated, not just final answer
+[ ] Tailored to the specific target role's actual priorities
+[ ] Concise enough to deliver naturally in an actual interview (not an
+    overlong monologue)
+[ ] Feedback provided on how to strengthen further
+
+OPTIMIZATION TIPS
+Practice answers aloud, not just in writing — written answers often
+don't translate naturally to spoken delivery. For technical interviews,
+practice explicitly narrating your thought process even when solving
+alone, since this is the skill actually being evaluated. Prepare 5-7
+strong behavioral stories in advance that can flex to answer multiple
+different question types, rather than one story per possible question.
+
+COMMON MISTAKES
+Generic, memorized-sounding answers with no specific detail; vague or
+missing Result in behavioral answers; jumping straight to a technical
+answer without narrating reasoning; answers that are too long/rambling
+for natural interview delivery; not tailoring answers to what the
+specific role actually values.
+
+PROFESSIONAL TIPS
+Do at least one full mock interview (timed, spoken aloud) before the
+real one — writing answers and speaking them under mild pressure are
+different skills. Research the specific company/role's actual priorities
+beforehand so answers can be genuinely tailored, not just generically
+strong.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Help me prepare for this behavioral interview question for an AI/ML
+internship: 'Tell me about a time you had to debug something difficult.'
+Here's what actually happened: I built a RAG system and the retrieval
+was returning irrelevant results even though the embeddings looked
+correct; spent a while checking the embedding model before realizing the
+actual issue was that my chunking strategy was splitting text mid-
+sentence, destroying semantic coherence of the chunks; fixed it by
+switching to sentence-aware chunking and retrieval accuracy improved
+significantly.
+
+EXAMPLE OUTPUT
+[STAR-structured answer:
+
+Situation: "While building a RAG retrieval system for a personal
+project, I noticed the retriever was consistently returning irrelevant
+document chunks for queries I expected it to handle well."
+
+Task: "I needed to figure out why retrieval quality was poor despite the
+underlying embedding model being a well-established, capable one — my
+first assumption was that something was wrong with the model itself."
+
+Action: "I spent time verifying the embedding model was working
+correctly — checking that similar texts produced similar vectors, which
+they did. That ruled out the model as the issue, which pushed me to look
+earlier in the pipeline. I found that my chunking logic was splitting
+documents at fixed character counts without respecting sentence
+boundaries, which meant many chunks contained fragments of two unrelated
+sentences — destroying the semantic coherence the embedding model needed
+to work with."
+
+Result: "I switched to sentence-aware chunking, and retrieval relevance
+improved significantly in my testing. The bigger lesson was that I'd
+initially assumed the most sophisticated component (the embedding model)
+was the likely culprit, when the actual bug was in a much simpler,
+earlier stage of the pipeline — which now shapes how I debug: verify the
+simplest upstream steps before assuming a complex component is at
+fault."
+
+Feedback: this is strong because it's specific and technical, but for
+extra impact, if you have even an approximate before/after retrieval-
+accuracy number from your testing, add it to the Result — a concrete
+number would make this even more memorable than "significantly
+improved" alone.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add multi-question story-mapping (identifying which 5-7 core experiences
+can flexibly answer 15+ likely behavioral questions), technical whiteboard-
+style practice format (narrating code reasoning without running it), and
+a fallback: "If the raw experience doesn't have a strong quantified
+result, help identify the most credible qualitative evidence of impact
+instead of forcing a fabricated number."
+
+EXPERT VERSION
+Layer in company-specific interview-style calibration (different
+companies weight behavioral vs. technical differently, and specific
+companies have known interview format patterns worth preparing for),
+and stress-testing with likely follow-up/probing questions an
+interviewer might ask after the initial answer.
+
+ENTERPRISE VERSION
+(For career coaches/university career centers) Add cohort-level mock-
+interview feedback rubric for consistent evaluation across many
+students, industry-specific question-bank curation, and structured
+progress-tracking across multiple practice sessions.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Help me prepare a [STAR/technical-reasoning] answer for: '[QUESTION]'
+for a [TARGET_ROLE] interview. Raw experience: [RAW_EXPERIENCE]. Keep it
+specific, concise, and tailored to this role. Give feedback."
+================================================================================

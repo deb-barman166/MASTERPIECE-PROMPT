@@ -1,0 +1,221 @@
+================================================================================
+23 — REEL SCRIPT
+================================================================================
+
+TITLE
+Instagram Reel Script Master Template
+
+PURPOSE
+Write Instagram Reels scripts optimized for the platform's specific
+distribution mechanics — relationship-graph seeding, save/share behavior,
+and aesthetic-forward audience expectations — distinct from TikTok's
+trend-velocity model or YouTube Shorts' search-driven discovery.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Beginner → Intermediate
+
+WHEN TO USE
+- Instagram Reels specifically (aesthetic content, carousel-adjacent
+  tips, relatable/aspirational content, save-worthy educational content)
+
+EXPECTED OUTPUT
+A Reel script optimized for saves/shares (Instagram's key ranking
+signals) with strong visual-first hook, aesthetic consideration, and
+a structure suited to Instagram's more relationship-driven, less
+trend-velocity-driven audience.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+CORE IDEA + SAVE/SHARE VALUE (why would someone save or send this?)
+  ↓
+VISUAL-FIRST HOOK (image/text overlay, not just spoken words)
+  ↓
+AESTHETIC DIRECTION (Instagram audiences respond to visual polish)
+  ↓
+CONTENT DELIVERY (list format / before-after / storytelling)
+  ↓
+TEXT OVERLAY STRATEGY (many watch muted; overlay carries the content)
+  ↓
+CAPTION STRATEGY (extends the hook, adds context/CTA)
+  ↓
+CTA (save / share / follow / comment)
+  ↓
+TARGET DURATION
+
+WHY EACH SECTION EXISTS
+- Save/Share Value: Instagram's algorithm weights saves and shares
+  (especially DM shares) more heavily than platforms driven primarily by
+  watch-time — content must be explicitly designed to be worth saving
+  for later or sending to a specific friend, which is a different
+  design goal than pure watch-time optimization.
+- Aesthetic Direction: Instagram's audience and platform culture skew
+  toward visual polish more than TikTok's rawer, trend-native aesthetic
+  — ignoring this mismatches content to platform expectations.
+- Caption Strategy: unlike TikTok/Shorts where the caption is minor,
+  Instagram captions meaningfully extend reach and context, and are
+  read by a meaningful portion of the audience — this needs its own
+  deliberate content, not an afterthought.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{CORE_IDEA} — the content's central value
+{SAVE_SHARE_REASON} — specifically why someone would save/share this
+{FORMAT} — list / before-after / storytelling / tutorial
+{AESTHETIC} — visual style direction
+{DURATION} — target length (Reels favor 15-90s)
+{CAPTION_ANGLE} — what the caption adds beyond the video
+{CTA} — save / share / follow / comment
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Write an Instagram Reel script on {CORE_IDEA} in {FORMAT} format,
+target {DURATION}. Design specifically for save/share value: someone
+should want to save this for later or send it to a specific friend
+because {SAVE_SHARE_REASON}. Open with a visual-first hook (text overlay
++ visual, works muted). Aesthetic: {AESTHETIC}. Note text overlay per
+beat since much of the audience watches muted. Write an accompanying
+caption that extends the hook with {CAPTION_ANGLE} and includes CTA:
+'{CTA}'."
+
+OUTPUT STRUCTURE
+- Beat-by-beat script with text overlay notes
+- Visual/aesthetic direction notes
+- Accompanying caption (separate from video script)
+- Explicit save/share hook reasoning
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Would someone genuinely tag a friend or save this for later, or is it
+   just passively watchable without a specific save/share trigger?
+2. Does this work fully muted with text overlay alone, given a
+   significant portion of Instagram's audience browses without sound?
+3. Does the visual aesthetic match what performs on Instagram
+   specifically (more polished/curated) vs. what might work on TikTok
+   (rawer/trend-native)?
+
+SELF-CORRECTION LAYER
+If save/share potential feels weak:
+- Add explicit "save this for when you..." framing if appropriate to
+  the content type, making the save trigger conscious rather than
+  implicit
+- Strengthen the "tag a friend who..." angle if the content has a
+  natural share trigger between specific people
+- Increase text overlay clarity/completeness so the muted experience is
+  fully functional, not just supplementary
+
+REFLECTION LAYER
+"Is there a specific, nameable reason someone would save or share this,
+or is it just generically 'good content' with no save/share trigger?"
+
+FACT VERIFICATION
+Any factual/list-format claims (e.g. "5 tools every developer needs")
+should be accurate and genuinely useful, since save-worthy content
+implies the audience will return to and rely on it later.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Clear, specific save or share trigger identified
+[ ] Hook works visually + via text overlay, not dependent on audio
+[ ] Aesthetic matches Instagram's more polished platform culture
+[ ] Text overlay present and legible per beat
+[ ] Caption adds genuine value beyond restating the video
+[ ] CTA is specific (save/share/follow/comment), not generic
+
+OPTIMIZATION TIPS
+- List-format and "save this" framing content (tips, resources,
+  checklists) tend to over-index on saves specifically — lean into this
+  format when the goal is save-driven reach.
+- Design at least one moment clearly "tag-worthy" (something a viewer
+  would specifically think of a friend while watching) for share-driven
+  reach.
+- Keep text overlay legible at a glance — Instagram's UI elements (like
+  buttons, captions) occupy screen edges, so keep key text more centered.
+
+COMMON MISTAKES
+- Content that's watchable but has no specific save/share trigger
+- Relying entirely on spoken audio with no text overlay for muted viewers
+- Aesthetic mismatched to Instagram's more curated platform culture
+  (overly raw/unpolished content that would work better on TikTok)
+- Weak or missing caption that doesn't extend the video's value
+
+PROFESSIONAL TIPS
+- Explicitly design the "why save this" trigger before scripting
+  anything else — Instagram's algorithm rewards this specifically, more
+  than pure entertainment value alone.
+- Maintain visual/aesthetic consistency (color grading, text overlay
+  style, font) across a content series for recognizable brand identity
+  in-feed.
+- Study which of your own past Reels had high save-to-view ratios
+  specifically (not just views) and identify the common structural
+  pattern to repeat.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Write an Instagram Reel script on "5 free tools every self-taught AI
+developer should bookmark" in list format, target 45s. Design
+specifically for save/share value: someone should want to save this for
+later because it's a genuinely useful reference list they'll want to
+revisit, and share it with a friend who's also learning AI development.
+Open with a visual-first hook. Aesthetic: clean, modern, dark-theme
+developer aesthetic. Note text overlay per beat. Write an accompanying
+caption with a save-prompt and CTA: 'save this + follow for more.'
+
+EXAMPLE OUTPUT
+[0-3s HOOK]: Visual: dark-theme screen recording montage, bold text
+overlay: "5 FREE tools every AI dev should bookmark 🔖" (spoken,
+optional): "Bookmark this before you close the app."
+[3-10s Tool 1]: Text overlay: "1. [Tool] — for [specific use]" clean
+screen-capture demo, 2-3s each.
+[10-17s Tool 2]: same structured beat.
+[...continues through Tool 5, consistent visual template per beat...]
+[38-45s CLOSE]: Text overlay: "Save this 📌 you'll need it later." Visual
+returns to a clean summary card listing all 5 tools at once for a final
+freeze-frame save moment.
+
+CAPTION: "Bookmarking this so future-you doesn't have to Google it
+again 😅 Which one of these have you already tried? Save this + follow
+for more tools like this every week. #AIdev #PythonDeveloper
+#LearnToCode"]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: carousel-crossover potential notes (which Reel content could also
+work as a saved carousel post for dual-format reach), trending-audio
+integration guidance specific to Instagram's audio library norms, and a
+fallback: "If the list format exceeds comfortable pacing at target
+duration, reduce list items rather than rushing each beat."
+
+EXPERT VERSION
+Layer in: full save-rate optimization annotations (why this specific
+structure/format statistically drives saves on Instagram specifically),
+series-branding consistency system (recurring visual template/intro
+style across a content series), and cross-posting adaptation notes for
+repurposing the same core content to Shorts/TikTok with platform-
+appropriate adjustments.
+
+ENTERPRISE VERSION
+Add: brand-partnership/sponsored-content disclosure compliance
+(Instagram's paid partnership labeling requirements), multi-account
+content calendar coordination for brand family accounts, and
+performance-reporting structure connecting Reel save/share metrics to
+broader marketing KPIs.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Write an Instagram Reel script on [CORE_IDEA], [FORMAT] format,
+[DURATION]. Visual-first hook with text overlay (works muted). Design
+for save/share via [SAVE_SHARE_REASON]. Include caption with CTA:
+[CTA]."
+Pure text-reasoning template — identical across Claude, GPT, and Gemini;
+the platform-specificity lives in the save/share and aesthetic
+reasoning, not in model selection.
+================================================================================

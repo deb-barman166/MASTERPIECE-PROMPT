@@ -1,0 +1,218 @@
+================================================================================
+08 — UI DESIGN
+================================================================================
+
+TITLE
+AI UI Design Master Template
+
+PURPOSE
+Generate polished, usable interface mockups (screens, components, design
+systems) that follow real interaction-design conventions rather than
+producing visually pretty but functionally incoherent layouts.
+
+IDEAL AI MODELS
+Midjourney v6+ (visual concepts), v0, Lovable, Bolt, Figma AI, Galileo AI
+(purpose-built UI generation), Claude/GPT (for design rationale + code)
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- App screen concepts, dashboard layouts, landing page sections,
+  component design, design system exploration, wireframe-to-hi-fi passes
+
+EXPECTED OUTPUT
+A UI screen or component mockup with correct information hierarchy,
+plausible interaction affordances, and visual consistency (spacing,
+typography scale, color system) suitable as a design reference or
+direct-to-code starting point.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+PRODUCT CONTEXT (what the app/product does)
+  ↓
+SCREEN PURPOSE (what user task this screen serves)
+  ↓
+USER TYPE (persona using this screen)
+  ↓
+INFORMATION HIERARCHY (what's most important on screen)
+  ↓
+LAYOUT PATTERN (list / grid / dashboard / form / detail view)
+  ↓
+COMPONENT INVENTORY (nav, cards, buttons, inputs needed)
+  ↓
+DESIGN SYSTEM (color, typography, spacing, corner radius language)
+  ↓
+STATE CONSIDERATIONS (empty, loading, error states)
+  ↓
+PLATFORM (web / iOS / Android / responsive)
+  ↓
+ACCESSIBILITY BASELINE (contrast, tap target size)
+
+WHY EACH SECTION EXISTS
+- Screen Purpose + User Type: UI without a clear task-in-context produces
+  decorative layouts that look plausible but fail real usability — every
+  element should exist because it serves the user's task.
+- Information Hierarchy: forces explicit decision-making about what's
+  primary/secondary/tertiary before layout, preventing "everything looks
+  equally important" designs.
+- State Considerations: most AI-generated UI mockups only show the
+  "happy path" — real interfaces need empty/loading/error states, which
+  is often where actual design work happens.
+- Accessibility Baseline: contrast and tap-target requirements aren't
+  optional polish; they determine whether the design is actually usable.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{PRODUCT} — what the app does
+{SCREEN_PURPOSE} — the task this screen accomplishes
+{USER_TYPE} — persona/context of use
+{PRIMARY_ELEMENT} — the single most important thing on screen
+{LAYOUT_PATTERN} — list / grid / dashboard / form / detail
+{COMPONENTS} — specific UI components needed
+{COLOR_SYSTEM} — primary/secondary/neutral palette
+{TYPE_SCALE} — heading/body/caption sizing approach
+{PLATFORM} — web / iOS / Android / responsive
+{STYLE_DIRECTION} — minimal / dense-data / playful / enterprise
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a {PLATFORM} screen for {PRODUCT}. Screen purpose: {SCREEN_PURPOSE}
+for a {USER_TYPE}. Primary element: {PRIMARY_ELEMENT}, with clear visual
+hierarchy down to secondary/tertiary content. Layout pattern:
+{LAYOUT_PATTERN}. Components needed: {COMPONENTS}. Style: {STYLE_DIRECTION},
+using color system {COLOR_SYSTEM} and a clear type scale. Include
+consideration for empty/loading/error states. Maintain WCAG AA contrast
+and appropriately sized tap targets."
+
+OUTPUT STRUCTURE
+- Screen mockup with clear hierarchy and consistent design language
+- (If requested) additional state variants (empty, loading, error)
+- Rationale note explaining key hierarchy/layout decisions
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does every element on screen serve the stated user task, or are there
+   decorative elements with no functional purpose?
+2. Is the visual hierarchy (size, weight, color, position) actually
+   guiding the eye in the intended priority order?
+3. Would this layout still work with real, variable-length data (long
+   names, missing images, empty lists) or only with ideal placeholder
+   content?
+
+SELF-CORRECTION LAYER
+If the layout feels arbitrary or "AI-generated":
+- Re-derive layout from the information hierarchy first, not from a
+  generic template aesthetic
+- Reduce decorative elements that don't serve the user task
+- Check spacing/alignment consistency (most amateur-feeling UI comes
+  from inconsistent spacing, not bad color choices)
+
+REFLECTION LAYER
+"If a real user encountered this screen with no explanation, would they
+know what to do next?"
+
+FACT VERIFICATION
+For dashboard/data-heavy UI, verify any sample data/metrics shown are
+clearly marked as placeholder, not implying false real performance
+figures.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Clear single primary action/element per screen
+[ ] Information hierarchy matches actual task priority
+[ ] Consistent spacing/type scale throughout
+[ ] Component states considered (not just happy path)
+[ ] Contrast meets accessibility baseline
+[ ] Tap targets appropriately sized for platform
+[ ] Layout survives realistic (non-ideal) data
+
+OPTIMIZATION TIPS
+- Describe layout using real IA/IxD vocabulary (card, list item, app
+  bar, bottom sheet, modal) — models trained on real design data respond
+  more precisely than to vague terms.
+- Generate the primary/happy-path state first, then explicitly request
+  empty/error/loading variants as follow-ups rather than all at once.
+- For code-capable tools (v0, Lovable, Bolt), specify the component
+  library/framework (Tailwind, shadcn/ui, Material) to get directly
+  usable output.
+
+COMMON MISTAKES
+- Designing only the ideal/happy-path state
+- Overloading a single screen with too many primary-weight elements
+- Ignoring platform conventions (e.g. iOS vs. Android navigation
+  patterns, web vs. mobile interaction affordances)
+- Treating UI generation as pure visual output without interaction logic
+
+PROFESSIONAL TIPS
+- Always pair a generated mockup with a one-paragraph rationale
+  connecting layout choices to user goals — this is what separates
+  design thinking from decoration.
+- Build and reuse a personal component/style library description block
+  across a project for visual consistency.
+- Validate generated UI against real usability heuristics (Nielsen's 10)
+  before treating it as final.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design a responsive web screen for an AI agent monitoring dashboard.
+Screen purpose: let a developer quickly see which of their deployed
+agents are healthy, degraded, or failing. Primary element: agent status
+list with clear health indicators. Layout pattern: dashboard with a
+left-nav + main content grid. Components needed: status cards, a
+filter/search bar, an alert banner for critical issues, a detail-view
+side panel. Style: minimal, dense-data, developer-tool aesthetic, using
+color system dark navy background with green/amber/red status colors and
+a clear type scale. Include consideration for empty/loading/error states.
+Maintain WCAG AA contrast and appropriately sized tap targets.
+
+EXAMPLE OUTPUT
+[Image + rationale: A dark-theme dashboard with a slim left-nav (Agents,
+Logs, Settings), a top filter/search bar, and a responsive grid of agent
+status cards color-coded green/amber/red with agent name, last-active
+time, and a compact sparkline. A critical-alert banner sits above the
+grid when failures exist. Clicking a card opens a right-side detail
+panel. Empty state shows a friendly "no agents deployed yet" prompt with
+a primary CTA; loading state shows skeleton cards. Rationale: status
+color is the primary visual hierarchy signal since fast health-scanning
+is the core task; the detail panel avoids full navigation away from the
+list to support rapid triage across many agents.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: full user-flow context (what screen precedes/follows this one),
+responsive breakpoint behavior description (how layout reflows
+mobile→tablet→desktop), and a fallback: "If the component inventory
+creates visual clutter, group secondary actions into a progressive-
+disclosure pattern (menu/accordion) rather than showing everything at
+once."
+
+EXPERT VERSION
+Layer in: design-token specification (exact spacing scale, color tokens,
+elevation/shadow system) for direct handoff to a design system, micro-
+interaction/animation intent notes (transition style on state changes),
+and multi-screen flow generation maintaining consistent component
+behavior across the full task journey.
+
+ENTERPRISE VERSION
+Add: full design-system compliance rules (exact component library
+adherence, brand guideline enforcement), cross-platform consistency
+requirements (web/iOS/Android parity rules), and accessibility audit
+checklist (WCAG AA/AAA compliance documentation) suitable for enterprise
+design review and engineering handoff.
+
+UNIVERSAL VERSION (model-agnostic core)
+"A [PLATFORM] UI screen for [PRODUCT]: [SCREEN_PURPOSE]. Primary focus:
+[PRIMARY_ELEMENT]. Layout: [LAYOUT_PATTERN] with [COMPONENTS]. Style:
+[STYLE_DIRECTION], [COLOR_SYSTEM]."
+Works as a concept-generation core across Midjourney/DALL-E; for
+functional, code-backed UI specifically, route to v0, Lovable, or Bolt,
+which generate actual component code rather than a static image.
+================================================================================

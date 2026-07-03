@@ -1,0 +1,263 @@
+================================================================================
+50 — MACHINE LEARNING
+================================================================================
+
+TITLE
+Machine Learning Development Master Template
+
+PURPOSE
+Get correctly-reasoned ML solutions from AI assistants — appropriate
+model selection for the actual problem/data, proper train/validation/
+test methodology preventing data leakage, and honest evaluation that
+distinguishes real generalization from overfitting artifacts.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini (with code execution for actual training/
+evaluation)
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Model selection, feature engineering, training pipeline design,
+  hyperparameter tuning strategy, evaluation methodology, debugging
+  poor model performance
+
+EXPECTED OUTPUT
+An ML solution with model choice justified by the actual problem/data
+characteristics, leak-free train/val/test methodology, and evaluation
+metrics matched to the actual business/task objective — not just
+whichever metric looks best.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+PROBLEM TYPE (classification/regression/clustering/etc.) → DATA
+CHARACTERISTICS (size, dimensionality, class balance, feature types) →
+MODEL SELECTION (justified by data characteristics, not defaulted to
+trendiest option) → FEATURE ENGINEERING → TRAIN/VAL/TEST SPLIT STRATEGY
+(leak-prevention) → EVALUATION METRIC (matched to actual objective) →
+BASELINE COMPARISON → OVERFITTING CHECK
+
+WHY EACH SECTION EXISTS
+- Model Selection justified by data characteristics: reaching for a deep
+  neural network on a 500-row tabular dataset (where gradient-boosted
+  trees would likely perform better and train faster) is a common AI-
+  assistant mistake driven by defaulting to trendy/complex solutions —
+  model choice must be justified by the actual data's size,
+  dimensionality, and structure.
+- Leak-Prevention in splitting: data leakage (test data information
+  influencing training, e.g. through improper scaling/feature
+  engineering done before the split, or time-series data split randomly
+  instead of chronologically) produces misleadingly good validation
+  metrics that don't hold in production — this must be actively
+  designed against, not assumed to be handled correctly by default.
+- Evaluation Metric matched to objective: accuracy is frequently the
+  wrong metric (e.g. for imbalanced classification, where a model
+  predicting the majority class always achieves high accuracy while
+  being useless) — the metric must be chosen to reflect what actually
+  matters for the task, not defaulted to the most common one.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{PROBLEM_TYPE} {DATA_SIZE} {DATA_CHARACTERISTICS} {BUSINESS_OBJECTIVE}
+{CONSTRAINTS} (latency, interpretability, deployment environment)
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"I need to solve a {PROBLEM_TYPE} problem. Data: {DATA_SIZE} rows,
+characteristics: {DATA_CHARACTERISTICS} (class balance, feature types,
+missing data). Business objective: {BUSINESS_OBJECTIVE} — help me
+select the appropriate evaluation metric matched to this, not just
+default accuracy. Constraints: {CONSTRAINTS}. Recommend a model
+appropriate to this data's actual size/structure (justify why, don't
+default to the trendiest option). Design a leak-free train/validation/
+test split strategy appropriate to the data (random vs. stratified vs.
+time-based, as the data structure requires). Include a baseline
+comparison (simple model/heuristic) and explicit overfitting checks."
+
+OUTPUT STRUCTURE
+- Justified model recommendation matched to data characteristics
+- Leak-free splitting strategy with reasoning
+- Metric selection matched to business objective
+- Baseline comparison and overfitting-check methodology
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is the recommended model genuinely appropriate for this data's actual
+   size/dimensionality/structure, or is it a default/trendy choice that
+   might be overkill (or underpowered) for the real characteristics
+   described?
+2. Does the train/validation/test split strategy actually prevent
+   leakage given this specific data's structure (e.g. time-series data
+   needs chronological splitting, grouped data needs group-aware
+   splitting to prevent the same entity appearing in both train and
+   test)?
+3. Does the selected evaluation metric actually reflect the stated
+   business objective, or would optimizing for it produce a model that
+   scores well but fails at the real task (e.g. high accuracy on
+   imbalanced data while missing the minority class entirely)?
+
+SELF-CORRECTION LAYER
+If model/methodology choices seem mismatched:
+- Reconsider model complexity against the stated data size — for small/
+  medium tabular data, favor simpler, more data-efficient models over
+  deep learning by default
+- Re-examine the splitting strategy for any leakage risk specific to
+  this data's structure (temporal, grouped, or otherwise non-i.i.d.)
+- Replace a mismatched default metric (accuracy on imbalanced data) with
+  one that actually reflects the objective (F1, precision/recall,
+  AUC-PR, or a custom cost-weighted metric)
+
+REFLECTION LAYER
+"If this model were deployed and evaluated on genuinely new,
+unseen data in production, would the validation performance reported
+here actually hold, or is there a realistic leakage/methodology issue
+that would cause production performance to disappoint?"
+
+FACT VERIFICATION
+For any specific library/framework API used (scikit-learn, PyTorch,
+XGBoost), verify current syntax against up-to-date documentation, since
+these libraries evolve; for any cited "best practice" or benchmark
+claim, verify against current, credible ML literature rather than
+outdated conventional wisdom.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Model choice justified by actual data size/structure, not defaulted
+[ ] Splitting strategy prevents leakage given the data's actual structure
+[ ] Evaluation metric matched to genuine business objective
+[ ] Baseline comparison included (not evaluating in isolation)
+[ ] Explicit overfitting check (train vs. validation performance gap)
+[ ] Class imbalance (if present) explicitly addressed in method/metric
+
+OPTIMIZATION TIPS
+Always start with a simple baseline (logistic regression, a mean/mode
+predictor, or a simple heuristic) before a complex model — this
+provides a sanity-check floor and often reveals a complex model isn't
+actually adding meaningful value. For tabular data specifically,
+gradient-boosted trees (XGBoost/LightGBM/CatBoost) frequently outperform
+deep learning and should be the default consideration before reaching
+for neural networks. Check the train-vs-validation performance gap
+explicitly — a large gap signals overfitting regardless of how good
+validation performance looks in isolation.
+
+COMMON MISTAKES
+Defaulting to deep learning for small/medium tabular data where simpler
+models would perform as well or better with less complexity; data
+leakage from improper preprocessing order (scaling/encoding fit on the
+full dataset before splitting) or improper splitting for non-i.i.d. data;
+using accuracy as the default metric on imbalanced classification data;
+no baseline comparison, making it impossible to know if model complexity
+is actually earning its keep; ignoring the train-validation performance
+gap as an overfitting signal.
+
+PROFESSIONAL TIPS
+Always fit any preprocessing step (scaling, encoding, imputation) only
+on the training data, then apply the fitted transformation to validation/
+test data — never fit on the full dataset before splitting. For any
+model going to production, explicitly test performance on a genuinely
+held-out, temporally-later slice of data (not just a random split) to
+catch potential distribution shift that a random split would hide. Track
+experiments (what was tried, what metric resulted) systematically rather
+than relying on memory across iterations.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+I need to solve a binary classification problem: predicting whether a
+deployed AI agent run will fail, using historical run data. Data: ~15,000
+rows, characteristics: fairly imbalanced (only ~8% of runs actually
+fail), features include agent_type (categorical), run_duration_so_far,
+tool_calls_made, error_count_so_far, time_of_day (mix of numeric and
+categorical features), some missing values in error_count_so_far for
+older records. Business objective: catch likely failures early enough to
+alert a human, false positives are annoying but false negatives (missed
+failures) are costly — prioritize recall without making precision
+unusably low. Constraints: needs to run inference in under 100ms, some
+interpretability preferred so we can explain why an alert fired.
+
+EXAMPLE OUTPUT
+[Recommendation:
+
+MODEL: given ~15k rows, mixed categorical/numeric features, and a stated
+preference for interpretability plus sub-100ms inference, a gradient-
+boosted tree model (XGBoost or LightGBM) is well-suited — it handles
+mixed feature types natively, trains/infers fast enough for the latency
+requirement, and offers feature-importance/SHAP-based interpretability
+without the added complexity and larger-data requirements of a neural
+network, which would be overkill and likely underperform at this data
+scale for tabular data.
+
+MISSING DATA: rather than dropping rows with missing
+error_count_so_far (losing ~informative older records), consider adding
+a binary "is_missing" indicator feature alongside a reasonable imputed
+value (e.g. median) — this preserves the signal that missingness itself
+might carry (e.g. older records/agent versions that didn't log this
+field) rather than silently imputing it away.
+
+SPLITTING STRATEGY: since this is run data over time, use a time-based
+split (train on earlier runs, validate/test on later runs) rather than a
+random split — random splitting would let the model "see the future"
+relative to some training examples if there's any temporal pattern
+(e.g. agent behavior changing over versions/time), which would
+inflate validation performance unrealistically compared to true
+production deployment (always predicting on genuinely future runs).
+
+METRIC: given the 8% failure rate (imbalanced) and stated preference for
+recall over precision (but not at the cost of unusably low precision),
+plain accuracy is inappropriate (a model predicting "never fails" would
+score ~92% accuracy while being useless). Recommend optimizing for
+recall at a specific precision floor (e.g. "maximize recall while
+maintaining precision ≥ 30%") using precision-recall curve analysis to
+pick an appropriate classification threshold, rather than the default
+0.5 threshold — and reporting AUC-PR (not AUC-ROC, which can look
+misleadingly good on imbalanced data) as the primary summary metric.
+
+BASELINE: compare against a simple heuristic baseline (e.g. "flag if
+error_count_so_far > 0") to confirm the trained model meaningfully
+outperforms an obvious simple rule before considering it validated.
+
+OVERFITTING CHECK: monitor train vs. validation AUC-PR gap explicitly;
+given the relatively small positive-class count (~1,200 failures in 15k
+rows), watch particularly closely for overfitting to the specific
+failure examples in training.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add class-imbalance handling technique comparison (class weighting vs.
+SMOTE-style oversampling vs. threshold adjustment, with reasoning for
+which fits this specific case best), SHAP-based per-prediction
+explanation design for the interpretability requirement, and a fallback:
+"If model performance plateaus below the useful threshold, treat this as
+a signal to revisit feature engineering (are there missing informative
+features) before adding model complexity."
+
+EXPERT VERSION
+Layer in full hyperparameter-tuning strategy (Bayesian optimization vs.
+grid/random search, with compute-budget-appropriate reasoning),
+calibration analysis (are predicted probabilities actually well-
+calibrated, which matters for a human-facing alert threshold), and
+formal model-monitoring design for production (detecting feature/
+prediction drift over time as new agent types or behaviors emerge).
+
+ENTERPRISE VERSION
+Add MLOps pipeline integration (automated retraining triggers, model
+versioning, A/B testing framework for model updates), fairness/bias
+audit across relevant subgroups (e.g. across different agent_types) if
+applicable, and formal model documentation (model card) for stakeholder
+and compliance review.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Solve this [PROBLEM_TYPE] problem with [DATA_SIZE] rows,
+characteristics: [DATA_CHARACTERISTICS]. Recommend a model justified by
+data structure. Leak-free split strategy. Metric matched to
+[BUSINESS_OBJECTIVE]. Include baseline and overfitting check."
+Requires code execution for actual training/evaluation; works across
+Claude, GPT, and Gemini with code execution enabled.
+================================================================================

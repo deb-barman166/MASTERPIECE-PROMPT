@@ -1,0 +1,224 @@
+================================================================================
+34 — DATABASE
+================================================================================
+
+TITLE
+Database Design & Query Master Template
+
+PURPOSE
+Get correctly normalized schema designs and efficient, injection-safe
+queries from AI assistants — avoiding both over-normalization that
+hurts real-world query performance and under-normalization that risks
+data integrity.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini, Cursor AI
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Schema design, query writing/optimization, migration planning,
+  indexing strategy, data-integrity constraint design
+
+EXPECTED OUTPUT
+A schema design (with appropriate normalization level and constraints)
+or a query that is correct, efficient (appropriately indexed), and safe
+from injection.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+DATA MODEL PURPOSE → DATABASE ENGINE (Postgres/MySQL/SQLite/etc.) →
+ENTITIES + RELATIONSHIPS → NORMALIZATION LEVEL (with reasoning) →
+CONSTRAINTS (unique, foreign key, check) → INDEXING NEEDS (based on
+actual query patterns) → QUERY PATTERNS (what will be queried
+frequently) → SCALE CONTEXT (expected row counts)
+
+WHY EACH SECTION EXISTS
+- Normalization Level with reasoning: textbook 3NF isn't always the
+  right real-world choice — some denormalization is justified for
+  read-heavy access patterns — this must be a deliberate, reasoned
+  decision based on actual query patterns, not a default.
+- Indexing based on query patterns: indexes that don't match actual
+  query WHERE/JOIN/ORDER BY clauses provide no benefit while still
+  costing write performance — indexing must be derived from stated
+  query patterns, not applied to every column reflexively.
+- Scale Context: a design appropriate for thousands of rows may need
+  different indexing/partitioning strategy at hundreds of millions of
+  rows — this affects real design decisions and must be stated upfront.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{PURPOSE} {ENGINE} {ENTITIES} {QUERY_PATTERNS} {SCALE}
+{CONSTRAINTS_NEEDED}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a {ENGINE} schema for {PURPOSE}. Entities and relationships:
+{ENTITIES}. Normalize appropriately (explain any deliberate
+denormalization). Add constraints: {CONSTRAINTS_NEEDED} — foreign keys,
+unique constraints, check constraints where they enforce real business
+rules. Query patterns expected: {QUERY_PATTERNS} — design indexes to
+support these specifically, not speculatively. Scale context: {SCALE}
+expected rows. Use parameterized queries in any example code, never
+string concatenation."
+
+OUTPUT STRUCTURE
+- Schema (DDL) with appropriate constraints and indexes
+- Brief rationale for normalization/denormalization decisions
+- Example queries matching the stated query patterns
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does the normalization level match actual access patterns, or is it
+   textbook-normalized in a way that will require expensive joins for
+   the application's most common queries?
+2. Do the proposed indexes actually match the stated query patterns
+   (columns in WHERE/JOIN/ORDER BY), or are they speculative/unused?
+3. Do foreign key and check constraints enforce real business rules
+   (e.g. an order can't reference a nonexistent customer), preventing
+   invalid states at the database level rather than relying solely on
+   application logic?
+
+SELF-CORRECTION LAYER
+Cross-check every proposed index against the stated query patterns —
+remove any index without a clear corresponding query need; verify
+foreign keys exist for every stated relationship; check for missing
+NOT NULL constraints on fields that logically shouldn't be nullable;
+verify no query in the examples uses string concatenation for values.
+
+REFLECTION LAYER
+"If this database had the stated scale of real data and received the
+stated query patterns continuously, would it perform well, or would
+specific queries become slow due to missing/wrong indexing?"
+
+FACT VERIFICATION
+For any engine-specific feature (JSONB in Postgres, specific MySQL
+storage engine behavior), verify current behavior against official
+documentation for the specified database engine and version.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Normalization level justified by actual access patterns
+[ ] Indexes match stated query patterns, none speculative/unused
+[ ] Foreign key constraints for all stated relationships
+[ ] NOT NULL and CHECK constraints enforce real business rules
+[ ] Example queries use parameterization, no string concatenation
+[ ] Design considered at the stated scale, not just small-data-friendly
+
+OPTIMIZATION TIPS
+Add indexes to support foreign keys explicitly (some engines don't
+auto-index them), since foreign key columns are frequently joined on.
+For read-heavy, write-light tables, consider a covering index that
+includes commonly-selected columns to enable index-only scans. Always
+ask for `EXPLAIN ANALYZE` reasoning on any query expected to run at
+scale, not just correctness.
+
+COMMON MISTAKES
+Over-normalizing to the point that common queries require many joins;
+under-normalizing in a way that risks data anomalies; missing indexes
+on foreign key columns; missing NOT NULL constraints allowing invalid
+nullable states; string-concatenated queries in example code creating
+injection risk.
+
+PROFESSIONAL TIPS
+Design indexes from real, stated query patterns — never index
+speculatively "just in case," since unused indexes cost write
+performance and storage without benefit. Run `EXPLAIN ANALYZE` (or the
+engine's equivalent) on any performance-sensitive query against
+realistic data volume before considering a schema/query finalized, not
+just against a small dev dataset.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design a PostgreSQL schema for a multi-user AI agent monitoring tool.
+Entities: users, agents (belong to a user), agent_runs (belong to an
+agent, has status/start_time/end_time/cost). Normalize appropriately.
+Add constraints: agent must belong to an existing user, run status must
+be one of a fixed set of values, cost must be non-negative. Query
+patterns expected: "get all runs for an agent ordered by start_time
+descending", "get total cost per agent for the last 30 days", "get all
+currently-running runs across all of a user's agents". Scale context:
+~10k users, ~50k agents, ~50M runs over time.
+
+EXAMPLE OUTPUT
+```sql
+CREATE TABLE users (
+    id BIGSERIAL PRIMARY KEY,
+    email TEXT NOT NULL UNIQUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE agents (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX idx_agents_user_id ON agents(user_id);
+
+CREATE TABLE agent_runs (
+    id BIGSERIAL PRIMARY KEY,
+    agent_id BIGINT NOT NULL REFERENCES agents(id) ON DELETE CASCADE,
+    status TEXT NOT NULL CHECK (status IN
+        ('running', 'succeeded', 'failed', 'cancelled')),
+    start_time TIMESTAMPTZ NOT NULL DEFAULT now(),
+    end_time TIMESTAMPTZ,
+    cost NUMERIC(10, 4) NOT NULL DEFAULT 0 CHECK (cost >= 0)
+);
+
+-- Supports: "runs for an agent ordered by start_time desc"
+CREATE INDEX idx_runs_agent_start
+    ON agent_runs(agent_id, start_time DESC);
+
+-- Supports: "total cost per agent, last 30 days" and general
+-- time-range scans without a full table scan at 50M+ rows
+CREATE INDEX idx_runs_start_time ON agent_runs(start_time);
+
+-- Supports: "all currently-running runs" — partial index since
+-- 'running' is a small fraction of 50M total rows at any moment
+CREATE INDEX idx_runs_running ON agent_runs(agent_id)
+    WHERE status = 'running';
+```
+Key decisions: fully normalized (3NF) since the entity relationships are
+simple 1-to-many with no read-pattern justification for denormalizing;
+a partial index on `status = 'running'` specifically supports the
+"currently running" query pattern efficiently at 50M-row scale without
+bloating the index with the vast majority of completed rows; the
+composite `(agent_id, start_time DESC)` index directly matches the
+stated "runs for an agent ordered by start_time" pattern.
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add table partitioning strategy (e.g. partition agent_runs by month)
+for the stated 50M+ row scale, materialized view specification for the
+"total cost per agent, last 30 days" aggregation if computed
+frequently, and a fallback: "If a query pattern isn't well-served by
+a single index, consider whether a materialized/summary table is more
+appropriate than an increasingly complex index."
+
+EXPERT VERSION
+Layer in full query-plan analysis (expected EXPLAIN ANALYZE output
+reasoning), replication/read-replica routing strategy for read-heavy
+aggregation queries, and connection-pooling/transaction-isolation-level
+recommendations for the application's concurrency profile.
+
+ENTERPRISE VERSION
+Add data-retention/archival policy design (moving old agent_runs to
+cold storage), audit-trail/soft-delete requirements for compliance,
+and formal migration-review checklist (backward-compatible schema
+changes, zero-downtime migration strategy) for production database
+changes.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Design a [ENGINE] schema for [PURPOSE]. Entities: [ENTITIES].
+Normalize based on query patterns: [QUERY_PATTERNS]. Add constraints
+and indexes matching those patterns specifically, at [SCALE] scale."
+================================================================================

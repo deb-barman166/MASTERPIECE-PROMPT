@@ -1,0 +1,245 @@
+================================================================================
+32 — BACKEND
+================================================================================
+
+TITLE
+Backend Development Master Template
+
+PURPOSE
+Get correctly-architected backend service code from AI assistants — with
+proper separation of concerns (routing/business logic/data access),
+correct error handling that returns appropriate status codes, and
+security fundamentals applied by default.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini, Cursor AI, Windsurf
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- REST/GraphQL service endpoints, business logic implementation,
+  authentication/authorization logic, background jobs, service
+  architecture decisions
+
+EXPECTED OUTPUT
+Backend code with clear separation between routing, business logic, and
+data access layers; correct HTTP status codes; input validation; and
+security fundamentals (no injection vulnerabilities, proper auth checks)
+applied by default.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+ENDPOINT/SERVICE PURPOSE → FRAMEWORK/LANGUAGE → REQUEST/RESPONSE SHAPE
+→ AUTH REQUIREMENTS → VALIDATION RULES → BUSINESS LOGIC → DATA ACCESS
+PATTERN → ERROR HANDLING (status codes per failure mode) → SECURITY
+CONSIDERATIONS
+
+WHY EACH SECTION EXISTS
+- Separation of concerns: mixing routing, business logic, and database
+  queries in one function works for a demo but becomes unmaintainable
+  and untestable at real scale — explicitly requesting layered
+  architecture prevents this from the start.
+- Error Handling per failure mode: generic try/catch-and-500-everything
+  is a common AI shortcut that produces poor API ergonomics — each
+  failure mode (not found, unauthorized, validation error, conflict)
+  deserves its own correct status code and response shape.
+- Security Considerations: injection vulnerabilities, missing auth
+  checks, and improper input handling are common in quickly-generated
+  backend code — this must be an explicit, non-optional requirement,
+  not assumed to be handled implicitly.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{ENDPOINT_PURPOSE} {FRAMEWORK} {REQUEST_SHAPE} {RESPONSE_SHAPE}
+{AUTH_REQUIREMENTS} {VALIDATION_RULES} {DATA_ACCESS_PATTERN}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Write a {FRAMEWORK} endpoint for {ENDPOINT_PURPOSE}. Request:
+{REQUEST_SHAPE}. Response: {RESPONSE_SHAPE}. Auth requirements:
+{AUTH_REQUIREMENTS} — return 401 if unauthenticated, 403 if
+unauthorized. Validate input: {VALIDATION_RULES} — return 400 with
+specific field errors if invalid. Business logic in a separate function/
+layer from the route handler. Data access: {DATA_ACCESS_PATTERN} using
+parameterized queries/ORM (never string-concatenated SQL). Return 404 if
+the resource doesn't exist, 409 for conflicts, 500 only for genuine
+unexpected errors (logged with context)."
+
+OUTPUT STRUCTURE
+- Route handler (thin, delegates to business logic)
+- Business logic function (testable, framework-independent where
+  possible)
+- Correct status code per failure mode
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is business logic separated from the HTTP-specific route handler
+   (could the core logic be unit tested without mocking the entire HTTP
+   framework)?
+2. Does every possible failure mode (not found, unauthorized, invalid
+   input, conflict, unexpected error) return the semantically correct
+   status code, or does everything collapse into a generic error?
+3. Is user input properly validated and are database queries
+   parameterized (no risk of injection)?
+
+SELF-CORRECTION LAYER
+Check for any raw string concatenation in database queries (SQL
+injection risk); verify auth checks happen before business logic
+executes, not after; confirm validation errors return specific,
+actionable field-level messages rather than a generic "bad request";
+verify sensitive data (passwords, tokens) is never logged or included
+in error responses.
+
+REFLECTION LAYER
+"If this endpoint were hit with malformed, malicious, or unauthorized
+requests, would it fail safely with the correct status code, or could
+it error in an unexpected/insecure way?"
+
+FACT VERIFICATION
+For any ORM/framework-specific method used, verify current API syntax
+against up-to-date documentation, since backend framework APIs
+(especially ORMs) change between major versions.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Business logic separated from route/HTTP handling
+[ ] Correct status code per failure mode (400/401/403/404/409/500)
+[ ] All database queries parameterized, no injection risk
+[ ] Auth checks occur before business logic executes
+[ ] Input validation with specific, actionable error messages
+[ ] Sensitive data never logged or returned in error responses
+
+OPTIMIZATION TIPS
+Request explicit rate-limiting/throttling consideration for public-
+facing or expensive endpoints. Ask for idempotency handling on mutation
+endpoints where duplicate requests are a realistic risk (e.g. payment
+processing, resource creation). Request database query
+efficiency review (N+1 query risk) for any endpoint returning related/
+nested data.
+
+COMMON MISTAKES
+Mixing business logic directly into route handlers; generic 500 errors
+for all failure types; string-concatenated SQL queries; missing or
+late auth checks; returning internal error details (stack traces,
+database errors) directly to API clients.
+
+PROFESSIONAL TIPS
+Write the business logic layer to be framework-agnostic and unit-
+testable without spinning up the full HTTP server — this pays off
+significantly as the codebase grows. Always test endpoints with
+malformed/malicious input (not just happy-path) before considering them
+complete: missing fields, wrong types, oversized payloads, and injection
+attempts.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Write a FastAPI endpoint for updating a user's profile. Request:
+PATCH /users/{user_id} with a JSON body of optional fields (name, bio,
+avatar_url). Response: updated user object. Auth requirements: user can
+only update their own profile (return 403 if user_id doesn't match the
+authenticated user). Validate input: name max 100 chars, bio max 500
+chars, avatar_url must be a valid URL if provided. Business logic in a
+separate function from the route handler. Data access: SQLAlchemy ORM.
+Return 404 if user doesn't exist.
+
+EXAMPLE OUTPUT
+```python
+from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel, HttpUrl, field_validator
+from sqlalchemy.orm import Session
+
+router = APIRouter()
+
+class UpdateProfileRequest(BaseModel):
+    name: str | None = None
+    bio: str | None = None
+    avatar_url: HttpUrl | None = None
+
+    @field_validator("name")
+    @classmethod
+    def name_length(cls, v):
+        if v is not None and len(v) > 100:
+            raise ValueError("name must be 100 characters or fewer")
+        return v
+
+    @field_validator("bio")
+    @classmethod
+    def bio_length(cls, v):
+        if v is not None and len(v) > 500:
+            raise ValueError("bio must be 500 characters or fewer")
+        return v
+
+
+def update_user_profile(
+    db: Session, target_user_id: int, requesting_user_id: int,
+    updates: UpdateProfileRequest,
+) -> "User":
+    """Business logic layer: framework-independent, unit-testable."""
+    if target_user_id != requesting_user_id:
+        raise PermissionError("Cannot update another user's profile")
+
+    user = db.query(User).filter(User.id == target_user_id).first()
+    if user is None:
+        raise LookupError(f"User {target_user_id} not found")
+
+    for field, value in updates.model_dump(exclude_unset=True).items():
+        setattr(user, field, str(value) if field == "avatar_url" else value)
+
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+@router.patch("/users/{user_id}")
+def update_profile(
+    user_id: int,
+    body: UpdateProfileRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    try:
+        updated = update_user_profile(db, user_id, current_user.id, body)
+        return updated
+    except PermissionError as e:
+        raise HTTPException(status_code=403, detail=str(e))
+    except LookupError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+```
+Key decision: business logic (`update_user_profile`) is fully separated
+from the FastAPI route, raising plain Python exceptions
+(`PermissionError`, `LookupError`) that the thin route layer translates
+to correct HTTP status codes — keeping the core logic testable without
+any HTTP framework dependency.
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add optimistic-locking/versioning for concurrent update conflict
+detection (409 response), audit-log entry generation on profile changes,
+and a fallback: "If a validation rule's exact boundary is ambiguous,
+default to the stricter interpretation and note the assumption."
+
+EXPERT VERSION
+Layer in full request/response schema versioning strategy for API
+evolution, rate-limiting middleware specification per endpoint
+sensitivity tier, and distributed-tracing/correlation-ID propagation
+for observability in a microservices context.
+
+ENTERPRISE VERSION
+Add compliance-relevant audit logging (who changed what, when, from
+where) for regulated data, formal API contract documentation
+(OpenAPI/Swagger spec generation), and load-testing/capacity-planning
+notes for the endpoint's expected traffic profile.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Write a [FRAMEWORK] endpoint for [ENDPOINT_PURPOSE]. Separate business
+logic from routing. Correct status code per failure mode. Parameterized
+queries only. Auth checks before logic execution."
+================================================================================

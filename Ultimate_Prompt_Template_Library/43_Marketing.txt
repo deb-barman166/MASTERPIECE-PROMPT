@@ -1,0 +1,175 @@
+================================================================================
+43 — MARKETING
+================================================================================
+
+TITLE
+Marketing Strategy Master Template
+
+PURPOSE
+Develop marketing strategy grounded in a specific target customer and
+measurable objective, rather than generic "brand awareness" tactics
+disconnected from a clear business outcome.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Channel strategy, campaign planning, positioning development,
+  marketing budget allocation, messaging framework development
+
+EXPECTED OUTPUT
+A marketing strategy tied to a specific customer segment, measurable
+objective, and channel selection justified by where that specific
+customer actually spends attention.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+BUSINESS OBJECTIVE (measurable) → TARGET CUSTOMER (specific segment)
+→ CUSTOMER'S ACTUAL ATTENTION LOCATION → MESSAGING (problem/solution
+fit) → CHANNEL SELECTION (justified by customer location, not
+popularity) → BUDGET ALLOCATION LOGIC → MEASUREMENT PLAN
+
+WHY EACH SECTION EXISTS
+- Measurable Objective first: marketing without a specific measurable
+  goal (leads, signups, revenue — not just "awareness") can't be
+  evaluated or improved; this must anchor every subsequent decision.
+- Channel justified by customer location: choosing channels because
+  they're popular/trendy rather than because the specific target
+  customer actually spends attention there is a primary cause of wasted
+  marketing spend.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{OBJECTIVE} {TARGET_CUSTOMER} {BUDGET} {TIME_HORIZON}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Develop a marketing strategy to achieve {OBJECTIVE} (measurable target)
+for {TARGET_CUSTOMER}. Budget: {BUDGET}, timeframe: {TIME_HORIZON}.
+Identify where this specific customer segment actually spends attention
+(not generic channel popularity). Develop core messaging addressing
+their specific problem. Select and justify channels based on customer
+location and budget fit. Propose a measurement plan tied directly back
+to {OBJECTIVE}."
+
+OUTPUT STRUCTURE
+- Channel strategy with customer-location justification per channel
+- Core messaging framework
+- Measurement plan tied to the stated objective
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is the objective genuinely measurable, or is it a vague goal
+   ("increase awareness") that can't be evaluated afterward?
+2. Is each selected channel justified by evidence this specific
+   customer segment is actually there, or by general channel popularity?
+3. Does the budget allocation match the actual cost/scale of the
+   selected channels realistically, or is it spread too thin to be
+   effective anywhere?
+
+SELF-CORRECTION LAYER
+Replace any vague objective with a specific number/metric; challenge any
+channel choice that isn't justified by specific customer-location
+evidence; consolidate budget toward fewer channels if currently spread
+too thin to achieve meaningful presence in any one.
+
+REFLECTION LAYER
+"If this campaign ran and hit its stated objective, would we actually
+know it worked — is the measurement plan specific enough to prove or
+disprove success?"
+
+FACT VERIFICATION
+Any channel/platform usage statistics for the target segment should be
+verified against current data rather than assumed from general/outdated
+knowledge, since platform demographics shift.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Objective is specific and measurable
+[ ] Target customer is a specific segment, not "everyone"
+[ ] Each channel justified by customer-location evidence
+[ ] Budget allocation matches realistic channel costs
+[ ] Measurement plan directly tied to the objective
+
+OPTIMIZATION TIPS
+Concentrate budget in 1-2 well-justified channels rather than spreading
+thin across many — depth of presence usually outperforms shallow
+presence everywhere. Write messaging from the customer's specific
+problem outward, not from the product's features inward.
+
+COMMON MISTAKES
+Vague, unmeasurable objectives; channel selection based on trendiness
+rather than customer location; budget spread too thin across too many
+channels; messaging that leads with features rather than the customer's
+problem; no clear measurement plan tied back to the objective.
+
+PROFESSIONAL TIPS
+Validate channel assumptions with a small, cheap test before committing
+significant budget — don't assume where the customer is, verify with a
+low-cost pilot. Revisit the measurement plan weekly against actuals, not
+just at campaign end, to catch and correct course early.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Develop a marketing strategy to achieve 200 free-tier signups in 60 days
+for a developer tool (AI agent monitoring dashboard) targeting solo
+indie developers building with AI agent frameworks. Budget: $500,
+timeframe: 60 days.
+
+EXAMPLE OUTPUT
+[Strategy: Objective is specific (200 signups/60 days) — good anchor.
+Target customer (solo indie devs building AI agents) is a narrow,
+technically-fluent segment that concentrates attention in specific
+developer communities (relevant subreddits, Discord servers for AI/agent
+frameworks, dev-focused X/Twitter, Hacker News) rather than broad social
+platforms — channel selection should follow this, not general
+popularity. With a $500 budget, this rules out paid ads at meaningful
+scale for this audience (developer-tool CPCs are often too high for
+$500 to move 200 signups); instead, budget is better spent on: (1) time-
+efficient content — a genuinely useful technical blog post/tool solving
+a real pain point this audience has, shared directly in 3-4 relevant
+communities where self-promotion is accepted, (2) a small $200-300 spend
+on targeted developer-newsletter sponsorship (often better ROI per
+qualified signup than broad social ads for this niche audience) — cost/
+signup estimate should be validated with the newsletter's own past
+sponsor data before committing. Measurement: track signups by referral
+source explicitly (UTM-tagged links per channel) so which specific
+community/channel drove signups is known, not just total count —
+enabling budget reallocation toward whatever's working by day 30 rather
+than waiting until day 60.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add A/B messaging test design across channels, cohort-based signup-
+quality tracking (not just volume — are these signups converting to
+active users), and a fallback: "If early data shows one channel
+significantly outperforming, reallocate remaining budget toward it
+before the full timeframe elapses rather than waiting for a fixed
+review point."
+
+EXPERT VERSION
+Layer in full customer-acquisition funnel modeling (awareness → signup
+→ activation, not just top-of-funnel signups), attribution-modeling
+nuance for multi-touch customer journeys, and creative-testing framework
+for message/channel-fit optimization.
+
+ENTERPRISE VERSION
+Add multi-channel budget-allocation modeling across a full marketing mix,
+brand-consistency governance across campaigns, and formal marketing-
+attribution/ROI reporting structure for executive stakeholders.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Marketing strategy for [OBJECTIVE] targeting [TARGET_CUSTOMER], budget
+[BUDGET], timeframe [TIME_HORIZON]. Channels justified by customer
+location. Measurement tied to objective."
+================================================================================

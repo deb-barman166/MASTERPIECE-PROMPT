@@ -1,0 +1,213 @@
+================================================================================
+12 — DASHBOARD DESIGN
+================================================================================
+
+TITLE
+AI Dashboard Design Master Template
+
+PURPOSE
+Design data dashboards that surface the right information at the right
+glance-level (scan vs. deep-dive) rather than dumping every available
+metric onto one dense, undifferentiated screen.
+
+IDEAL AI MODELS
+v0, Lovable, Bolt, Figma AI, Claude/GPT (for information-architecture
+reasoning)
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Analytics dashboards, admin panels, monitoring/ops dashboards,
+  business intelligence views, personal tracking tools
+
+EXPECTED OUTPUT
+A dashboard layout with a clear glance-hierarchy (headline metrics →
+trends → detail/drill-down), appropriate chart types per data type, and
+scannable density.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+DASHBOARD PURPOSE (monitor / analyze / report)
+  ↓
+PRIMARY USER + THEIR KEY QUESTION
+  ↓
+METRIC INVENTORY (what data exists)
+  ↓
+METRIC PRIORITIZATION (headline vs. supporting vs. drill-down)
+  ↓
+CHART TYPE SELECTION (matched to data type)
+  ↓
+LAYOUT GRID (glance zone → trend zone → detail zone)
+  ↓
+UPDATE FREQUENCY (real-time / hourly / daily)
+  ↓
+ALERT/THRESHOLD LOGIC (if monitoring use case)
+  ↓
+FILTER/SEGMENT CONTROLS
+
+WHY EACH SECTION EXISTS
+- Primary User + Key Question: every dashboard should answer one core
+  question at a glance (e.g. "is everything healthy right now?" for ops,
+  "is revenue trending up or down?" for business) — dashboards without
+  this collapse into unprioritized metric walls.
+- Chart Type Selection: mismatched chart types (e.g. pie charts for
+  time-series data) actively obscure the data they're meant to reveal —
+  this must be reasoned, not defaulted.
+- Metric Prioritization: not all metrics deserve equal visual weight;
+  this section forces an explicit hierarchy so the most important number
+  is the most visually prominent.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{DASHBOARD_PURPOSE} — monitor / analyze / report
+{PRIMARY_USER} — who uses this dashboard
+{KEY_QUESTION} — the one question this dashboard must answer at a glance
+{METRICS} — full list of available data points
+{HEADLINE_METRICS} — the 1-3 most important numbers
+{UPDATE_FREQUENCY} — real-time / hourly / daily / weekly
+{STYLE} — visual direction
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a {DASHBOARD_PURPOSE} dashboard for {PRIMARY_USER}, whose key
+question is: '{KEY_QUESTION}'. Available metrics: {METRICS}. Headline
+metrics (largest visual weight): {HEADLINE_METRICS}. Choose chart types
+appropriate to each metric's data type (time-series → line, comparison →
+bar, composition → stacked bar not pie unless ≤3 segments, single-value →
+big number card). Layout: headline zone at top, trend zone middle, detail/
+drill-down zone bottom or via tabs. Update frequency: {UPDATE_FREQUENCY}.
+Include filter/segment controls."
+
+OUTPUT STRUCTURE
+- Layout with clear glance-hierarchy zones
+- Chart type recommendation per metric with rationale
+- Filter/interaction notes
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Can {PRIMARY_USER} answer {KEY_QUESTION} within 3 seconds of opening
+   this dashboard, using only the headline zone?
+2. Is each chosen chart type the correct visualization for its
+   underlying data type (time-series, categorical comparison, part-to-
+   whole, distribution)?
+3. Does the information density match the use case (monitoring
+   dashboards should be scannable in seconds; analysis dashboards can
+   afford more density for deliberate exploration)?
+
+SELF-CORRECTION LAYER
+If the dashboard feels cluttered or unclear:
+- Demote any metric that isn't directly tied to the key question into a
+  drill-down/detail view rather than the main glance zone
+- Replace any mismatched chart type (pie chart for 8 categories, e.g.)
+  with the statistically appropriate alternative
+- Reduce headline metrics to a true top 1-3, moving the rest down a tier
+
+REFLECTION LAYER
+"If I only had 3 seconds to look at this dashboard, would I know
+whether things are good, bad, or need attention?"
+
+FACT VERIFICATION
+Not applicable to layout reasoning itself; if example/sample data is
+shown, ensure it's clearly marked as illustrative, not implying real
+performance figures.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Key question answerable from headline zone alone
+[ ] Chart types match underlying data type
+[ ] Clear visual hierarchy (headline > trend > detail)
+[ ] Density matches use case (monitor vs. analyze)
+[ ] Filter/segment controls present without cluttering headline zone
+[ ] Update frequency appropriate to the metric's actual volatility
+
+OPTIMIZATION TIPS
+- Default to line charts for trends, bar charts for comparisons, and
+  big-number cards for single critical values — resist decorative chart
+  variety for its own sake.
+- Use color purposefully (red/amber/green for status) and sparingly —
+  overuse of color dilutes its signaling power.
+- Group related metrics spatially so the eye doesn't have to jump around
+  to compare related numbers.
+
+COMMON MISTAKES
+- Treating all metrics as equally important (undifferentiated grid of
+  same-sized cards)
+- Using pie charts for data with many categories or for time-series data
+- Overloading a single view when a monitor use case needs a fast-scan
+  design, not an analysis-depth design
+- Omitting context (is this number good or bad relative to target/
+  history?) — a number alone often isn't actionable
+
+PROFESSIONAL TIPS
+- Always design the headline zone first and get it right before adding
+  any supporting detail — this is the 80% of the dashboard's value.
+- Pair every headline metric with a comparison point (vs. last period,
+  vs. target) so the number has context, not just magnitude.
+- For monitoring dashboards specifically, design the "everything is
+  fine" state to be visually calm/quiet, so anomalies stand out sharply
+  by contrast when they occur.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design a monitor dashboard for a solo developer running multiple deployed
+AI agents, whose key question is: 'are any of my agents currently failing
+or costing more than expected?' Available metrics: agent uptime, error
+rate, API cost per agent, request volume, average latency, last-error
+message. Headline metrics: number of agents currently failing, total
+daily API cost, overall error rate. Choose chart types appropriate to
+each metric's data type. Layout: headline zone at top, trend zone middle,
+detail/drill-down zone bottom or via tabs. Update frequency: real-time
+for status, hourly for cost. Include filter/segment controls.
+
+EXAMPLE OUTPUT
+[Layout: Top headline zone shows three large number cards — "0 Agents
+Failing" (green), "$4.20 Today" (with a small vs.-yesterday delta),
+"0.3% Error Rate" — instantly scannable. Middle trend zone shows a 24-
+hour line chart of API cost and a separate line chart of error rate over
+time, both with clear axis labels. Bottom zone is a per-agent table
+(sortable, filterable by status) showing uptime, request volume, latency,
+and last error per agent, functioning as the drill-down layer. Filter
+controls allow scoping by agent group or time range. Color used only for
+status signaling (green/amber/red), kept neutral elsewhere so alerts
+stand out.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: threshold-based alert visualization logic (how a metric crossing a
+defined threshold visually escalates on the dashboard), drill-down
+interaction specification (what happens when a headline card is
+clicked), and a fallback: "If two metrics compete for headline
+placement, default to whichever has higher volatility/actionability,
+demoting the more stable metric to the trend zone."
+
+EXPERT VERSION
+Layer in: anomaly-detection visual treatment (how statistically unusual
+data points are highlighted distinctly from normal variance), multi-
+dashboard information-architecture (how this dashboard relates to and
+links from/to other dashboards in a suite), and real-time vs. batch data
+handling implications for chart update behavior (smooth transitions vs.
+discrete jumps).
+
+ENTERPRISE VERSION
+Add: role-based dashboard variants (executive summary view vs.
+operator detail view of the same underlying data), data-governance
+annotations (data freshness/source-of-truth labeling per metric), and
+white-label/multi-tenant theming requirements for a dashboard product
+serving multiple client organizations.
+
+UNIVERSAL VERSION (model-agnostic core)
+"A [DASHBOARD_PURPOSE] dashboard for [PRIMARY_USER] answering
+'[KEY_QUESTION]'. Headline metrics: [HEADLINE_METRICS] with appropriate
+chart types. Trend and detail zones below. [UPDATE_FREQUENCY] updates."
+Works as a reasoning + layout brief across all tools; route to v0/
+Lovable/Bolt with an explicit charting library (Recharts, Chart.js,
+D3) when working code is the goal.
+================================================================================

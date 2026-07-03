@@ -1,0 +1,203 @@
+================================================================================
+06 — CINEMATIC VIDEO
+================================================================================
+
+TITLE
+Cinematic AI Video Master Template
+
+PURPOSE
+Produce film-grade AI video sequences with deliberate cinematography
+language (lens choice, color grade, composition rules) for narrative or
+advertising work that must feel directed rather than generated.
+
+IDEAL AI MODELS
+Sora, Runway Gen-3, Veo, Kling (Pro tier)
+
+DIFFICULTY LEVEL
+Expert
+
+WHEN TO USE
+- Film previsualization, high-end ad concepts, narrative short scenes,
+  music video sequences, trailer-style content
+
+EXPECTED OUTPUT
+A clip with intentional cinematographic choices (specific lens behavior,
+color grade, framing) that reads as directed footage.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+SCENE CONTEXT (what story beat this is)
+  ↓
+SUBJECT + WARDROBE/APPEARANCE
+  ↓
+BLOCKING (where subject is/moves within frame)
+  ↓
+LENS CHOICE (focal length + aperture behavior)
+  ↓
+CAMERA MOVEMENT (motivated, not arbitrary)
+  ↓
+COMPOSITION RULE (rule of thirds, leading lines, symmetry)
+  ↓
+LIGHTING SETUP (key/fill/rim, practical vs. motivated)
+  ↓
+COLOR GRADE REFERENCE (film stock or grading style)
+  ↓
+EMOTIONAL SUBTEXT (what the shot should make viewer feel)
+  ↓
+SOUND DESIGN IMPLICATION (for post-production alignment)
+
+WHY EACH SECTION EXISTS
+- Scene Context: cinematography choices should serve story, not exist
+  decoratively — this section forces every technical choice to be
+  justified by narrative purpose.
+- Motivated Camera Movement: arbitrary camera moves read as "generated";
+  movement tied to a story reason (revealing information, following
+  action, building tension) reads as directed.
+- Color Grade Reference: without this, models default to a flat,
+  slightly oversaturated "AI look" — anchoring to a known film stock or
+  grading style produces more intentional results.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{SCENE_BEAT} — the narrative moment this shot represents
+{SUBJECT_APPEARANCE} — detailed subject/wardrobe description
+{BLOCKING} — subject's position/movement in frame
+{LENS} — e.g. 35mm deep focus, 85mm shallow DOF, wide 24mm
+{CAMERA_MOVE} — motivated movement description
+{COMPOSITION} — rule of thirds / centered symmetry / leading lines
+{LIGHTING_SETUP} — key light direction + fill ratio + practical sources
+{COLOR_GRADE} — reference style (e.g. "Roger Deakins cool desaturated,"
+  "Wes Anderson pastel symmetry," "Fincher teal-black high contrast")
+{EMOTION} — the intended felt response
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Scene: {SCENE_BEAT}. {SUBJECT_APPEARANCE}, {BLOCKING}. Shot on {LENS}.
+Camera: {CAMERA_MOVE}, composed using {COMPOSITION}. Lighting:
+{LIGHTING_SETUP}. Color grade: {COLOR_GRADE}. The shot should evoke
+{EMOTION}. Cinematic film quality, 24fps motion characteristics."
+
+OUTPUT STRUCTURE
+- Clip with deliberate framing, motivated camera behavior, and consistent
+  color grade throughout
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does every technical choice (lens, movement, light) serve the
+   emotional subtext, or is any element arbitrary/decorative?
+2. Is the color grade reference specific enough to be reproducible, or
+   is it a vague term like "cinematic" that the model will interpret
+   generically?
+3. Does the blocking make sense within the frame given the chosen lens
+   and composition rule?
+
+SELF-CORRECTION LAYER
+If the result reads as generic rather than directed:
+- Replace vague style words ("cinematic," "epic") with specific,
+  concrete technical/reference language
+- Tie the camera movement explicitly to what it reveals or follows
+- Increase color grade specificity (name actual film stocks, colorists,
+  or directors' known visual signatures)
+
+REFLECTION LAYER
+"If I removed the text prompt and just watched this clip, would the
+emotional intent be clear from the visual choices alone?"
+
+FACT VERIFICATION
+Not applicable for original narrative content; if referencing a specific
+director/cinematographer's style by name, this is used as a stylistic
+descriptor, not a claim of affiliation or endorsement.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Every technical choice ties to narrative/emotional purpose
+[ ] Lens choice specified with focal length
+[ ] Camera movement is motivated, not arbitrary
+[ ] Composition rule explicitly named
+[ ] Lighting setup includes key + fill + practical logic
+[ ] Color grade reference is specific and reproducible
+[ ] Emotional subtext is clearly stated
+
+OPTIMIZATION TIPS
+- Use real cinematography vocabulary (dolly, crane, Steadicam, rack
+  focus) rather than generic terms — models trained on film data respond
+  more precisely to correct terminology.
+- Anchor color grade to a specific, well-documented visual style rather
+  than an adjective.
+- Keep blocking simple; complex multi-mark blocking rarely survives
+  current video-generation coherence limits.
+
+COMMON MISTAKES
+- Using "cinematic" as a catch-all without specifying what that means
+  technically
+- Choosing camera movement for spectacle rather than narrative purpose
+- Neglecting color grade, resulting in default flat AI-video color
+- Overcomplicating blocking beyond current model coherence capability
+
+PROFESSIONAL TIPS
+- Build a "look book" of 5-10 reference color grades/compositions you
+  return to, refined over many generations, for consistent visual
+  authorship across a project.
+- Sequence shots using shot-reverse-shot or establishing-to-detail logic
+  even in short-form AI content — it reads as more intentional than
+  isolated single shots.
+- Always pair the final AI output with a proper color grade pass in
+  post — even a well-prompted clip benefits from finishing work.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Scene: the protagonist realizes she's been betrayed by her closest ally.
+A woman in a rain-damp trench coat stands motionless in a dim hallway,
+her expression shifting from confusion to quiet devastation. Shot on
+50mm, shallow depth of field. Camera: slow push-in, motivated by the
+emotional realization landing. Composed using centered symmetry with the
+hallway's vanishing point behind her. Lighting: single practical
+overhead bulb as key, deep shadow fill, cool blue ambient. Color grade:
+Fincher-style desaturated teal-black high contrast. The shot should evoke
+quiet devastation and isolation. Cinematic film quality, 24fps motion.
+
+EXAMPLE OUTPUT
+[Video: A slow, steady push-in on a woman standing centered in a long,
+shadow-heavy hallway, single overhead bulb casting a hard pool of light
+around her as the background falls into cool blue-black shadow. Her
+expression subtly shifts across the clip's duration. The symmetrical
+hallway framing and desaturated teal-black grade create a controlled,
+isolating atmosphere consistent throughout.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: multi-shot sequence with shot-to-shot continuity rules (consistent
+wardrobe, lighting logic, and color grade across a 3-5 shot scene),
+explicit aspect ratio choice tied to genre convention (2.39:1 for epic/
+drama, 16:9 for commercial), and a fallback: "If emotional read is
+unclear, simplify blocking and increase reliance on lighting contrast to
+carry the subtext."
+
+EXPERT VERSION
+Layer in: full shot-list structure (wide establishing → medium →
+close-up → insert, each with individual technical specs), sound-design
+notes embedded per shot (diegetic vs. score cues) for editor handoff, and
+explicit reference to real film grain/halation characteristics for
+texture authenticity.
+
+ENTERPRISE VERSION
+Add: brand/campaign visual-consistency rules across multiple cinematic
+spots, legal-safe casting/wardrobe description standards (avoiding
+implied real-person likeness), and a formal creative-brief-to-shot-list
+pipeline document for agency/client sign-off before generation begins.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Cinematic shot: [SUBJECT_APPEARANCE], [BLOCKING], shot on [LENS],
+[CAMERA_MOVE], [LIGHTING_SETUP], [COLOR_GRADE] color grade, evoking
+[EMOTION]."
+Works across Sora, Runway, and Veo; Runway currently offers the most
+granular camera-control parameters worth layering on top for precise
+motivated movement.
+================================================================================

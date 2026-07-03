@@ -1,0 +1,171 @@
+================================================================================
+44 — COPYWRITING
+================================================================================
+
+TITLE
+Copywriting Master Template
+
+PURPOSE
+Write persuasive copy grounded in a specific customer benefit and
+proof point, using established persuasion frameworks (PAS, AIDA)
+deliberately rather than generic marketing-speak that doesn't actually
+move a reader toward action.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Beginner → Expert
+
+WHEN TO USE
+- Ad copy, landing page copy, product descriptions, sales pages, direct
+  response copy, headline writing
+
+EXPECTED OUTPUT
+Persuasive copy following a deliberate structure (problem-agitate-
+solve, or attention-interest-desire-action), with specific benefits and
+proof points rather than vague superlatives.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+PRODUCT/OFFER → TARGET READER + THEIR SPECIFIC PAIN POINT → FRAMEWORK
+(PAS / AIDA / BAB) → KEY BENEFIT (not just feature) → PROOF POINT
+(specific, credible) → OBJECTION HANDLING → CALL TO ACTION
+
+WHY EACH SECTION EXISTS
+- Specific Pain Point: copy addressing a generic "problem" rather than
+  the reader's specific, felt pain point fails to create the "this is
+  written for me" recognition that drives engagement.
+- Proof Point: unsubstantiated claims ("the best," "revolutionary")
+  are ignored by readers; specific, credible proof (a number, a
+  mechanism, a demonstration) is what actually persuades.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{PRODUCT} {READER} {PAIN_POINT} {FRAMEWORK} {KEY_BENEFIT} {PROOF}
+{CTA}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Write copy for {PRODUCT}, targeting {READER} who specifically struggles
+with {PAIN_POINT}. Use {FRAMEWORK} structure. Key benefit (not just a
+feature list): {KEY_BENEFIT}. Include a specific, credible proof point:
+{PROOF}. Address the most likely objection a skeptical reader would
+have. End with a clear CTA: {CTA}. Avoid generic superlatives (best,
+revolutionary, game-changing) — be specific instead."
+
+OUTPUT STRUCTURE
+- Copy following the specified persuasion framework
+- Specific benefit and proof point, not generic claims
+- Objection addressed
+- Clear CTA
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does this copy address the reader's SPECIFIC pain point in language
+   they'd recognize as their own, or a generic version of the problem?
+2. Is the proof point specific and credible (a number, mechanism, named
+   example), or a vague, unsubstantiated superlative?
+3. Does the copy address the most likely skeptical objection, or does
+   it only present the positive case?
+
+SELF-CORRECTION LAYER
+Replace any generic superlative with a specific claim/number; sharpen
+any vague pain-point description into the reader's specific felt
+experience; add objection-handling if currently absent.
+
+REFLECTION LAYER
+"Would the specific target reader feel this was written for their exact
+situation, or does it read as generic marketing copy that could apply to
+any similar product?"
+
+FACT VERIFICATION
+Any proof point (statistic, claim, comparison) must be accurate and
+substantiated — fabricated or exaggerated proof points are both
+unethical and, if discovered, more damaging to trust than no proof
+point at all.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Addresses reader's specific pain point, not a generic version
+[ ] Leads with benefit, not just feature
+[ ] Proof point is specific and credible
+[ ] Most likely objection addressed
+[ ] No generic unsubstantiated superlatives
+[ ] Clear, singular CTA
+
+OPTIMIZATION TIPS
+Write the headline last, after the body copy reveals what's actually
+persuasive about the offer. Read copy aloud — persuasive copy tends to
+sound conversational, not like a press release. Cut every sentence that
+doesn't either build desire or handle an objection.
+
+COMMON MISTAKES
+Generic pain-point description instead of the reader's specific felt
+experience; feature lists instead of benefit-led copy; unsubstantiated
+superlatives; ignoring likely objections; weak or missing CTA.
+
+PROFESSIONAL TIPS
+Keep a swipe file of proof points/numbers you can credibly cite for your
+product, updated as new data becomes available. Test headlines
+specifically — headline changes often move conversion more than body
+copy changes.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Write copy for an AI agent monitoring dashboard, targeting solo indie
+developers who specifically struggle with agents silently failing in
+production without anyone noticing until a user complains. Use PAS
+(problem-agitate-solve) structure. Key benefit: know about failures in
+minutes, not when a user tells you. Proof point: catches failures with
+a 2-minute average detection time in beta testing. Address the objection
+that another dashboard tool feels like more setup overhead. CTA: start
+free monitoring in one line of code.
+
+EXAMPLE OUTPUT
+"Your AI agent just failed. You won't know for 6 hours.
+
+That's the real cost of running agents without monitoring — not that
+they fail (they will), but that you find out from an angry user instead
+of an alert. By the time you notice, it's already cost you trust,
+maybe a customer, and definitely your evening debugging blind.
+
+In beta testing, this caught failures in 2 minutes on average — not
+hours. One line of code, no dashboard to configure, no new service to
+learn. If you're worried this is 'one more tool to set up,' it isn't:
+it's genuinely one import and one function call, running in the
+background while you build.
+
+Start free monitoring in one line of code →"
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add multi-variant headline generation (5 distinct angles on the same
+core benefit for A/B testing), and a fallback: "If the stated proof
+point can't be independently verified, soften to a defensible claim
+rather than risk an overstated one."
+
+EXPERT VERSION
+Layer in full customer-language mining guidance (extracting the
+reader's actual words from reviews/support tickets to use verbatim in
+copy for maximum resonance), and persuasion-principle annotation
+(which specific psychological lever — scarcity, social proof, loss
+aversion — each section employs and why).
+
+ENTERPRISE VERSION
+Add legal/compliance review requirements for claims (especially in
+regulated industries), brand-voice consistency enforcement across a
+copy library, and multi-market localization guidance preserving
+persuasive intent across languages.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Write [FRAMEWORK] copy for [PRODUCT], addressing [READER]'s pain point:
+[PAIN_POINT]. Benefit: [KEY_BENEFIT]. Proof: [PROOF]. CTA: [CTA]."
+================================================================================

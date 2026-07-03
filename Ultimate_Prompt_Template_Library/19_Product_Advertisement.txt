@@ -1,0 +1,209 @@
+================================================================================
+19 — PRODUCT ADVERTISEMENT
+================================================================================
+
+TITLE
+AI Product Advertisement Master Template
+
+PURPOSE
+Generate product ad visuals/videos that highlight genuine product
+benefits through composition and context, rather than generic "product
+floating on white background" imagery that fails to communicate value.
+
+IDEAL AI MODELS
+Midjourney v6+ (product photography style), Runway/Kling (product video),
+DALL-E 3, Adobe Firefly
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- E-commerce product photography style ads, social/display product ads,
+  product launch video concepts, before/after demonstration content
+
+EXPECTED OUTPUT
+A product-focused visual or short video that communicates a specific
+benefit/use-case through context and composition, with the product as
+clear hero.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+PRODUCT + KEY BENEFIT
+  ↓
+TARGET CUSTOMER (who this benefit matters to)
+  ↓
+CONTEXT/USE-CASE SCENE (where/how the product is used)
+  ↓
+COMPOSITION (product hero placement, scale, angle)
+  ↓
+LIGHTING (matches product category — clean/bright vs. moody/premium)
+  ↓
+SUPPORTING ELEMENTS (props that reinforce the use-case, not clutter)
+  ↓
+EMOTIONAL TONE
+  ↓
+PLATFORM/FORMAT SPEC
+
+WHY EACH SECTION EXISTS
+- Key Benefit anchoring: ads that show a product without a clear benefit
+  message rely entirely on aesthetic appeal, which rarely converts —
+  every compositional choice should reinforce what the product does for
+  the customer.
+- Context/Use-Case Scene: products shown in realistic use-context
+  (rather than isolated on white) let customers project themselves into
+  the experience, which is a stronger persuasion mechanism than pure
+  product photography.
+- Lighting matched to category: a premium skincare product and a rugged
+  outdoor tool require entirely different lighting languages (soft/
+  glowing vs. hard/dramatic) — defaulting to generic "product lighting"
+  misses category-appropriate signaling.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{PRODUCT} — the product being advertised
+{KEY_BENEFIT} — the single most important customer benefit
+{TARGET_CUSTOMER} — who this is for
+{USE_CASE_SCENE} — realistic context of use
+{LIGHTING_STYLE} — clean/bright vs. moody/premium vs. dramatic
+{TONE} — the emotional register (aspirational, trustworthy, exciting)
+{PLATFORM} — where this ad will run (affects format/dimensions)
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Create a product ad visual for {PRODUCT}, highlighting the benefit:
+'{KEY_BENEFIT}' for {TARGET_CUSTOMER}. Show the product in use within
+{USE_CASE_SCENE}, composed with the product as clear hero (appropriate
+scale/prominence, not lost in the scene). Lighting: {LIGHTING_STYLE}.
+Supporting elements should reinforce the use-case without cluttering the
+frame. Tone: {TONE}. Format for {PLATFORM}."
+
+OUTPUT STRUCTURE
+- Product-hero visual/video with clear use-case context
+- Benefit communicated through composition, not just implied by presence
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does this image communicate the specific benefit, or would a viewer
+   just see "a product" without understanding why it matters to them?
+2. Does {TARGET_CUSTOMER} see themselves reflected in this scene (would
+   they recognize this as relevant to their life/context)?
+3. Is the product clearly the hero of the composition, appropriately
+   scaled and lit, not visually competing with or lost in supporting
+   elements?
+
+SELF-CORRECTION LAYER
+If the ad feels generic or benefit-unclear:
+- Make the use-case scene more specific and concrete (a vague "someone
+  using the product" is weaker than a precisely imagined moment)
+- Increase the product's compositional prominence if it's getting lost
+  in the scene
+- Tie supporting props/elements more directly to the stated benefit
+  rather than generic lifestyle staging
+
+REFLECTION LAYER
+"If {TARGET_CUSTOMER} saw this for half a second while scrolling, would
+they understand what this product does for them specifically?"
+
+FACT VERIFICATION
+Any implied claims (results, comparisons, "instantly," "clinically
+proven," etc.) must be substantiated and compliant with advertising
+standards in the relevant jurisdiction before use in real campaigns.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Key benefit is visually communicated, not just implied
+[ ] Product is clear compositional hero
+[ ] Use-case scene is specific and relatable to target customer
+[ ] Lighting style matches product category expectations
+[ ] Supporting elements reinforce rather than clutter
+[ ] Format matches intended platform dimensions
+
+OPTIMIZATION TIPS
+- Choose one benefit per ad — trying to communicate multiple benefits in
+  one visual dilutes all of them.
+- Use environmental storytelling (props, setting) to imply the benefit
+  rather than relying on text overlay alone.
+- For e-commerce specifically, always also generate a clean, isolated
+  product-only version alongside the lifestyle version — both serve
+  different funnel stages.
+
+COMMON MISTAKES
+- Generic "product on a table" staging with no clear use-case or benefit
+- Overcrowded lifestyle scenes where the product gets lost
+- Lighting mismatched to product category (harsh lighting on a luxury
+  item, or overly soft lighting on a rugged/technical product)
+- Making unsubstantiated benefit claims
+
+PROFESSIONAL TIPS
+- Study category-leading competitor ads not to copy but to understand
+  the visual conventions customers already associate with quality in
+  that category.
+- Build a family of ads around the same product each highlighting a
+  different specific benefit, rather than one ad trying to say
+  everything.
+- Pair AI-generated concept visuals with real product photography for
+  final production — AI is excellent for concept/testing, but real
+  product accuracy matters for actual e-commerce listings.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Create a product ad visual for a compact mechanical keyboard, highlighting
+the benefit: 'quiet enough for late-night coding without waking anyone up'
+for remote developers who share living space with others. Show the
+product in use within a dim, cozy home-office scene at night, warm desk-
+lamp light, with a faint hallway visible in the background suggesting a
+sleeping household. Composed with the keyboard as clear hero, mid-close
+framing, hands typing visible. Lighting: warm, moody, low-key. Supporting
+elements: a steaming mug, soft desk-lamp glow, should reinforce the
+late-night quiet-work use-case without cluttering the frame. Tone:
+calm, considerate, cozy. Format for Instagram square 1080x1080.
+
+EXAMPLE OUTPUT
+[Image: A warmly lit, low-key nighttime home-office scene at 1080x1080.
+A pair of hands types on the compact keyboard, sharply in focus and
+clearly the hero of the frame, lit by a single warm desk lamp. A steaming
+mug sits softly out of focus nearby. In the deep background, a dim
+hallway suggests the rest of the household is asleep, reinforcing the
+"quiet enough not to wake anyone" benefit purely through visual
+storytelling, with no text needed to convey the message.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: multi-benefit ad family generation (3 distinct scenes each
+highlighting a different product benefit, maintaining consistent product
+appearance/branding across all), before/after or problem/solution
+compositional structure, and a fallback: "If the use-case scene
+overshadows the product, tighten the crop/framing to restore product
+prominence while keeping just enough context to convey the benefit."
+
+EXPERT VERSION
+Layer in: funnel-stage-specific ad variants (top-of-funnel emotional/
+lifestyle version vs. bottom-of-funnel feature/spec-focused version),
+platform-specific creative-format requirements (Meta vs. Google vs.
+Amazon each have different image/text ratio and content rules), and
+performance-psychology annotations (why this specific benefit-
+visualization approach tends to drive conversion in this product
+category).
+
+ENTERPRISE VERSION
+Add: full regulatory-compliance review notes for the product category
+(health/wellness, financial, children's products all have specific
+advertising restrictions), brand-guideline adherence across a product
+line's entire ad family, and localization/market-adaptation requirements
+for global campaigns.
+
+UNIVERSAL VERSION (model-agnostic core)
+"A product ad for [PRODUCT] showing [KEY_BENEFIT] for [TARGET_CUSTOMER],
+in [USE_CASE_SCENE], product as hero, [LIGHTING_STYLE] lighting,
+[TONE] tone."
+Works across Midjourney and DALL-E for still imagery; for video product
+ads specifically, feed this same structure into the Video Generator
+template with an added camera/motion layer.
+================================================================================

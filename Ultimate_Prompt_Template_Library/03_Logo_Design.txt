@@ -1,0 +1,202 @@
+================================================================================
+03 — LOGO DESIGN
+================================================================================
+
+TITLE
+AI Logo Design Master Template
+
+PURPOSE
+Generate distinctive, scalable, brand-appropriate logo concepts that work
+across mediums (favicon to billboard) and communicate brand identity
+without relying on trendy effects that date quickly.
+
+IDEAL AI MODELS
+Midjourney v6+, Ideogram v2 (best for text-in-logo), DALL-E 3, Adobe
+Firefly, Recraft
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- New brand identity, rebrand, sub-brand/product mark, icon-only mark,
+  wordmark, combination mark, emblem
+
+EXPECTED OUTPUT
+A logo concept (or 4 concept variations) that is legible at small sizes,
+reproducible in single-color, and distinct from direct competitors.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+BRAND CONTEXT
+  ↓
+LOGO TYPE (wordmark / lettermark / pictorial / abstract / combination / emblem)
+  ↓
+CORE CONCEPT / METAPHOR
+  ↓
+STYLE DIRECTION (minimalist, geometric, hand-drawn, luxury, playful...)
+  ↓
+COLOR STRATEGY (primary, with single-color fallback)
+  ↓
+TYPOGRAPHY DIRECTION (if wordmark/combination)
+  ↓
+CONSTRAINTS (must scale to 16px favicon, must work in black/white)
+  ↓
+COMPETITOR DIFFERENTIATION
+  ↓
+OUTPUT FORMAT (vector-style flat design on white background)
+
+WHY EACH SECTION EXISTS
+- Core Concept/Metaphor: logos without a conceptual anchor look like
+  generic clip-art; the metaphor is what makes a mark memorable and
+  defensible in a design rationale.
+- Constraints (scalability): the majority of AI-generated "logos" fail in
+  practice because they're actually detailed illustrations that break down
+  at small sizes — this section forces simplicity.
+- Competitor Differentiation: prevents the extremely common failure of
+  generating a mark that looks like every other AI-generated logo in the
+  same industry (e.g. generic circuit-brain icons for every AI startup).
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{BRAND_NAME} — the company/product name
+{INDUSTRY} — sector (fintech, food, SaaS, fashion, etc.)
+{LOGO_TYPE} — wordmark / lettermark / pictorial / abstract / combination
+{CORE_METAPHOR} — the concept the mark should visually represent
+{STYLE} — minimalist / geometric / organic / luxury / playful / brutalist
+{PRIMARY_COLOR} — main brand color (with hex if known)
+{PERSONALITY_TRAITS} — 3 adjectives describing brand personality
+{COMPETITORS_TO_AVOID} — visual cliches to steer away from
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a {LOGO_TYPE} logo for {BRAND_NAME}, a {INDUSTRY} brand with
+personality traits: {PERSONALITY_TRAITS}. Core concept/metaphor:
+{CORE_METAPHOR}. Style: {STYLE}. Primary color: {PRIMARY_COLOR}, must also
+work as pure black on white. Must remain legible at 16px favicon size.
+Avoid visual cliches common to {COMPETITORS_TO_AVOID}. Flat vector style,
+centered on white background, no mockup/3D rendering."
+
+OUTPUT STRUCTURE
+- 4 distinct concept directions (not 4 minor variations of one idea)
+- Each shown in primary color + single-color black
+- Each shown at small-size simulation if possible
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does the core metaphor connect to what the brand actually does, or is
+   it a generic industry symbol (avoid: lightbulb=ideas, circuit=tech)?
+2. Will this mark still look distinctive in 5 years, or does it rely on a
+   currently-trendy gradient/effect?
+3. Can this be described in one sentence to a sign-painter and reproduced
+   accurately? If not, it's too complex.
+
+SELF-CORRECTION LAYER
+If outputs look generic or cliche:
+- Push the CORE_METAPHOR toward something more specific to the brand's
+  actual differentiator, not just its industry category
+- Explicitly instruct "avoid gradient effects, avoid 3D bevel, avoid
+  generic geometric shape combos seen in stock logo packs"
+- If typography-heavy, specify a less common typeface category
+  (e.g. "high-contrast serif" instead of default sans-serif)
+
+REFLECTION LAYER
+"If I saw this logo on a business card with no company name attached,
+would I have any sense of what this company does or feels like?"
+
+FACT VERIFICATION
+Cross-check the resulting concept isn't accidentally similar to an
+existing well-known trademark in the same or adjacent industry.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Legible/recognizable at 16px
+[ ] Works in single color (pure black)
+[ ] Conceptually tied to brand, not generic industry symbol
+[ ] No reliance on gradient/3D effects that will look dated
+[ ] Distinct from 3 named competitors
+[ ] Typography (if any) is deliberate, not default
+
+OPTIMIZATION TIPS
+- Generate lettermark and pictorial versions separately, then consider a
+  combination mark only after both individually succeed.
+- Request "flat vector illustration style" explicitly — AI models default
+  to photorealistic/3D rendering unless told otherwise.
+- Ask for the mark on a plain white background with no mockup context
+  (no business card, no wall sign) for a clean base asset.
+
+COMMON MISTAKES
+- Requesting overly detailed marks that don't scale down
+- Using industry-default metaphors (gears for engineering, leaves for
+  eco-brands) that make the brand indistinguishable from competitors
+- Skipping the single-color test, which is standard in real trademark/
+  print use
+- Over-specifying color gradients that don't reproduce in embroidery,
+  engraving, or single-color print contexts
+
+PROFESSIONAL TIPS
+- Always design the icon/mark independent of the wordmark first — this
+  gives you a flexible favicon/app-icon asset regardless of final lockup.
+- Build a one-page rationale connecting each design choice back to a
+  brand attribute; this is what separates a designed mark from a
+  generated image in client presentations.
+- Test the mark at actual physical sizes (mock a 1-inch pin, a favicon
+  tab, a billboard) before finalizing.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design an abstract logo for "Northline," a logistics/freight tech brand
+with personality traits: reliable, precise, forward-moving. Core concept:
+the idea of a direct, unbroken route — visualized as a single continuous
+line that subtly forms an arrow or forward motion without being a literal
+arrow. Style: minimalist, geometric. Primary color: deep navy (#12253C),
+must also work as pure black on white. Must remain legible at 16px
+favicon size. Avoid visual cliches common to generic "logistics" logos
+(literal trucks, literal globes, literal wings). Flat vector style,
+centered on white background, no mockup/3D rendering.
+
+EXAMPLE OUTPUT
+[4 concepts: (1) A single unbroken line forming a subtle forward-leaning
+chevron through negative space, (2) An "N" monogram constructed from one
+continuous stroke suggesting motion, (3) A geometric mark of two
+overlapping angled bars implying directional precision, (4) A minimalist
+route-line icon that reads as an abstract "N" from a distance. Each shown
+in navy and in pure black, each legible as a simple silhouette at small
+size.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: explicit grid/geometry construction logic (e.g. "built on a circular
+grid with consistent stroke width"), secondary color palette for
+sub-brand applications, and a fallback instruction: "If the abstract mark
+reads as unrelated to the brand without context, shift toward a
+lettermark using the same geometric language."
+
+EXPERT VERSION
+Layer in: full brand system implications (how the mark extends into a
+pattern/texture system), motion-logo considerations (does the mark imply
+a natural animation, e.g. the line "drawing itself"), and multi-context
+simulation (app icon with rounded-square mask, favicon, letterhead,
+merchandise embroidery) each with format-specific simplification notes.
+
+ENTERPRISE VERSION
+Add: full trademark-clearance-conscious differentiation brief, co-brand
+lockup rules (how the mark pairs with partner logos), international
+legibility check (does the mark carry unintended meaning in other
+cultures/markets), and a formal design rationale document structure
+suitable for board/stakeholder presentation.
+
+UNIVERSAL VERSION (model-agnostic core)
+"A [STYLE] [LOGO_TYPE] logo for [BRAND_NAME], representing [CORE_METAPHOR].
+Flat vector, [PRIMARY_COLOR] and black versions, centered on white
+background, simple enough to read at favicon size."
+Works across Midjourney, Ideogram, and DALL-E; Ideogram currently produces
+the most reliable in-logo typography, so route wordmark-heavy requests
+there specifically.
+================================================================================

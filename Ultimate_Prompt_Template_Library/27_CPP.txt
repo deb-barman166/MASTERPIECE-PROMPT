@@ -1,0 +1,203 @@
+================================================================================
+27 — C++
+================================================================================
+
+TITLE
+C++ Development Master Template
+
+PURPOSE
+Get memory-safe, modern C++ (C++17/20-idiomatic, RAII-based) from AI
+assistants — avoiding manual memory management footguns and
+non-idiomatic C-with-classes patterns that plague AI-generated C++.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini, Cursor AI
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Performance-critical systems code, embedded/low-level programming,
+  game engines, algorithm implementation requiring manual memory control
+
+EXPECTED OUTPUT
+Modern, RAII-compliant C++ using smart pointers and standard containers
+appropriately, with explicit memory-safety and performance reasoning.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+TASK DEFINITION → C++ STANDARD (17/20/23) → SIGNATURE → MEMORY MODEL
+(stack/smart-pointer/raw-pointer with justification) → PERFORMANCE
+CONTEXT → EDGE CASES → COMPILER TARGET → BUILD SYSTEM CONTEXT
+
+WHY EACH SECTION EXISTS
+- C++ Standard: syntax availability (concepts, ranges, structured
+  bindings) varies significantly by standard version — must be pinned.
+- Memory Model: C++'s core risk surface is manual memory management;
+  requiring explicit justification for any raw pointer use (vs. default
+  smart pointers/RAII) prevents the most common category of AI-generated
+  C++ bugs (leaks, dangling pointers, double-frees).
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{TASK} {CPP_STANDARD} {SIGNATURE} {MEMORY_CONTEXT} {PERFORMANCE_CONTEXT}
+{EDGE_CASES} {COMPILER} (GCC/Clang/MSVC)
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Write C++{CPP_STANDARD} code that {TASK}. Signature: {SIGNATURE}. Use
+RAII and smart pointers (unique_ptr/shared_ptr) by default; only use raw
+pointers with explicit justification for why ownership semantics don't
+apply. Performance context: {PERFORMANCE_CONTEXT}. Handle: {EDGE_CASES}.
+Target compiler: {COMPILER}. Prefer standard library containers/
+algorithms over hand-rolled implementations."
+
+OUTPUT STRUCTURE
+- RAII-compliant code with clear ownership semantics
+- Brief note on memory-model choice and any performance tradeoff
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is every dynamically-allocated resource's ownership and lifetime
+   unambiguous (owned by a smart pointer/container, not a raw pointer)?
+2. Does the code avoid undefined behavior (buffer overruns, use-after-
+   free, uninitialized reads) in all stated edge cases?
+3. Is standard-library usage idiomatic (algorithms/ranges) rather than
+   manually reimplementing what STL already provides correctly?
+
+SELF-CORRECTION LAYER
+Trace ownership of every pointer/resource; replace any unjustified raw
+`new`/`delete` with a smart pointer or container; verify no dangling
+references escape function scope (returning a reference/pointer to a
+local variable).
+
+REFLECTION LAYER
+"Would this pass a memory-safety-focused code review (or clean under
+AddressSanitizer/Valgrind) without manual-memory-management concerns?"
+
+FACT VERIFICATION
+Verify any standard library feature (e.g. ranges, concepts) is actually
+available in the specified C++ standard version before use.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] No unjustified raw new/delete
+[ ] Clear, unambiguous ownership per resource
+[ ] No dangling references/pointers
+[ ] Idiomatic STL usage over hand-rolled equivalents
+[ ] Const-correctness applied throughout
+[ ] No syntax beyond specified standard version
+
+OPTIMIZATION TIPS
+Request `const` and `constexpr` by default wherever values don't change;
+ask explicitly whether move semantics should be applied for
+performance-sensitive object transfers; request `[[nodiscard]]` on
+functions where ignoring the return value would be a bug.
+
+COMMON MISTAKES
+Unjustified raw pointer ownership; manual memory management where RAII
+would suffice; ignoring move semantics for expensive-to-copy types;
+undefined behavior from unchecked array/iterator access.
+
+PROFESSIONAL TIPS
+Compile and run generated code under AddressSanitizer/UBSan before
+trusting it in performance-critical or long-running contexts; never
+accept manual memory management without explicit justification for why
+RAII/smart pointers don't fit the use case.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Write C++20 code that implements a thread-safe bounded queue supporting
+concurrent push/pop from multiple threads. Signature: template<typename
+T> class BoundedQueue with push(T) and pop() -> optional<T> methods.
+Use RAII and smart pointers by default. Performance context: called
+frequently from a producer-consumer pipeline, contention expected.
+Handle: queue full (blocking push), queue empty (blocking pop), shutdown
+signal to unblock waiting threads. Target compiler: GCC.
+
+EXAMPLE OUTPUT
+```cpp
+#include <mutex>
+#include <condition_variable>
+#include <queue>
+#include <optional>
+#include <atomic>
+
+template<typename T>
+class BoundedQueue {
+public:
+    explicit BoundedQueue(size_t capacity) : capacity_(capacity) {}
+
+    void push(T item) {
+        std::unique_lock lock(mutex_);
+        not_full_.wait(lock, [this] {
+            return queue_.size() < capacity_ || shutdown_;
+        });
+        if (shutdown_) return;
+        queue_.push(std::move(item));
+        lock.unlock();
+        not_empty_.notify_one();
+    }
+
+    std::optional<T> pop() {
+        std::unique_lock lock(mutex_);
+        not_empty_.wait(lock, [this] {
+            return !queue_.empty() || shutdown_;
+        });
+        if (queue_.empty()) return std::nullopt;
+        T item = std::move(queue_.front());
+        queue_.pop();
+        lock.unlock();
+        not_full_.notify_one();
+        return item;
+    }
+
+    void shutdown() {
+        { std::lock_guard lock(mutex_); shutdown_ = true; }
+        not_full_.notify_all();
+        not_empty_.notify_all();
+    }
+
+private:
+    size_t capacity_;
+    std::queue<T> queue_;
+    std::mutex mutex_;
+    std::condition_variable not_full_, not_empty_;
+    std::atomic<bool> shutdown_{false};
+};
+```
+Key decision: used condition_variable-based blocking rather than busy-
+waiting for producer-consumer efficiency, and an explicit shutdown flag
+so blocked threads can be released cleanly rather than deadlocking on
+program exit.
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add lock-free alternative discussion (atomic-based ring buffer tradeoffs
+vs. mutex-based), and a fallback: "If lock contention profiling shows
+this as a bottleneck, propose a lock-free variant with explicit memory-
+ordering justification."
+
+EXPERT VERSION
+Layer in full memory-ordering analysis (acquire/release semantics if
+lock-free), cache-line false-sharing mitigation (alignas padding), and
+formal exception-safety guarantee classification (basic/strong/nothrow)
+per method.
+
+ENTERPRISE VERSION
+Add static-analysis compliance (clang-tidy, cppcheck clean run
+requirement), ABI-stability considerations for shared-library exports,
+and formal code-review checklist alignment with MISRA C++ or similar
+safety-critical coding standards where applicable.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Write C++{CPP_STANDARD} code that [TASK]. RAII/smart-pointer default,
+justify any raw pointer use. Handle: [EDGE_CASES]."
+================================================================================

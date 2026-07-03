@@ -1,0 +1,213 @@
+================================================================================
+36 — AUTOMATION
+================================================================================
+
+TITLE
+AI-Assisted Automation Master Template
+
+PURPOSE
+Design automation workflows (scripted or AI-assisted) that reliably
+handle the real variability of recurring tasks, rather than brittle
+scripts that only work for the exact happy-path case first imagined.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini (for logic design); Zapier, n8n, Make, custom
+scripts (for implementation)
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Recurring task automation, workflow orchestration, data pipeline
+  automation, notification/alerting systems, scheduled job design
+
+EXPECTED OUTPUT
+An automation workflow (script or no-code flow) with explicit trigger
+conditions, handling for realistic input variability, and clear failure/
+retry behavior.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+AUTOMATION GOAL → TRIGGER (event/schedule/manual) → INPUT VARIABILITY
+(what realistic variation exists) → PROCESSING STEPS → DECISION LOGIC
+(branching conditions) → OUTPUT/ACTION → FAILURE HANDLING (retry/skip/
+alert) → MONITORING (how you'll know it's working)
+
+WHY EACH SECTION EXISTS
+- Input Variability: automations designed only against one clean example
+  input break the first time real-world data deviates (missing fields,
+  unexpected format, duplicate events) — this section forces explicit
+  consideration of realistic variation before implementation.
+- Failure Handling: unlike a one-off script run by a human who notices
+  if something looks wrong, automations run unattended — without
+  explicit failure handling, they silently fail or silently produce
+  wrong results, which is often worse than not automating at all.
+- Monitoring: an automation with no visibility into whether it's
+  actually working correctly over time will eventually fail silently and
+  go unnoticed — this must be designed in from the start, not added
+  after a failure is discovered.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{GOAL} {TRIGGER} {INPUT_VARIATIONS} {STEPS} {BRANCH_CONDITIONS}
+{FAILURE_BEHAVIOR} {MONITORING_APPROACH}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design an automation for {GOAL}. Trigger: {TRIGGER}. Realistic input
+variation to handle: {INPUT_VARIATIONS} — the automation must not break
+on these, not just the ideal-case input. Steps: {STEPS}. Decision
+logic/branching: {BRANCH_CONDITIONS}. On failure at any step:
+{FAILURE_BEHAVIOR} — specify retry logic, whether to skip-and-continue
+or halt, and whether/how to alert a human. Monitoring: {MONITORING_
+APPROACH} — how will you know this is working correctly over time, not
+just on the day it was built."
+
+OUTPUT STRUCTURE
+- Workflow/script with explicit branching for realistic input variation
+- Defined failure/retry/alert behavior at each step
+- Monitoring/logging approach for ongoing verification
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does this automation handle the realistic range of input variation
+   (missing data, duplicate triggers, out-of-order events, malformed
+   data), or only the single clean example used to design it?
+2. If any single step fails, does the automation fail safely (alert,
+   retry, or skip appropriately) rather than either halting silently or
+   propagating a bad result downstream?
+3. Will a human know within a reasonable time if this automation stops
+   working correctly, or could it silently fail for weeks unnoticed?
+
+SELF-CORRECTION LAYER
+If the automation seems brittle:
+- Explicitly enumerate 3-5 realistic "messy" input scenarios and trace
+  the automation's behavior through each
+- Add explicit handling (not just a generic catch-all) for the most
+  likely failure points
+- Add a lightweight monitoring/heartbeat mechanism if none exists (even
+  a simple "last successful run" timestamp check)
+
+REFLECTION LAYER
+"If this automation ran unattended for 6 months encountering real-world
+data, would it still be working correctly, or would it have silently
+broken on some edge case by then?"
+
+FACT VERIFICATION
+For any automation using a specific platform's API (Zapier, n8n triggers,
+specific service webhooks), verify current API/trigger behavior against
+up-to-date documentation, since automation platform integrations change.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Explicitly handles realistic input variation, not just ideal case
+[ ] Clear failure behavior at every step (retry/skip/halt/alert)
+[ ] No silent failure paths
+[ ] Monitoring/visibility mechanism included
+[ ] Idempotent where re-runs are possible (won't double-process on retry)
+[ ] Trigger conditions are precise (won't fire on unintended events)
+
+OPTIMIZATION TIPS
+Design automations to be idempotent wherever possible (running the same
+trigger twice produces the same end state, not duplicated side effects)
+— this makes retry logic dramatically safer. Log enough context at each
+step to debug a failure without needing to reproduce it live. Start with
+a "dry run" / notification-only mode before enabling automations that
+take consequential actions (sending emails, making purchases, deleting
+data).
+
+COMMON MISTAKES
+Designing only against the ideal-case input; no failure handling
+(silent breaks); non-idempotent automations that cause duplicate actions
+on retry; no monitoring, so failures go unnoticed for extended periods;
+overly broad trigger conditions that fire on unintended events.
+
+PROFESSIONAL TIPS
+Always build and test against deliberately messy/edge-case inputs before
+trusting an automation with real, unattended operation. Add a simple
+monitoring check (even just a daily summary notification of "ran
+successfully N times, failed M times") for any automation running
+unattended for more than a few days. Keep a personal log of automations
+you've built and their known edge-case limitations for future reference.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design an automation that watches a GitHub repo for new issues labeled
+"bug" and posts a summary to a Slack channel. Trigger: GitHub webhook on
+issue label added. Realistic input variation to handle: issue title/body
+could be empty, could contain markdown/code blocks that break Slack
+formatting, label could be added and removed rapidly (multiple webhook
+fires), issue could already have been posted if the automation restarts.
+Steps: receive webhook, extract issue data, format for Slack, post
+message. Decision logic: only act on "bug" label specifically, ignore
+other labels. On failure: retry the Slack post twice with backoff, then
+log to a dead-letter queue and alert via a fallback channel. Monitoring:
+daily count of processed vs. failed events.
+
+EXAMPLE OUTPUT
+[Workflow design:
+
+TRIGGER: GitHub webhook, filtered server-side to `action: labeled` AND
+`label.name == "bug"` — reduces unnecessary invocations for unrelated
+label events.
+
+DEDUPLICATION: before posting, check a persistent store (issue_id +
+label event timestamp) to confirm this exact event hasn't already been
+processed — handles both the "rapid label add/remove" and "automation
+restarted mid-processing" variability explicitly.
+
+PROCESSING:
+1. Extract issue title, body, author, URL from webhook payload
+2. Handle empty title/body: substitute "(no description provided)"
+   rather than posting a broken/empty Slack message
+3. Sanitize markdown: strip or safely convert GitHub markdown/code
+   blocks to Slack-compatible mrkdwn format rather than posting raw
+   broken formatting
+4. Compose Slack message with issue title, truncated body (first 200
+   chars + "...read more"), author, and direct link
+
+FAILURE HANDLING: Slack post attempt → on failure, retry after 5s, then
+15s (2 retries, exponential backoff) → if still failing, write the full
+event to a dead-letter store and send a fallback alert via email (not
+Slack, since Slack is the failing channel) so the failure itself doesn't
+go unnoticed.
+
+MONITORING: a daily scheduled check reports "N events processed
+successfully, M failed and dead-lettered" to a separate ops channel —
+ensures silent failures surface within 24 hours rather than being
+discovered only when someone manually notices a missing Slack post.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add rate-limiting handling for burst events (multiple bugs labeled in
+quick succession), a replay mechanism for the dead-letter queue (manual
+or scheduled reprocessing), and a fallback: "If Slack's API itself is
+down for an extended period, batch and hold events for delayed posting
+rather than exhausting retries repeatedly during a known outage."
+
+EXPERT VERSION
+Layer in full event-sourcing architecture (every webhook event
+persisted before processing, enabling full replay/audit), circuit-
+breaker pattern for the Slack integration (stop attempting after
+repeated failures within a window, auto-resume after a cooldown), and
+formal SLA definition for processing latency (event-to-Slack-post time
+target).
+
+ENTERPRISE VERSION
+Add access-control/audit requirements for who can modify the automation
+configuration, multi-channel routing rules (different Slack channels
+per repo/team), and formal incident-response runbook for when the
+automation itself requires manual intervention.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Design an automation for [GOAL], triggered by [TRIGGER]. Handle
+realistic input variation: [INPUT_VARIATIONS]. Define failure behavior:
+[FAILURE_BEHAVIOR]. Include monitoring: [MONITORING_APPROACH]."
+================================================================================

@@ -1,0 +1,206 @@
+================================================================================
+13 — PRESENTATION
+================================================================================
+
+TITLE
+AI Presentation/Slide Deck Master Template
+
+PURPOSE
+Structure and generate presentation decks that follow persuasive
+narrative arcs (not just bullet-point dumps per slide), suitable for
+pitches, reports, or educational talks.
+
+IDEAL AI MODELS
+Claude/GPT (content + structure), Gamma, Beautiful.ai, Tome, Canva AI
+(visual slide generation)
+
+DIFFICULTY LEVEL
+Beginner → Expert
+
+WHEN TO USE
+- Investor pitch decks, sales presentations, internal reports, keynote
+  talks, educational lectures, project proposals
+
+EXPECTED OUTPUT
+A slide-by-slide outline (or full visual deck, depending on tool) with a
+clear narrative arc, one idea per slide, and a defined call-to-action.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+PRESENTATION GOAL (persuade / inform / report / teach)
+  ↓
+AUDIENCE (who + what they already know/care about)
+  ↓
+CORE MESSAGE (the one thing they must remember)
+  ↓
+NARRATIVE ARC (problem→solution, before→after, chronological)
+  ↓
+SLIDE-BY-SLIDE STRUCTURE (one idea per slide)
+  ↓
+DATA/PROOF POINTS (what evidence supports each claim)
+  ↓
+VISUAL STYLE DIRECTION
+  ↓
+TIME CONSTRAINT (total talk length)
+  ↓
+CALL TO ACTION (what happens after this presentation)
+
+WHY EACH SECTION EXISTS
+- Narrative Arc: presentations that are just "slide 1: overview, slide 2:
+  more info, slide 3: even more info" have no persuasive structure —
+  anchoring to a known arc (problem→solution, status quo→change→benefit)
+  gives the deck a reason to hold attention.
+- One Idea Per Slide: the most common presentation failure is cramming
+  multiple ideas onto one slide, which splits audience attention between
+  listening and reading — this constraint forces proper pacing.
+- Call to Action: every presentation should end with a specific,
+  actionable next step, not a vague "thank you" — this section makes
+  that explicit and required.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{GOAL} — persuade / inform / report / teach
+{AUDIENCE} — who's watching + their existing context
+{CORE_MESSAGE} — the single memorable takeaway
+{ARC_TYPE} — problem-solution / before-after / chronological / data-story
+{SLIDE_COUNT} — target number of slides
+{TIME_LIMIT} — total presentation time
+{CTA} — the specific next step requested
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Create a {SLIDE_COUNT}-slide presentation to {GOAL} for {AUDIENCE}, to
+be delivered in {TIME_LIMIT}. Core message: '{CORE_MESSAGE}'. Use a
+{ARC_TYPE} narrative arc. Structure one idea per slide, with a clear
+headline per slide stating the takeaway (not a topic label). Include
+proof points/data where claims are made. End with a specific call to
+action: {CTA}."
+
+OUTPUT STRUCTURE
+- Slide-by-slide outline: headline + key content + visual note per slide
+- Clear narrative progression across the deck
+- Defined opening hook and closing CTA slide
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does each slide headline state a conclusion/takeaway, or just a
+   topic label (e.g. "Revenue Grew 40% Last Quarter" vs. "Revenue")?
+2. Does the arc build logically, with each slide setting up the next,
+   or could slides be reordered without losing coherence (a sign of weak
+   structure)?
+3. Is the deck paced appropriately for the time limit (roughly 1-2
+   minutes per slide for spoken presentations)?
+
+SELF-CORRECTION LAYER
+If the deck feels like a list rather than a story:
+- Rewrite every slide headline as a complete, conclusion-stating
+  sentence rather than a noun-phrase label
+- Check for a clear "turn" in the narrative (where the problem shifts to
+  solution, or where-status-quo shifts to change) and ensure it's
+  visually/structurally marked
+- Cut slides that repeat information already established, tightening
+  toward the time limit
+
+REFLECTION LAYER
+"If someone only saw the slide headlines in sequence, with no spoken
+narration, would they follow a coherent argument?"
+
+FACT VERIFICATION
+Any data/statistics cited in the deck must be verified against a
+reliable source before presenting, especially in investor/business
+contexts where inaccuracy has real credibility consequences.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Every slide headline states a takeaway, not just a topic
+[ ] One idea per slide, no overcrowding
+[ ] Clear narrative arc with a discernible turn/progression
+[ ] Data claims backed by cited proof points
+[ ] Paced appropriately for stated time limit
+[ ] Ends with specific, actionable CTA
+
+OPTIMIZATION TIPS
+- Write the closing CTA slide first, then work backward — knowing the
+  destination clarifies what the arc needs to build toward.
+- Limit text per slide to what can be read in under 6 seconds; anything
+  denser should be spoken, not displayed.
+- Use one strong visual/data point per slide rather than multiple
+  competing charts or images.
+
+COMMON MISTAKES
+- Topic-label headlines instead of takeaway headlines
+- Overcrowding slides with paragraphs of text
+- No clear narrative arc — just sequential information dump
+- Vague or missing call to action at the end
+
+PROFESSIONAL TIPS
+- Design for the "board meeting test" — could someone who missed the
+  talk understand the argument just from reading the slides afterward?
+- Rehearse against the stated time limit; decks are almost always
+  over-scoped on the first draft.
+- Keep a separate, denser "appendix" section for anticipated Q&A data
+  rather than cramming it into the core narrative slides.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Create a 10-slide presentation to persuade a technical audience of
+fellow developers, to be delivered in 8 minutes. Core message: 'Most
+RAG systems fail not because of the LLM, but because of bad retrieval —
+and fixing retrieval first is the highest-leverage improvement.' Use a
+problem-solution narrative arc. Structure one idea per slide, with a
+clear headline per slide stating the takeaway. Include proof points/data
+where claims are made. End with a specific call to action: try the
+speaker's open-source hybrid-retrieval benchmark repo.
+
+EXAMPLE OUTPUT
+[Outline:
+1. "Everyone Blames the LLM. It's Usually the Retriever." (hook)
+2. "What RAG Actually Promises vs. What It Delivers" (problem framing)
+3. "Case Study: A Support Bot That 'Hallucinated' — But Didn't" (proof)
+4. "The Real Failure: Retrieval Returned the Wrong Chunks" (diagnosis)
+5. "Why Naive Vector Search Misses Obvious Answers" (technical root
+   cause)
+6. "Fix #1: Hybrid Search (Vector + Keyword) Recovers 30% of Misses"
+   (data point)
+7. "Fix #2: Re-Ranking Closes the Rest of the Gap" (data point)
+8. "Before/After: Same LLM, Same Prompt, Different Retrieval" (proof)
+9. "The Takeaway: Debug Retrieval Before You Touch the Prompt"
+   (reinforced core message)
+10. "Try It Yourself: [repo link], Benchmark Included" (CTA)]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: audience-objection preemption slides (anticipating and addressing
+the top 2-3 skeptical questions within the flow), speaker-notes
+generation per slide (what to say, distinct from what's displayed), and
+a fallback: "If a slide requires more than 3 supporting points, split
+into two slides rather than compressing."
+
+EXPERT VERSION
+Layer in: full rhetorical-device annotation (where the deck uses
+contrast, repetition, or a rule-of-three for memorability), pacing/
+energy-curve mapping across the talk (where to build intensity, where to
+let the audience breathe), and appendix-slide generation for anticipated
+deep-dive Q&A.
+
+ENTERPRISE VERSION
+Add: brand-template compliance (locked master slide layouts, approved
+chart styles, required legal disclaimer slides), multi-stakeholder
+review structure (executive summary version vs. full-detail version of
+the same content), and localization notes for multi-region delivery.
+
+UNIVERSAL VERSION (model-agnostic core)
+"A [SLIDE_COUNT]-slide deck to [GOAL] for [AUDIENCE]. Core message:
+'[CORE_MESSAGE]'. [ARC_TYPE] structure, one takeaway-headline per slide,
+ending with CTA: [CTA]."
+Works as a content/structure brief across Claude/GPT for outlining; feed
+the resulting outline into Gamma, Tome, or Beautiful.ai for automated
+visual slide generation.
+================================================================================

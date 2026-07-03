@@ -1,0 +1,203 @@
+================================================================================
+22 — SHORTS SCRIPT
+================================================================================
+
+TITLE
+YouTube Shorts / TikTok Script Master Template
+
+PURPOSE
+Write ultra-short (under 60 second) scripts engineered for the first
+1-2 seconds of hook survival and immediate, singular value delivery
+required by short-form vertical video platforms.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Beginner → Intermediate
+
+WHEN TO USE
+- YouTube Shorts, TikTok, Instagram Reels (script only — see Reel Script
+  template for platform-specific Reels structure), quick tips, hooks,
+  micro-tutorials
+
+EXPECTED OUTPUT
+A 15-60 second script with an instant hook (first 1-2 seconds), one
+single clear idea, and a fast-paced, no-filler delivery structure.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+SINGLE CORE IDEA (one thing only)
+  ↓
+INSTANT HOOK (first 1-2 seconds, before any context)
+  ↓
+RAPID VALUE DELIVERY (the payoff, fast)
+  ↓
+VISUAL PACING NOTES (cuts, text overlays, per-second beats)
+  ↓
+LOOP-BACK POTENTIAL (does the ending connect to the hook for rewatch?)
+  ↓
+CTA (minimal, natural)
+  ↓
+TARGET DURATION (15s / 30s / 60s)
+
+WHY EACH SECTION EXISTS
+- Instant Hook (1-2s): short-form platforms have near-zero patience;
+  unlike long-form YouTube's 15-second grace period, Shorts/TikTok lose
+  viewers within literal seconds if the first frame/sentence doesn't
+  hook — this is the single most important section.
+- Single Core Idea: short-form's format constraint is a feature, not a
+  limitation — trying to fit multiple ideas into 30 seconds guarantees
+  none land; ruthless reduction to one idea is required.
+- Loop-back Potential: short-form algorithms reward rewatches; a script
+  where the ending naturally connects back to the beginning increases
+  loop/replay behavior, a strong ranking signal on these platforms.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{CORE_IDEA} — the single thing this short communicates
+{HOOK} — the first 1-2 second line/visual
+{DURATION} — 15s / 30s / 60s
+{AUDIENCE} — who this is for
+{TONE} — fast/punchy / calm-informative / funny / shocking
+{CTA} — minimal call to action, if any
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Write a {DURATION} short-form script communicating exactly one idea:
+'{CORE_IDEA}' for {AUDIENCE}. Open with an instant hook (first 1-2
+seconds) — a bold claim, question, or visual that stops the scroll
+immediately, no context-setting first. Deliver the core value rapidly
+with no filler. Note visual pacing (cuts/text overlays) per beat. If
+possible, structure the ending to loop naturally back to the hook.
+Minimal CTA: '{CTA}'. Tone: {TONE}."
+
+OUTPUT STRUCTURE
+- Second-by-second or beat-by-beat script
+- Explicit hook line (0-2s)
+- Core payoff delivered by roughly the halfway point
+- Natural loop-back ending if applicable
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does the very first word/frame stop a scroll, or does it require
+   3+ seconds of setup before getting interesting?
+2. Is this genuinely reducible to ONE idea, or is it secretly trying to
+   cover 2-3 things that would each deserve their own short?
+3. Could the ending line/visual connect back to the hook to encourage
+   an immediate rewatch?
+
+SELF-CORRECTION LAYER
+If the hook is too slow or the idea too broad:
+- Cut any setup/context before the hook entirely — start mid-thought if
+  needed
+- If multiple ideas are present, pick the single strongest one and cut
+  the rest (they can become separate shorts)
+- Tighten every line — short-form scripts should have zero filler words
+
+REFLECTION LAYER
+"If someone watched only the first 2 seconds, would they stop scrolling?
+If they watched the whole thing, did they get exactly one clear
+takeaway?"
+
+FACT VERIFICATION
+Any claim made must be accurate — short-form's compressed format makes
+it especially easy to accidentally oversimplify a claim into something
+misleading; verify the compressed version is still true.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Hook lands in the first 1-2 seconds, no setup delay
+[ ] Exactly one core idea, not multiple compressed together
+[ ] Zero filler words/phrases
+[ ] Visual pacing notes included per beat
+[ ] Ending connects back to hook for loop potential (where applicable)
+[ ] Duration realistic for the content (don't pad to hit a length)
+
+OPTIMIZATION TIPS
+- Write the hook as if the viewer has already scrolled past 10 similar
+  videos in the last minute — it needs to earn attention immediately.
+- Use pattern interrupts (unexpected word choice, visual surprise) at
+  the very start rather than a predictable opening.
+- Keep captions/text overlay synced tightly to speech — short-form
+  audiences frequently watch muted.
+
+COMMON MISTAKES
+- Slow build-up before the actual hook lands
+- Trying to cram multiple ideas into one short, diluting all of them
+- Filler phrases ("so basically," "you know," "let me tell you about")
+  that waste precious seconds
+- Ignoring the loop-back opportunity, missing a rewatch mechanism
+
+PROFESSIONAL TIPS
+- Batch-write 10 short scripts around one core theme in a single
+  session — short-form rewards volume/consistency, and batching content
+  around a theme is more efficient than scripting one-off.
+- Watch the first 2 seconds of your own drafts on mute — if it's not
+  visually or textually compelling with no sound, revise.
+- Track completion rate (not just views) as the primary metric — a
+  short that's watched to the end and rewatched signals quality to the
+  algorithm far more than raw view count.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Write a 30s short-form script communicating exactly one idea: 'you're
+probably using Python's list when you should be using a set, and it's
+making your code slower than you realize' for intermediate Python
+developers. Open with an instant hook. Deliver the core value rapidly
+with no filler. Note visual pacing per beat. Structure the ending to
+loop naturally back to the hook. Minimal CTA: 'follow for more Python
+tips.' Tone: fast/punchy.
+
+EXAMPLE OUTPUT
+[0-2s HOOK]: "This one-line change made a function 100x faster." [Visual:
+before/after speed comparison number, instantly on screen]
+[2-8s]: "If you're checking 'is this item in my list' — stop. Lists
+check one by one. Sets check instantly." [Visual: quick side-by-side
+code snippet, list vs. set]
+[8-18s]: "Same code. Only difference: swap [ ] for a set. That's it. For
+10,000 items, that's the difference between milliseconds and seconds."
+[Visual: on-screen text overlay of the timing numbers, fast cuts]
+[18-25s]: "Anywhere you're doing repeated 'in' checks on a list — that's
+your sign to use a set instead." [Visual: quick real-world example]
+[25-30s LOOP-BACK]: "That one-line change? Right there." [Visual: cuts
+back to the exact before/after shot from 0-2s] "Follow for more."]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: multi-hook A/B variant generation (3 different hook approaches for
+the same core idea to test), platform-specific adaptation notes
+(TikTok trends/sounds vs. YouTube Shorts' more search-driven discovery
+vs. Reels' relationship-graph distribution), and a fallback: "If the
+core idea can't be fully delivered in the target duration without
+rushing, cut scope further rather than extending length."
+
+EXPERT VERSION
+Layer in: trend/audio-integration notes (how to naturally incorporate
+a trending sound/format without forcing it), series-potential mapping
+(how this short connects to a broader content series for channel
+cohesion), and psychological-hook-mechanism annotations (curiosity gap
+vs. pattern interrupt vs. controversy — which mechanism this specific
+hook uses and why).
+
+ENTERPRISE VERSION
+Add: brand-safety review for fast-paced/trend-adjacent content, legal
+review for any claims compressed to short-form simplicity (ensuring
+compression hasn't introduced inaccuracy), and multi-market/language
+short-form adaptation guidelines maintaining hook timing across
+translation.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Write a [DURATION] short-form script on ONE idea: '[CORE_IDEA]' for
+[AUDIENCE]. Instant hook (1-2s), no filler, single payoff, loop-back
+ending. CTA: [CTA]."
+Pure text-reasoning template — identical across Claude, GPT, and Gemini;
+platform-specific visual/trend adaptation happens after scripting.
+================================================================================

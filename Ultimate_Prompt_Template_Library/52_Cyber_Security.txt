@@ -1,0 +1,204 @@
+================================================================================
+52 — CYBER SECURITY
+================================================================================
+
+TITLE
+Cybersecurity Analysis & Defense Master Template
+
+PURPOSE
+Get defensive-focused security analysis from AI assistants — threat
+modeling, vulnerability assessment, and hardening guidance for systems
+you own or are authorized to test — with a firm, explicit boundary
+against generating attack tooling or exploitation guidance for
+unauthorized targets.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Threat modeling for your own systems, security code review, hardening
+  guidance, authorized penetration-testing documentation/reporting,
+  security awareness training content, incident response planning
+
+EXPECTED OUTPUT
+Defensive security analysis: identified vulnerabilities in owned/
+authorized systems with specific remediation guidance, threat models,
+and hardening recommendations — always scoped to systems the requester
+owns or has explicit authorization to assess.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+SYSTEM CONTEXT (what you own/are authorized to assess) → AUTHORIZATION
+CONTEXT (confirm ownership/authorization) → THREAT MODEL (what
+adversaries/threats are realistic for this system) → ASSESSMENT SCOPE
+→ VULNERABILITY IDENTIFICATION → SEVERITY/RISK RATING → REMEDIATION
+GUIDANCE → VERIFICATION (how to confirm the fix works)
+
+WHY EACH SECTION EXISTS
+- Authorization Context: security analysis assistance is appropriate for
+  systems the requester owns or is explicitly authorized to test (e.g.
+  a bug bounty program, a client engagement with signed authorization);
+  this must be established, as the same technical information can
+  either be legitimate defensive security work or unauthorized attack
+  preparation depending entirely on authorization.
+- Severity/Risk Rating: not every identified issue is equally urgent —
+  proper risk rating (considering exploitability and impact) helps
+  prioritize genuinely limited remediation resources toward what matters
+  most, rather than treating a low-risk finding with the same urgency as
+  a critical one.
+- Remediation with Verification: identifying a vulnerability without
+  actionable, verifiable remediation guidance leaves the requester with
+  a problem but no path to confirm it's actually fixed.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{SYSTEM} {AUTHORIZATION_CONTEXT} {ASSESSMENT_SCOPE} {THREAT_CONTEXT}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"I'm assessing security for {SYSTEM}, which I own/am authorized to test
+({AUTHORIZATION_CONTEXT}). Scope: {ASSESSMENT_SCOPE}. Realistic threat
+context: {THREAT_CONTEXT}. Help me identify potential vulnerabilities
+within this scope, rate their severity/exploitability realistically, and
+provide specific remediation guidance for each. Include how I'd verify
+each fix actually resolves the issue."
+
+OUTPUT STRUCTURE
+- Vulnerability findings with severity ratings
+- Specific, actionable remediation per finding
+- Verification approach per fix
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is this request clearly scoped to a system the requester owns or has
+   explicit, stated authorization to assess, rather than a third-party
+   system with no indicated authorization?
+2. Is the severity rating realistic (considering actual exploitability
+   and impact in context), rather than uniformly alarming or uniformly
+   dismissive?
+3. Is the remediation guidance specific and actionable for this exact
+   context, not generic security advice disconnected from the actual
+   finding?
+
+SELF-CORRECTION LAYER
+If authorization context is unclear or absent, and the request could
+plausibly target an unauthorized third-party system, pause and clarify
+ownership/authorization before proceeding with specific vulnerability
+guidance. Recalibrate severity ratings that seem uniformly alarmist or
+dismissive against realistic exploitability/impact analysis.
+
+REFLECTION LAYER
+"Does this response help the requester defend a system they're
+responsible for, or could this specific level of technical detail
+provide meaningful uplift to someone attempting unauthorized access to a
+system they don't own?"
+
+FACT VERIFICATION
+For any specific vulnerability class or CVE referenced, verify current
+details against reliable security advisories rather than potentially
+outdated recollection, since vulnerability details and patch status
+change.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Clear ownership/authorization context established
+[ ] Severity ratings realistic, not uniformly alarmist/dismissive
+[ ] Remediation guidance specific and actionable
+[ ] Verification method included per finding
+[ ] Scope respected (not expanding beyond what's authorized)
+
+OPTIMIZATION TIPS
+Provide as much specific technical context about your own system as
+possible (stack, configuration, architecture) — vague requests produce
+generic advice, while specific context enables specific, useful findings.
+Prioritize findings by realistic risk (likelihood × impact) rather than
+addressing every low-severity item with the same urgency as critical
+findings.
+
+COMMON MISTAKES
+Requesting security analysis without establishing clear authorization
+context; treating every finding as equally critical regardless of actual
+exploitability; generic remediation advice not tailored to the specific
+finding/context; no verification step to confirm fixes actually work.
+
+PROFESSIONAL TIPS
+Maintain clear documentation of authorization/scope for any security
+assessment work, especially for client engagements. Re-verify fixes with
+the same rigor used to identify the original finding — a remediation
+that looks correct in code review can still fail in actual deployment
+configuration.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+I'm assessing security for my own personal Flask API (side project, I'm
+the sole developer/owner) before deploying it publicly. Scope: the
+authentication and API key handling code specifically. Realistic threat
+context: this will be a small public-facing tool, likely low-value
+target but should still follow reasonable security practices. Help me
+identify potential vulnerabilities in this code, rate severity, and
+provide remediation guidance.
+
+EXAMPLE OUTPUT
+[Review of provided authentication/API-key code:
+
+FINDING 1 — API keys stored in plaintext in the database.
+Severity: High (if the database is ever compromised, all API keys are
+immediately exposed with no additional barrier).
+Remediation: hash API keys before storage (e.g. using a fast
+cryptographic hash like SHA-256, since API keys are high-entropy random
+strings unlike passwords — bcrypt/argon2's slow-hashing benefit is less
+relevant here, but a hash prevents plaintext exposure on database
+compromise). On validation, hash the incoming key and compare to the
+stored hash.
+Verification: confirm the database no longer contains any plaintext key
+values after migration, and confirm key validation still works
+correctly end-to-end after the change.
+
+FINDING 2 — No rate limiting on the authentication endpoint.
+Severity: Medium (enables brute-force attempts against API keys/
+credentials).
+Remediation: add rate limiting (e.g. Flask-Limiter) on authentication
+attempts, scoped per IP and/or per account.
+Verification: test that repeated rapid requests are correctly throttled
+without blocking legitimate normal usage patterns.
+
+[Additional findings would continue in this pattern...]]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add a structured threat-modeling framework (e.g. STRIDE) applied
+systematically to the system architecture, and a fallback: "If a
+finding's real-world exploitability is genuinely uncertain without
+deeper testing, state that uncertainty explicitly rather than defaulting
+to a high-severity rating."
+
+EXPERT VERSION
+Layer in defense-in-depth architecture review (not just point fixes but
+systemic hardening across multiple layers), security-testing
+methodology recommendations (what automated/manual testing would
+validate this system ongoing, not just at a point in time), and formal
+risk-acceptance documentation structure for any findings not immediately
+remediated.
+
+ENTERPRISE VERSION
+Add compliance-framework alignment (SOC 2, ISO 27001 relevant controls),
+formal penetration-test-report structure for client deliverables
+(with explicit authorization/scope documentation as a report section),
+and incident-response-plan integration for how identified vulnerability
+classes should be monitored in production.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Assess security for [SYSTEM] which I own/am authorized to test.
+Scope: [ASSESSMENT_SCOPE]. Identify vulnerabilities, rate severity
+realistically, provide specific remediation and verification steps."
+================================================================================

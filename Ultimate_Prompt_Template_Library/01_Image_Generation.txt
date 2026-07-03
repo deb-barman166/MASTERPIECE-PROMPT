@@ -1,1 +1,206 @@
+================================================================================
+01 — IMAGE GENERATOR
+================================================================================
 
+TITLE
+AI Image Generation Master Template
+
+PURPOSE
+Produce high-fidelity, intentional AI-generated images by fully specifying
+subject, composition, lighting, style, and technical parameters — eliminating
+the guesswork that causes generic or off-target outputs.
+
+IDEAL AI MODELS
+Midjourney v6+, Stable Diffusion (SDXL/SD3), FLUX.1, Ideogram v2, DALL-E 3,
+Adobe Firefly
+
+DIFFICULTY LEVEL
+Beginner → Expert (scales with variable depth)
+
+WHEN TO USE
+- Concept art, marketing visuals, product mockups, character design,
+  environment design, illustration, photorealistic renders, brand imagery
+
+EXPECTED OUTPUT
+One or more images matching a precisely defined subject, style, composition,
+and technical spec — reproducible via the same prompt with minor seed changes.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+SUBJECT
+  ↓
+ACTION / POSE
+  ↓
+ENVIRONMENT / SETTING
+  ↓
+COMPOSITION (framing, angle, focal point)
+  ↓
+LIGHTING (source, quality, direction, color temp)
+  ↓
+STYLE (art movement, medium, artist-adjacent aesthetic)
+  ↓
+COLOR PALETTE
+  ↓
+MOOD / ATMOSPHERE
+  ↓
+TECHNICAL PARAMETERS (resolution, aspect ratio, render engine cues)
+  ↓
+NEGATIVE PROMPT (what to exclude)
+  ↓
+QUALITY MODIFIERS (detail level, sharpness, realism tier)
+
+WHY EACH SECTION EXISTS
+- Subject/Action: anchors the model on the primary content — vague subjects
+  produce generic results.
+- Composition: without explicit framing, models default to centered
+  medium-shots, which is rarely the intended output.
+- Lighting: the single highest-leverage variable for realism and mood; most
+  amateur prompts omit it entirely.
+- Style: prevents the model from defaulting to its "average" aesthetic,
+  which tends toward oversaturated stock-photo look.
+- Negative Prompt: actively suppresses common failure modes (extra limbs,
+  text artifacts, watermarks, blur).
+- Technical Parameters: controls aspect ratio and rendering fidelity, which
+  differ from platform defaults.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{SUBJECT} — the main entity (person, object, creature, scene)
+{ACTION} — what the subject is doing
+{ENVIRONMENT} — location/setting/backdrop
+{CAMERA_ANGLE} — e.g. low-angle, bird's-eye, eye-level, Dutch angle
+{SHOT_TYPE} — e.g. close-up, medium shot, wide shot, macro
+{LIGHTING_TYPE} — e.g. golden hour, studio softbox, neon, moonlit
+{ART_STYLE} — e.g. photorealistic, watercolor, cyberpunk, ukiyo-e, 3D render
+{COLOR_PALETTE} — dominant hues and contrast style
+{MOOD} — e.g. serene, ominous, energetic, melancholic
+{ASPECT_RATIO} — e.g. 16:9, 1:1, 9:16, 3:2
+{DETAIL_LEVEL} — e.g. hyper-detailed, minimalist, painterly
+{NEGATIVE_ELEMENTS} — elements to exclude
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Generate an image of {SUBJECT} {ACTION} in {ENVIRONMENT}, shot as a
+{SHOT_TYPE} at {CAMERA_ANGLE}, lit by {LIGHTING_TYPE}, rendered in
+{ART_STYLE} with a {COLOR_PALETTE} palette, evoking a {MOOD} atmosphere.
+Aspect ratio {ASPECT_RATIO}, {DETAIL_LEVEL} detail. Avoid: {NEGATIVE_ELEMENTS}."
+
+OUTPUT STRUCTURE
+- Primary image matching all specified parameters
+- (If platform supports) 4 variations for selection
+- Seed number recorded for reproducibility
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+Before generating, mentally verify:
+1. Does the subject description resolve any ambiguity (age, gender, species,
+   material) that the model would otherwise guess at?
+2. Does lighting direction match the mood requested?
+3. Is the aspect ratio appropriate for the intended use (social post vs.
+   print vs. wallpaper)?
+
+SELF-CORRECTION LAYER
+If the first output misses the brief:
+- Isolate which variable failed (usually style or composition)
+- Add a more specific reference term (e.g. "Rembrandt lighting" instead of
+  "dramatic lighting")
+- Increase negative prompt specificity rather than rewriting the whole prompt
+
+REFLECTION LAYER
+After generation, ask: "Does this image achieve its PURPOSE (e.g. sell a
+product, evoke an emotion, communicate a concept) or does it merely look
+technically competent?"
+
+FACT VERIFICATION
+For images involving real objects, architecture, or technical equipment,
+verify described details (e.g. "1967 Mustang" grille shape) against
+reference knowledge to avoid anachronistic or incorrect renders.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Subject is unambiguous
+[ ] Composition/framing explicitly stated
+[ ] Lighting source and quality specified
+[ ] Style reference is specific, not generic ("oil painting" not "artistic")
+[ ] Negative prompt addresses platform-known failure modes
+[ ] Aspect ratio matches intended use case
+[ ] Mood/atmosphere words chosen deliberately
+
+OPTIMIZATION TIPS
+- Front-load the most important terms; most models weight earlier tokens
+  more heavily.
+- Use concrete nouns over abstract adjectives ("chrome" beats "shiny").
+- Combine 2-3 style references rather than 1 for a more unique aesthetic
+  ("blend of Studio Ghibli backgrounds and cyberpunk neon").
+- For photorealism, specify camera/lens (e.g. "shot on 85mm f/1.4,
+  shallow depth of field").
+
+COMMON MISTAKES
+- Overloading the prompt with 15+ adjectives, diluting model attention
+- Omitting negative prompts, leading to recurring artifacts
+- Requesting legible text in-image (most models render text poorly)
+- Ignoring aspect ratio, then cropping post-hoc and losing composition
+
+PROFESSIONAL TIPS
+- Maintain a personal "style library" of tested style-reference phrases
+  that reliably produce your desired aesthetic.
+- Lock a seed once you find a good composition, then iterate only on
+  color/lighting variables for a consistent series.
+- For client work, generate 3 aspect ratios of the same core prompt
+  (square, portrait, landscape) to cover multi-platform use.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Generate an image of a lone astronaut standing on a red desert cliff,
+looking out at two moons rising, shot as a wide shot at low-angle, lit by
+warm golden-hour backlight with cool blue rim light, rendered in
+photorealistic cinematic style with an orange-and-teal palette, evoking a
+contemplative, awe-struck atmosphere. Aspect ratio 21:9, hyper-detailed.
+Avoid: text, watermark, extra limbs, helmet visor reflection artifacts.
+
+EXAMPLE OUTPUT
+[Image: A single astronaut in a matte-white EVA suit stands at the edge of
+a rust-colored cliff, silhouetted against a wide alien sky where two moons
+hang low on the horizon. Warm golden light rakes across the suit's front
+panels while a cool blue rim light traces the figure's right edge, creating
+strong orange-teal contrast. The 21:9 frame emphasizes the vast, empty
+landscape below. Fine dust particles catch the light in the foreground.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: multi-subject composition rules (rule of thirds placement per subject),
+explicit lens simulation (focal length + aperture), post-processing style
+(film grain, chromatic aberration level, LUT reference), and a fallback
+instruction: "If the primary style reference produces an inconsistent
+result, substitute the closest matching art-movement descriptor and retry
+with an unchanged composition."
+
+EXPERT VERSION
+Layer in: ControlNet-style structural guidance description (pose skeleton,
+depth map intent, edge-guide intent) for models that support conditioning;
+multi-pass refinement instructions (base pass → detail pass → upscale pass)
+with different prompt weight distributions per pass; explicit color-grading
+math (e.g. "shadows pushed toward #1B2A4A, highlights toward #FFB84D").
+
+ENTERPRISE VERSION
+Add brand-compliance constraints: exact hex codes for brand palette,
+logo-safe-zone exclusion, style-guide adherence checklist, batch-generation
+instructions for producing on-brand variant sets, and a review rubric for
+non-designer stakeholders to approve/reject outputs against brand criteria.
+
+UNIVERSAL VERSION (model-agnostic core)
+"A [SHOT_TYPE] of [SUBJECT] [ACTION] in [ENVIRONMENT], [LIGHTING_TYPE]
+lighting, [ART_STYLE] style, [COLOR_PALETTE] colors, [MOOD] mood,
+[ASPECT_RATIO]. Avoid [NEGATIVE_ELEMENTS]."
+This core works across Midjourney, SDXL, FLUX, and DALL-E with minor
+syntax adjustments (Midjourney uses --ar and --no flags; SD uses a
+separate negative prompt field; DALL-E ignores negative prompts entirely
+and requires exclusions phrased positively within the main prompt).
+================================================================================

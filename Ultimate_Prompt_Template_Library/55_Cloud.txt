@@ -1,0 +1,217 @@
+================================================================================
+55 — CLOUD
+================================================================================
+
+TITLE
+Cloud Architecture Master Template
+
+PURPOSE
+Design cloud infrastructure that matches actual workload needs and
+budget — selecting services based on genuine requirements rather than
+defaulting to the most feature-rich (and expensive) managed offering,
+and building cost-awareness into the design from the start.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Cloud service selection, cost optimization, infrastructure
+  provisioning strategy, multi-cloud/vendor comparison, migration
+  planning to cloud
+
+EXPECTED OUTPUT
+A cloud architecture with services selected based on actual workload
+characteristics and budget constraints, explicit cost estimation, and
+reasoning for why simpler/cheaper alternatives were or weren't
+sufficient.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+WORKLOAD DESCRIPTION → CLOUD PROVIDER (or open to comparison) → BUDGET
+CONSTRAINT → SERVICE SELECTION (justified per workload need) → COST
+ESTIMATION (explicit, itemized) → SCALING BEHAVIOR (auto-scale vs.
+fixed) → COST-OPTIMIZATION OPPORTUNITIES → SIMPLICITY/MANAGED-VS-
+SELF-HOSTED TRADEOFF
+
+WHY EACH SECTION EXISTS
+- Budget Constraint stated upfront: cloud architecture recommendations
+  without an explicit budget constraint tend to default toward premium
+  managed services regardless of whether the actual budget supports
+  them — this must anchor service selection from the start.
+- Itemized Cost Estimation: a cloud architecture recommendation without
+  a concrete cost estimate is not actionable — the requester needs to
+  know roughly what this will cost before committing, itemized enough
+  to identify which components drive the majority of spend.
+- Managed vs. Self-Hosted Tradeoff: managed services cost more but
+  reduce operational burden; self-hosted/unmanaged alternatives cost
+  less but require more maintenance effort — this tradeoff must be
+  explicit given the requester's actual team size/capacity to manage
+  infrastructure.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{WORKLOAD} {CLOUD_PROVIDER} {BUDGET} {TEAM_OPS_CAPACITY}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design cloud infrastructure for {WORKLOAD} on {CLOUD_PROVIDER}. Budget:
+{BUDGET}/month. Team's operational capacity to manage infrastructure:
+{TEAM_OPS_CAPACITY}. Select services justified by actual workload needs,
+not defaulted to premium options. Provide an itemized cost estimate.
+Explicitly address the managed-service-vs-self-hosted tradeoff given the
+stated ops capacity. Identify cost-optimization opportunities."
+
+OUTPUT STRUCTURE
+- Service selection with justification per workload need
+- Itemized monthly cost estimate
+- Managed-vs-self-hosted reasoning
+- Cost-optimization suggestions
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is each selected service justified by an actual stated workload need,
+   or defaulted to a premium/full-featured option that a simpler,
+   cheaper alternative would serve just as well?
+2. Does the itemized cost estimate realistically fit within the stated
+   budget, and if not, is that explicitly flagged with alternatives?
+3. Given the stated team's operational capacity, is the managed-vs-
+   self-hosted balance appropriate (a solo developer likely benefits
+   from more managed services despite higher cost, trading money for
+   time; a team with strong ops capacity might reasonably self-host more
+   to save cost)?
+
+SELF-CORRECTION LAYER
+Replace any service selection that isn't clearly justified by a stated
+workload requirement with a simpler/cheaper alternative and explain why;
+recompute the cost estimate if it exceeds the stated budget and propose
+specific alternatives to close the gap; re-examine the managed/self-
+hosted balance against the actual stated ops capacity.
+
+REFLECTION LAYER
+"If the requester received this recommendation and the bill next month,
+would the itemized estimate have been reasonably accurate, and would
+each line item be clearly justified by an actual need?"
+
+FACT VERIFICATION
+Cloud service pricing changes over time; verify current pricing for the
+specific services recommended against official, current pricing
+documentation rather than potentially outdated recollection, since cloud
+pricing is a frequently-changing detail central to this template's
+usefulness.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Each service justified by actual workload need, not defaulted
+[ ] Itemized cost estimate provided and checked against stated budget
+[ ] Managed-vs-self-hosted tradeoff addressed given team ops capacity
+[ ] Cost-optimization opportunities identified
+[ ] Scaling behavior (auto vs. fixed) matched to actual workload pattern
+
+OPTIMIZATION TIPS
+Start with the cheapest service tier that meets stated functional
+requirements, and only upgrade with explicit justification tied to a
+real requirement (not "just in case"). For unpredictable/spiky
+workloads, favor auto-scaling/consumption-based pricing; for steady,
+predictable workloads, reserved/committed-use pricing is often
+significantly cheaper. Set up billing alerts proactively rather than
+discovering cost overruns after the fact.
+
+COMMON MISTAKES
+Defaulting to premium managed services without justifying the cost
+against actual need; no itemized cost estimate, leaving the requester
+unable to budget accurately; ignoring the team's actual operational
+capacity when recommending self-hosted alternatives; not identifying
+available cost-optimization opportunities (reserved instances, spot/
+preemptible instances for appropriate workloads).
+
+PROFESSIONAL TIPS
+Revisit cloud cost allocation periodically against actual usage — many
+organizations accumulate cost from resources provisioned for
+anticipated scale that never materialized. Use the cloud provider's
+official pricing calculator for the final, precise estimate rather than
+relying solely on rough approximation, since pricing details (regional
+variation, data transfer costs) can meaningfully affect the total.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design cloud infrastructure for a small AI agent monitoring SaaS
+(FastAPI backend, Postgres database, ~500 users initially) on AWS.
+Budget: $80/month. Team's operational capacity: solo developer, limited
+time for infrastructure management.
+
+EXAMPLE OUTPUT
+[Recommendation:
+
+Given solo-developer ops capacity, favor managed services over self-
+hosted despite modestly higher cost — the time saved not managing
+database backups/patching/scaling manually is worth more than the
+marginal cost difference at this budget/scale.
+
+SERVICES:
+- Compute: a single small EC2 instance (or App Runner for less ops
+  overhead) sized for the actual stated ~500-user scale — NOT a
+  container orchestration platform (ECS/EKS), which would add
+  significant operational complexity unjustified at this scale for a
+  solo developer. Est: ~$15-25/mo for an appropriately-sized instance.
+- Database: Amazon RDS (managed Postgres) on the smallest instance
+  class that fits the workload — managed specifically because backup/
+  patching/failover management isn't a good use of a solo developer's
+  limited time, and the cost premium over self-hosting Postgres on the
+  same EC2 instance is modest at this scale. Est: ~$15-20/mo.
+- Storage/misc: minimal at this scale, S3 for any static assets/backups.
+  Est: ~$2-5/mo.
+
+ITEMIZED ESTIMATE: ~$35-50/mo core infrastructure, leaving meaningful
+headroom within the $80 budget for monitoring/logging tooling and
+unexpected growth — recommend NOT spending the full budget upfront on
+speculative scaling capacity.
+
+COST-OPTIMIZATION: set up AWS Budgets billing alerts at 50%/80%/100% of
+the $80 target immediately, since it's easy for cloud costs to creep
+without active monitoring. Consider a savings-plan/reserved-instance
+commitment for the EC2 instance once usage patterns stabilize (typically
+saves 20-40% over on-demand pricing for a steady, predictable workload
+like this).
+
+NOTE ON SCALING: this setup comfortably handles meaningful growth beyond
+500 users without architecture changes; revisit only if usage grows an
+order of magnitude beyond initial scale, rather than pre-provisioning
+for that scale now.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add multi-AZ/high-availability cost-tradeoff analysis (explicit cost
+delta for improved availability vs. the stated availability
+requirement), auto-scaling configuration specification for the compute
+tier, and a fallback: "If actual usage significantly exceeds initial
+projections, identify the single most cost-effective scaling lever to
+pull first rather than a full architecture overhaul."
+
+EXPERT VERSION
+Layer in full multi-region disaster-recovery cost/complexity analysis
+if genuinely warranted, detailed cost-allocation tagging strategy for
+tracking spend by feature/team as the system grows, and reserved-
+capacity purchase optimization modeling based on projected growth
+curves.
+
+ENTERPRISE VERSION
+Add multi-account/organization cloud governance structure, formal
+FinOps cost-allocation and chargeback methodology, and compliance/
+data-residency requirements affecting region and service selection for
+regulated industries.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Design cloud infrastructure for [WORKLOAD] on [CLOUD_PROVIDER], budget
+[BUDGET]/mo, ops capacity: [TEAM_OPS_CAPACITY]. Justify each service by
+actual need. Itemized cost estimate. Managed-vs-self-hosted reasoning."
+================================================================================

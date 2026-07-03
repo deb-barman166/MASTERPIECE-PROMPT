@@ -1,0 +1,262 @@
+================================================================================
+51 — DEEP LEARNING
+================================================================================
+
+TITLE
+Deep Learning Development Master Template
+
+PURPOSE
+Get correctly-architected deep learning solutions from AI assistants —
+appropriate architecture choice for the actual data modality/scale,
+correct training loop fundamentals (proper loss/optimizer/regularization
+choices), and honest debugging of the specific failure mode when
+training goes wrong, rather than generic "try a different learning rate"
+advice.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini (with code execution for actual training)
+
+DIFFICULTY LEVEL
+Advanced → Expert
+
+WHEN TO USE
+- Neural network architecture design, training pipeline implementation,
+  debugging training instability/poor convergence, transfer learning/
+  fine-tuning strategy, model optimization for deployment
+
+EXPECTED OUTPUT
+A DL solution with architecture justified by the actual data modality
+and scale, correct training fundamentals (loss function matched to task,
+appropriate regularization, correct data pipeline), and specific
+diagnosis when debugging rather than generic hyperparameter-guessing
+advice.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+TASK + DATA MODALITY (image/text/tabular/audio/multimodal) → DATA SCALE
+→ ARCHITECTURE SELECTION (justified, considering transfer learning) →
+LOSS FUNCTION (matched to task) → TRAINING CONFIGURATION (optimizer, LR
+schedule, regularization) → DATA PIPELINE (augmentation, batching) →
+DEBUGGING SYMPTOM (if applicable — specific observed behavior) →
+COMPUTE CONSTRAINTS
+
+WHY EACH SECTION EXISTS
+- Architecture Selection with transfer learning consideration: training
+  a model from scratch when a pretrained model + fine-tuning would
+  achieve better results with far less data/compute is a common and
+  costly mistake — this section forces explicit consideration of
+  whether transfer learning is more appropriate than training from
+  scratch, which it usually is outside of genuinely novel domains or
+  massive proprietary datasets.
+- Loss Function matched to task: using the wrong loss function (e.g.
+  MSE for a classification task, or not accounting for class imbalance
+  in the loss) silently produces a model optimizing for the wrong
+  objective — this must be deliberately matched, not defaulted.
+- Debugging Symptom specificity: "my model isn't training well" is too
+  vague to diagnose — the specific observed symptom (loss not
+  decreasing at all vs. loss decreasing then diverging vs. train loss
+  low but validation loss high vs. loss is NaN) points to entirely
+  different root causes and must be captured precisely for useful
+  debugging help.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{TASK} {DATA_MODALITY} {DATA_SCALE} {COMPUTE_CONSTRAINTS}
+{DEBUGGING_SYMPTOM} (if applicable)
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"I'm working on {TASK} with {DATA_MODALITY} data, scale: {DATA_SCALE}.
+Compute constraints: {COMPUTE_CONSTRAINTS}. Recommend an architecture —
+explicitly consider whether transfer learning/fine-tuning a pretrained
+model is more appropriate than training from scratch given this data
+scale, and justify the choice either way. Specify the correct loss
+function for this task (accounting for any class imbalance or task-
+specific nuance). Recommend training configuration: optimizer, learning
+rate schedule, regularization approach appropriate to the data scale.
+{If debugging: I'm observing this specific symptom: {DEBUGGING_SYMPTOM}
+— diagnose the likely root cause(s) specifically, not generic
+hyperparameter-tuning advice.}"
+
+OUTPUT STRUCTURE
+- Architecture recommendation with transfer-learning consideration and
+  justification
+- Correct loss function with reasoning
+- Training configuration appropriate to data scale
+- (If debugging) specific root-cause diagnosis matched to the symptom
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Given the actual data scale stated, is training from scratch
+   realistic, or would fine-tuning a pretrained model achieve
+   meaningfully better results with the available data (which is true
+   in the large majority of real-world cases outside massive-scale or
+   truly novel-domain data)?
+2. Does the recommended loss function actually match the task's real
+   objective, including handling any stated class imbalance or
+   task-specific structure (e.g. ranking losses for retrieval,
+   focal loss for severe imbalance)?
+3. If debugging, does the specific stated symptom (not just "training
+   poorly") point toward a specific, testable root cause (e.g. NaN loss
+   → likely exploding gradients or a numerical issue in a custom loss;
+   train loss low but validation loss high → overfitting; loss flat from
+   the start → likely a learning-rate, initialization, or data-pipeline
+   bug) rather than generic advice that would apply to any symptom?
+
+SELF-CORRECTION LAYER
+If architecture or debugging reasoning seems generic:
+- Re-examine whether the stated data scale genuinely supports training
+  from scratch, or whether transfer learning was dismissed without
+  sufficient justification
+- Verify the loss function recommendation explicitly accounts for any
+  stated class imbalance rather than defaulting to standard
+  cross-entropy/MSE
+- For debugging, map the specific stated symptom to its most likely
+  specific causes (not a generic checklist) and prioritize the most
+  probable one first
+
+REFLECTION LAYER
+"Is this the most data/compute-efficient path to a working model given
+the stated constraints, or does it default to a more complex/from-
+scratch approach that the actual data scale doesn't justify?"
+
+FACT VERIFICATION
+For any specific pretrained model, architecture, or library API
+referenced (Hugging Face models, PyTorch/TensorFlow specifics), verify
+current availability and API syntax against up-to-date documentation,
+since this space changes rapidly and specific model names/versions
+matter.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Transfer learning explicitly considered and justified against
+    training from scratch
+[ ] Loss function matched to task, accounting for imbalance if present
+[ ] Training configuration appropriate to actual data scale
+[ ] (If debugging) diagnosis matched to the specific stated symptom, not
+    generic
+[ ] Compute constraints respected in recommendations
+[ ] Regularization approach appropriate to data scale (more aggressive
+    for smaller data)
+
+OPTIMIZATION TIPS
+Default to fine-tuning a pretrained model unless data scale is genuinely
+large (typically hundreds of thousands+ examples) or the domain is
+genuinely novel enough that pretrained representations wouldn't transfer
+— training from scratch on limited data is one of the most common
+sources of poor results relative to effort spent. Use a learning-rate
+finder/range test rather than guessing a starting learning rate. Always
+verify the data pipeline (a single batch, visualized/inspected manually)
+before debugging model architecture — a surprising number of "model"
+problems are actually data pipeline bugs.
+
+COMMON MISTAKES
+Training from scratch when fine-tuning would work better with the
+available data; using a mismatched loss function (e.g. standard
+cross-entropy on severely imbalanced data without weighting/focal loss);
+diagnosing training issues generically without using the specific
+symptom to narrow down the actual cause; not verifying the data
+pipeline/augmentation is producing sensible inputs before assuming an
+architecture problem; insufficient regularization for small datasets
+leading to overfitting.
+
+PROFESSIONAL TIPS
+Always manually inspect a batch of actual model inputs (images
+displayed, text detokenized, tabular rows printed) before extended
+training runs — data pipeline bugs are common and expensive to discover
+only after hours of training. Track experiments systematically (config,
+metrics, and observations per run) since debugging deep learning often
+requires comparing across several training attempts. Start with the
+simplest reasonable architecture/pretrained baseline before adding
+complexity — validate the basic pipeline works end-to-end first.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+I'm working on a text classification task (categorizing support tickets
+into 8 categories) with text data, scale: ~3,000 labeled examples.
+Compute constraints: single consumer GPU, need inference to be fast
+enough for near-real-time ticket routing. Recommend an architecture,
+explicitly considering transfer learning vs. training from scratch given
+this data scale. Specify the correct loss function. Recommend training
+configuration.
+
+EXAMPLE OUTPUT
+[Recommendation:
+
+ARCHITECTURE: at ~3,000 examples, training a transformer from scratch is
+not realistic — this is a clear case for fine-tuning a pretrained
+language model. Recommend a smaller pretrained encoder model (e.g. a
+DistilBERT-class or similarly compact model) rather than a large
+generative LLM for this classification task: it's specifically well-
+suited to encoder-style classification, fine-tunes efficiently on a
+single consumer GPU at this data scale, and will meet the near-real-time
+inference latency requirement far more easily than a larger generative
+model, which would be unnecessarily heavy for a straightforward 8-class
+classification task.
+
+LOSS FUNCTION: standard cross-entropy loss is appropriate for this
+multi-class (not multi-label, assuming each ticket has exactly one
+category) classification task — first confirm class balance across the
+8 categories; if meaningfully imbalanced, add class weighting to the
+cross-entropy loss (inverse frequency weighting) rather than using
+unweighted cross-entropy, which would bias the model toward majority
+categories.
+
+TRAINING CONFIGURATION: given the small dataset (~3,000 examples), use
+a conservative fine-tuning approach — lower learning rate (typically in
+the 2e-5 to 5e-5 range for transformer fine-tuning) with a linear
+warmup-then-decay schedule, few epochs (likely 3-5, since more risks
+overfitting quickly at this scale), and meaningful regularization
+(dropout already built into the pretrained architecture, plus consider
+early stopping based on validation loss rather than training for a
+fixed epoch count). With only 3,000 examples, hold out a genuinely
+representative validation set (stratified by category to ensure all 8
+classes are represented) to catch overfitting early given how quickly a
+model can overfit at this scale.
+
+COMPUTE FIT: this approach (fine-tuning a compact pretrained encoder)
+is well-matched to a single consumer GPU and should train in a
+reasonable timeframe (likely well under an hour for this data scale),
+and the resulting model size is compatible with fast inference for
+near-real-time routing.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add data augmentation strategy appropriate to text data at small scale
+(back-translation, paraphrase-based augmentation) if the 3,000-example
+scale proves insufficient after initial training, k-fold cross-
+validation methodology given the limited data size for more reliable
+performance estimation, and a fallback: "If validation performance
+plateaus below the useful threshold even with correct methodology,
+consider whether additional labeled data collection would yield better
+ROI than further architecture/hyperparameter tuning at this scale."
+
+EXPERT VERSION
+Layer in full learning-rate-schedule ablation reasoning, layer-wise
+learning-rate decay for fine-tuning (lower rates for earlier/more
+general layers, higher for later/task-specific layers), and
+quantization/distillation strategy for further inference-latency
+optimization if the near-real-time requirement proves tight even with
+the compact model choice.
+
+ENTERPRISE VERSION
+Add MLOps integration for model versioning and retraining triggers as
+new labeled tickets accumulate, bias/fairness audit across ticket
+categories and any relevant customer subgroups, and formal model-card
+documentation for the classification system suitable for internal
+governance review.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Solve [TASK] with [DATA_MODALITY] data at [DATA_SCALE] scale, compute:
+[COMPUTE_CONSTRAINTS]. Justify transfer learning vs. from-scratch.
+Correct loss function. Training config appropriate to this scale."
+Requires code execution for actual training; works across Claude, GPT,
+and Gemini with code execution and (ideally) GPU access enabled.
+================================================================================

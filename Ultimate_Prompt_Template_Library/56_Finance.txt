@@ -1,0 +1,220 @@
+================================================================================
+56 — FINANCE
+================================================================================
+
+TITLE
+Personal/Business Finance Analysis Master Template
+
+PURPOSE
+Get clear, factual financial analysis and educational explanation from
+AI assistants — helping understand concepts, calculations, and tradeoffs
+so the requester can make their own informed decision, rather than
+receiving confident personalized financial advice that AI is not
+qualified to give.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Beginner → Advanced
+
+WHEN TO USE
+- Understanding financial concepts, budget analysis, comparing financial
+  options factually (loan terms, investment vehicle mechanics), business
+  financial modeling, calculation assistance
+
+EXPECTED OUTPUT
+Clear factual information and calculations that help the requester
+understand their options and make their own decision — explicitly not
+personalized financial advice or specific recommendations to buy/sell/
+invest.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+FINANCIAL QUESTION/SITUATION → RELEVANT FACTS (numbers, terms, context)
+→ CONCEPT EXPLANATION NEEDED → CALCULATION (if applicable, shown with
+methodology) → OPTIONS COMPARISON (factual, not a recommendation) →
+KEY TRADEOFFS TO CONSIDER → ADVISOR DISCLAIMER (not a substitute for a
+licensed financial professional for personalized advice)
+
+WHY EACH SECTION EXISTS
+- Factual, not advisory framing: financial decisions have real,
+  significant consequences and depend on personal circumstances (risk
+  tolerance, full financial picture, tax situation, goals) that an AI
+  assistant cannot fully know or is not qualified to weigh — the
+  template must produce educational/factual output the requester uses
+  to inform their own decision, not a confident recommendation.
+- Calculation methodology shown: for any numeric calculation (compound
+  interest, loan amortization, ROI), showing the actual methodology
+  (not just a final number) lets the requester verify the math and
+  understand it, rather than blindly trusting an opaque figure.
+- Key Tradeoffs (not a recommendation): presenting the genuine tradeoffs
+  of different options lets the requester weigh them against their own
+  full situation, which the AI doesn't have complete visibility into.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{FINANCIAL_QUESTION} {RELEVANT_NUMBERS} {OPTIONS_TO_COMPARE}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Help me understand: {FINANCIAL_QUESTION}. Relevant numbers/context:
+{RELEVANT_NUMBERS}. Explain the underlying concept clearly. If
+calculation is needed, show the methodology explicitly so I can verify
+it. If comparing options ({OPTIONS_TO_COMPARE}), lay out the factual
+tradeoffs of each rather than recommending one — help me understand what
+to consider given my own situation and goals, since you don't have my
+complete financial picture."
+
+OUTPUT STRUCTURE
+- Clear concept explanation
+- Calculation with visible methodology (if applicable)
+- Factual tradeoff comparison, not a specific recommendation
+- Note that this is educational information, not personalized advice
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is this response giving the requester the factual information/
+   calculation they need to decide for themselves, or is it drifting
+   into a confident personalized recommendation ("you should do X")
+   that depends on their full financial picture the AI doesn't have?
+2. If a calculation is involved, is the methodology shown clearly enough
+   for the requester to verify or adapt it to slightly different
+   numbers themselves?
+3. Are the tradeoffs presented genuinely balanced/factual, or does the
+   framing subtly favor one option in a way that resembles advice rather
+   than neutral information?
+
+SELF-CORRECTION LAYER
+Reframe any response that has drifted into "you should..." recommendation
+language into factual "here's what this option means, here's what that
+one means" framing; add explicit calculation methodology if a number was
+given without showing the work; add a note pointing toward a licensed
+financial professional for genuinely personalized decisions with
+significant stakes.
+
+REFLECTION LAYER
+"Is this response helping the requester become better informed to make
+their own decision, or is it making the decision for them in a way that
+depends on personal context I don't actually have?"
+
+FACT VERIFICATION
+Any cited rates, rules, or figures (tax brackets, interest rate
+context, regulatory rules) should be verified against current, reliable
+sources, since financial rules/rates change and outdated information
+could lead to a costly mistake.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Concept explained clearly and accurately
+[ ] Calculation methodology shown explicitly, not just a final number
+[ ] Options compared factually, not steered toward one recommendation
+[ ] No confident personalized advice presented as if it accounts for the
+    requester's full situation
+[ ] Note included that this isn't a substitute for licensed professional
+    advice for high-stakes personalized decisions
+
+OPTIMIZATION TIPS
+Provide as much relevant factual context as possible (actual numbers,
+terms, timeframes) for the most useful, concrete explanation. Ask
+explicitly for the calculation methodology to be shown if you want to
+verify or adapt it yourself. For genuinely high-stakes decisions
+(significant investments, major loans), use AI to build understanding
+before/alongside consulting a licensed professional, not as a
+replacement for one.
+
+COMMON MISTAKES
+Treating AI financial explanation as personalized advice accounting for
+one's full situation; not verifying current rates/rules that may have
+changed; accepting a calculation's output without understanding or
+checking the methodology; using AI as a sole source for high-stakes
+financial decisions without professional consultation.
+
+PROFESSIONAL TIPS
+Use AI most effectively for building genuine understanding of concepts
+and running "what if" calculations across scenarios, which strengthens
+your own decision-making capability. For any decision with significant
+financial stakes or complex personal circumstances (tax situations,
+estate planning, significant investment decisions), consult a licensed
+financial advisor or tax professional who can account for your complete
+situation.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Help me understand: how does compound interest actually work, and if I
+save a fixed amount monthly, roughly how does starting 5 years earlier
+affect the outcome? Relevant numbers: $200/month, hypothetical 7% annual
+return, comparing starting now vs. 5 years from now, both running to age
+60.
+
+EXAMPLE OUTPUT
+[Concept explanation: Compound interest means you earn returns not just
+on your original contributions, but on previously-earned returns too —
+so growth accelerates over time rather than staying linear, which is
+why TIME in the market matters more than most people initially expect
+relative to the monthly amount itself.
+
+CALCULATION (methodology shown, using the future value of an annuity
+formula, monthly contributions, monthly compounding at 7%/year ≈
+0.5833%/month):
+
+Scenario A — start now, contribute $200/month for (let's say) 35 years
+to age 60: [actual computed result via code execution showing the
+formula applied]
+
+Scenario B — start 5 years later, contribute $200/month for 30 years to
+the same age 60: [actual computed result]
+
+[Note: exact numbers depend on your specific current age — the
+calculation above assumes illustrative years; provide your actual
+current age for a precise version]
+
+The key factual takeaway from the methodology: the DIFFERENCE between
+these two scenarios comes disproportionately from the growth on the
+earliest contributions compounding over the longest additional stretch
+of time — this is why the 5-year head start typically matters more in
+percentage terms than the raw $12,000 (5 years × $200/mo × 12) difference
+in total contributions alone would suggest.
+
+This is a factual illustration of how compound interest and timing
+interact, not a recommendation about your specific savings strategy —
+your actual best approach depends on your full financial picture (other
+debts, emergency fund status, actual expected returns, goals), which is
+worth discussing with a financial advisor for a personalized plan,
+especially before committing to a specific long-term strategy.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add sensitivity analysis across a range of assumed return rates (since
+7% is illustrative, not guaranteed) showing how the conclusion holds or
+changes across a realistic range, and a fallback: "If a requested
+calculation depends heavily on an uncertain assumption (future market
+returns, inflation), explicitly show results across a reasonable range
+rather than a single point estimate that implies false precision."
+
+EXPERT VERSION
+Layer in tax-treatment factual explanation (how different account types
+are taxed differently, factually, without recommending a specific
+account choice), and inflation-adjusted ("real") return illustration
+alongside nominal figures for a more complete factual picture.
+
+ENTERPRISE VERSION
+(For fintech/educational content platforms) Add regulatory-compliance
+review requirements for any financial content/calculators presented to
+end users, clear and prominent disclaimer language meeting relevant
+regulatory standards, and factual-accuracy review workflow for any
+published financial educational content.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Help me understand [FINANCIAL_QUESTION] with these numbers:
+[RELEVANT_NUMBERS]. Explain the concept, show calculation methodology,
+compare options factually without recommending one — I'll decide based
+on my own full situation."
+================================================================================

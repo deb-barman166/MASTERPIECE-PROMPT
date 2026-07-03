@@ -1,0 +1,247 @@
+================================================================================
+53 — SYSTEM DESIGN
+================================================================================
+
+TITLE
+System Design Master Template
+
+PURPOSE
+Design system architectures grounded in actual stated requirements and
+scale — properly reasoning through tradeoffs (consistency vs.
+availability, latency vs. cost) rather than defaulting to
+over-engineered, hyperscale-appropriate patterns for problems that don't
+need them.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Advanced → Expert
+
+WHEN TO USE
+- Architecture design for a new system, scalability planning,
+  system-design interview practice, technology selection with tradeoff
+  analysis, migration/refactor planning
+
+EXPECTED OUTPUT
+A system architecture matched to the actual stated scale/requirements,
+with explicit tradeoff reasoning for key decisions (not just a diagram
+of components) and a clear rationale for why simpler alternatives were
+or weren't sufficient.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+REQUIREMENTS (functional + non-functional: scale, latency, availability)
+→ CONSTRAINTS (team size, budget, timeline) → CORE ARCHITECTURE
+DECISIONS (with tradeoff reasoning per decision) → DATA STORAGE
+STRATEGY → SCALING APPROACH (matched to actual projected scale) →
+FAILURE MODE HANDLING → SIMPLICITY CHECK (would a simpler design
+suffice)
+
+WHY EACH SECTION EXISTS
+- Non-functional Requirements first: "design a system for X" without
+  explicit scale/latency/availability targets leads to either
+  over-engineering (hyperscale patterns for a system that will never
+  need them) or under-engineering (missing genuine future needs) —
+  requirements must be quantified before architecture decisions are
+  made.
+- Tradeoff Reasoning per decision: system design is fundamentally about
+  navigating tradeoffs (consistency vs. availability, normalization vs.
+  query performance, monolith vs. microservices) — a design that
+  presents choices without stating what was traded away doesn't
+  demonstrate real design thinking.
+- Simplicity Check: the most common real-world system design failure is
+  over-engineering — building distributed, hyperscale-pattern systems
+  for problems that a single well-configured server and a simple
+  database would solve just as well at a fraction of the complexity
+  cost — this must be an explicit, deliberate check, not skipped.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{FUNCTIONAL_REQUIREMENTS} {SCALE} {LATENCY_TARGET} {AVAILABILITY_TARGET}
+{TEAM_CONSTRAINTS} {BUDGET_CONSTRAINTS}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a system for: {FUNCTIONAL_REQUIREMENTS}. Scale: {SCALE}. Latency
+target: {LATENCY_TARGET}. Availability target: {AVAILABILITY_TARGET}.
+Constraints: {TEAM_CONSTRAINTS}, {BUDGET_CONSTRAINTS}. For each major
+architecture decision, state the tradeoff explicitly (what's gained,
+what's given up, and why this choice fits the stated requirements).
+Explicitly check: would a simpler architecture suffice at this actual
+scale, or is the added complexity genuinely justified? Address key
+failure modes and how the design handles them."
+
+OUTPUT STRUCTURE
+- Architecture with components and their interactions
+- Explicit tradeoff reasoning per major decision
+- Explicit simplicity justification (why this complexity level, not
+  more or less)
+- Failure mode handling
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does the proposed architecture's complexity genuinely match the
+   stated scale/requirements, or does it default to patterns
+   appropriate for a much larger scale than actually described?
+2. For each major decision (data store choice, sync vs. async, monolith
+   vs. services), is the tradeoff explicitly reasoned, or just asserted
+   without justification?
+3. Would a meaningfully simpler design (fewer moving parts, less
+   distributed complexity) actually fail to meet the stated
+   requirements, or was complexity added by default/habit rather than
+   genuine necessity?
+
+SELF-CORRECTION LAYER
+If the design seems over- or under-engineered:
+- Re-check every distributed-systems pattern (microservices, message
+  queues, distributed caching) against whether the stated scale
+  genuinely requires it, or whether a simpler monolithic/single-database
+  approach would meet requirements with far less operational complexity
+- Add explicit tradeoff reasoning to any decision currently presented
+  without justification
+- Verify failure-mode handling actually addresses the most likely
+  failure scenarios for this specific system, not a generic checklist
+
+REFLECTION LAYER
+"If I removed the most complex component of this design, would the
+stated requirements still be met — and if so, why was that complexity
+included?"
+
+FACT VERIFICATION
+For any specific technology/service capability claims (a particular
+database's consistency guarantees, a cloud service's SLA), verify
+against current official documentation rather than potentially outdated
+recollection.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Architecture complexity matches actual stated scale/requirements
+[ ] Every major decision has explicit tradeoff reasoning
+[ ] Simplicity explicitly checked and justified, not assumed
+[ ] Failure modes addressed for the most likely scenarios
+[ ] Data storage strategy matched to actual access patterns
+[ ] Constraints (team size, budget) respected in the design
+
+OPTIMIZATION TIPS
+Always start from the simplest architecture that could plausibly meet
+requirements, and add complexity only where a specific, stated
+requirement genuinely demands it — this "start simple, justify
+additions" discipline prevents the common over-engineering failure mode.
+State scale requirements as concrete numbers (requests/second, data
+volume, user count) rather than vague terms like "high scale," since
+vague scale descriptions lead to mismatched, often over-engineered
+designs.
+
+COMMON MISTAKES
+Defaulting to distributed/microservices patterns for systems that don't
+need that scale; presenting architecture decisions without tradeoff
+reasoning; vague, unquantified scale requirements leading to mismatched
+complexity; ignoring realistic failure modes; not considering team size/
+operational capacity to actually run and maintain the proposed
+complexity.
+
+PROFESSIONAL TIPS
+For system-design interviews specifically, always start by clarifying
+and quantifying requirements before proposing any architecture — this
+demonstrates real design thinking rather than pattern-matching to a
+memorized "big system" template. For real production systems, revisit
+the architecture's complexity periodically against actual observed
+scale — many systems accumulate unnecessary complexity from
+premature scaling decisions made before real usage patterns were known.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design a system for a personal AI agent monitoring dashboard (side
+project turning into a small SaaS). Functional requirements: users
+connect their deployed agents, see real-time status, get alerted on
+failures. Scale: initial target ~500 users, each monitoring 1-20 agents,
+so roughly up to 10,000 monitored entities total. Latency target: status
+updates visible within 30 seconds of an agent event. Availability
+target: reasonable (not mission-critical, occasional brief downtime
+acceptable, but sustained outages would hurt trust). Constraints: solo
+developer, limited budget (~$50-100/mo infrastructure budget initially).
+
+EXAMPLE OUTPUT
+[Architecture:
+
+SIMPLICITY CHECK FIRST: at ~500 users / ~10,000 monitored entities with
+a 30-second latency tolerance (not sub-second real-time), this scale
+does NOT justify a distributed microservices architecture, dedicated
+message queue infrastructure, or a specialized time-series database
+cluster — those would be significant over-engineering for this actual
+scale and would consume budget/operational effort a solo developer can't
+sustain. A single well-configured application server + a single managed
+Postgres database can comfortably handle this scale.
+
+CORE ARCHITECTURE: a single backend service (e.g. FastAPI) handling both
+the API and a lightweight background worker for processing incoming
+agent status events; a single managed Postgres instance (with
+TimescaleDB extension optionally, for efficient time-series status data,
+given Postgres already supports this well at this scale without needing
+a separate specialized database) as the sole datastore.
+
+TRADEOFF — polling vs. push for status updates: given the 30-second
+latency tolerance (not sub-second), a simple polling approach (agents
+report status via a lightweight HTTP call every 15-20s) is
+significantly simpler to operate than a persistent WebSocket/push
+infrastructure, and easily meets the stated latency target — the
+tradeoff is slightly more predictable load pattern (regular polling)
+vs. the operational complexity of maintaining persistent connections at
+this budget/team-size constraint. Given the constraints, polling is the
+better fit; push-based real-time would be justified if latency
+requirements were sub-second, which they're not here.
+
+FAILURE MODES: database being a single point of failure is an
+acceptable tradeoff at this budget/scale (with the availability target
+described as "reasonable, not mission-critical") — mitigate with a
+managed database provider's automated backups and consider a simple
+read-replica later only if actual usage demonstrates real need, not
+preemptively.
+
+GROWTH PATH: explicitly note that if usage grows well beyond the
+initial ~10,000-entity target (e.g. 10x growth), specific components
+(the database, the polling approach specifically) would need
+revisiting — but building for that scale now would be premature
+optimization given the current stated requirements and solo-developer
+constraint.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add capacity-planning math (concrete calculation showing the proposed
+single-server/single-database setup can handle the stated request
+volume with headroom), a specific migration trigger definition (the
+concrete metric/threshold at which the "growth path" complexity becomes
+justified, not just "later"), and a fallback: "If a specific requirement
+later proves more demanding than initially stated, identify the single
+most cost-effective architecture change to address it rather than a
+full redesign."
+
+EXPERT VERSION
+Layer in formal capacity modeling (queueing theory or load-testing-
+based projections), multi-region/disaster-recovery architecture
+consideration if genuinely warranted by availability requirements, and
+detailed cost modeling comparing the proposed architecture's actual
+infrastructure cost trajectory against alternative approaches at
+various growth scenarios.
+
+ENTERPRISE VERSION
+Add formal architecture decision record (ADR) documentation structure
+for each major decision, compliance/data-residency requirements
+affecting infrastructure choices, and multi-team ownership boundaries
+(service ownership, on-call responsibility) for a larger organization
+context.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Design a system for [FUNCTIONAL_REQUIREMENTS] at [SCALE] scale, latency
+target [LATENCY_TARGET], availability [AVAILABILITY_TARGET],
+constraints: [TEAM_CONSTRAINTS]/[BUDGET_CONSTRAINTS]. Explicit tradeoff
+reasoning per decision. Check whether a simpler design would suffice."
+================================================================================

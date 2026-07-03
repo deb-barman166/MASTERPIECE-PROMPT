@@ -1,0 +1,248 @@
+================================================================================
+24 — CODING (GENERAL)
+================================================================================
+
+TITLE
+General-Purpose AI Coding Master Template
+
+PURPOSE
+Get precise, working, maintainable code from AI coding assistants on the
+first or second pass by specifying requirements, constraints, and
+quality bar explicitly — rather than iterating blindly through vague
+requests.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini, Cursor AI, Windsurf, GitHub Copilot
+
+DIFFICULTY LEVEL
+Beginner → Expert
+
+WHEN TO USE
+- Any coding task: new feature, bug fix, refactor, algorithm
+  implementation, code review, architecture decision — language-agnostic
+  base template (see language-specific templates for deeper specialization)
+
+EXPECTED OUTPUT
+Working, correctly-scoped code with appropriate error handling, matching
+the stated language/framework/style conventions, along with a brief
+explanation of key decisions.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+TASK DEFINITION (what the code must do)
+  ↓
+CONTEXT (existing codebase, language, framework, conventions)
+  ↓
+INPUT/OUTPUT SPEC (exact function signature, data shapes)
+  ↓
+CONSTRAINTS (performance, dependencies, compatibility)
+  ↓
+EDGE CASES (explicitly enumerated)
+  ↓
+ERROR HANDLING EXPECTATIONS
+  ↓
+CODE STYLE (naming conventions, existing patterns to match)
+  ↓
+TESTING EXPECTATIONS (unit tests needed? what to cover?)
+  ↓
+EXPLANATION DEPTH (comment level, rationale needed)
+
+WHY EACH SECTION EXISTS
+- Input/Output Spec: the single biggest source of AI coding failures is
+  ambiguous function signatures — specifying exact types/shapes
+  eliminates an entire category of "close but wrong" outputs.
+- Edge Cases enumerated explicitly: AI models default to happy-path
+  implementations unless edge cases are named; empty inputs, null
+  values, and boundary conditions must be requested, not assumed.
+- Code Style matching: code that works but doesn't match a codebase's
+  existing conventions creates review friction and technical debt —
+  this section prevents generating code that "works" but doesn't fit.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{TASK} — what the code needs to accomplish
+{LANGUAGE} — programming language
+{FRAMEWORK} — relevant framework/library, if any
+{FUNCTION_SIGNATURE} — exact expected input/output shape
+{CONSTRAINTS} — performance, dependency, or compatibility limits
+{EDGE_CASES} — specific edge cases to handle
+{EXISTING_CONVENTIONS} — naming/style patterns already in use
+{TEST_REQUIREMENTS} — whether/what tests are needed
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Write {LANGUAGE} code ({FRAMEWORK} if applicable) that {TASK}. Function
+signature: {FUNCTION_SIGNATURE}. Constraints: {CONSTRAINTS}. Handle these
+edge cases explicitly: {EDGE_CASES}. Match existing code conventions:
+{EXISTING_CONVENTIONS}. Include error handling for invalid input.
+{TEST_REQUIREMENTS if applicable}. Add concise comments explaining
+non-obvious logic, and briefly explain key design decisions after the
+code."
+
+OUTPUT STRUCTURE
+- Working code block matching the specified language/style
+- Brief explanation of key decisions/tradeoffs (not a restatement of the
+  code)
+- (If requested) accompanying test cases
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does this implementation correctly handle every enumerated edge case,
+   not just the primary happy path?
+2. Are there any implicit assumptions (input is always non-null, list is
+   never empty, network call always succeeds) that should instead be
+   explicit error handling?
+3. Is this the appropriate complexity level for the task, or is it
+   over-engineered (unnecessary abstraction) or under-engineered
+   (fragile, unmaintainable)?
+
+SELF-CORRECTION LAYER
+If the code might be incorrect or incomplete:
+- Trace through each stated edge case manually against the logic
+- Check for off-by-one errors, type mismatches, and unhandled
+  exceptions
+- Verify the function signature exactly matches what was specified,
+  including parameter order and return type
+
+REFLECTION LAYER
+"Would another developer unfamiliar with this specific request
+understand what this code does and why, just from reading it?"
+
+FACT VERIFICATION
+For any code using a specific library/API, verify the method names,
+parameters, and behavior against current documentation rather than
+relying on potentially outdated training knowledge, especially for
+fast-moving libraries.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Matches exact specified function signature
+[ ] All enumerated edge cases explicitly handled
+[ ] Appropriate error handling (not silent failures)
+[ ] Matches existing codebase conventions
+[ ] No unnecessary complexity/over-abstraction
+[ ] Comments explain "why," not just restate "what"
+[ ] Tests included if requested, covering edge cases
+
+OPTIMIZATION TIPS
+- Provide a small snippet of existing code from the codebase as a style
+  reference — this is more effective than describing conventions in
+  prose.
+- Ask for the implementation AND a one-sentence explanation of any
+  non-obvious design tradeoff — this catches reasoning errors that
+  working code alone might hide.
+- For complex logic, ask the model to reason through 2-3 edge cases
+  explicitly before finalizing the implementation.
+
+COMMON MISTAKES
+- Vague task descriptions leading to plausible-but-wrong implementations
+- Omitting edge cases, resulting in happy-path-only code
+- Not specifying existing conventions, producing style-inconsistent code
+- Accepting code without verifying library/API calls against current
+  documentation
+
+PROFESSIONAL TIPS
+- Treat AI-generated code as a strong first draft requiring review, not
+  a final deliverable — always read and understand every line before
+  committing.
+- Build a personal "context snippet" library (your common conventions,
+  error-handling patterns, project structure) to paste into prompts for
+  consistent style across a project.
+- For any security-sensitive code (auth, payment, data validation),
+  apply extra manual scrutiny regardless of how confident the AI output
+  appears.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Write Python code that takes a list of file paths and returns a
+dictionary mapping file extension to total file size in bytes for that
+extension. Function signature: def group_size_by_extension(paths:
+list[str]) -> dict[str, int]. Constraints: must handle files that don't
+exist without crashing, must be efficient for lists of 100k+ paths.
+Handle these edge cases explicitly: empty list input, paths with no
+extension, paths that don't exist on disk, paths that are directories
+not files. Match existing code conventions: type hints required, use
+pathlib not os.path. Include error handling for invalid input. Add
+concise comments explaining non-obvious logic.
+
+EXAMPLE OUTPUT
+```python
+from pathlib import Path
+from collections import defaultdict
+
+def group_size_by_extension(paths: list[str]) -> dict[str, int]:
+    """Group total file size in bytes by file extension.
+
+    Files that don't exist, are directories, or lack an extension
+    are silently skipped rather than raising, since this is expected
+    in large real-world path lists.
+    """
+    if not paths:
+        return {}
+
+    size_by_ext: dict[str, int] = defaultdict(int)
+
+    for raw_path in paths:
+        path = Path(raw_path)
+
+        # Skip anything that isn't an existing regular file
+        if not path.is_file():
+            continue
+
+        ext = path.suffix.lower()
+        if not ext:
+            ext = "(no extension)"
+
+        try:
+            size_by_ext[ext] += path.stat().st_size
+        except OSError:
+            # Handles rare race conditions (file deleted mid-scan)
+            continue
+
+    return dict(size_by_ext)
+```
+Key decision: used `defaultdict(int)` for O(1) accumulation across
+100k+ paths rather than checking key existence each time, and chose to
+skip invalid entries silently (per the stated edge cases) rather than
+raise, since the function's contract implies tolerance for a messy
+real-world path list.
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: performance-profiling requirement (Big-O complexity statement for
+the solution, with reasoning), alternative-approach comparison (briefly
+note one alternative implementation and why the chosen one is
+preferred), and a fallback: "If a stated constraint conflicts with
+correctness (e.g. extreme performance requirement vs. full edge-case
+handling), flag the tradeoff explicitly rather than silently choosing
+one over the other."
+
+EXPERT VERSION
+Layer in: full architectural-fit reasoning (how this function/module
+fits into broader system design, dependency injection considerations),
+concurrency/thread-safety analysis if relevant, and a self-critique pass
+where the model explicitly lists potential weaknesses in its own
+solution before presenting it as final.
+
+ENTERPRISE VERSION
+Add: security-review checklist (input sanitization, injection risk,
+least-privilege access patterns), compliance/audit-logging
+requirements, and a formal code-review-readiness checklist (linting
+compliance, documentation standards, CI/CD pipeline compatibility) for
+enterprise codebase submission.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Write [LANGUAGE] code that [TASK]. Signature: [FUNCTION_SIGNATURE].
+Handle edge cases: [EDGE_CASES]. Match conventions: [EXISTING_CONVENTIONS].
+Include error handling and brief explanation of key decisions."
+Works identically across Claude, GPT, Gemini, and IDE-integrated tools
+(Cursor, Windsurf, Copilot); IDE-integrated tools additionally benefit
+from having the actual open file/codebase in context automatically.
+================================================================================

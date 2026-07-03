@@ -1,0 +1,199 @@
+================================================================================
+17 — BANNER DESIGN
+================================================================================
+
+TITLE
+AI Banner Ad / Web Banner Master Template
+
+PURPOSE
+Generate banners (display ads, web headers, event banners) that
+communicate one message clearly within extreme size/attention
+constraints, optimized for the specific dimension and context they'll
+appear in.
+
+IDEAL AI MODELS
+Midjourney v6+, Ideogram v2, Canva Magic Design, DALL-E 3, Adobe Firefly
+
+DIFFICULTY LEVEL
+Beginner → Intermediate
+
+WHEN TO USE
+- Display advertising (Google Ads sizes), website header banners, event
+  promotional banners, email header graphics, marketplace listing
+  banners
+
+EXPECTED OUTPUT
+A banner at the exact required dimension with one clear message, high
+contrast, and a legible CTA (if applicable) — designed to work as a
+peripheral-attention object, not a focal-attention one.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+BANNER PURPOSE (advertise / announce / brand / navigate)
+  ↓
+EXACT DIMENSIONS (standard ad sizes or custom)
+  ↓
+CORE MESSAGE (one sentence, ideally one phrase)
+  ↓
+VISUAL FOCAL POINT
+  ↓
+BRAND ELEMENTS (color, logo, font)
+  ↓
+CTA (if applicable)
+  ↓
+CONTRAST STRATEGY (must work against varied page backgrounds)
+  ↓
+TEXT-TO-IMAGE RATIO (per platform ad policy, e.g. 20% text rule)
+
+WHY EACH SECTION EXISTS
+- Exact Dimensions: banners live in fixed, often oddly-proportioned
+  spaces (728x90, 300x250, 320x50) — generic square/landscape
+  generation doesn't fit these; the dimension must be specified first
+  and treated as non-negotiable.
+- Core Message singularity: banners are viewed peripherally, often for
+  under a second — anything beyond one clear phrase/message won't
+  register at all.
+- Text-to-Image Ratio: major ad platforms (Google, Meta) historically
+  penalize or reject banners with excessive text coverage — this is a
+  practical compliance constraint, not just a design preference.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{PURPOSE} — advertise / announce / brand / navigate
+{DIMENSIONS} — exact pixel size (e.g. 728x90, 300x250, 1200x300)
+{CORE_MESSAGE} — one phrase, the single takeaway
+{FOCAL_POINT} — the dominant visual element
+{BRAND_COLORS} — palette
+{CTA_TEXT} — call to action text, if any
+{PLATFORM} — where this banner will run (affects text/ratio rules)
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a {PURPOSE} banner at exactly {DIMENSIONS} for {PLATFORM}. Core
+message (one phrase, large and legible): '{CORE_MESSAGE}'. Visual focal
+point: {FOCAL_POINT}. Brand colors: {BRAND_COLORS}. CTA: '{CTA_TEXT}' if
+applicable, as a clear button-style element. High contrast so the banner
+reads clearly against varied page backgrounds. Minimize text coverage to
+stay within typical ad-platform text ratio guidelines."
+
+OUTPUT STRUCTURE
+- Banner at exact specified dimensions
+- One dominant message, legible at a glance
+- Clear CTA element if applicable
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does this banner communicate its single message in the time a user's
+   peripheral vision would actually register it (under 1 second)?
+2. Will this banner remain legible against unpredictable surrounding
+   page content (busy website backgrounds, varied color contexts)?
+3. Does the CTA (if present) stand out as clearly clickable/actionable,
+   distinct from the rest of the banner?
+
+SELF-CORRECTION LAYER
+If the banner feels cluttered or the message unclear:
+- Cut any secondary message/text entirely, leaving only the single core
+  phrase
+- Increase contrast between text/CTA and background
+- Simplify the focal visual to one element rather than a busy scene
+
+REFLECTION LAYER
+"Squint at this banner or view it very small — does the one core message
+and CTA still stand out clearly?"
+
+FACT VERIFICATION
+If the banner makes a specific offer/claim (discount percentage,
+deadline, availability), verify it matches the actual current offer
+before publishing, since banners often run for extended periods and
+outdated claims create trust/legal issues.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Exact required dimensions used
+[ ] Single core message, minimal text
+[ ] High contrast against varied backgrounds
+[ ] CTA (if present) is visually distinct and actionable
+[ ] Brand colors/elements applied
+[ ] Legible at actual display size, not just zoomed-in preview
+
+OPTIMIZATION TIPS
+- Always design at 100% zoom/actual size at some point in review — ad
+  banners are frequently over-designed at large preview sizes and fail
+  at real display size.
+- Use a button-shaped, high-contrast element for the CTA rather than
+  plain text, even in static banners — it signals interactivity.
+- Test the banner against both light and dark page background mockups.
+
+COMMON MISTAKES
+- Designing at the wrong dimensions, requiring an awkward crop later
+- Overloading with multiple messages/offers in one small banner
+- Low contrast that disappears against typical website backgrounds
+- Exceeding platform text-ratio guidelines, risking ad rejection
+
+PROFESSIONAL TIPS
+- Maintain a master banner template per campaign with swappable
+  message/CTA zones, resized across all standard ad dimensions (300x250,
+  728x90, 320x50, 160x600) from one consistent design.
+- Prioritize the CTA button's contrast and size even above the headline
+  — for direct-response banners, click action matters more than brand
+  recall.
+- Rotate/test 2-3 message variants per dimension if the ad platform
+  supports it, rather than assuming the first version is optimal.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design an advertise banner at exactly 728x90 for a Google Display ad.
+Core message (one phrase, large and legible): 'Ship AI Agents Faster.'
+Visual focal point: a simple, bold geometric icon suggesting speed/
+deployment (not literal rocket clip-art). Brand colors: dark charcoal
+and electric green. CTA: 'Start Free' as a clear button-style element.
+High contrast so the banner reads clearly against varied page
+backgrounds. Minimize text coverage to stay within typical ad-platform
+text ratio guidelines.
+
+EXAMPLE OUTPUT
+[Image: A 728x90 horizontal banner, dark charcoal background, with a
+minimal green geometric speed-mark icon on the left, the headline "Ship
+AI Agents Faster." in bold white/green text centered, and a clearly
+button-shaped green "Start Free →" CTA on the right with sufficient
+padding to read as clickable. High contrast maintained throughout;
+total text kept concise to remain well within standard ad text-ratio
+limits.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: multi-size batch generation from one core concept (auto-adapting
+layout logic for 5+ standard ad dimensions), animated banner (HTML5)
+storyboard for multi-frame rotating messages, and a fallback: "If the
+core message doesn't fit legibly at the smallest required size (e.g.
+320x50), shorten to a 2-3 word version specifically for that dimension."
+
+EXPERT VERSION
+Layer in: full A/B test variant matrix (message x color x CTA
+combinations for programmatic testing), retargeting-sequence banner
+logic (how banner message should evolve across a user's exposure
+frequency, e.g. awareness → consideration → urgency), and viewability/
+attention-heatmap-informed layout notes.
+
+ENTERPRISE VERSION
+Add: brand-safety and platform-compliance checklist (per-platform text
+ratio, prohibited content, required disclaimers for regulated
+industries), multi-market localization requirements, and programmatic
+ad-server technical specifications (file size limits, animation frame
+caps, clickTAG implementation notes for HTML5 banners).
+
+UNIVERSAL VERSION (model-agnostic core)
+"A [PURPOSE] banner at [DIMENSIONS]: '[CORE_MESSAGE]', [FOCAL_POINT],
+[BRAND_COLORS], CTA '[CTA_TEXT]'. High contrast, minimal text."
+Works across Midjourney/DALL-E for the visual base; route to Ideogram
+or Canva specifically when reliable in-banner text/CTA rendering is
+required, since generic diffusion models frequently misspell or garble
+banner text.
+================================================================================

@@ -1,0 +1,207 @@
+================================================================================
+16 — ANIMATION
+================================================================================
+
+TITLE
+AI Animation Master Template
+
+PURPOSE
+Direct AI tools to produce animated sequences (character motion, motion
+graphics, explainer animation) with attention to timing, easing, and
+consistency principles that separate professional animation from
+robotic or uncanny motion.
+
+IDEAL AI MODELS
+Runway Gen-3, Kling, Veo (character/scene animation), After Effects +
+AI plugins (motion graphics), Midjourney (keyframe stills for animation)
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Character animation, motion graphics/explainer videos, logo animation,
+  UI micro-interaction animation, animated social content
+
+EXPECTED OUTPUT
+An animated sequence with natural-feeling timing/easing, consistent
+subject appearance across frames, and motion that serves communication
+(not motion for motion's sake).
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+ANIMATION TYPE (character / motion-graphics / logo / UI micro-interaction)
+  ↓
+SUBJECT + STARTING STATE
+  ↓
+MOTION DESCRIPTION (what moves, how, and why)
+  ↓
+TIMING/PACING (fast-snappy vs. slow-graceful)
+  ↓
+EASING (ease-in / ease-out / linear / bounce)
+  ↓
+STYLE (2D flat / 3D / hand-drawn / realistic)
+  ↓
+LOOP BEHAVIOR (one-shot / seamless loop)
+  ↓
+DURATION TARGET
+
+WHY EACH SECTION EXISTS
+- Easing: the single biggest tell of amateur vs. professional animation
+  is easing — linear (constant-speed) motion looks robotic and
+  artificial, while eased motion (accelerating/decelerating) looks
+  natural. This must be explicitly requested since default AI generation
+  often produces linear or inconsistent timing.
+- Motion Description tied to "why": animation should communicate
+  something (emphasis, transition, feedback) — motion without purpose
+  reads as noise, especially in UI/motion-graphics contexts.
+- Loop Behavior: for content meant to loop (social media, UI elements),
+  the first and last frame must match seamlessly — this must be planned,
+  not discovered as a problem after generation.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{ANIMATION_TYPE} — character / motion-graphics / logo / UI micro-interact
+{SUBJECT} — what's being animated
+{MOTION} — the specific movement/transformation
+{TIMING} — fast-snappy / moderate / slow-graceful
+{EASING} — ease-in-out / bounce / linear / elastic
+{STYLE} — visual style
+{LOOP} — one-shot or seamless loop
+{DURATION} — target length in seconds
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Animate {SUBJECT}: {MOTION}. Type: {ANIMATION_TYPE}. Timing: {TIMING}
+with {EASING} easing (avoid linear/constant-speed motion). Style:
+{STYLE}. {LOOP: seamless loop, first and last frame must match /
+one-shot, clear start and end}. Duration: ~{DURATION} seconds. Ensure
+subject appearance remains consistent throughout with no morphing."
+
+OUTPUT STRUCTURE
+- Animated sequence with natural easing and consistent subject identity
+- (If loop) confirmed seamless first/last frame match
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does the motion communicate something specific (drawing attention,
+   indicating state change, conveying personality), or is it decorative?
+2. Is the timing appropriate to the subject's implied weight/energy
+   (a heavy object shouldn't move with the same snap as a light one)?
+3. If this needs to loop, does the described motion logically return to
+   its starting state, or does it end somewhere that won't match a
+   restart?
+
+SELF-CORRECTION LAYER
+If the motion looks robotic or unnatural:
+- Explicitly add easing language ("accelerates into the motion, settles
+  with a slight overshoot before easing to rest") rather than a single
+  generic "smooth" descriptor
+- Check timing against the subject's implied physical weight/character
+- For loops, re-describe the end state to explicitly match the start
+  state
+
+REFLECTION LAYER
+"Does this motion feel like it has weight and intention, or does it
+feel like a generic default animation applied to any subject?"
+
+FACT VERIFICATION
+Not typically applicable; relevant only if animating factual/data
+content (e.g. an animated chart), where the underlying data accuracy
+must be verified.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Motion serves a clear communicative purpose
+[ ] Easing explicitly specified (not left to linear default)
+[ ] Timing matches implied weight/energy of the subject
+[ ] Subject appearance stays consistent (no morphing)
+[ ] Loop point matches seamlessly (if applicable)
+[ ] Style consistent with surrounding brand/content context
+
+OPTIMIZATION TIPS
+- Describe motion in terms of acceleration/deceleration explicitly
+  ("starts slow, speeds up through the middle, eases to a gentle stop")
+  rather than trusting the word "smooth" alone.
+- For character animation, reference the 12 principles of animation
+  (squash/stretch, anticipation, follow-through) by name where relevant
+  — models trained on animation data respond precisely to this
+  vocabulary.
+- Keep motion-graphics animations simple (1-2 moving elements) for
+  current AI tool coherence; complex multi-element choreography is still
+  unreliable.
+
+COMMON MISTAKES
+- Requesting "smooth animation" without specifying easing behavior
+- Ignoring implied physical weight (heavy objects moving with light,
+  snappy timing)
+- Overcomplicating multi-element motion beyond current model coherence
+- Forgetting to specify loop requirements, resulting in a mismatched
+  restart point
+
+PROFESSIONAL TIPS
+- Study the 12 principles of animation (Thomas & Johnston) even for
+  AI-directed work — the vocabulary transfers directly to more precise
+  prompting.
+- For UI micro-interactions specifically, keep duration short (150-400ms
+  equivalent feel) — even AI-generated concept animations should reflect
+  realistic interaction timing.
+- Always test loop points by watching the sequence repeat 3+ times
+  before finalizing — a mismatch that's invisible on one play often
+  becomes obvious on repeat.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Animate a simple app icon: the icon scales up slightly and a subtle
+glow pulses outward, then returns to rest, as a loading/processing
+indicator. Type: UI micro-interaction. Timing: moderate with ease-in-out
+easing (avoid linear/constant-speed motion), slight overshoot on the
+scale-up before settling. Style: flat, minimal, single accent color glow
+on a dark background. Seamless loop, first and last frame must match.
+Duration: ~1.5 seconds. Ensure subject appearance remains consistent
+throughout with no morphing.
+
+EXAMPLE OUTPUT
+[Animation: The icon scales from 100% to 108% with an ease-out curve and
+a subtle overshoot to 110% before settling back to 100%, while a soft
+cyan glow radiates outward and fades over the same timeframe. The motion
+decelerates naturally into the rest state, and the final frame is
+visually identical to the first frame, allowing the 1.5-second sequence
+to loop indefinitely without a visible seam or jump.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: multi-state animation sequencing (idle → active → success/error
+states, each with distinct motion character), squash-and-stretch
+specification for character work, and a fallback: "If overshoot/bounce
+easing produces an unwanted cartoonish feel for a professional/enterprise
+context, simplify to a single clean ease-out curve instead."
+
+EXPERT VERSION
+Layer in: full animation-principle annotation (anticipation, follow-
+through, secondary motion, arcs) applied explicitly to the described
+motion, frame-rate-specific timing breakdown (exact easing curve
+equivalent, e.g. cubic-bezier values for direct implementation), and
+sound-design timing alignment notes for audio-synced animation.
+
+ENTERPRISE VERSION
+Add: full motion-design-system documentation (standardized easing
+curves and durations across an entire product's animation language),
+accessibility considerations (respecting reduced-motion user
+preferences, providing a static-state fallback), and brand-consistency
+requirements across all animated touchpoints.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Animate [SUBJECT]: [MOTION], [TIMING] pacing with [EASING] easing,
+[STYLE] style, ~[DURATION]s, [LOOP behavior]."
+Works across Runway, Kling, and Veo for generative animation; for
+precise, production-grade UI/motion-graphics work, this reasoning
+translates directly into After Effects keyframe/easing-curve
+specifications or CSS/Framer Motion animation code.
+================================================================================

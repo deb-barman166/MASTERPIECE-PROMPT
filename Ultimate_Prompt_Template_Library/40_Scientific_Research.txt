@@ -1,0 +1,241 @@
+================================================================================
+40 — SCIENTIFIC RESEARCH
+================================================================================
+
+TITLE
+Scientific Research Assistant Master Template
+
+PURPOSE
+Use AI to support rigorous scientific reasoning — hypothesis formation,
+experimental design critique, statistical method selection, and
+literature synthesis — while maintaining strict standards for
+falsifiability, appropriate uncertainty quantification, and avoiding
+overstated causal claims from correlational data.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini (with web search for current literature)
+
+DIFFICULTY LEVEL
+Advanced → Expert
+
+WHEN TO USE
+- Hypothesis formulation, experimental design review, statistical
+  method selection, results interpretation, literature synthesis for a
+  research question, methods-section drafting
+
+EXPECTED OUTPUT
+Scientifically rigorous reasoning that distinguishes correlation from
+causation appropriately, quantifies uncertainty honestly, and identifies
+confounds/limitations rather than overstating findings.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+RESEARCH QUESTION → HYPOTHESIS (falsifiable, specific) → EXISTING
+LITERATURE CONTEXT → EXPERIMENTAL/ANALYTICAL DESIGN → VARIABLES
+(independent/dependent/confounding) → STATISTICAL APPROACH →
+LIMITATIONS/CONFOUNDS → CAUSAL LANGUAGE DISCIPLINE
+
+WHY EACH SECTION EXISTS
+- Falsifiable Hypothesis: a hypothesis that can't in principle be
+  disproven by any possible result isn't scientifically useful — this
+  section forces genuine falsifiability, a core requirement of valid
+  scientific reasoning.
+- Confounding Variables: the most common scientific reasoning error
+  (in both novice researchers and AI-generated analysis) is failing to
+  consider alternative explanations for an observed pattern — this
+  section makes confound identification a mandatory step, not an
+  afterthought.
+- Causal Language Discipline: correlational data does not establish
+  causation, and loose language ("X causes Y") when only correlation was
+  measured is a serious scientific communication error — this must be
+  explicitly enforced throughout, not just noted once.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{RESEARCH_QUESTION} {HYPOTHESIS} {STUDY_DESIGN} {VARIABLES}
+{DATA_TYPE} (experimental/observational/correlational)
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Research question: {RESEARCH_QUESTION}. Proposed hypothesis:
+{HYPOTHESIS} — confirm this is genuinely falsifiable (what result would
+disprove it?) or help me sharpen it if not. Study design: {STUDY_DESIGN}.
+Variables: {VARIABLES}. Data type: {DATA_TYPE}. Help me identify: (a)
+plausible confounding variables I should control for or acknowledge, (b)
+appropriate statistical method given the data type and design, (c) the
+correct causal language given the design — if this is observational/
+correlational, ensure conclusions don't overstate causal claims. Note
+any significant limitations of this design."
+
+OUTPUT STRUCTURE
+- Confirmed/sharpened falsifiable hypothesis
+- Identified confounds and how the design does/doesn't address them
+- Appropriate statistical method recommendation with rationale
+- Explicit causal-language guidance matched to the actual design
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is the hypothesis genuinely falsifiable — is there a specific,
+   describable result that would disprove it, or is it vague/
+   unfalsifiable as stated?
+2. Given the actual study design (experimental with random assignment
+   vs. observational/correlational), what causal language is actually
+   warranted, and where might the current framing overstate what the
+   design can support?
+3. What are the most plausible alternative explanations (confounds) for
+   an expected positive result, and does the design control for or at
+   least acknowledge them?
+
+SELF-CORRECTION LAYER
+If the hypothesis or reasoning has scientific rigor gaps:
+- Sharpen any vague hypothesis into a specific, falsifiable claim with
+  a stated disproof condition
+- Explicitly list 2-3 plausible confounds even if the design doesn't
+  fully address them, so they're at least acknowledged as limitations
+- Downgrade any causal claim to correlational language if the design is
+  observational, regardless of how the question was originally phrased
+
+REFLECTION LAYER
+"Would a skeptical peer reviewer find this hypothesis genuinely testable,
+the confounds adequately considered, and the causal claims appropriately
+matched to what this specific design can actually support?"
+
+FACT VERIFICATION
+For any claims about existing literature/prior findings, verify against
+actual current sources rather than relying on potentially outdated or
+imprecise recollection — misrepresenting prior literature is a serious
+scientific integrity issue.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Hypothesis is genuinely falsifiable with a stated disproof condition
+[ ] Plausible confounds explicitly identified
+[ ] Statistical method matches the actual data type and design
+[ ] Causal language matched appropriately to design (not overstated for
+    correlational/observational data)
+[ ] Limitations explicitly and honestly acknowledged
+[ ] Literature claims verified, not fabricated or misremembered
+
+OPTIMIZATION TIPS
+- State your study design type (experimental/observational/
+  correlational) explicitly and early — this single fact should govern
+  all subsequent causal-language decisions throughout the analysis.
+- Ask explicitly "what would change my mind about this hypothesis" as a
+  falsifiability check before finalizing a research question.
+- For statistical method selection, always state your data's actual
+  properties (sample size, distribution characteristics, independence
+  assumptions) rather than letting the AI assume ideal conditions.
+
+COMMON MISTAKES
+- Unfalsifiable or vaguely-stated hypotheses
+- Overstating causal claims from correlational/observational data
+- Failing to consider or acknowledge plausible confounding variables
+- Choosing a statistical method without verifying its assumptions match
+  the actual data
+- Treating AI-recalled "literature" as verified without independent
+  confirmation
+
+PROFESSIONAL TIPS
+- Always independently verify any specific study/citation an AI
+  references for prior literature — fabricated or misattributed
+  citations are a known failure mode and are unacceptable in scientific
+  work.
+- Pre-register your hypothesis and analysis plan (even informally,
+  before seeing results) to guard against post-hoc rationalization —
+  AI can help draft this pre-registration but the commitment should
+  happen before data analysis.
+- Treat AI's statistical method suggestions as a starting point for
+  your own verification (checking assumptions, consulting a statistics
+  reference or advisor for consequential analyses), not as authoritative
+  final guidance.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Research question: does time spent on AI coding assistants correlate
+with self-reported developer productivity? Proposed hypothesis:
+developers who use AI coding assistants more report higher productivity.
+Study design: survey of 500 developers, self-reported hours of AI tool
+use per week and self-reported productivity score. Variables:
+independent = hours of AI tool use, dependent = self-reported
+productivity score. Data type: observational/correlational (survey,
+no random assignment). Help me identify confounds, appropriate
+statistical method, and correct causal language.
+
+EXAMPLE OUTPUT
+[Analysis:
+
+FALSIFIABILITY CHECK: as stated, this hypothesis is falsifiable — a
+finding of no significant correlation, or a significant negative
+correlation, would disprove it. Good starting point.
+
+CONFOUNDS to identify/acknowledge: (1) reverse causation is highly
+plausible here — more productive/senior developers may simply have more
+autonomy to adopt new tools, meaning productivity could be driving tool
+adoption rather than the reverse; (2) experience level likely confounds
+both variables — more experienced developers may both use AI tools more
+effectively AND report higher productivity for reasons unrelated to the
+tools themselves; (3) self-report bias — productivity is self-assessed,
+not independently measured, which introduces potential correlation with
+general job satisfaction or self-perception rather than actual output.
+
+STATISTICAL METHOD: given continuous-ish variables (hours, productivity
+score) from a single cross-sectional survey, a correlation coefficient
+(Pearson's r if roughly linear/normal, Spearman's if ordinal/non-normal)
+is appropriate as a starting descriptive statistic; a multiple
+regression controlling for experience level and role would better
+isolate the AI-tool-use relationship from the experience confound
+specifically identified above.
+
+CAUSAL LANGUAGE: because this is observational/correlational with no
+random assignment, conclusions must be stated as correlational only
+— "developers who reported more AI tool use also reported higher
+productivity" — NOT "AI tool use increases productivity" or "AI tools
+cause higher productivity," regardless of how strong any observed
+correlation is. This distinction should be maintained explicitly in any
+write-up, abstract, and conclusion, not just buried in a limitations
+section.
+
+LIMITATIONS to state explicitly: self-report bias for both variables;
+inability to rule out reverse causation or the experience confound even
+with regression controls (regression reduces but doesn't eliminate
+confounding); cross-sectional design cannot establish temporal
+precedence needed for any causal inference.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add power-analysis guidance (whether the stated sample size is
+adequate to detect a meaningful effect size for the proposed statistical
+test), pre-registration document drafting (hypothesis + analysis plan
+committed before data collection/analysis), and a fallback: "If a
+proposed analysis would require an assumption the data likely violates
+(e.g. normality for a small skewed sample), recommend the appropriate
+non-parametric alternative explicitly."
+
+EXPERT VERSION
+Layer in full research-design alternative comparison (how a
+quasi-experimental or longitudinal design could better address the
+identified reverse-causation confound than the current cross-sectional
+survey), effect-size interpretation guidance (not just statistical
+significance but practical/meaningful magnitude), and formal threats-
+to-validity analysis (internal, external, construct, statistical
+conclusion validity) for the proposed design.
+
+ENTERPRISE VERSION
+(Research institution/lab use) Add IRB/ethics-review-readiness
+documentation support, formal pre-registration platform-compatible
+output (OSF-style structure), and multi-study replication-planning
+guidance for building a stronger evidence base beyond a single study.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Research question: [RESEARCH_QUESTION]. Hypothesis: [HYPOTHESIS] —
+check falsifiability. Design: [STUDY_DESIGN], data type: [DATA_TYPE].
+Identify confounds, recommend statistical method, and ensure causal
+language matches what this design can actually support."
+================================================================================

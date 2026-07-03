@@ -1,0 +1,189 @@
+================================================================================
+02 — IMAGE EDITING
+================================================================================
+
+TITLE
+AI Image Editing & Inpainting Master Template
+
+PURPOSE
+Precisely direct AI image editors (inpainting, outpainting, style transfer,
+object removal/addition) to modify existing images without unintended
+side-effects to untouched regions.
+
+IDEAL AI MODELS
+Adobe Firefly (Generative Fill/Expand), Midjourney (vary region/pan),
+Stable Diffusion Inpainting, Ideogram Remix, Photoshop Generative AI,
+Runway Frames
+
+DIFFICULTY LEVEL
+Beginner → Expert
+
+WHEN TO USE
+- Object removal/replacement, background swap, outpainting (canvas
+  extension), style transfer onto existing photo, retouching, restoration
+
+EXPECTED OUTPUT
+Edited image where only the targeted region changes; untouched areas
+remain pixel-consistent with the original.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+SOURCE IMAGE CONTEXT
+  ↓
+EDIT REGION (mask description / bounding description)
+  ↓
+EDIT TYPE (remove / replace / add / extend / restyle)
+  ↓
+TARGET CONTENT (what should appear in the edited region)
+  ↓
+BLEND REQUIREMENTS (lighting/perspective/color matching)
+  ↓
+PRESERVE INSTRUCTIONS (explicitly protect untouched areas)
+  ↓
+STYLE CONSISTENCY (match existing image's art style/photo style)
+  ↓
+OUTPUT FORMAT (resolution, format)
+
+WHY EACH SECTION EXISTS
+- Edit Region: inpainting models need explicit spatial description when
+  mask tools aren't available (verbal masking).
+- Blend Requirements: the #1 failure mode in AI editing is a seam where
+  lighting/perspective doesn't match — this section forces the model to
+  account for it.
+- Preserve Instructions: without this, generative-fill models sometimes
+  "helpfully" alter adjacent areas.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{IMAGE_DESCRIPTION} — brief description of the source image
+{EDIT_REGION} — where in the frame (e.g. "background behind the subject",
+  "top-left quadrant", "the object in the subject's right hand")
+{EDIT_TYPE} — remove / replace / add / extend / restyle
+{TARGET_CONTENT} — what should be there after editing
+{LIGHTING_MATCH} — instruction to match existing light direction/color temp
+{PERSPECTIVE_MATCH} — instruction to match existing camera angle/depth
+{PRESERVE_ZONES} — areas that must remain unchanged
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"In this image of {IMAGE_DESCRIPTION}, {EDIT_TYPE} the {EDIT_REGION} with
+{TARGET_CONTENT}. Match the existing {LIGHTING_MATCH} and {PERSPECTIVE_MATCH}.
+Keep {PRESERVE_ZONES} completely unchanged. Output at original resolution."
+
+OUTPUT STRUCTURE
+- Edited image with seamless blend at edit boundary
+- Optional: side-by-side before/after for review
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Identify the exact boundary of the edit region — ambiguous boundaries
+   cause the model to over- or under-edit.
+2. Determine what visual cues (shadow direction, color cast, grain/noise
+   level) must carry into the new content for a seamless result.
+3. Consider whether the edit changes the physical logic of the scene
+   (e.g. removing a person who is casting a shadow on another object
+   requires also removing that shadow).
+
+SELF-CORRECTION LAYER
+If a seam or artifact appears:
+- Re-describe the boundary with tighter spatial language
+- Add explicit shadow/reflection continuity instructions
+- If a full re-generation of the region fails repeatedly, fall back to
+  editing in smaller sub-regions sequentially
+
+REFLECTION LAYER
+"Would a viewer who didn't see the original notice this was edited?"
+If yes, identify the specific tell (lighting mismatch, resolution
+mismatch, inconsistent noise/grain) and correct it.
+
+FACT VERIFICATION
+For edits involving real-world objects (brand logos, specific architecture,
+recognizable people), verify the requested replacement content doesn't
+introduce factual/legal issues (e.g. inserting a trademarked logo).
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Edit region boundary is spatially unambiguous
+[ ] Lighting direction/color temperature instruction included
+[ ] Perspective/depth matching instruction included
+[ ] Preserve zones explicitly stated
+[ ] Shadow/reflection continuity considered
+[ ] Output resolution matches source
+
+OPTIMIZATION TIPS
+- Describe the edit region by relationship to fixed landmarks in the image
+  ("the wall directly behind the subject's head") rather than raw
+  coordinates, which most consumer tools don't support anyway.
+- For object removal, explicitly request "reconstruct the background as
+  if the object was never there" to avoid ghosting artifacts.
+- For outpainting, describe what logically continues beyond the frame
+  edge based on visible perspective lines.
+
+COMMON MISTAKES
+- Vague region descriptions ("fix the background") that cause the model
+  to guess the wrong area
+- Forgetting to request shadow removal when removing an object
+- Requesting style changes without specifying which style elements
+  (color, brushwork, contrast) to change
+- Not matching grain/noise level, causing an obvious "pasted" look
+
+PROFESSIONAL TIPS
+- Batch similar edits (e.g. background replacement for a product line)
+  using a locked prompt template with only {TARGET_CONTENT} swapped.
+- For client deliverables, always generate a before/after comparison to
+  demonstrate the edit's precision.
+- When extending canvas (outpainting), work in small increments (25-30%
+  of original size per pass) for better perspective consistency than one
+  large extension.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+In this image of a woman sitting at a wooden cafe table holding a coffee
+cup, replace the cluttered street background with a soft-focus indoor
+bookshelf background. Match the existing warm afternoon lighting and
+shallow depth of field. Keep the woman, the table, and the coffee cup
+completely unchanged. Output at original resolution.
+
+EXAMPLE OUTPUT
+[Image: Identical subject, table, and cup as the original, now set against
+a warmly lit, softly blurred bookshelf backdrop. The bokeh quality and
+color temperature of the new background match the original lighting
+exactly, with no visible seam at the subject's silhouette edge.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: multi-region sequential editing plan (order of operations when
+multiple edits interact), explicit color-grading transfer instructions
+(sample the original's tone curve and apply to new content), and a
+fallback protocol: "If a single-pass edit produces a visible seam, retry
+with a 20px feathered boundary description and reduced edit-strength."
+
+EXPERT VERSION
+Layer in: depth-map-aware editing instructions (maintain depth-of-field
+falloff consistent with a described focal plane), multi-layer edit
+sequencing (base structure pass → lighting pass → detail pass), and
+reference-image-conditioned editing (describe a second reference image's
+style to transfer onto the edit region specifically, not the whole image).
+
+ENTERPRISE VERSION
+Add: batch-processing specification for editing hundreds of product
+images with a consistent background/lighting template, brand-compliance
+color-matching to exact hex values, automated QA checklist for seam
+detection, and version-control notation for tracking edit iterations
+across a production pipeline.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Edit [EDIT_REGION] of this image: [EDIT_TYPE] with [TARGET_CONTENT].
+Match existing lighting and perspective. Keep everything else unchanged."
+Works across Firefly, SD Inpainting, and Photoshop AI with the caveat that
+mask-based tools (Photoshop, SD) benefit from a manual selection first,
+while prompt-only tools (some Midjourney/Ideogram flows) rely entirely on
+the verbal region description's precision.
+================================================================================

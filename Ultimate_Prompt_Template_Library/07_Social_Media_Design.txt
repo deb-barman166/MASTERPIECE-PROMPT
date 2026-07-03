@@ -1,0 +1,191 @@
+================================================================================
+07 — SOCIAL MEDIA DESIGN
+================================================================================
+
+TITLE
+Social Media Visual Post Master Template
+
+PURPOSE
+Generate scroll-stopping, platform-optimized social media graphics that
+maintain brand consistency while adapting to each platform's format
+constraints and audience behavior.
+
+IDEAL AI MODELS
+Midjourney v6+, Canva Magic Design, Ideogram v2, DALL-E 3, Adobe Firefly
+
+DIFFICULTY LEVEL
+Beginner → Intermediate
+
+WHEN TO USE
+- Instagram feed/carousel posts, LinkedIn graphics, Twitter/X cards,
+  Pinterest pins, Facebook ads, TikTok cover images
+
+EXPECTED OUTPUT
+Platform-correctly-sized graphic with clear visual hierarchy, brand
+consistency, and a single primary message legible while scrolling.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+PLATFORM + FORMAT (feed post / story / carousel / pin)
+  ↓
+CORE MESSAGE (single takeaway)
+  ↓
+VISUAL HOOK (what stops the scroll)
+  ↓
+BRAND ELEMENTS (color, font, logo placement)
+  ↓
+LAYOUT STRUCTURE (headline zone, image zone, CTA zone)
+  ↓
+DIMENSION SPEC (exact platform pixel dimensions)
+  ↓
+TEXT HIERARCHY (headline / subtext / CTA sizing)
+  ↓
+MOBILE LEGIBILITY CHECK
+
+WHY EACH SECTION EXISTS
+- Platform + Format: each platform has different aspect ratios and user
+  behavior (Stories are vertical/full-screen attention, feed posts are
+  square/scanned quickly) — generic "social media graphic" ignores this.
+- Core Message singularity: posts trying to communicate 3+ ideas at once
+  fail; the format forces reduction to one clear takeaway per asset.
+- Mobile Legibility: 80%+ of social consumption is mobile; anything not
+  legible on a 6-inch screen at scroll speed fails regardless of
+  aesthetic quality.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{PLATFORM} — Instagram / LinkedIn / X / Pinterest / TikTok
+{FORMAT} — feed post / story / carousel slide / pin / cover
+{CORE_MESSAGE} — the single takeaway
+{VISUAL_HOOK} — image/graphic element that grabs attention
+{BRAND_COLORS} — primary + accent hex values
+{BRAND_FONT} — typeface direction
+{CTA_TEXT} — call to action (if any)
+{DIMENSIONS} — exact pixel spec for the platform/format
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a {PLATFORM} {FORMAT} at {DIMENSIONS}. Core message:
+{CORE_MESSAGE}. Visual hook: {VISUAL_HOOK}. Brand colors: {BRAND_COLORS},
+font style: {BRAND_FONT}. Layout: clear headline zone, supporting visual,
+CTA zone with '{CTA_TEXT}'. Ensure text is legible at mobile thumbnail
+scroll size, high contrast, no more than one primary message."
+
+OUTPUT STRUCTURE
+- Correctly dimensioned graphic
+- Clear visual hierarchy: hook → message → CTA
+- Brand-consistent color/type treatment
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does this stop a scroll within the first half-second, or does it
+   blend into typical feed content?
+2. Is the core message reducible to one sentence — if not, split into a
+   carousel rather than cramming one static post?
+3. Does the dimension/format match actual platform specs (not outdated
+   or generic square defaults)?
+
+SELF-CORRECTION LAYER
+If the design feels cluttered or unclear:
+- Cut text hierarchy to 2 levels max (headline + optional small CTA)
+- Increase contrast between text and background
+- Simplify visual hook to one dominant element instead of several
+  competing graphics
+
+REFLECTION LAYER
+"Would someone scrolling at normal speed register this post's message,
+or would they need to stop and study it?"
+
+FACT VERIFICATION
+If the post makes a factual/statistical claim, verify accuracy before
+publishing, since social graphics circulate widely and errors are hard
+to retract.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Correct platform dimensions used
+[ ] Single core message, not multiple competing ideas
+[ ] High contrast, legible at mobile scroll speed
+[ ] Brand colors/fonts applied consistently
+[ ] Visual hook is the dominant first-glance element
+[ ] CTA (if present) is clear and singular
+
+OPTIMIZATION TIPS
+- Design for the platform's native crop first (don't repurpose one
+  square asset across all platforms without adjustment).
+- Use negative space deliberately — cluttered posts underperform
+  cleaner ones even with less "content."
+- For carousels, ensure each slide works both standalone and as part of
+  the sequence (viewers may see any slide first via algorithm).
+
+COMMON MISTAKES
+- Using desktop-preview thinking instead of mobile-scroll thinking
+- Cramming a full paragraph of text onto one graphic
+- Inconsistent brand application across a content calendar
+- Ignoring platform-specific safe zones (e.g. Stories UI elements
+  covering bottom 15% of the frame)
+
+PROFESSIONAL TIPS
+- Build a reusable template system (locked brand elements, swappable
+  content zones) rather than designing every post from scratch.
+- Batch-produce a week/month of content in one session for visual
+  consistency across the feed grid.
+- Track which visual hooks/formats perform best and iterate the
+  template based on actual engagement data, not assumption.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design an Instagram feed post at 1080x1080px. Core message: "3 Python
+libraries every beginner should learn first." Visual hook: clean code
+editor snippet styling with library logos. Brand colors: dark navy
+#0D1B2A and bright cyan #00E5FF, font style: modern geometric sans-serif.
+Layout: clear headline zone at top, three library icons/names in the
+middle, small CTA at bottom with 'Save this for later'. Ensure text is
+legible at mobile thumbnail scroll size, high contrast, no more than one
+primary message.
+
+EXAMPLE OUTPUT
+[Image: A 1080x1080 square graphic with a dark navy background. Bold
+cyan headline "3 Python Libraries Every Beginner Should Learn" sits at
+top. Center shows three clean icon+label pairs (NumPy, Pandas, Requests)
+in a card-style layout. Bottom shows small cyan text "Save this for
+later" with a bookmark icon. High contrast throughout, legible at
+thumbnail size.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: multi-slide carousel sequencing logic (hook slide → value slides →
+CTA slide, each with consistent template but distinct content), platform-
+specific safe-zone maps for UI overlay avoidance, and a fallback: "If
+text-to-image rendering produces garbled text, generate the background/
+graphic layer only and add text in a separate design pass."
+
+EXPERT VERSION
+Layer in: engagement-psychology annotations (why this specific hook
+format statistically drives saves/shares in this content category),
+A/B variant generation (2-3 distinct visual approaches to the same core
+message for testing), and algorithmic-format awareness (e.g. designing
+for how Instagram's carousel vs. single-post reach differs).
+
+ENTERPRISE VERSION
+Add: full brand-system template library (locked master templates per
+content type: quote posts, data posts, announcement posts), multi-
+platform batch export specification (auto-resizing one core design
+across 6+ platform dimensions), and content-calendar integration notes
+for coordinated campaign rollout.
+
+UNIVERSAL VERSION (model-agnostic core)
+"A [PLATFORM] [FORMAT] graphic at [DIMENSIONS]: headline '[CORE_MESSAGE]',
+[BRAND_COLORS] color scheme, [VISUAL_HOOK], clear mobile-legible text
+hierarchy."
+Works across Midjourney, DALL-E, and Canva AI; for reliable text
+rendering specifically, route to Ideogram or finish text in a dedicated
+design tool post-generation.
+================================================================================

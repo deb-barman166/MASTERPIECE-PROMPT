@@ -1,0 +1,269 @@
+================================================================================
+37 — PROMPT CHAINING
+================================================================================
+
+TITLE
+Prompt Chaining & Multi-Step LLM Workflow Master Template
+
+PURPOSE
+Design multi-step prompt chains (sequential or branching LLM calls) that
+decompose complex tasks into reliable, individually-verifiable steps —
+rather than one massive prompt trying to do everything at once, which
+degrades quality and makes failures impossible to isolate.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini (as individual chain steps); LangGraph, custom
+orchestration for chain execution
+
+DIFFICULTY LEVEL
+Advanced
+
+WHEN TO USE
+- Complex multi-stage tasks (research → draft → critique → revise),
+  tasks requiring different reasoning modes per stage, tasks where
+  intermediate verification improves final quality, RAG pipeline design
+
+EXPECTED OUTPUT
+A chain of prompts, each with a clear single responsibility, explicit
+input/output contracts between steps, and verification points to catch
+errors before they propagate downstream.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+OVERALL TASK GOAL
+  ↓
+DECOMPOSITION (break into distinct, single-purpose steps)
+  ↓
+PER-STEP: INPUT CONTRACT (what this step receives)
+  ↓
+PER-STEP: PROCESSING (what this step does — one clear job)
+  ↓
+PER-STEP: OUTPUT CONTRACT (exact format passed to next step)
+  ↓
+VERIFICATION POINTS (where to check intermediate output before
+  proceeding)
+  ↓
+BRANCHING LOGIC (if output determines which path comes next)
+  ↓
+ERROR PROPAGATION HANDLING (what happens if a step's output is invalid)
+  ↓
+FINAL SYNTHESIS (how the last step combines everything)
+
+WHY EACH SECTION EXISTS
+- Decomposition into single-purpose steps: LLMs perform each individual
+  reasoning task better when not simultaneously juggling multiple
+  distinct jobs (research AND writing AND fact-checking all in one
+  prompt) — chaining lets each step specialize, improving overall
+  quality even though it costs more calls/latency.
+- Output Contract (exact format): the most common chain failure is a
+  format mismatch between what one step outputs and what the next step
+  expects — this must be an explicit, strict specification (e.g. exact
+  JSON schema), not a loose natural-language description.
+- Verification Points: chains without intermediate verification let
+  early errors silently compound through every subsequent step,
+  producing a confidently-wrong final result — checking (automated or
+  human) at key points catches this before it propagates.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{OVERALL_GOAL} — the complete task the chain accomplishes
+{STEPS} — the decomposed list of individual steps
+{OUTPUT_SCHEMA_PER_STEP} — exact format each step must output
+{VERIFICATION_METHOD} — automated check / human review / self-critique
+{BRANCH_CONDITIONS} — if the chain has conditional paths
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a prompt chain for: {OVERALL_GOAL}. Decompose into these steps:
+{STEPS}, each with a single clear responsibility. For each step, define:
+(a) exact input it receives, (b) exact output format it must produce
+— {OUTPUT_SCHEMA_PER_STEP} — strictly specified, not loosely described,
+so the next step can reliably parse it, (c) what to verify before
+passing output forward: {VERIFICATION_METHOD}. Branching logic (if any):
+{BRANCH_CONDITIONS}. If any step's output fails verification, define
+explicit handling: retry that step, escalate to human, or halt the
+chain — never silently pass invalid output forward."
+
+OUTPUT STRUCTURE
+- Numbered chain of steps, each with input/output contract
+- Verification checkpoint definitions
+- Error/branch handling logic
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does each step genuinely have ONE clear responsibility, or does any
+   step secretly bundle multiple distinct reasoning tasks that would
+   benefit from further decomposition?
+2. Is every inter-step output contract strict and unambiguous enough
+   that the receiving step can reliably parse/use it (e.g. a defined
+   JSON schema, not "return some useful information")?
+3. Are verification points placed at the steps most likely to introduce
+   errors that would compound expensively downstream (e.g. after a
+   research/retrieval step, before an expensive synthesis step)?
+
+SELF-CORRECTION LAYER
+If a chain feels unreliable or hard to debug:
+- Further decompose any step doing more than one distinct job
+- Tighten any loosely-specified output contract into an explicit schema
+- Add a verification/self-critique step immediately after any step
+  whose failure would be expensive to discover late in the chain
+
+REFLECTION LAYER
+"If step 2 of this chain produced a subtly wrong output, would step 3
+catch it, or would the error silently propagate all the way to the
+final result?"
+
+FACT VERIFICATION
+For chains involving retrieval/research steps, verify that retrieved
+information is fact-checked at that step specifically — errors in
+retrieval are especially costly since every downstream step will treat
+that (possibly wrong) information as ground truth.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Every step has one genuinely singular responsibility
+[ ] Every inter-step contract is a strict, explicit format (schema)
+[ ] Verification points placed before expensive/hard-to-reverse steps
+[ ] Explicit handling for invalid intermediate output (no silent
+    pass-through)
+[ ] Branching logic (if any) has clearly defined conditions
+[ ] Final synthesis step correctly combines all prior outputs
+
+OPTIMIZATION TIPS
+- Use structured output formats (JSON with a defined schema) for
+  inter-step communication rather than free-form text, even when the
+  chain is entirely LLM-to-LLM — this dramatically reduces parsing
+  failures.
+- Add a lightweight self-critique step after any high-stakes generation
+  step ("review the above output against these criteria before
+  finalizing") — this catches a meaningful fraction of errors cheaply.
+- Cache/log every intermediate step's output during development, not
+  just the final result, to debug exactly where a chain produced a bad
+  result.
+
+COMMON MISTAKES
+- Steps that bundle multiple distinct responsibilities, reducing quality
+  on all of them
+- Loosely-specified output contracts causing downstream parsing failures
+- No verification points, letting early errors compound silently
+- Treating the entire chain as a black box during debugging instead of
+  inspecting intermediate outputs
+- Over-chaining simple tasks that a single well-crafted prompt could
+  handle just as well at lower latency/cost
+
+PROFESSIONAL TIPS
+- Not every task benefits from chaining — reserve it for tasks with
+  genuinely distinct reasoning phases or where intermediate verification
+  meaningfully improves reliability; a single strong prompt is often
+  better for simpler tasks.
+- Version and test each chain step somewhat independently (with
+  representative sample inputs) before wiring the full chain together,
+  so failures are easier to isolate to a specific step.
+- Build a standard "step output validator" pattern (schema validation
+  before allowing progression) that you reuse across different chains
+  rather than reinventing verification logic each time.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design a prompt chain for: turning a raw customer support ticket into a
+categorized, prioritized, and drafted response for human review.
+Decompose into steps: (1) extract key facts from the raw ticket, (2)
+categorize the issue type and severity, (3) retrieve relevant policy/
+knowledge-base context, (4) draft a response, (5) self-critique the
+draft against tone/accuracy/completeness. For each step, define exact
+input/output. Verification: automated schema check between steps 1-4,
+self-critique as the verification for step 5. Branching: if step 2
+categorizes severity as "urgent," skip to an expedited path that flags
+for immediate human review rather than continuing to steps 3-5
+automatically.
+
+EXAMPLE OUTPUT
+[Chain design:
+
+STEP 1 — Extract Facts
+Input: raw ticket text
+Output (strict JSON): { "customer_issue": string, "product_area":
+string, "mentioned_error_codes": string[], "customer_sentiment":
+"neutral"|"frustrated"|"angry" }
+Verification: schema validation — all fields present and correctly
+typed before proceeding
+
+STEP 2 — Categorize & Prioritize
+Input: Step 1's JSON output
+Output (strict JSON): { "category": string, "severity":
+"low"|"medium"|"high"|"urgent" }
+Verification: schema validation; severity must be one of the 4 allowed
+values
+
+BRANCH: if severity == "urgent" → skip to EXPEDITED PATH (flag for
+immediate human review, do not auto-draft a response) → chain ends here
+for this path
+else → continue to Step 3
+
+STEP 3 — Retrieve Context
+Input: Step 1 + Step 2 combined JSON
+Output (strict JSON): { "relevant_policy_snippets": string[],
+"confidence": "high"|"low" }
+Verification: if confidence == "low", flag for human context review
+rather than proceeding to auto-draft with potentially insufficient
+grounding
+
+STEP 4 — Draft Response
+Input: all prior step outputs
+Output: plain text draft response
+Verification: passed to Step 5, not independently schema-checked (free-
+text output)
+
+STEP 5 — Self-Critique
+Input: Step 4's draft + original ticket
+Output (strict JSON): { "tone_appropriate": bool, "factually_grounded":
+bool, "issue_fully_addressed": bool, "revised_draft": string|null }
+If any boolean is false, `revised_draft` must contain a corrected
+version; otherwise the Step 4 draft passes through unchanged.
+
+FINAL OUTPUT: category, severity, and either the Step 4 draft or Step
+5's revised_draft, presented to a human agent for final review before
+sending — the chain never sends automatically, it prepares for human
+approval.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add parallel-branch execution (steps 1 and a separate sentiment-deep-
+dive step running concurrently rather than sequentially, where
+independent), retry-with-modified-prompt logic for any step that fails
+schema validation twice, and a fallback: "If Step 3's retrieval
+confidence is consistently low for a given category, treat this as a
+signal the knowledge base has a real gap, not just a per-ticket
+retrieval failure."
+
+EXPERT VERSION
+Layer in full chain-of-thought preservation across steps (passing not
+just final outputs but key reasoning traces to later steps where it
+improves quality), cost/latency budget annotations per step (which
+steps justify a stronger/more expensive model vs. a faster/cheaper one),
+and formal chain-level evaluation methodology (how to measure the full
+chain's end-to-end accuracy against a labeled test set).
+
+ENTERPRISE VERSION
+Add full audit-trail logging (every intermediate step's input/output
+retained for compliance/debugging), human-in-the-loop approval gate
+specification for any customer-facing output, and A/B testing framework
+for comparing chain variants (different decomposition/step-count
+strategies) against real outcome metrics.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Design a prompt chain for [OVERALL_GOAL]. Steps: [STEPS], each single-
+purpose with strict input/output schemas. Verify: [VERIFICATION_METHOD]
+before proceeding. Branch on: [BRANCH_CONDITIONS]."
+Works identically regardless of orchestration layer (LangGraph, custom
+Python orchestration, or manual sequential API calls) — the framework
+changes execution mechanics, not the underlying decomposition/contract/
+verification design principles.
+================================================================================

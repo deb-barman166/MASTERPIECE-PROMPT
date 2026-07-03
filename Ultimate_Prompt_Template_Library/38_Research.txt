@@ -1,0 +1,244 @@
+================================================================================
+38 — RESEARCH
+================================================================================
+
+TITLE
+AI-Assisted Research Master Template
+
+PURPOSE
+Conduct thorough, well-sourced research using AI assistants — properly
+scoping the research question, triangulating across sources, and
+clearly distinguishing verified facts from AI-generated inference or
+synthesis.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini, Perplexity (all with web search enabled)
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- Market/competitive research, technical research (evaluating tools/
+  libraries/approaches), literature review, fact-finding for decision-
+  making, due diligence
+
+EXPECTED OUTPUT
+A research summary with clearly sourced claims, explicit notation of
+confidence/consensus level per claim, and a clear separation between
+"what sources say" and "AI's synthesis/interpretation" of those sources.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+RESEARCH QUESTION (specific, answerable)
+  ↓
+SCOPE (what's in/out of bounds)
+  ↓
+SOURCE REQUIREMENTS (primary sources preferred, recency requirements)
+  ↓
+SEARCH STRATEGY (what to search for, from what angles)
+  ↓
+TRIANGULATION (cross-checking claims across multiple independent
+  sources)
+  ↓
+SYNTHESIS (what the sources collectively suggest)
+  ↓
+CONFIDENCE/CONSENSUS NOTATION (per claim: strong consensus / disputed /
+  single-source)
+  ↓
+GAPS (what remains unknown/unanswered)
+
+WHY EACH SECTION EXISTS
+- Specific Research Question: broad, vague research prompts ("tell me
+  about X") produce shallow, unfocused output — a specific, answerable
+  question forces genuinely useful depth.
+- Triangulation: any single source can be wrong, outdated, or biased —
+  cross-checking key claims across multiple independent sources is what
+  separates real research from repeating the first search result.
+- Confidence/Consensus Notation: not all claims found during research
+  carry equal certainty — explicitly flagging strong-consensus facts vs.
+  disputed/single-source claims prevents presenting uncertain
+  information with false confidence.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{RESEARCH_QUESTION} {SCOPE} {SOURCE_REQUIREMENTS} {RECENCY_NEEDS}
+{KEY_CLAIMS_TO_VERIFY}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Research: {RESEARCH_QUESTION}. Scope: {SCOPE} (explicitly note what's
+out of scope). Prioritize {SOURCE_REQUIREMENTS} — primary sources over
+aggregators, sources from {RECENCY_NEEDS}. For key claims
+({KEY_CLAIMS_TO_VERIFY} or all major claims if unspecified), triangulate
+across at least 2 independent sources where possible. For each finding,
+note confidence level: strong consensus across sources / mixed or
+disputed / single-source only (flag as such). Clearly separate direct
+source findings from your own synthesis/interpretation. Note any
+significant gaps where the research question couldn't be fully
+answered."
+
+OUTPUT STRUCTURE
+- Research findings organized by sub-question/theme
+- Each claim tagged with sourcing and confidence level
+- Explicit synthesis section separated from raw findings
+- Gaps/limitations noted
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is the research question specific enough to search effectively, or
+   does it need to be broken into more targeted sub-questions first?
+2. For each significant claim, has it been checked against more than
+   one independent source, or is it resting on a single source that
+   could be wrong/outdated/biased?
+3. Is there a clear, honest boundary between "sources report X" and
+   "based on these sources, I infer Y" — is the synthesis clearly
+   distinguished from the raw findings?
+
+SELF-CORRECTION LAYER
+If research feels thin or unreliable:
+- Break an overly broad question into 3-5 specific sub-questions and
+  research each individually
+- Actively search for a disconfirming or alternative source on any
+  claim that currently rests on just one source
+- Re-read the draft output and flag any place where synthesis/inference
+  is stated with the same confidence as a directly-sourced fact
+
+REFLECTION LAYER
+"If someone fact-checked every claim in this research against the
+original sources, would they find the confidence level I assigned each
+claim was accurate?"
+
+FACT VERIFICATION
+This entire template is fundamentally about fact verification — every
+significant claim must be traceable to a specific, checkable source;
+claims that can't be verified should be explicitly flagged as such
+rather than presented as established fact.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Research question specific and well-scoped
+[ ] Key claims triangulated across 2+ independent sources where possible
+[ ] Confidence/consensus level explicitly noted per major claim
+[ ] Clear separation between sourced findings and AI synthesis
+[ ] Primary sources prioritized over aggregators/secondary summaries
+[ ] Gaps and limitations explicitly acknowledged
+
+OPTIMIZATION TIPS
+- Break broad research questions into specific sub-questions before
+  searching — "what's the best database for my use case" searches
+  poorly; "Postgres vs. MongoDB write throughput for time-series data at
+  10M rows/day" searches well.
+- Actively search for contrarian/alternative viewpoints on any claim
+  that seems to have suspiciously unanimous support — genuine consensus
+  and unchecked repetition of one original source can look similar.
+- Note publication dates explicitly for any time-sensitive research
+  (technology comparisons, market data) since recency significantly
+  affects reliability.
+
+COMMON MISTAKES
+- Overly broad research questions producing shallow, unfocused results
+- Treating a single source as established fact without cross-checking
+- Blending synthesis/inference with sourced fact without distinction
+- Ignoring publication recency for fast-changing topics
+- Presenting disputed/contested claims with unwarranted confidence
+
+PROFESSIONAL TIPS
+- For consequential decisions (technical architecture choices, business
+  decisions), always personally spot-check at least the 2-3 most
+  important claims against the original source rather than trusting
+  the AI's summary entirely.
+- Keep research findings organized with clear source attribution from
+  the start — retrofitting citations after the fact is far more
+  error-prone than capturing them during research.
+- Distinguish between "no source found" and "sources disagree" in your
+  notes — these require different follow-up actions.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Research: what are the current best practices for evaluating RAG
+(retrieval-augmented generation) system quality — specifically, what
+metrics/methods do practitioners actually use in production, not just
+academic benchmarks. Scope: focus on 2025-2026 industry practice, not
+purely academic papers; out of scope: general LLM evaluation unrelated
+to retrieval specifically. Prioritize primary sources (engineering
+blogs from companies running RAG in production, official framework
+documentation) over aggregator content. For key claims, triangulate
+across at least 2 independent sources where possible. Note confidence
+level per finding. Note gaps.
+
+EXAMPLE OUTPUT
+[Research summary structure:
+
+SUB-QUESTION 1: What retrieval-specific metrics are commonly used?
+Finding: retrieval precision/recall@k and MRR (mean reciprocal rank)
+appear consistently across multiple independent engineering blog
+sources as baseline retrieval-quality metrics. [Confidence: strong
+consensus — corroborated across 3+ independent primary sources]
+
+SUB-QUESTION 2: How do practitioners evaluate end-to-end (not just
+retrieval) quality?
+Finding: LLM-as-judge approaches (using a strong model to score
+generated answers against retrieved context for faithfulness/
+relevance) are widely reported as the current practical standard,
+though sources differ on which specific judge-prompt methodology
+performs best. [Confidence: consensus on the general approach; disputed
+on specific implementation details — flagged as such]
+
+SUB-QUESTION 3: What's the role of human evaluation?
+Finding: most production teams reportedly use human eval as a periodic
+calibration check against automated metrics, not as the primary ongoing
+evaluation method, due to cost/speed constraints. [Confidence: single
+clearly-stated source found for this specific claim; treat as
+directionally likely but not fully triangulated]
+
+SYNTHESIS (clearly separated from findings above): Based on this
+research, a practical RAG evaluation approach for a small team would
+combine cheap, fast retrieval metrics for continuous monitoring with
+periodic LLM-as-judge spot-checks, reserving human eval for occasional
+calibration rather than continuous use — this is my inference from the
+combined findings, not a directly sourced recommendation.
+
+GAPS: could not find strong, recent, primary-source data specifically on
+cost-per-evaluation-run benchmarks; this would need further targeted
+research if budget planning is the goal.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add explicit source-quality scoring rubric (primary/official > reputable
+engineering blog > aggregator > forum/social media), contradictory-
+claims resolution protocol (when sources genuinely disagree, present
+both positions with their respective source strength rather than
+picking one), and a fallback: "If triangulation repeatedly fails to
+find a second independent source for an important claim, explicitly
+flag this as a research gap rather than presenting the single-source
+claim as reliable."
+
+EXPERT VERSION
+Layer in full citation-graph awareness (checking whether multiple
+"independent" sources are actually all citing the same original source,
+which would mean they don't constitute true triangulation), domain-
+expert-source prioritization (identifying and weighting recognized
+authorities in the specific field), and systematic-review-style
+methodology documentation (search terms used, sources excluded and why).
+
+ENTERPRISE VERSION
+Add formal research-methodology documentation suitable for stakeholder
+review (reproducible search strategy), competitive-intelligence-
+specific handling (distinguishing public claims from verified facts
+about competitors), and legal/compliance review requirements for any
+research informing regulated business decisions.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Research: [RESEARCH_QUESTION]. Scope: [SCOPE]. Triangulate key claims
+across 2+ sources. Note confidence level per claim. Separate synthesis
+from sourced findings. Note gaps."
+Requires web search capability; works across Claude, GPT, Gemini, and
+Perplexity with search enabled.
+================================================================================

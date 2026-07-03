@@ -1,0 +1,237 @@
+================================================================================
+30 — REACT
+================================================================================
+
+TITLE
+React Development Master Template
+
+PURPOSE
+Get correct, modern React (function components, hooks-based, proper
+dependency arrays) from AI assistants — avoiding stale closures, missing
+dependencies, and unnecessary re-renders that plague AI-generated React
+code.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini, v0, Cursor AI, Windsurf, Bolt, Lovable
+
+DIFFICULTY LEVEL
+Beginner → Expert
+
+WHEN TO USE
+- Component development, state management, custom hooks, data fetching
+  in React, form handling, performance optimization
+
+EXPECTED OUTPUT
+Function components using hooks correctly (proper dependency arrays, no
+stale closures), with appropriate state management and no obvious
+performance anti-patterns.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+COMPONENT PURPOSE → PROPS/STATE SHAPE → HOOKS NEEDED (useState/useEffect/
+custom) → DATA FLOW (parent-child, context, external state library) →
+SIDE EFFECT BEHAVIOR (what triggers re-fetch/re-run) → STYLING APPROACH
+→ ACCESSIBILITY REQUIREMENTS → PERFORMANCE CONTEXT (re-render sensitivity)
+
+WHY EACH SECTION EXISTS
+- Side Effect Behavior: `useEffect` dependency arrays are the single
+  largest source of React bugs (stale closures, infinite loops, missing
+  re-runs) — explicitly stating what should trigger an effect prevents
+  AI models from guessing incorrectly.
+- Data Flow: whether state lives locally, in context, or in an external
+  store (Redux/Zustand/Jotai) fundamentally changes the correct
+  implementation — this must be specified, not assumed.
+- Performance Context: not every component needs memoization; asking
+  for it universally causes needless complexity, while never considering
+  it causes real performance problems in render-heavy components —
+  this must be a deliberate, stated tradeoff.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{COMPONENT_PURPOSE} {PROPS_SHAPE} {STATE_NEEDS} {DATA_FLOW}
+{EFFECT_TRIGGERS} {STYLING_APPROACH} {PERFORMANCE_CONTEXT}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Write a React function component for {COMPONENT_PURPOSE}. Props:
+{PROPS_SHAPE}. State needs: {STATE_NEEDS}. Data flow: {DATA_FLOW}. For
+any useEffect, specify exactly what should trigger it: {EFFECT_TRIGGERS}
+— include a complete, correct dependency array (no missing or
+unnecessary dependencies, no eslint-disable to suppress the warning).
+Styling: {STYLING_APPROACH}. Performance context: {PERFORMANCE_CONTEXT}
+— apply memoization (useMemo/useCallback/React.memo) only where there's
+a concrete reason, not by default. Ensure accessible markup (keyboard
+navigable, proper ARIA where needed)."
+
+OUTPUT STRUCTURE
+- Function component with correct hook usage and complete dependency
+  arrays
+- Brief note on any state-management or performance decision
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is every value used inside a useEffect/useMemo/useCallback correctly
+   included in its dependency array, with no suppression comments
+   masking a real bug?
+2. Is state placed at the correct level (local vs. lifted vs. context/
+   store) given the actual data flow needs, not defaulted to the widest
+   scope "just in case"?
+3. Is memoization applied only where there's a demonstrable reason
+   (expensive computation, referential-equality-sensitive child), not
+   applied reflexively everywhere?
+
+SELF-CORRECTION LAYER
+Check every dependency array against actual closure captures; look for
+`eslint-disable-next-line react-hooks/exhaustive-deps` as a red flag
+requiring justification or removal; verify state isn't unnecessarily
+lifted higher than its actual usage requires; confirm no derived state
+is redundantly stored in useState when it could be computed during
+render.
+
+REFLECTION LAYER
+"If a prop or state value this effect depends on changes, will the
+effect actually re-run — and if an unrelated value changes, will it
+correctly NOT re-run?"
+
+FACT VERIFICATION
+For any React API used (especially newer features like `use()`,
+Server Components, or React Compiler-related patterns), verify current
+behavior against official React documentation, since the API surface
+has evolved significantly across versions.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Complete, correct dependency arrays with no suppressed warnings
+[ ] State placed at the appropriate level, not over-lifted
+[ ] No redundant derived state (computed values not needlessly stored)
+[ ] Memoization used only with concrete justification
+[ ] Keyboard-accessible, properly labeled interactive elements
+[ ] No key prop using array index where list order can change
+
+OPTIMIZATION TIPS
+Prefer deriving values during render over storing them in state when
+they can be computed from existing props/state. Use functional updates
+(`setState(prev => ...)`) when new state depends on previous state,
+avoiding stale-closure bugs in event handlers and effects. Extract
+repeated stateful logic into custom hooks for reuse and testability.
+
+COMMON MISTAKES
+Missing or incorrect useEffect dependencies (often masked with
+eslint-disable); using array index as key in dynamic lists; storing
+derived/computed values in state instead of computing them inline;
+unnecessary useMemo/useCallback applied without a concrete performance
+reason, adding complexity without benefit.
+
+PROFESSIONAL TIPS
+Run the React ESLint plugin (`eslint-plugin-react-hooks`) as a
+mechanical check — never accept a suppressed exhaustive-deps warning
+without understanding and justifying exactly why. Profile with React
+DevTools Profiler before adding memoization, rather than guessing which
+components need it.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Write a React function component that fetches and displays a user's
+recent orders, re-fetching whenever the userId prop changes. Props:
+{ userId: string }. State needs: orders list, loading state, error
+state. Data flow: local component state, no external store needed.
+For useEffect, specify trigger: re-fetch when userId changes, cancel
+in-flight request if userId changes again before the previous fetch
+completes. Styling: Tailwind CSS. Performance context: rendered inside
+a dashboard with many other widgets, avoid unnecessary re-renders of
+sibling components.
+
+EXAMPLE OUTPUT
+```jsx
+import { useState, useEffect } from "react";
+
+function RecentOrders({ userId }) {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function fetchOrders() {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch(`/api/users/${userId}/orders`, {
+          signal: controller.signal,
+        });
+        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+        const data = await res.json();
+        setOrders(data);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          setError(err.message);
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    fetchOrders();
+    return () => controller.abort();
+  }, [userId]);
+
+  if (loading) return <p className="text-sm text-gray-500">Loading orders…</p>;
+  if (error) return <p className="text-sm text-red-600">Error: {error}</p>;
+
+  return (
+    <ul className="flex flex-col gap-2">
+      {orders.map((order) => (
+        <li key={order.id} className="rounded-lg border p-3 text-sm">
+          Order #{order.id} — {order.status}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export default RecentOrders;
+```
+Key decision: used `AbortController` to cancel in-flight requests when
+`userId` changes again before the previous fetch resolves, exactly
+matching the stated race-condition requirement, and did not wrap this
+component in `React.memo` since no sibling re-render evidence was given
+— memoization here would be speculative rather than justified.
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add data-fetching-library migration path (React Query/SWR for caching,
+deduplication, and background refetch instead of manual useEffect),
+optimistic-update pattern for related mutations, and a fallback: "If
+this component is re-rendering more than expected, profile first with
+React DevTools before adding memoization speculatively."
+
+EXPERT VERSION
+Layer in Suspense-based data fetching pattern (if using React 18+ with
+a compatible data layer), full custom-hook extraction for reusable
+fetch-with-cancellation logic, and render-performance budget annotations
+(target re-render frequency for dashboard-context components).
+
+ENTERPRISE VERSION
+Add error-boundary integration for graceful failure isolation,
+telemetry/analytics event hooks for data-fetch success/failure tracking,
+and design-system component-library compliance (using approved base
+components rather than raw HTML elements).
+
+UNIVERSAL VERSION (model-agnostic core)
+"Write a React component for [COMPONENT_PURPOSE]. Props: [PROPS_SHAPE].
+Correct, complete useEffect dependencies for: [EFFECT_TRIGGERS].
+Memoize only with concrete justification."
+Works across all React-capable tools; v0/Bolt/Lovable additionally
+benefit from an explicit component-library (shadcn/ui, Chakra, MUI)
+specification for directly usable output.
+================================================================================

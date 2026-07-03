@@ -1,0 +1,247 @@
+================================================================================
+26 — JAVASCRIPT
+================================================================================
+
+TITLE
+JavaScript Development Master Template
+
+PURPOSE
+Get modern, correct JavaScript/TypeScript from AI assistants that
+properly handles async behavior, avoids common footguns (this-binding,
+closures in loops, type coercion surprises), and targets the correct
+runtime environment.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini, Cursor AI, Windsurf, v0
+
+DIFFICULTY LEVEL
+Beginner → Expert
+
+WHEN TO USE
+- Frontend logic, Node.js backend code, browser scripts, npm
+  package/utility code, async data fetching, DOM manipulation
+
+EXPECTED OUTPUT
+Modern JS/TS (ES2020+ conventions unless specified otherwise) with
+correct async/await usage, proper typing (if TS), and runtime-appropriate
+code (browser vs. Node APIs not mixed incorrectly).
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+TASK DEFINITION
+  ↓
+RUNTIME (browser / Node.js / both — affects available APIs)
+  ↓
+JS OR TS (with strictness level if TS)
+  ↓
+FUNCTION SIGNATURE
+  ↓
+ASYNC BEHAVIOR (promises, async/await, error propagation expectations)
+  ↓
+DEPENDENCIES (vanilla vs. specific packages)
+  ↓
+EDGE CASES
+  ↓
+BROWSER COMPATIBILITY TARGET (if frontend)
+  ↓
+MODULE SYSTEM (ESM / CommonJS)
+
+WHY EACH SECTION EXISTS
+- Runtime specification: browser and Node.js have different global
+  APIs (window/document vs. fs/process) — code written for the wrong
+  runtime fails immediately, and this is one of the most common AI
+  coding mistakes in JS specifically.
+- Async Behavior: JavaScript's async model (callbacks, promises, async/
+  await) has historically been a major source of bugs (unhandled
+  rejections, race conditions); explicit error-propagation expectations
+  prevent silently swallowed promise rejections.
+- Module System: ESM (`import`) vs. CommonJS (`require`) mismatches
+  cause immediate runtime errors — this must match the target project's
+  actual configuration, which varies significantly across the JS
+  ecosystem.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{TASK} — what the code accomplishes
+{RUNTIME} — browser / Node.js / both
+{LANG_MODE} — JavaScript / TypeScript (+ strict mode if TS)
+{SIGNATURE} — function signature (with types if TS)
+{DEPENDENCIES} — vanilla or specific packages
+{EDGE_CASES} — specific cases to handle
+{MODULE_SYSTEM} — ESM / CommonJS
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Write {LANG_MODE} code for {RUNTIME} that {TASK}. Signature:
+{SIGNATURE}. Module system: {MODULE_SYSTEM}. Dependencies:
+{DEPENDENCIES}. Use async/await (not raw .then chains) for asynchronous
+logic, with explicit try/catch error handling — don't let promise
+rejections go unhandled. Handle edge cases: {EDGE_CASES}. Avoid common
+pitfalls: closures over loop variables, unintended `this` binding,
+implicit type coercion in comparisons (use === not ==)."
+
+OUTPUT STRUCTURE
+- Runtime-appropriate, correctly-async code
+- Explicit error handling on all async operations
+- (If TS) proper typing without excessive `any`
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does this code use only APIs available in the specified runtime
+   (no `document` in Node-only code, no `fs` in browser code)?
+2. Is every promise/async operation's rejection path handled explicitly,
+   or could an error silently disappear (unhandled rejection)?
+3. If TypeScript, are types precise and useful, or is `any` used as an
+   escape hatch that defeats the purpose of typing?
+
+SELF-CORRECTION LAYER
+If runtime or async handling is incorrect:
+- Check every API call against the specified runtime's actual global
+  scope
+- Verify every `await` is inside a try/catch or the calling function's
+  errors are otherwise explicitly propagated/handled
+- Replace `==` with `===` throughout unless coercion is explicitly
+  intended (rare and should be commented if so)
+- Check for classic closure-in-loop bugs (`var` in a loop with an async
+  callback)
+
+REFLECTION LAYER
+"If this async operation fails at 2am in production, will the error be
+visible/logged, or will it disappear silently?"
+
+FACT VERIFICATION
+For any browser API or npm package usage, verify current compatibility/
+API surface against MDN or the package's current documentation, since
+JS ecosystem APIs (especially browser APIs and fast-moving frameworks)
+change and deprecate features regularly.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Uses only APIs valid for the specified runtime
+[ ] All async operations have explicit error handling
+[ ] Uses === not == throughout
+[ ] No closure-over-loop-variable bugs
+[ ] Module system matches project configuration (ESM vs. CommonJS)
+[ ] (If TS) minimal/no unjustified use of `any`
+[ ] No unintended global variable leakage
+
+OPTIMIZATION TIPS
+- For frontend code, explicitly state the browser compatibility target
+  (e.g. "modern evergreen browsers" vs. "must support Safari 14") since
+  this affects which syntax/APIs are safe to use.
+- Request `Promise.allSettled` instead of `Promise.all` when partial
+  failures should be tolerated (parallel operations where one failing
+  shouldn't cancel the rest).
+- For TypeScript specifically, ask for `strict: true` compliant code by
+  default — it catches significantly more bugs than loose mode.
+
+COMMON MISTAKES
+- Mixing browser and Node.js APIs incorrectly
+- Unhandled promise rejections (missing try/catch or .catch())
+- Using `var` instead of `let`/`const`, especially in loops with async
+  callbacks
+- Using `==` instead of `===`, introducing type-coercion bugs
+- Excessive `any` typing in TypeScript that defeats type safety
+
+PROFESSIONAL TIPS
+- Run generated code through ESLint with a strict config as a mechanical
+  check rather than trusting self-reported convention compliance.
+- For any code handling user input or external data, explicitly request
+  runtime validation (zod, or manual checks) in addition to TypeScript's
+  compile-time-only types, since TS types don't exist at runtime.
+- Keep a personal ESLint/Prettier config and reference it in prompts for
+  consistent style across projects.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Write TypeScript code for Node.js that reads a JSON config file, validates
+it against an expected shape, and returns the parsed config or throws a
+descriptive error. Signature: async function loadConfig(path: string):
+Promise<AppConfig>. Module system: ESM. Dependencies: zod for validation,
+stdlib fs/promises. Use async/await with explicit try/catch error
+handling. Handle edge cases: file doesn't exist, file isn't valid JSON,
+JSON doesn't match expected schema. Avoid common pitfalls.
+
+EXAMPLE OUTPUT
+```typescript
+import { readFile } from "node:fs/promises";
+import { z } from "zod";
+
+const AppConfigSchema = z.object({
+  port: z.number().int().positive(),
+  apiKey: z.string().min(1),
+  environment: z.enum(["development", "production", "test"]),
+});
+
+export type AppConfig = z.infer<typeof AppConfigSchema>;
+
+export async function loadConfig(path: string): Promise<AppConfig> {
+  let raw: string;
+  try {
+    raw = await readFile(path, "utf-8");
+  } catch (err) {
+    throw new Error(`Config file not found or unreadable at ${path}`, {
+      cause: err,
+    });
+  }
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (err) {
+    throw new Error(`Config file at ${path} is not valid JSON`, {
+      cause: err,
+    });
+  }
+
+  const result = AppConfigSchema.safeParse(parsed);
+  if (!result.success) {
+    throw new Error(
+      `Config at ${path} failed validation: ${result.error.message}`,
+    );
+  }
+
+  return result.data;
+}
+```
+Key decision: used zod's `safeParse` rather than `parse` to produce a
+descriptive validation error rather than an opaque throw, and wrapped
+each failure mode (missing file, bad JSON, bad schema) in its own
+try/catch with a specific, actionable error message per the stated edge
+cases.
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: environment-variable override support specification (config values
+overridable via process.env), config hot-reload behavior if long-running,
+and a fallback: "If validation fails, include the specific field(s) that
+failed in the error message rather than a generic 'invalid config'
+message."
+
+EXPERT VERSION
+Layer in: full dependency-injection compatibility (config loader
+designed to be mockable/testable), caching strategy for repeated config
+reads, and a self-critique pass identifying any race condition or
+concurrency edge case in the implementation.
+
+ENTERPRISE VERSION
+Add: secrets-management integration (API keys pulled from a vault
+service, not plain config files), audit-logging for config load events,
+and multi-environment config-inheritance rules (base config + environment
+overrides) for large team codebases.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Write [LANG_MODE] code for [RUNTIME] that [TASK]. Signature:
+[SIGNATURE]. Use async/await with explicit error handling, === not ==,
+no closure-over-loop bugs. Handle: [EDGE_CASES]."
+Works identically across Claude, GPT, Gemini, and IDE tools; v0 and
+similar UI-generation tools additionally benefit from an explicit
+component-library specification layered on top.
+================================================================================

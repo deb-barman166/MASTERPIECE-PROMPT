@@ -1,0 +1,188 @@
+================================================================================
+04 — THUMBNAIL GENERATOR
+================================================================================
+
+TITLE
+YouTube/Video Thumbnail Master Template
+
+PURPOSE
+Generate high-click-through-rate thumbnails that communicate the video's
+value proposition in under 1 second of viewing, optimized for small mobile
+display sizes.
+
+IDEAL AI MODELS
+Midjourney v6+, Ideogram v2 (text rendering), DALL-E 3, Photoshop
+Generative Fill (for compositing with real face photos)
+
+DIFFICULTY LEVEL
+Beginner → Intermediate
+
+WHEN TO USE
+- YouTube videos, course platform thumbnails, podcast video covers,
+  webinar promo images, video ad thumbnails
+
+EXPECTED OUTPUT
+A thumbnail (1280x720 standard) with high contrast, a clear focal point,
+and (optionally) legible short text, readable at 120px mobile width.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+VIDEO TOPIC / HOOK
+  ↓
+FOCAL SUBJECT (face/object/graphic)
+  ↓
+EMOTIONAL EXPRESSION (if face-based)
+  ↓
+BACKGROUND SIMPLIFICATION (contrast against subject)
+  ↓
+TEXT OVERLAY (if any — max 4 words)
+  ↓
+COLOR CONTRAST STRATEGY
+  ↓
+COMPOSITION (rule of thirds, subject placement)
+  ↓
+PLATFORM SPEC (1280x720, safe zone for title/duration overlay)
+
+WHY EACH SECTION EXISTS
+- Emotional Expression: thumbnails with clear human emotion (shock,
+  curiosity, joy) consistently outperform neutral expressions — this
+  isn't optional polish, it's the primary CTR driver.
+- Background Simplification: cluttered backgrounds reduce thumbnail
+  legibility at small size; the subject must pop immediately.
+- Text Overlay limit (4 words): anything longer becomes unreadable at
+  mobile thumbnail size and competes with the platform's own title text.
+- Platform Spec safe zone: YouTube overlays duration/progress-bar
+  elements in the bottom-right — critical content shouldn't sit there.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{VIDEO_TOPIC} — what the video is about
+{HOOK} — the curiosity gap or value prop to visually imply
+{FOCAL_SUBJECT} — face / product / graphic that anchors the frame
+{EMOTION} — shocked / excited / curious / confident / concerned
+{TEXT_OVERLAY} — max 4 words, if used
+{ACCENT_COLOR} — high-contrast color for text/highlight elements
+{BACKGROUND_STYLE} — simplified/blurred vs. contextual
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Create a YouTube thumbnail for a video about {VIDEO_TOPIC}, implying the
+hook: {HOOK}. Focal subject: {FOCAL_SUBJECT} with a {EMOTION} expression,
+positioned off-center per rule of thirds. Background: {BACKGROUND_STYLE},
+simplified to keep focus on subject. Text overlay (large, bold, max 4
+words): '{TEXT_OVERLAY}' in {ACCENT_COLOR}. High contrast, saturated
+colors, 1280x720, keep bottom-right corner clear for duration overlay."
+
+OUTPUT STRUCTURE
+- 1280x720 image, high contrast, subject clearly separated from background
+- Text (if any) legible at 120px width simulation
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does this thumbnail create a curiosity gap without being clickbait-
+   deceptive (i.e., does the video actually deliver on the implied hook)?
+2. Is the focal point identifiable within 0.5 seconds at thumbnail size?
+3. Does the color palette stand out against a white YouTube UI background
+   and against typical competing thumbnails in this niche?
+
+SELF-CORRECTION LAYER
+If the concept feels flat:
+- Increase emotional intensity of the expression by one notch
+- Simplify the background further (blur increase or solid color swap)
+- Reduce text to 2-3 words maximum, relying more on visual hook
+
+REFLECTION LAYER
+"Shrink this mentally to a postage-stamp size — is the single most
+important element still the first thing I notice?"
+
+FACT VERIFICATION
+If the thumbnail implies a specific claim/number/result, ensure it
+matches the actual video content to avoid misleading-thumbnail platform
+penalties.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Clear single focal point
+[ ] High contrast between subject and background
+[ ] Text (if any) is 4 words or fewer, bold, high-contrast
+[ ] Emotion/expression is clear and intentional
+[ ] Bottom-right corner kept clear
+[ ] Legible at small mobile size
+
+OPTIMIZATION TIPS
+- Test thumbnail against a shrunk 120px-wide version before finalizing.
+- Use complementary color pairs (blue/orange, purple/yellow) for
+  maximum perceptual contrast.
+- Reserve pure clickbait exaggeration for genuinely high-stakes hooks;
+  moderate curiosity gaps sustain channel trust better long-term.
+
+COMMON MISTAKES
+- Cramming multiple faces/objects competing for attention
+- Using small, thin fonts that disappear at thumbnail size
+- Matching background color to subject color, killing contrast
+- Overpromising visually relative to actual video content
+
+PROFESSIONAL TIPS
+- Maintain a swipe file of high-performing thumbnails in your niche
+  (not to copy, but to identify current visual-language patterns).
+- A/B test 2-3 thumbnail concepts per video if the platform supports it.
+- Keep a consistent visual "signature" (font, color treatment, framing
+  style) across a channel's thumbnails to build recognizability.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Create a YouTube thumbnail for a video about "why your Python code runs
+slow," implying the hook: one common mistake is costing 10x performance.
+Focal subject: a young developer with a shocked/realizing expression,
+positioned off-center per rule of thirds. Background: blurred code editor
+in dark theme, simplified to keep focus on subject. Text overlay (large,
+bold, max 4 words): '10x SLOWER?!' in bright yellow. High contrast,
+saturated colors, 1280x720, keep bottom-right corner clear for duration
+overlay.
+
+EXAMPLE OUTPUT
+[Image: A developer in the left third of the frame, eyes wide, mouth
+slightly open in realization, lit with a cool blue key light. Right two-
+thirds shows a heavily blurred dark-theme code editor for context without
+distraction. Bold yellow text "10x SLOWER?!" sits in the upper-right,
+clear of the bottom-right corner. Strong blue/yellow color contrast.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: multi-thumbnail variant generation instructions (produce 3 distinct
+emotional/compositional approaches to A/B test), explicit brand-
+consistency constraints (recurring font/color treatment across a channel),
+and a fallback: "If the AI-generated face looks uncanny, generate the
+background/graphic elements only and composite a real photo separately."
+
+EXPERT VERSION
+Layer in: CTR-psychology annotations per element (why this specific
+emotion/color/framing choice statistically correlates with higher CTR in
+this content category), platform-specific safe-zone maps (YouTube vs.
+TikTok vs. Instagram Reels cover differ), and thumbnail-title pairing
+logic (ensuring the thumbnail and title work together as one cohesive
+hook, not redundant or contradictory messages).
+
+ENTERPRISE VERSION
+Add: channel-wide thumbnail template system (consistent structure across
+50+ videos with swappable subject/text), brand-guideline compliance
+(exact font files, color hex values, logo placement rules), and a
+performance-feedback loop instruction: "Incorporate CTR data from the
+previous 10 videos to bias style choices toward historically higher-
+performing patterns."
+
+UNIVERSAL VERSION (model-agnostic core)
+"A high-contrast YouTube thumbnail: [FOCAL_SUBJECT] with [EMOTION]
+expression, simplified [BACKGROUND_STYLE] background, bold text
+'[TEXT_OVERLAY]' in [ACCENT_COLOR], 1280x720."
+Works across all major image models; route text-heavy versions to
+Ideogram specifically, since most other models render thumbnail text
+illegibly or with spelling errors.
+================================================================================

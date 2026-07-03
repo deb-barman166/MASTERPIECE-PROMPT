@@ -1,0 +1,197 @@
+================================================================================
+05 — VIDEO GENERATOR
+================================================================================
+
+TITLE
+AI Video Generation Master Template
+
+PURPOSE
+Direct text-to-video models with film-production-level specificity
+(shot, motion, camera, timing) to produce coherent short clips instead of
+generic or physically inconsistent motion.
+
+IDEAL AI MODELS
+Sora, Runway Gen-3/Frames, Veo, Kling, Pika, Luma Dream Machine, Hailuo
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- B-roll generation, concept previsualization, social content, ad
+  creative, music video segments, establishing shots
+
+EXPECTED OUTPUT
+A short video clip (typically 4-20 seconds depending on platform) with
+coherent motion, consistent subject appearance across frames, and
+intended camera behavior.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+SUBJECT + APPEARANCE
+  ↓
+ACTION (specific, single continuous motion)
+  ↓
+ENVIRONMENT
+  ↓
+CAMERA MOVEMENT (static / pan / dolly / orbit / handheld)
+  ↓
+SHOT TYPE (wide / medium / close-up)
+  ↓
+LIGHTING & TIME OF DAY
+  ↓
+STYLE (cinematic / documentary / animated / hyperreal)
+  ↓
+PACING (slow-motion / real-time / timelapse)
+  ↓
+DURATION TARGET
+  ↓
+NEGATIVE PROMPT (artifacts, morphing, extra limbs)
+
+WHY EACH SECTION EXISTS
+- Action must be singular and specific: video models struggle with
+  compound actions ("runs then jumps then waves") — one clear motion per
+  clip produces far more coherent results.
+- Camera Movement: unspecified camera behavior often results in
+  unintended drift or an unstable "breathing" frame; explicit instruction
+  anchors it.
+- Pacing: without pacing instructions, models default to real-time,
+  which may not match creative intent (e.g. product reveals often want
+  slow-motion).
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{SUBJECT} — main subject with appearance detail
+{ACTION} — one specific continuous motion
+{ENVIRONMENT} — setting
+{CAMERA_MOVE} — static / slow pan left / dolly in / orbit / handheld shake
+{SHOT_TYPE} — wide / medium / close-up / macro
+{LIGHTING} — time of day, light quality
+{STYLE} — cinematic / documentary / anime / claymation / hyperreal
+{PACING} — real-time / slow-motion 2x / timelapse
+{DURATION} — target clip length in seconds
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"{SHOT_TYPE} of {SUBJECT} {ACTION} in {ENVIRONMENT}. Camera: {CAMERA_MOVE}.
+Lighting: {LIGHTING}. Style: {STYLE}, {PACING}. Duration: ~{DURATION}
+seconds. Avoid: morphing, flickering, extra limbs, unnatural motion blur,
+text artifacts."
+
+OUTPUT STRUCTURE
+- Video clip matching specified duration, camera behavior, and style
+- Consistent subject identity across all frames (no morphing)
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is the requested action physically simple enough for current video
+   model capability (single continuous motion, not a multi-step sequence)?
+2. Does the camera movement serve the shot's purpose (e.g. slow dolly-in
+   for tension, orbit for product reveal)?
+3. Is the environment description simple enough to remain stable across
+   frames, or does its complexity risk background morphing?
+
+SELF-CORRECTION LAYER
+If output shows morphing, flickering, or physically impossible motion:
+- Simplify the action to a smaller, more contained motion
+- Reduce camera movement complexity (static often outperforms complex
+  moves on lower-tier models)
+- Shorten requested duration, since coherence degrades over longer
+  generated spans
+
+REFLECTION LAYER
+"Does this clip look like it was filmed, or does something about the
+physics/continuity immediately signal 'AI-generated' in a way that
+undermines the intended use?"
+
+FACT VERIFICATION
+Not typically applicable for pure creative video generation; relevant
+only when depicting real, identifiable people, events, or branded
+products, in which case verify use rights and platform policy compliance.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Single, specific, continuous action (not compound)
+[ ] Camera movement explicitly stated
+[ ] Shot type specified
+[ ] Lighting/time of day specified
+[ ] Pacing specified
+[ ] Negative prompt addresses known model failure modes
+[ ] Duration realistic for platform capability
+
+OPTIMIZATION TIPS
+- Shorter, simpler prompts often outperform overloaded ones for current-
+  generation video models — describe one clear moment, not a whole scene.
+- For subject consistency across multiple clips, use an identical
+  appearance-description block in every prompt in the sequence.
+- Test with static camera first to validate subject/action fidelity
+  before adding camera movement complexity.
+
+COMMON MISTAKES
+- Requesting multi-step narrative action in one clip ("walks in, sits
+  down, opens laptop, starts typing")
+- Over-specifying camera moves the model can't yet handle smoothly
+  (complex compound moves, e.g. "dolly in while orbiting")
+- Ignoring negative prompts, resulting in recurring limb/hand artifacts
+- Requesting on-screen legible text (still unreliable across most models)
+
+PROFESSIONAL TIPS
+- Storyboard multi-clip sequences with consistent character/environment
+  description blocks before generating, to maintain visual continuity.
+- Generate multiple takes of the same prompt and select the most
+  physically coherent result rather than accepting the first output.
+- Pair AI video with traditional editing (color grade, sound design,
+  cuts) — raw AI clips rarely work "as-is" without post-production polish.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Medium shot of a barista in a green apron steaming milk in a stainless
+steel pitcher at a modern coffee bar. Camera: slow dolly in. Lighting:
+warm morning light through a large window, soft shadows. Style:
+cinematic, real-time pacing. Duration: ~6 seconds. Avoid: morphing,
+flickering, extra limbs, unnatural motion blur, text artifacts.
+
+EXAMPLE OUTPUT
+[Video: A 6-second clip where the camera slowly moves closer to a barista
+steaming milk, steam visibly rising, warm window light catching the
+pitcher's surface, background softly out of focus, motion physically
+coherent throughout with no visible artifacting on hands or pitcher.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: multi-shot sequence planning (3-5 clips forming a coherent short
+scene with matched lighting/color continuity across shots), explicit
+frame-rate/shutter-style description (e.g. "24fps film look with subtle
+motion blur" vs. "60fps hyperreal"), and a fallback: "If subject identity
+drifts mid-clip, regenerate with a tighter, more specific appearance
+description and reduce total motion complexity."
+
+EXPERT VERSION
+Layer in: first-frame/last-frame conditioning instructions (for models
+supporting keyframe-to-keyframe generation), camera-lens simulation
+(focal length, depth-of-field behavior over the clip), and audio-
+sync-ready pacing notes (marking beats in the motion for later music/SFX
+alignment in edit).
+
+ENTERPRISE VERSION
+Add: brand-safe content constraints (no incidental logos, no
+unintentional trademarked elements in background), batch-generation
+specification for producing consistent B-roll libraries across a
+campaign, and a production pipeline note on required human review/
+editing pass before any AI-generated video reaches a public-facing
+deliverable.
+
+UNIVERSAL VERSION (model-agnostic core)
+"[SHOT_TYPE] of [SUBJECT] [ACTION] in [ENVIRONMENT]. [CAMERA_MOVE] camera,
+[LIGHTING], [STYLE] style, [PACING]."
+Works as a base across Sora, Runway, Veo, and Kling; each platform has
+unique syntax extensions (Runway supports explicit camera-control
+sliders, Kling supports motion-brush region control) worth layering on
+top of this universal core once a platform is selected.
+================================================================================

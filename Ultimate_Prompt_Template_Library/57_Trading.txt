@@ -1,0 +1,233 @@
+================================================================================
+57 — TRADING
+================================================================================
+
+TITLE
+Trading Analysis & Strategy Master Template
+
+PURPOSE
+Get factual analysis of trading concepts, backtesting methodology, and
+strategy mechanics from AI assistants — building genuine understanding
+of how strategies work and their historical risk/return characteristics,
+rather than receiving specific buy/sell signals or confident predictions
+about future price movements.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini (with code execution for actual backtesting
+computation)
+
+DIFFICULTY LEVEL
+Intermediate → Advanced
+
+WHEN TO USE
+- Understanding trading strategy mechanics, backtesting methodology,
+  risk management concept explanation, historical strategy performance
+  analysis, technical indicator explanation
+
+EXPECTED OUTPUT
+Factual explanation of trading concepts/mechanics and rigorous
+backtesting analysis (with explicit methodology and honest limitations),
+explicitly not specific trade recommendations or price predictions.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+TRADING QUESTION/STRATEGY → CONCEPT/MECHANISM TO EXPLAIN → BACKTEST
+METHODOLOGY (if analyzing historical performance) → RISK
+CHARACTERISTICS → METHODOLOGY LIMITATIONS (overfitting, survivorship
+bias, look-ahead bias) → HONEST PAST-PERFORMANCE CAVEAT
+
+WHY EACH SECTION EXISTS
+- Backtest Methodology explicit: a backtest without disclosed
+  methodology (what data period, what assumptions about slippage/fees,
+  whether it avoids look-ahead bias) produces results that can't be
+  trusted or reproduced — this must be explicit and rigorous.
+- Methodology Limitations (overfitting, biases): backtested strategies
+  are extremely prone to overfitting to historical data in ways that
+  don't generalize forward, and to subtle biases (survivorship bias in
+  the tested universe, look-ahead bias in signal calculation) — these
+  must be actively checked for and disclosed, not glossed over.
+- Past-Performance Caveat: historical backtest results, even
+  methodologically sound ones, do not guarantee or reliably predict
+  future performance — this must be stated explicitly and taken
+  seriously, not as boilerplate.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{TRADING_QUESTION} {STRATEGY_MECHANICS} {BACKTEST_PERIOD} {ASSET_CLASS}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Help me understand: {TRADING_QUESTION} regarding {STRATEGY_MECHANICS}
+for {ASSET_CLASS}. If backtesting: use {BACKTEST_PERIOD} historical
+data, with explicit methodology (transaction costs/slippage assumptions,
+avoiding look-ahead bias). Report risk characteristics (drawdown,
+volatility), not just returns. Explicitly identify methodology
+limitations (overfitting risk, survivorship bias, sample size). This is
+for understanding strategy mechanics and historical characteristics, not
+a request for a specific trade recommendation or price prediction."
+
+OUTPUT STRUCTURE
+- Clear mechanism/concept explanation
+- (If backtesting) explicit methodology, results including risk metrics,
+  and limitations
+- Explicit caveat that past performance doesn't predict future results
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is this response explaining mechanics/historical characteristics, or
+   has it drifted into a specific forward-looking prediction or trade
+   recommendation, which AI is not positioned to responsibly provide?
+2. If a backtest is performed, is the methodology sound (no look-ahead
+   bias, realistic transaction cost assumptions, reasonable sample
+   size), and are its limitations honestly disclosed rather than
+   presenting results as more reliable than they are?
+3. Are risk characteristics (drawdown, volatility) reported alongside
+   returns, or does the analysis only emphasize favorable return figures
+   while underplaying risk?
+
+SELF-CORRECTION LAYER
+Reframe any response drifting into specific forward predictions or buy/
+sell recommendations back toward factual mechanism/historical-
+characteristic explanation; add explicit risk metrics if the current
+draft only shows returns; add explicit overfitting/bias caveats if the
+backtest methodology hasn't addressed them.
+
+REFLECTION LAYER
+"Is this helping the requester genuinely understand how this strategy
+works and its historical risk/return profile, or does it risk being
+read as a confident signal about what will happen next?"
+
+FACT VERIFICATION
+For actual backtesting computation, use code execution against real
+historical data rather than estimating results by reasoning alone,
+since approximate/hallucinated backtest numbers would be actively
+misleading in a financial-decision context.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Explains mechanics/historical characteristics, not a forward
+    prediction or specific trade recommendation
+[ ] Backtest methodology explicit and sound (no look-ahead bias,
+    realistic costs)
+[ ] Risk characteristics reported alongside returns
+[ ] Overfitting/bias limitations explicitly disclosed
+[ ] Clear "past performance doesn't guarantee future results" caveat
+
+OPTIMIZATION TIPS
+Always compute actual backtest results via code execution against real
+historical data rather than estimating, and explicitly code in
+realistic transaction costs/slippage rather than assuming frictionless
+trading. Report maximum drawdown and volatility alongside total/annual
+return — a strategy's risk characteristics matter as much as its return
+figure for genuine understanding. Test methodology soundness by
+checking for look-ahead bias explicitly (would this signal have actually
+been calculable using only information available at that point in time).
+
+COMMON MISTAKES
+Drifting from factual explanation into confident forward predictions;
+backtests with look-ahead bias (using information not actually available
+at the simulated decision point); ignoring realistic transaction
+costs/slippage, inflating apparent performance; reporting only returns
+without risk/drawdown characteristics; presenting backtest results
+without acknowledging overfitting risk, especially for strategies with
+many tunable parameters.
+
+PROFESSIONAL TIPS
+Treat any backtested strategy with many tunable parameters with extra
+skepticism regarding overfitting — the more parameters tuned to
+historical data, the more likely the strategy is fit to noise rather
+than a genuine, persistent edge. Paper-trade (simulate without real
+money) any strategy before committing real capital, regardless of how
+strong the backtest looks, to observe real-world execution
+characteristics.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Help me understand: how does a simple moving-average crossover strategy
+work mechanically, and what were its historical risk/return
+characteristics on a major stock index? Backtest period: last 10 years
+of available data, asset class: broad market index. I want to understand
+the mechanism and historical behavior, not a prediction about future
+performance.
+
+EXAMPLE OUTPUT
+[Mechanism explanation: a moving-average crossover strategy generates a
+buy signal when a shorter-period moving average crosses above a longer-
+period moving average (interpreted as emerging upward momentum), and a
+sell/short signal on the reverse crossover — it's a trend-following
+approach, not a prediction of specific price levels.
+
+BACKTEST METHODOLOGY (explicit): using [actual computed] daily
+historical price data for the specified index over the stated 10-year
+period; signals calculated using only data available up to and including
+each decision day (no look-ahead bias); a realistic transaction cost
+assumption of [X basis points] per trade applied to account for
+slippage/fees, since ignoring this would inflate apparent performance
+particularly for strategies with frequent trading.
+
+RESULTS [via actual code-executed backtest]: total return, annualized
+return, maximum drawdown, and volatility figures computed and reported
+together — for example, illustrating that even a strategy with a
+respectable total return figure may have experienced a significant
+maximum drawdown at some point, which matters as much for real-world
+viability as the headline return number.
+
+LIMITATIONS: this specific 10-year period reflects whatever specific
+market regime occurred during it (e.g. a strong bull market would
+generally favor trend-following strategies) — results would very likely
+differ meaningfully over a different historical period or market
+regime, and moving-average crossover strategies are well-known to
+underperform significantly during choppy/sideways markets due to
+frequent false signals ("whipsaws"). This backtest used one specific
+parameter combination (specific MA lengths); testing many parameter
+combinations and selecting the best-performing one after the fact would
+introduce significant overfitting risk not present in this single,
+pre-specified test.
+
+CAVEAT: these are historical characteristics of this specific mechanism
+over this specific period — they describe the past, not a prediction of
+future performance, and moving-average strategies broadly are not
+guaranteed to perform similarly going forward, especially if market
+conditions differ from the tested period.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add walk-forward analysis methodology (testing on rolling out-of-sample
+periods rather than one static historical window, which better guards
+against overfitting), Monte Carlo simulation of strategy robustness
+across randomized scenarios, and a fallback: "If a strategy's apparent
+edge disappears or weakens substantially under realistic transaction
+costs, report this explicitly rather than presenting the frictionless
+version as the headline result."
+
+EXPERT VERSION
+Layer in full risk-adjusted-return metric calculation (Sharpe ratio,
+Sortino ratio, Calmar ratio) for more complete risk-adjusted comparison
+against a buy-and-hold benchmark specifically, regime-dependent
+performance breakdown (how the strategy performed differently across
+identifiable market regimes within the test period), and multiple-
+hypothesis-testing correction if comparing many strategy variants.
+
+ENTERPRISE VERSION
+(For fintech/trading-education platforms) Add regulatory-compliance
+review for any strategy-performance content presented to end users
+(appropriate risk disclosures, no implied guarantees), backtesting-
+infrastructure validation methodology for platform-wide consistency,
+and clear separation between educational content and any actual
+investment-advice-adjacent features requiring licensed oversight.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Explain the mechanism of [STRATEGY_MECHANICS] and backtest its
+historical risk/return characteristics on [ASSET_CLASS] over
+[BACKTEST_PERIOD], with explicit methodology and limitations. Not a
+future prediction or specific trade recommendation."
+Requires code execution with real historical data access for credible
+backtest computation.
+================================================================================

@@ -1,0 +1,207 @@
+================================================================================
+33 — API
+================================================================================
+
+TITLE
+API Design Master Template
+
+PURPOSE
+Design (and optionally implement) APIs that are consistent, predictable,
+and well-documented — following REST/GraphQL conventions correctly
+rather than an ad-hoc mix of styles that confuses consumers.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini, Cursor AI
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- New API design (REST or GraphQL), API versioning strategy, endpoint
+  naming/structure decisions, API documentation generation, breaking-
+  change management
+
+EXPECTED OUTPUT
+A consistent API design (resource naming, HTTP methods, status codes,
+pagination/filtering conventions) or GraphQL schema, with documentation
+suitable for external consumers.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+API PURPOSE + CONSUMERS → STYLE (REST / GraphQL / RPC) → RESOURCE MODEL
+(nouns, relationships) → ENDPOINT/SCHEMA STRUCTURE → CONVENTIONS
+(naming, pagination, filtering, versioning) → AUTH MODEL → ERROR
+RESPONSE FORMAT → DOCUMENTATION FORMAT
+
+WHY EACH SECTION EXISTS
+- Resource Model first: good API design starts from the domain's actual
+  entities and relationships, not from a list of actions — this section
+  forces resource-oriented thinking before endpoint naming.
+- Conventions section: consistency across an API (all list endpoints
+  paginate the same way, all errors have the same shape) is what makes
+  an API usable at scale — this must be decided once and applied
+  uniformly, not improvised per-endpoint.
+- Error Response Format: inconsistent error shapes across endpoints is
+  one of the most common real-world API usability complaints — this
+  must be standardized explicitly and applied to every endpoint.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{API_PURPOSE} {CONSUMERS} {STYLE} {RESOURCES} {AUTH_MODEL}
+{VERSIONING_STRATEGY} {ERROR_FORMAT}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a {STYLE} API for {API_PURPOSE}, consumed by {CONSUMERS}.
+Resources: {RESOURCES} — model as nouns with clear relationships. Follow
+consistent conventions: plural resource names, correct HTTP methods
+(GET/POST/PUT/PATCH/DELETE mapped correctly to semantics), consistent
+pagination (cursor or offset — pick one and apply everywhere), consistent
+filtering/sorting query parameter format. Auth model: {AUTH_MODEL}.
+Versioning: {VERSIONING_STRATEGY}. Standardize error responses to one
+consistent shape: {ERROR_FORMAT} — used for every endpoint's error
+cases, no exceptions."
+
+OUTPUT STRUCTURE
+- Resource/endpoint list (or GraphQL schema) with consistent conventions
+- Standardized error response shape documented once, referenced
+  throughout
+- Brief rationale for key design decisions (versioning approach,
+  pagination style)
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is every endpoint's naming and HTTP method usage consistent with
+   every other endpoint (no mixing verb-based and noun-based naming)?
+2. Would a new API consumer be able to predict the shape of an endpoint
+   they haven't seen yet, based on the patterns established by the ones
+   they have seen?
+3. Is the error response format truly identical in shape across every
+   possible error case, or does it vary by endpoint?
+
+SELF-CORRECTION LAYER
+Audit every endpoint against the established naming/method conventions
+for consistency; check that pagination/filtering parameter names are
+identical across all list endpoints; verify the error shape is
+literally the same JSON structure for every error type, differing only
+in content (code/message), not structure.
+
+REFLECTION LAYER
+"If I designed one more endpoint for a new resource next month, would
+the existing conventions make its correct shape obvious without
+re-deciding anything?"
+
+FACT VERIFICATION
+Not typically applicable to design reasoning itself; if referencing
+specific standards (JSON:API, OpenAPI spec version, GraphQL spec),
+verify current spec details rather than relying on potentially outdated
+recollection.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Consistent resource naming (plural nouns, no verb-based endpoints)
+[ ] Correct HTTP method semantics throughout
+[ ] Identical pagination/filtering convention across all list endpoints
+[ ] Single, consistent error response shape for all error cases
+[ ] Clear, documented versioning strategy
+[ ] Auth model applied consistently across all protected endpoints
+
+OPTIMIZATION TIPS
+Design the error response shape and pagination convention FIRST, before
+any individual endpoint, since retrofitting consistency later is far
+more disruptive to consumers than establishing it upfront. Use HTTP
+status codes semantically correctly rather than always returning 200
+with an error flag in the body (unless deliberately following a
+specific style like JSON-RPC that does this intentionally).
+
+COMMON MISTAKES
+Mixing verb-based ("/getUser") and noun-based ("/users/{id}") endpoint
+naming inconsistently; inconsistent pagination style across different
+list endpoints; different error shapes per endpoint; overloading POST
+for operations that should be GET/PUT/DELETE; no clear versioning
+strategy, making future breaking changes painful.
+
+PROFESSIONAL TIPS
+Generate an OpenAPI (Swagger) or GraphQL schema specification alongside
+the design — this becomes both documentation and a contract that can
+drive client SDK generation and automated testing. Version the API from
+day one (even v1 in the URL/header) rather than adding versioning
+reactively after the first breaking change is needed.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design a REST API for a personal task-management app, consumed by a
+web frontend and a future mobile app. Resources: users, projects, tasks
+(tasks belong to projects, projects belong to users). Follow consistent
+conventions: plural resource names, correct HTTP methods, cursor-based
+pagination for list endpoints, consistent filtering query parameters.
+Auth model: Bearer token (JWT) in Authorization header. Versioning:
+URL path versioning (/v1/). Standardize error responses to: { "error":
+{ "code": string, "message": string, "details": object|null } }.
+
+EXAMPLE OUTPUT
+[Design summary:
+
+Resources & Endpoints:
+GET    /v1/projects                — list current user's projects
+                                        (cursor pagination: ?cursor=,
+                                        ?limit=)
+POST   /v1/projects                — create a project
+GET    /v1/projects/{id}           — get one project
+PATCH  /v1/projects/{id}           — update a project
+DELETE /v1/projects/{id}           — delete a project
+GET    /v1/projects/{id}/tasks     — list tasks in a project (same
+                                        cursor pagination pattern,
+                                        plus ?status=, ?sort= filters)
+POST   /v1/projects/{id}/tasks     — create a task in a project
+PATCH  /v1/tasks/{id}              — update a task directly
+DELETE /v1/tasks/{id}              — delete a task
+
+Conventions applied uniformly: every list endpoint uses identical
+?cursor= / ?limit= pagination params; every filter uses the same
+?field= query param style; every mutation returns the full updated
+resource; every error, regardless of endpoint or cause, returns the
+exact shape: { "error": { "code": "NOT_FOUND", "message": "Project
+not found", "details": null } } — code is a stable machine-readable
+string, message is human-readable, details holds field-level validation
+errors when relevant (e.g. { "code": "VALIDATION_ERROR", "message":
+"Invalid request", "details": { "name": "must not be empty" } }).
+
+Rationale: cursor pagination chosen over offset since task/project lists
+are frequently mutated concurrently (offset pagination would risk
+skipped/duplicated items on a changing list). URL versioning chosen over
+header versioning for simpler debugging/caching behavior for a small
+team's first API.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add rate-limiting header specification (X-RateLimit-* headers) applied
+consistently, HATEOAS-style resource linking if discoverability matters,
+and a fallback: "If a new resource doesn't fit the established
+conventions cleanly, treat that as a signal to revisit the resource
+model rather than making a one-off exception."
+
+EXPERT VERSION
+Layer in full API deprecation/sunset policy (how breaking changes are
+communicated and how long old versions are supported), webhook/event-
+notification design for async operations, and GraphQL federation
+considerations if this API needs to compose with other services.
+
+ENTERPRISE VERSION
+Add formal SLA documentation (uptime, latency targets per endpoint
+tier), API governance review checklist for consistency enforcement
+across multiple teams building on the same API, and partner/third-
+party developer onboarding documentation requirements.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Design a [STYLE] API for [API_PURPOSE]. Resources: [RESOURCES].
+Consistent naming/method/pagination conventions throughout. Single
+standardized error shape: [ERROR_FORMAT]."
+================================================================================

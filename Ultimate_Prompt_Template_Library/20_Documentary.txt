@@ -1,0 +1,223 @@
+================================================================================
+20 — DOCUMENTARY
+================================================================================
+
+TITLE
+AI Documentary-Style Video Master Template
+
+PURPOSE
+Direct AI video/narrative tools to produce documentary-style content
+(observational footage look, authentic pacing) that avoids the overly
+polished, "commercial" feel that undermines documentary credibility.
+
+IDEAL AI MODELS
+Sora, Runway Gen-3, Veo (footage generation), Claude/GPT (narrative
+structure + narration script)
+
+DIFFICULTY LEVEL
+Expert
+
+WHEN TO USE
+- Documentary-style B-roll, mockumentary concepts, historical
+  reenactment previsualization, observational-style brand storytelling,
+  educational documentary segments
+
+EXPECTED OUTPUT
+Footage or a script/structure with an authentic, observational quality —
+naturalistic camera behavior, unposed-feeling moments, and a narrative
+arc grounded in real information rather than pure spectacle.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+SUBJECT/TOPIC
+  ↓
+DOCUMENTARY ANGLE (the specific angle/thesis, not just the topic)
+  ↓
+NARRATIVE STRUCTURE (chronological / thematic / character-driven)
+  ↓
+FOOTAGE STYLE (observational handheld / static interview / archival-style)
+  ↓
+CAMERA BEHAVIOR (naturalistic, not cinematically composed)
+  ↓
+NARRATION/VOICE APPROACH (narrator / interview-driven / text-on-screen)
+  ↓
+FACTUAL GROUNDING (what real information anchors this)
+  ↓
+EMOTIONAL THROUGHLINE
+  ↓
+PACING (deliberate, allows moments to breathe)
+
+WHY EACH SECTION EXISTS
+- Documentary Angle: "a documentary about coffee" isn't a thesis; "how
+  climate change is forcing coffee farmers to relocate their entire
+  livelihoods" is — documentaries succeed on a specific, arguable angle,
+  not a broad topic.
+- Camera Behavior (naturalistic): AI video models default to smooth,
+  cinematic camera movement, which paradoxically reads as less authentic
+  for documentary purposes — slight handheld imperfection or static
+  observational framing often serves the genre better.
+- Factual Grounding: even AI-assisted concept work for documentary
+  content must be traceable to real information; documentary is a
+  truth-claiming genre, and fabricated "facts" presented in this style
+  are actively misleading.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{TOPIC} — the subject matter
+{ANGLE} — the specific thesis/perspective
+{STRUCTURE} — chronological / thematic / character-driven
+{FOOTAGE_STYLE} — observational handheld / static interview / archival
+{NARRATION_APPROACH} — voiceover narrator / interview-led / on-screen text
+{FACTUAL_SOURCE} — what grounds the content in reality
+{TONE} — investigative / intimate / urgent / contemplative
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Develop a documentary-style piece about {TOPIC}, with the specific
+angle: '{ANGLE}'. Structure: {STRUCTURE}. Footage style: {FOOTAGE_STYLE},
+with naturalistic, observational camera behavior (avoid overly smooth/
+cinematic movement). Narration approach: {NARRATION_APPROACH}. Ground
+the narrative in real, verifiable information from {FACTUAL_SOURCE}.
+Tone: {TONE}. Allow pacing to breathe — avoid rapid-cut commercial
+pacing."
+
+OUTPUT STRUCTURE
+- Narrative structure/script with documentary pacing and factual anchor
+- (If generating footage) naturalistic, observational-style clips
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is the angle specific and arguable, or is it just a restatement of
+   the general topic?
+2. Does the footage/narrative style read as observational and authentic,
+   or does it accidentally carry commercial/advertising visual language?
+3. Is every factual claim in the narrative traceable to a real,
+   verifiable source, especially if this content will be presented as
+   factual/informational?
+
+SELF-CORRECTION LAYER
+If the piece feels generic or commercial rather than documentary:
+- Sharpen the angle into a specific, debatable thesis statement
+- Slow the pacing and reduce cinematic camera polish toward more
+  observational, static, or naturalistically imperfect framing
+- Re-verify every stated fact against a real source, removing or
+  flagging anything unconfirmed
+
+REFLECTION LAYER
+"Does this feel like it's showing me something true and specific, or
+does it feel like it's selling me something?"
+
+FACT VERIFICATION
+This is the most critical layer for this template category: every
+factual claim, statistic, date, or quote must be verified against
+reliable sources. If a claim cannot be verified, it must be explicitly
+flagged as unconfirmed or removed — documentary-style content carries an
+implicit truth claim that fictional content does not.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Angle is specific and arguable, not just the general topic
+[ ] Footage/narrative style reads as observational, not commercial
+[ ] Camera behavior is naturalistic, not overly polished
+[ ] Every factual claim is verified or explicitly flagged as unconfirmed
+[ ] Pacing allows moments to breathe rather than rapid-cutting
+[ ] Emotional throughline is grounded in real human stakes, not
+    manufactured drama
+
+OPTIMIZATION TIPS
+- Write the thesis/angle as a single arguable sentence before any
+  visual or structural planning begins.
+- Study real documentary pacing (long takes, silence, unresolved
+  moments) rather than defaulting to trailer-style rapid editing.
+- When using AI-generated footage for documentary-adjacent work, always
+  disclose that footage is AI-generated/illustrative rather than actual
+  documentary recording, to maintain audience trust.
+
+COMMON MISTAKES
+- Broad topic treated as if it were a specific angle
+- Overly polished, cinematic camera movement undermining authenticity
+- Fabricated or unverified "facts" presented with documentary authority
+- Rapid, commercial-style pacing that doesn't match the genre's
+  contemplative conventions
+
+PROFESSIONAL TIPS
+- Real documentary filmmaking is built on research first, footage
+  second — replicate this by doing thorough source-verification before
+  any generation/scripting begins.
+- Use silence and stillness deliberately; documentary's emotional power
+  often comes from what's NOT rushed past.
+- Always maintain a clear, honest boundary between "documentary-style"
+  (illustrative/AI-generated) and actual documentary (real recorded
+  footage/verified reporting) when presenting finished work to any
+  audience.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Develop a documentary-style piece about the rise of self-taught
+developers building production AI systems without formal CS degrees,
+with the specific angle: 'access to modern AI tools has compressed a
+decade-long learning curve into 1-2 years for highly motivated
+self-learners, fundamentally changing who gets to build serious
+software.' Structure: character-driven, following one representative
+case study in depth rather than surveying many. Footage style:
+observational handheld, following the subject in their real working
+environment. Narration approach: minimal voiceover, mostly interview-led
+with on-screen text for key statistics. Ground the narrative in real,
+verifiable information from industry hiring/education trend reports.
+Tone: intimate, contemplative, quietly optimistic.
+
+EXAMPLE OUTPUT
+[Structure outline: Cold open — close, handheld shot of hands typing,
+no context yet, subject's voice begins mid-thought about a specific
+technical problem they solved. Act 1 establishes who they are and their
+environment naturalistically (their actual desk, their actual tools, no
+staged "hero shots"). Act 2 follows the specific arc of one real project
+they built, intercut with brief on-screen text citing verified statistics
+on the growth of self-directed technical learning. Act 3 sits with a
+quieter, unresolved reflection on what this access means for the future
+of who builds software — avoiding a neat, falsely triumphant conclusion.
+Note: any statistic used must be sourced from a specific named,
+verifiable report before inclusion, not an AI-generated approximation.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: multi-source triangulation requirement (any significant factual
+claim must be corroborated across at least two independent real
+sources), archival-footage-style integration notes (how to visually
+distinguish AI-generated "archival-style" material from real archival
+footage, maintaining audience honesty), and a fallback: "If a compelling
+narrative moment relies on an unverifiable claim, restructure around a
+verified adjacent fact rather than including the unverified version."
+
+EXPERT VERSION
+Layer in: full ethical-documentary-practice checklist (informed consent
+considerations for any real people depicted or discussed, fair
+representation of differing perspectives on contested topics), sound-
+design notes for observational authenticity (ambient/diegetic sound
+prioritized over score), and a formal fact-checking log structure
+documenting the source for every factual claim in the piece.
+
+ENTERPRISE VERSION
+Add: legal/editorial review requirements for factual content
+(defamation risk review, fair-use/rights clearance for any real
+footage/quotes used), platform content-authenticity labeling compliance
+(disclosure requirements for AI-generated documentary-style content on
+major platforms), and a formal editorial-standards document for
+newsroom/production-company use.
+
+UNIVERSAL VERSION (model-agnostic core)
+"A documentary-style piece on [TOPIC], angle: '[ANGLE]'. [STRUCTURE]
+structure, [FOOTAGE_STYLE] style, [NARRATION_APPROACH] narration,
+grounded in verified facts from [FACTUAL_SOURCE], [TONE] tone."
+This is primarily a reasoning/scripting template (Claude/GPT); any
+resulting footage generation via Sora/Runway/Veo must be clearly
+disclosed as AI-generated/illustrative rather than actual documentary
+recording.
+================================================================================

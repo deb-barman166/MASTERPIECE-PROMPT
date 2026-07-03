@@ -1,0 +1,208 @@
+================================================================================
+59 — TEACHING
+================================================================================
+
+TITLE
+Teaching & Curriculum Design Master Template
+
+PURPOSE
+Design lesson plans and instructional content that account for genuine
+learner variability and build toward measurable, specific learning
+objectives — rather than generic content coverage disconnected from
+what students will actually be able to do afterward.
+
+IDEAL AI MODELS
+Claude, GPT-4/5, Gemini
+
+DIFFICULTY LEVEL
+Intermediate → Advanced
+
+WHEN TO USE
+- Lesson plan design, curriculum sequencing, assessment design,
+  differentiated instruction planning, explaining a concept to a
+  specific audience/age group
+
+EXPECTED OUTPUT
+A lesson/curriculum plan with specific, measurable learning objectives,
+appropriately sequenced content, active-learning components, and
+assessment aligned to the actual stated objectives.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+LEARNING OBJECTIVE (specific, measurable — what students will be able to
+DO) → AUDIENCE (age/level/prior knowledge) → CONTENT SEQUENCING
+(building from prior knowledge) → ACTIVE-LEARNING COMPONENT (not just
+lecture/reading) → DIFFERENTIATION (for varying student levels) →
+ASSESSMENT (aligned to the actual objective) → TIME ALLOCATION
+
+WHY EACH SECTION EXISTS
+- Measurable Learning Objective (what students will DO): objectives
+  phrased as "students will understand X" are unmeasurable and vague;
+  phrasing as "students will be able to [specific, observable action]"
+  makes both the teaching and the assessment concrete and alignable.
+- Active-Learning Component: passive content delivery (lecture, reading)
+  alone produces weaker retention than content paired with active
+  application — this section ensures the lesson includes genuine
+  student engagement, not just information transfer.
+- Assessment aligned to objective: a common curriculum design flaw is
+  assessment that doesn't actually measure the stated objective (e.g.
+  testing recall when the objective was application) — alignment must
+  be explicitly checked.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{LEARNING_OBJECTIVE} {AUDIENCE} {PRIOR_KNOWLEDGE} {TIME_AVAILABLE}
+{SUBJECT}
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a lesson on {SUBJECT} for {AUDIENCE} with prior knowledge:
+{PRIOR_KNOWLEDGE}. Learning objective (specific, measurable — what
+students will be able to DO by the end): {LEARNING_OBJECTIVE}. Time
+available: {TIME_AVAILABLE}. Sequence content building from their actual
+prior knowledge. Include an active-learning component, not just
+explanation. Suggest differentiation for students who grasp it faster/
+slower. Design an assessment that actually measures the stated
+objective."
+
+OUTPUT STRUCTURE
+- Specific, measurable learning objective (refined if the input was
+  vague)
+- Sequenced lesson content with time allocation
+- Active-learning activity
+- Differentiation suggestions
+- Assessment aligned to the objective
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Is the learning objective genuinely specific and measurable (a
+   concrete, observable action), or is it a vague "understand/appreciate/
+   know" statement that can't be directly assessed?
+2. Does content sequencing actually build from the stated prior
+   knowledge, or does it assume either too much or too little relative
+   to what students actually already know?
+3. Does the assessment genuinely measure the stated objective, or does
+   it measure something adjacent (e.g. recall when the objective was
+   application/analysis)?
+
+SELF-CORRECTION LAYER
+Sharpen any vague objective into a specific, observable action
+statement; re-sequence content if it doesn't clearly build from the
+stated prior knowledge; realign the assessment if it currently measures
+something other than the stated objective.
+
+REFLECTION LAYER
+"If I only had the assessment results, would they actually tell me
+whether students achieved the specific stated objective, or would they
+measure something adjacent but different?"
+
+FACT VERIFICATION
+Any factual content within the lesson must be accurate, since it will be
+taught to students as established fact.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Learning objective is specific and measurable (observable action)
+[ ] Content sequenced from actual stated prior knowledge
+[ ] Includes genuine active-learning component
+[ ] Differentiation addresses both faster and slower learners
+[ ] Assessment genuinely aligned to the stated objective
+[ ] Time allocation is realistic for the available timeframe
+
+OPTIMIZATION TIPS
+Write the assessment BEFORE finalizing the lesson content ("backward
+design") — this ensures content actually builds toward what will be
+measured, rather than assessment being an afterthought disconnected from
+what was taught. Build in a quick formative check partway through the
+lesson (not just a final assessment) to catch confusion while there's
+still time to address it.
+
+COMMON MISTAKES
+Vague, unmeasurable learning objectives; content that assumes
+mismatched prior knowledge; all-lecture lessons with no active
+component; one-size-fits-all instruction with no differentiation;
+assessment that doesn't actually align with the stated objective.
+
+PROFESSIONAL TIPS
+Use backward design consistently: objective → assessment → content
+sequencing, in that order, rather than designing content first and
+retrofitting an objective/assessment. Collect quick, low-stakes evidence
+of understanding during the lesson (not just at the end) to adjust pacing
+in real time.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design a lesson on Python list comprehensions for Class XI students who
+already know basic for-loops and lists but haven't seen comprehensions.
+Learning objective: students will be able to convert a simple for-loop
+that builds a list into an equivalent list comprehension. Time available:
+30 minutes.
+
+EXAMPLE OUTPUT
+[Objective refined and confirmed measurable: "Students will be able to
+convert a simple for-loop that builds a list into an equivalent list
+comprehension" — good, this is already specific and observable (can be
+directly assessed by giving a for-loop and checking the conversion).
+
+SEQUENCE (30 min):
+1. (5 min) Quick review: show a familiar for-loop that builds a list
+   (e.g. squares of numbers 1-10) — since students already know this
+   pattern, this activates prior knowledge rather than re-teaching it.
+2. (8 min) Introduce list comprehension syntax by directly mapping each
+   part of the familiar for-loop onto the comprehension syntax side-by-
+   side (for-loop line ↔ comprehension component) — building the new
+   concept as a transformation of what they already know, not from
+   scratch.
+3. (5 min) ACTIVE COMPONENT: students convert 2-3 given for-loops into
+   comprehensions themselves (starting easy, increasing slightly in
+   complexity), working in pairs — this is the core practice moving them
+   from recognition to application.
+4. (7 min) Review answers together, addressing common mistakes live
+   (e.g. forgetting the expression comes first, not last).
+5. (5 min) ASSESSMENT: give one new for-loop (not seen before) and have
+   each student individually convert it to a comprehension — this
+   directly measures the stated objective (can they do the conversion
+   independently), not just recall the syntax.
+
+DIFFERENTIATION: for students who finish practice quickly, offer a
+for-loop with a conditional (if statement) inside, introducing
+conditional list comprehensions as a stretch challenge. For students
+struggling, provide a partially-completed comprehension (fill-in-the-
+blank structure) rather than starting from a fully blank conversion, to
+scaffold the same underlying skill at an accessible entry point.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add formative-assessment checkpoints embedded mid-lesson (not just at
+the end) with explicit "if most students struggle here, do X" branching
+guidance, and a fallback: "If the assessment reveals most students
+didn't achieve the objective, identify the most likely specific
+sequencing gap rather than re-teaching the entire lesson identically."
+
+EXPERT VERSION
+Layer in full Bloom's-taxonomy-aligned objective calibration (ensuring
+objective, content, and assessment all target the same cognitive level —
+e.g. all three aligned to "apply" rather than objective at "apply" but
+assessment only testing "remember"), and misconception-anticipation
+planning (common specific errors students make with this exact concept,
+addressed proactively in the lesson).
+
+ENTERPRISE VERSION
+(For schools/curriculum providers) Add standards-alignment
+documentation (mapping to specific curriculum framework standards),
+multi-lesson unit sequencing for a full topic arc, and teacher-training
+notes for consistent delivery across multiple classrooms/instructors.
+
+UNIVERSAL VERSION (model-agnostic core)
+"Design a lesson on [SUBJECT] for [AUDIENCE] with prior knowledge:
+[PRIOR_KNOWLEDGE]. Objective (specific, measurable): [LEARNING_
+OBJECTIVE]. Time: [TIME_AVAILABLE]. Include active learning,
+differentiation, and an aligned assessment."
+================================================================================

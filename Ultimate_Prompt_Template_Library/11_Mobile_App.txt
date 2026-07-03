@@ -1,0 +1,199 @@
+================================================================================
+11 — MOBILE APP DESIGN
+================================================================================
+
+TITLE
+AI Mobile App Design Master Template
+
+PURPOSE
+Generate mobile app screens and flows that respect platform-native
+conventions (iOS Human Interface Guidelines / Android Material Design)
+rather than generic web-style layouts squeezed onto a phone frame.
+
+IDEAL AI MODELS
+Figma AI, v0, Galileo AI, Midjourney (visual concepts), Lovable/Bolt
+(code output)
+
+DIFFICULTY LEVEL
+Intermediate → Expert
+
+WHEN TO USE
+- New app screen design, onboarding flow, navigation architecture,
+  platform-specific component design, app icon/splash screen
+
+EXPECTED OUTPUT
+Mobile screen mockups following native platform conventions (correct nav
+patterns, tap target sizing, gesture affordances) for iOS, Android, or
+cross-platform design.
+
+--------------------------------------------------------------------------------
+PROMPT FORMULA
+--------------------------------------------------------------------------------
+APP CONTEXT (what the app does)
+  ↓
+PLATFORM (iOS / Android / cross-platform)
+  ↓
+SCREEN PURPOSE
+  ↓
+NAVIGATION PATTERN (tab bar / drawer / stack)
+  ↓
+PLATFORM CONVENTION ADHERENCE (HIG / Material)
+  ↓
+COMPONENT INVENTORY
+  ↓
+GESTURE CONSIDERATIONS (swipe, long-press, pull-to-refresh)
+  ↓
+STATE VARIANTS (empty/loading/error)
+  ↓
+DEVICE SIZE RANGE (small phone to large phone/tablet)
+
+WHY EACH SECTION EXISTS
+- Platform Convention Adherence: iOS and Android users have deeply
+  ingrained expectations (back-gesture location, tab bar behavior,
+  system font usage) — violating these creates friction regardless of
+  visual polish.
+- Gesture Considerations: mobile is a touch-first, gesture-rich medium;
+  designs that only account for taps miss half the interaction surface
+  real apps rely on.
+- Device Size Range: a design that only works on one screen size (often
+  the designer's own large phone) breaks on the actual device
+  distribution of real users.
+
+--------------------------------------------------------------------------------
+VARIABLES
+--------------------------------------------------------------------------------
+{APP_PURPOSE} — what the app does
+{PLATFORM} — iOS / Android / cross-platform
+{SCREEN_PURPOSE} — task this screen serves
+{NAV_PATTERN} — tab bar / drawer / stack navigation
+{COMPONENTS} — specific components needed
+{GESTURES} — swipe actions, long-press menus, pull-to-refresh
+{STYLE} — visual direction
+
+--------------------------------------------------------------------------------
+INPUT STRUCTURE
+--------------------------------------------------------------------------------
+"Design a {PLATFORM} app screen for {APP_PURPOSE}. Screen purpose:
+{SCREEN_PURPOSE}. Navigation pattern: {NAV_PATTERN}, following
+{PLATFORM} native conventions ({HIG for iOS / Material Design for
+Android}). Components: {COMPONENTS}. Gesture support: {GESTURES}. Style:
+{STYLE}. Include empty, loading, and error state variants. Ensure tap
+targets meet minimum 44x44pt (iOS) / 48x48dp (Android)."
+
+OUTPUT STRUCTURE
+- Screen mockup(s) following native platform patterns
+- State variants
+- Notes on gesture/interaction behavior
+
+--------------------------------------------------------------------------------
+REASONING LAYER
+--------------------------------------------------------------------------------
+1. Does this navigation pattern match what {PLATFORM} users already
+   expect from other apps they use daily?
+2. Are all interactive elements reachable comfortably within thumb-zone
+   ergonomics for one-handed use?
+3. Does the design degrade gracefully on the smallest supported device
+   size, or does it assume maximum screen real estate?
+
+SELF-CORRECTION LAYER
+If the design feels "webby" rather than native:
+- Replace any web-pattern navigation (top horizontal nav, hover states)
+  with platform-native equivalents (bottom tab bar, tap-and-hold)
+- Verify back-navigation follows platform convention (swipe-from-edge
+  on iOS, hardware/gesture back on Android)
+- Re-check tap target sizing against platform minimums
+
+REFLECTION LAYER
+"Would this screen feel at home next to the platform's own built-in
+apps, or would it feel like a website wrapped in a native shell?"
+
+FACT VERIFICATION
+Not typically applicable beyond verifying stated platform guideline
+figures (tap target minimums, safe area insets) are current and correct.
+
+--------------------------------------------------------------------------------
+QUALITY CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Navigation pattern matches platform convention
+[ ] Tap targets meet platform minimum sizing
+[ ] Gesture interactions considered, not just taps
+[ ] Empty/loading/error states included
+[ ] Works within thumb-zone ergonomics
+[ ] Degrades gracefully to smallest supported screen size
+
+OPTIMIZATION TIPS
+- Design for the smallest target device first, then verify it scales
+  up gracefully, rather than designing large and hoping it shrinks well.
+- Use system fonts/icons where appropriate — custom typography can hurt
+  perceived platform-nativeness and performance.
+- Keep primary actions within one-handed thumb reach (bottom half of
+  screen) rather than top corners.
+
+COMMON MISTAKES
+- Applying desktop/web navigation patterns to mobile
+- Undersized tap targets that fail platform accessibility minimums
+- Ignoring platform-specific back-navigation conventions
+- Designing only for the "everything loaded perfectly" state
+
+PROFESSIONAL TIPS
+- Keep a personal reference of current iOS HIG and Material Design spec
+  numbers (spacing, sizing) since these update periodically.
+- Prototype critical flows (onboarding, checkout, core task) with real
+  interaction/gesture behavior, not just static screens, before build.
+- Test designs against one-handed use scenarios explicitly — a large
+  percentage of real mobile use is one-handed.
+
+--------------------------------------------------------------------------------
+EXAMPLE INPUT
+--------------------------------------------------------------------------------
+Design an iOS app screen for a personal ML model training tracker.
+Screen purpose: let the user see the live training progress of a running
+model (loss curve, epoch count, ETA) and stop training if needed.
+Navigation pattern: tab bar (Home, Models, Runs, Settings), following iOS
+native conventions (HIG). Components: live loss chart, epoch/ETA stat
+row, stop-training button, log output collapsible panel. Gesture
+support: pull-to-refresh on the runs list, swipe-to-delete on completed
+runs. Style: minimal, dark theme, monospace accents for technical data.
+Include empty, loading, and error state variants. Ensure tap targets meet
+minimum 44x44pt.
+
+EXAMPLE OUTPUT
+[Mockup: An iOS screen with a native bottom tab bar, showing a live-
+updating loss curve chart at top, a stat row (Epoch 47/100 · ETA 12m)
+below it in monospace, a prominent red "Stop Training" button sized well
+above the 44pt minimum, and a collapsible log panel. Empty state (no
+active run) shows a friendly prompt to start a new training job with a
+primary CTA. Loading state shows a skeleton chart. Error state (training
+crashed) shows the last known state plus a clear error summary and a
+"View Full Log" action. Follows iOS conventions: large title on Home,
+edge-swipe back gesture assumed on detail views.]
+
+--------------------------------------------------------------------------------
+ADVANCED VERSION
+--------------------------------------------------------------------------------
+Add: dark/light mode variant generation with proper semantic color
+tokens, dynamic type support description (how layout adapts to user
+font-size accessibility settings), and a fallback: "If a component
+doesn't have a clear platform-native equivalent, default to the
+platform's own system component rather than inventing a custom pattern."
+
+EXPERT VERSION
+Layer in: full onboarding-to-core-task flow (multi-screen journey with
+consistent navigation state), push-notification and deep-link handling
+implications for screen design, and platform-specific micro-interaction
+specs (haptic feedback points, native transition/animation curves).
+
+ENTERPRISE VERSION
+Add: full cross-platform parity documentation (iOS/Android feature and
+layout parity matrix), app-store review guideline compliance checklist,
+and enterprise MDM/accessibility compliance requirements (VoiceOver/
+TalkBack label specifications for every interactive element).
+
+UNIVERSAL VERSION (model-agnostic core)
+"A [PLATFORM] app screen for [APP_PURPOSE]: [SCREEN_PURPOSE], using
+[NAV_PATTERN] navigation and native [PLATFORM] conventions. Components:
+[COMPONENTS]. Style: [STYLE]."
+Works across Figma AI, Galileo AI, and Midjourney for visual concepts;
+route to Lovable/Bolt with an explicit React Native/Flutter/SwiftUI
+stack specification when working code is required.
+================================================================================
