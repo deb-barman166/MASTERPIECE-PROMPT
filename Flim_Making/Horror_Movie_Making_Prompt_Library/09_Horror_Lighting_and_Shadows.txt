@@ -1,0 +1,260 @@
+================================================================================
+                  HORROR LIGHTING & SHADOWS — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 09 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR LIGHTING & SHADOWS
+Category: Lighting Design & Shadow Architecture
+Compatible Engines: Sora, Veo, Kling, Runway, Pika, Luma, Hailuo (video
+generation) + GPT/Claude/Gemini/Grok/DeepSeek (lighting reasoning)
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Provides a precise system for specifying light SOURCE, QUALITY, DIRECTION,
+and — most importantly for horror — SHADOW BEHAVIOR, since shadow is the
+genre's primary tool. This template treats darkness as an active
+compositional element to be designed with the same rigor as light itself,
+rather than as an absence to be filled.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[LIGHT SOURCE + MOTIVATION] + [LIGHT QUALITY: HARD/SOFT] + [DIRECTION +
+KEY ANGLE] + [SHADOW ARCHITECTURE: WHAT HIDES WHERE] + [NEGATIVE SPACE
+RATIO] + [PRACTICAL LIGHT BEHAVIOR: FLICKER/DECAY/MOTIVATION] +
+[CONSISTENCY LOCK TOKEN] + [PLATFORM-SPECIFIC SYNTAX WRAPPER]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{LIGHT_SOURCE} — specific, motivated source (single practical bulb,
+  moonlight through a specific window shape, flashlight beam, distant
+  fire, complete absence with only implied ambient)
+{LIGHT_MOTIVATION} — why this light exists in-world (never unmotivated
+  "movie lighting" — every source should be traceable to something in
+  the scene)
+{LIGHT_QUALITY} — hard (sharp-edged shadows, single small/distant source)
+  vs. soft (diffused, wrapped, larger/closer source) — and why this choice
+  serves the scene's intended dread
+{DIRECTION_AND_KEY_ANGLE} — where light originates relative to subject
+  (underlight for threat-dominance wrongness, top-light for isolation/
+  exposure, side/raking light for texture and half-concealment, backlight
+  for silhouette/mystery)
+{SHADOW_ARCHITECTURE} — explicitly define what the shadow conceals (a
+  specific area of the frame, a specific part of a character/creature) and
+  what it's allowed to almost-reveal
+{NEGATIVE_SPACE_RATIO} — approximate proportion of frame in shadow vs. lit
+  (horror typically favors 60-80% shadow dominance in tension scenes)
+{PRACTICAL_LIGHT_BEHAVIOR} — flicker pattern, dimming, color temperature
+  shift, and whether this behavior is caused by anything diegetic
+  (motivated) or is itself a wrongness signal (unmotivated = deliberate
+  unease)
+{COLOR_TEMPERATURE} — warm/cool balance and where it shifts, tied to
+  Template 08's overall palette philosophy
+{CONSISTENCY_LOCK_TOKEN} — reusable phrase for this lighting setup, scoped
+  per-location/per-scene-type as needed
+{NEGATIVE_TRAITS} — exclude default AI-generation lighting tendencies (no
+  even/flat "product photography" lighting default, no unmotivated rim
+  light, no daytime-bright "night" scenes)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Design the lighting and shadow architecture for a horror scene/location.
+
+LIGHT SOURCE: {LIGHT_SOURCE}
+MOTIVATION: {LIGHT_MOTIVATION}
+LIGHT QUALITY: {LIGHT_QUALITY}
+DIRECTION/KEY ANGLE: {DIRECTION_AND_KEY_ANGLE}
+SHADOW ARCHITECTURE (what hides where): {SHADOW_ARCHITECTURE}
+NEGATIVE SPACE RATIO: {NEGATIVE_SPACE_RATIO}
+PRACTICAL LIGHT BEHAVIOR: {PRACTICAL_LIGHT_BEHAVIOR}
+COLOR TEMPERATURE: {COLOR_TEMPERATURE}
+EXCLUDE: {NEGATIVE_TRAITS}
+
+Generate a CONSISTENCY LOCK TOKEN for this lighting setup, and specify
+exactly which parts of the frame/subject remain concealed versus revealed
+under these conditions.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. LIGHTING BIBLE SUMMARY (paragraph describing the setup and its intended
+   psychological effect)
+2. CONSISTENCY LOCK TOKEN (isolated, bolded)
+3. CONCEALMENT MAP (explicit statement of what is hidden, partially
+   visible, and fully visible under this lighting)
+4. PLATFORM ADAPTATIONS (image-model / video-model natural-language / LLM
+   reasoning syntax)
+5. CONTINUITY CHECKLIST (fixed facts: source position, color temperature,
+   flicker pattern — must remain constant across all scenes using this
+   setup unless a specific story beat changes it)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Every light source must be motivated — unmotivated "cinematic" lighting
+  (light with no in-world source) breaks the naturalism most horror
+  depends on, unless the story is deliberately expressionistic (specify
+  this explicitly if so).
+- Design shadow with the same intent as light — decide precisely what a
+  shadow conceals and defend that choice against the scene's needs, rather
+  than letting shadow placement be an accident of the light source
+  description.
+- Favor practical, diegetic light sources (bulbs, flashlights, fire,
+  moonlight) over ambient "movie lighting" — practical sources create
+  believable, motivated shadow behavior that reads as more unsettling than
+  evenly-lit scenes.
+- Use NEGATIVE_SPACE_RATIO deliberately and track it — a scene that is
+  80% shadow only works if the remaining 20% is meaningfully composed;
+  don't let shadow dominance become an excuse for compositional laziness.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Establish a lighting "rule" per location (from Template 05) early and
+  keep it consistent — if a hallway is established as always lit only by
+  a single flickering bulb, every future scene in that hallway should
+  respect that unless the story explicitly changes it (e.g., a power
+  restoration beat).
+- Reserve your most extreme lighting choice (total darkness, hardest
+  contrast) for the story's most significant scene — don't spend your
+  strongest lighting tool on an early, lower-stakes moment.
+- When generating with AI video platforms, explicitly state what should
+  NOT be visible/lit, since most models default toward filling frames with
+  legible detail unless told otherwise.
+- Validate flicker/decay light behavior on your target platform with a
+  short test generation before committing — timing-based light behavior
+  is one of the more platform-variable elements to get right.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- THE ALMOST-REVEAL SHADOW: design shadow architecture so a shape is
+  suggested but never fully confirmed — the edge of the shadow should be
+  precise enough to imply form without confirming it.
+- UNDERLIGHT FOR WRONGNESS: light a human face from below only in moments
+  meant to signal danger or the uncanny — this angle reads as
+  fundamentally unnatural to human perception since it inverts the sun's
+  natural top-down key.
+- THE DYING LIGHT: use gradually failing practical light (a dimming
+  flashlight, a bulb about to burn out) as a built-in tension timer that
+  audiences intuitively read as an escalating threat.
+- SHADOW THAT MOVES WRONG: specify a shadow behavior that doesn't match
+  its light source's implied movement (a shadow shifts when nothing has
+  moved) as an explicit, deliberate wrongness signal reserved for key
+  reveal moments.
+- THE SINGLE LIT EYE: in extreme close-ups, allow only partial facial
+  illumination (one eye lit, the rest in shadow) to fragment a face into
+  unfamiliar, unsettling parts.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Cross-reference Template 07 explicitly: angle and light direction
+  interact (a low camera angle with underlight compounds threat-dominance
+  more than either alone; the same angle with top-light creates a
+  different, more vulnerable read).
+- Lens choice affects shadow rendering — wide lenses can exaggerate shadow
+  distortion at frame edges; account for this when combining with Template
+  07's lens selections.
+- Match this template's DIRECTION_AND_KEY_ANGLE choices against Template
+  08's overall CONTRAST_PROFILE to ensure the specific scene lighting
+  serves the project-wide visual style rather than contradicting it.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Practical light sources often carry their own diegetic sound (a bulb's
+  electrical hum, a flashlight's switch click, fire's crackle) — specify
+  this explicitly for Template 13 continuity.
+- Flicker/decay light behavior should be sound-matched where physically
+  plausible (a failing bulb's flicker paired with a corresponding
+  electrical sound) unless the mismatch itself is the intended wrongness
+  signal.
+- Total-darkness scenes should specify what sound alone must carry the
+  scene's tension, since visual information is by definition withheld.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+LIGHT_SOURCE: A single overhead incandescent bulb on a pull-chain
+LIGHT_MOTIVATION: The room's only fixture, original to the building's 1958
+  construction, never replaced
+LIGHT_QUALITY: Hard, small-source — sharp-edged, unforgiving shadows
+DIRECTION_AND_KEY_ANGLE: Direct overhead, minimal fill, creating heavy
+  shadow pooling under brow, nose, and chin on any face beneath it
+SHADOW_ARCHITECTURE: The lower half of the room (below waist height on a
+  standing figure) remains in near-total shadow at all times; the ledger
+  shelves recede into unlit darkness past arm's reach
+NEGATIVE_SPACE_RATIO: 70% shadow dominance
+PRACTICAL_LIGHT_BEHAVIOR: Single flicker at the scene's climax moment,
+  unmotivated by any diegetic cause (no wind, no electrical fault
+  established) — a deliberate wrongness signal
+COLOR_TEMPERATURE: Warm (2700K equivalent), consistent with Template 08's
+  earth-tone palette
+NEGATIVE_TRAITS: No even fill light, no visible secondary light source,
+  no daytime-bright shadow detail
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+LIGHTING BIBLE SUMMARY: A single hard overhead bulb pools warm, unforgiving
+light directly downward, carving deep shadow beneath every feature and
+surrendering 70% of the frame to darkness the ledger shelves recede into —
+the one unmotivated flicker at the scene's peak is the room's only lie.
+
+CONSISTENCY LOCK TOKEN:
+"Single hard overhead incandescent bulb, warm 2700K, heavy downward shadow
+pooling, 70% frame in darkness, lower room and shelf depths unlit"
+
+CONCEALMENT MAP: Fully visible = upper portion of Ines's face and the
+ledger directly beneath the bulb. Partially visible (implied, not
+confirmed) = the shelf depths just past arm's reach. Fully concealed =
+everything below waist height, the room's corners, anything beyond
+approximately 4 feet from the bulb's direct throw.
+
+PLATFORM ADAPTATIONS:
+- Video-model syntax: "A single bare incandescent bulb hangs overhead,
+  warm and hard, casting sharp downward shadows across her face — deep
+  pools beneath her brow and chin. Below waist height, the room falls into
+  near-total darkness. The ledger shelves behind her recede into
+  blackness past arm's reach. The bulb flickers once, briefly, though
+  nothing in the room moved to cause it."
+
+CONTINUITY CHECKLIST: Bulb position and warm 2700K temperature must match
+every other scene set in this location ✓. The unmotivated flicker is
+reserved for this specific climax beat only, not repeated elsewhere as a
+generic effect ✓.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for complex multi-source or transitioning-light scenes:
+
+{MULTI_SOURCE_INTERACTION_MAP} — if multiple light sources exist in one
+  scene, define their relative intensity, how their shadows overlap/
+  compete, and which is dominant at which moment
+{LIGHT_STATE_TRANSITION_SEQUENCE} — for scenes where lighting changes
+  during the action (power failure, dawn breaking, a match struck), specify
+  the exact sequence and pacing of the transition
+{DAY_FOR_NIGHT_TREATMENT} — if practical constraints require day-for-night
+  techniques, specify the color/contrast adjustments needed to sell it
+{SIGNATURE_SHADOW_MOTIF} — formally lock one specific shadow behavior as
+  the project's visual signature for the antagonist's presence, to be
+  referenced in every future scene where it is near
+
+ADVANCED OUTPUT ADDITION: Request a "SHADOW CONSISTENCY AUDIT" — verify
+across the growing shot list that concealment logic (what's hidden per
+location) hasn't drifted, and that any location established as "certain
+areas are always dark" hasn't been contradicted by a later generation.
+
+================================================================================
+                 END OF TEMPLATE 09 — HORROR LIGHTING & SHADOWS
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

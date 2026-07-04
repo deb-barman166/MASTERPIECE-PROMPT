@@ -1,0 +1,273 @@
+================================================================================
+              HORROR VIDEO GENERATION MASTER — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 17 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR VIDEO GENERATION MASTER
+Category: Cross-Platform Generation Orchestration
+Compatible Engines: Sora, Veo, Kling, Runway, Pika, Luma, Hailuo (primary
+targets) + adaptable to future video generation platforms
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Functions as the FINAL ASSEMBLY AND TRANSLATION LAYER of the entire
+library — taking a fully composed scene (Template 06, informed by every
+prior design template) and producing PLATFORM-SPECIFIC, GENERATION-READY
+prompt variants optimized for each major AI video platform's specific
+syntax preferences, technical constraints, and known strengths/weaknesses.
+This template exists because a single universal prompt rarely performs
+optimally across all platforms — each has different prompt-adherence
+characteristics, duration limits, and descriptive style preferences.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[COMPOSED SCENE INPUT] + [PLATFORM SELECTION] + [PLATFORM-SPECIFIC SYNTAX
+TRANSLATION] + [DURATION/TECHNICAL CONSTRAINT ADAPTATION] + [PROMPT
+ADHERENCE OPTIMIZATION] + [FALLBACK/ALTERNATIVE PHRASING SET] + [QUALITY
+VALIDATION CHECKPOINT]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{COMPOSED_SCENE_INPUT} — the full scene prompt from Template 06, with all
+  locked tokens (character, creature, location, cinematography, lighting,
+  atmosphere, elemental effects) already integrated
+{TARGET_PLATFORM} — Sora / Veo / Kling / Runway / Pika / Luma / Hailuo /
+  other (select one or multiple for comparison)
+{PLATFORM_SYNTAX_PROFILE} — known preferences per platform:
+  - SORA: strong narrative/cinematic prose comprehension; benefits from
+    detailed scene-setting and physical causality description
+  - VEO: strong cinematic language understanding; responds well to
+    explicit camera terminology combined with descriptive prose
+  - KLING: benefits from clear, front-loaded key action description;
+    strong motion physics rendering
+  - RUNWAY: benefits from concise, primary-action-focused prompts;
+    historically stronger with shorter, clearer instruction sets
+  - PIKA: responds well to stylistic/mood descriptors combined with clear
+    action; effective for stylized rather than strictly naturalistic looks
+  - LUMA: strong physical realism rendering; benefits from precise
+    material/texture description
+  - HAILUO: benefits from clear character/subject focus with
+    supporting environmental description
+  (Note: platform capabilities evolve rapidly — validate current behavior
+  against each platform's latest documentation before finalizing a
+  production pipeline, and treat the above as a starting heuristic rather
+  than a fixed rule.)
+{DURATION_CONSTRAINT} — target platform's current typical generation
+  length limit, requiring scene splitting per Template 06's
+  MULTI_CLIP_SPLIT_PLAN if exceeded
+{PROMPT_LENGTH_OPTIMIZATION} — adapting descriptive density to each
+  platform's effective prompt-reading window
+{CONTINUITY_HANDOFF} — start-frame/end-frame matching notes for multi-clip
+  sequences to maintain visual continuity across separate generation calls
+{NEGATIVE_PROMPT_INTEGRATION} — reference to Template 18 for platform-
+  appropriate negative prompting where supported
+{NEGATIVE_TRAITS} — exclude platform-mismatched instructions (don't use
+  heavy negative-prompt keyword stacking on platforms that respond better
+  to positive natural language, don't use verbose narrative prose on
+  platforms that respond better to concise direct instruction)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Translate this composed scene into platform-optimized generation prompts.
+
+COMPOSED SCENE INPUT (from Template 06): {COMPOSED_SCENE_INPUT}
+TARGET PLATFORM(S): {TARGET_PLATFORM}
+DURATION CONSTRAINT: {DURATION_CONSTRAINT}
+CONTINUITY HANDOFF NOTES (if multi-clip): {CONTINUITY_HANDOFF}
+EXCLUDE: {NEGATIVE_TRAITS}
+
+For each specified platform, produce a distinct prompt variant respecting
+that platform's known syntax preferences and technical constraints, while
+preserving every locked consistency token from the composed scene input
+without alteration to their core descriptive content.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. SCENE TRANSLATION SUMMARY (confirms all locked tokens preserved across
+   translation)
+2. PER-PLATFORM PROMPT SET (one complete, ready-to-submit prompt per
+   requested platform, clearly labeled)
+3. DURATION/SPLIT HANDLING NOTE (if the scene exceeds platform duration
+   limits, the exact split plan and continuity handoff instructions)
+4. GENERATION PARAMETER RECOMMENDATIONS (where applicable: aspect ratio,
+   any platform-specific settings relevant to horror content — e.g.,
+   motion intensity sliders, camera control parameters)
+5. FALLBACK PHRASING (one alternate phrasing per platform in case the
+   primary prompt underperforms on a specific element)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Never alter the core descriptive content of locked consistency tokens
+  (character, creature, location) during platform translation — only
+  adapt syntax structure, sentence length, and descriptive density to
+  match platform preferences.
+- Front-load the most critical visual/action information in platforms
+  known to weight early prompt content more heavily, and verify this
+  assumption periodically since platform behavior updates over time.
+- Always check current generation duration limits before finalizing a
+  prompt, since these limits change frequently as platforms update — treat
+  any specific number as a starting assumption to verify, not a fixed fact.
+- When generating the same scene across multiple platforms for comparison
+  or redundancy, keep a clear record of which specific prompt phrasing
+  produced the best result on each platform for future reuse.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Test a new locked-token combination on a target platform with a low-
+  stakes sample generation before committing to a full scene list, since
+  token-to-platform compatibility can vary in ways that are hard to
+  predict from description alone.
+- Maintain a living document of platform-specific quirks discovered during
+  production (a specific phrase that consistently underperforms, a
+  structure that consistently overperforms) and update this template's
+  PLATFORM_SYNTAX_PROFILE accordingly as you learn.
+- For continuity-critical sequences spanning multiple generated clips,
+  always generate a shared reference still frame first (via an image
+  model) and use it as an explicit start-frame reference across clips
+  where the platform supports image-to-video conditioning.
+- Budget extra generation attempts for horror content specifically, since
+  platforms' content moderation systems may interpret certain legitimate
+  horror descriptions (injury implication, threatening figures) more
+  conservatively than intended — have alternate, slightly softened
+  phrasing ready as a fallback.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- CROSS-PLATFORM CONSISTENCY STRESS TEST: generate the same locked
+  character/creature token on 2-3 different platforms and compare results
+  before committing a whole production to one platform, since consistency
+  fidelity varies meaningfully across current-generation tools.
+- STAGED GENERATION FOR REVEALS: leverage Template 04's REVEAL_FRAGMENT_MAP
+  by generating each reveal stage as a separate, precisely worded call
+  rather than trying to encode the entire reveal arc in one generation
+  prompt.
+- PLATFORM-MATCHED TECHNIQUE SELECTION: favor techniques from Templates
+  07-10 that align with a given platform's known strengths (e.g., lean
+  into a platform's strong physical realism for elemental effects from
+  Template 15; lean into a platform's strong narrative comprehension for
+  complex multi-beat scenes from Template 06).
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Some platforms respond more reliably to explicit camera movement
+  terminology (Template 07) than others, which may need movement
+  described through implied physical action instead ("the view creeps
+  closer" rather than "slow dolly-in") — test both phrasings per platform.
+- Lighting specification (Template 09) fidelity varies by platform;
+  platforms with stronger physical realism rendering typically handle
+  precise practical-light descriptions more reliably than highly
+  stylized/expressionistic lighting requests.
+- When a platform underperforms on a specific lighting or camera request,
+  consider simplifying to the single most important element rather than
+  requesting the full technical combination, then layering additional
+  control via post-production grading if available.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Most current video generation platforms do not reliably generate
+  precise synchronized audio from text prompts alone — treat Template 13's
+  audio design as a separate production layer to be added via dedicated
+  audio generation tools or traditional post-production, not as something
+  to rely on the video platform to produce automatically, and verify each
+  platform's current audio capabilities before assuming otherwise.
+- Where a platform does support audio/sound prompting, apply Template 13's
+  cue sheet with the same platform-specific syntax adaptation principles
+  used for visual prompts.
+- Atmospheric elements (Template 10) with strong implied sound
+  characteristics (heavy rain, wind) should have their visual generation
+  prompt and separate audio generation prompt kept in sync via shared
+  timing references.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+COMPOSED_SCENE_INPUT: [The full Scene 14 composed prompt from Template 06's
+  example — Ines discovering the ledger]
+TARGET_PLATFORM: Kling and Runway (for comparison)
+DURATION_CONSTRAINT: Verify current limits for each platform prior to
+  submission; scene is designed at 12 seconds total
+CONTINUITY_HANDOFF: N/A for this single-clip example
+EXCLUDE: No heavy keyword-stacking for either platform; both should
+  receive natural-language descriptive prose
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+SCENE TRANSLATION SUMMARY: All locked tokens (Ines's character token,
+record house zone token, single-bulb lighting token) preserved unaltered
+across both platform variants; only sentence structure and descriptive
+front-loading adjusted per platform profile.
+
+PER-PLATFORM PROMPT SET:
+
+KLING VARIANT (front-loaded key action, strong motion physics emphasis):
+"A young woman with a dark bob haircut kneels in a dust-heavy room lined
+with old leather ledgers, opening the newest one under a single warm
+overhead bulb. She goes still as she reads her own name and today's date
+on the final page. Flipping backward through the pages, her name repeats
+at earlier and earlier dates. The bulb flickers once. She closes the
+ledger slowly and doesn't move."
+
+RUNWAY VARIANT (concise, primary-action-focused):
+"Woman kneeling in dusty ledger room, single bulb overhead. She opens a
+leather ledger, finds her own name and today's date, goes completely
+still. Flips backward — her name repeats at earlier dates. Bulb flickers
+once. She closes the book slowly, motionless."
+
+DURATION/SPLIT HANDLING NOTE: At approximately 12 seconds of described
+action, verify this fits within each platform's current single-generation
+limit at time of production; if either platform's limit is shorter, split
+at the natural mid-point (after she finds her name, before flipping
+backward) with the closed ledger page as the shared handoff frame.
+
+GENERATION PARAMETER RECOMMENDATIONS: Favor lower motion-intensity
+settings where available on both platforms, given the scene's static-
+camera, stillness-driven design; higher motion settings would work against
+the intended effect.
+
+FALLBACK PHRASING: If either platform under-renders the "stillness" quality,
+try explicit negative framing: "she does not move, her hands frozen in
+place" as a more direct alternative to "goes still."
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for full-production, multi-platform pipeline management:
+
+{PRODUCTION_PIPELINE_MAP} — a full project document tracking which
+  platform is used for which scene type, based on accumulated performance
+  data across the production
+{BATCH_GENERATION_QUEUE} — an organized generation order grouping scenes
+  by shared tokens/settings to minimize unnecessary re-specification and
+  reduce drift risk
+{VERSION_CONTROL_LOG} — a tracking system for multiple generation attempts
+  per scene, recording which seed/settings/phrasing combination produced
+  the final selected take
+{CROSS_PLATFORM_STITCHING_NOTE} — technical guidance for combining clips
+  generated on different platforms into one coherent sequence, including
+  color-matching considerations tied to Template 08
+
+ADVANCED OUTPUT ADDITION: Request a "PLATFORM PERFORMANCE LEDGER" — a
+running comparative record of which platforms have performed best for
+which template categories (character consistency, creature reveal,
+atmospheric effects, camera movement fidelity) across the production so
+far, to inform future scene-to-platform assignment decisions.
+
+================================================================================
+             END OF TEMPLATE 17 — HORROR VIDEO GENERATION MASTER
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

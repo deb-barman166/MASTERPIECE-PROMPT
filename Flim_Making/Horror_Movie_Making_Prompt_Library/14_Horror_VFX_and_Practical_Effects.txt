@@ -1,0 +1,295 @@
+================================================================================
+              HORROR VFX & PRACTICAL EFFECTS — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 14 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR VFX & PRACTICAL EFFECTS
+Category: Visual & Practical Effects Design
+Compatible Engines: Sora, Veo, Kling, Runway, Pika, Luma, Hailuo (for
+generated effects) + GPT/Claude/Gemini/Grok/DeepSeek (effects reasoning
+and feasibility planning)
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Designs body horror, transformation, injury, and impossible-physical-
+phenomena effects with a specific discipline: deciding, for each effect,
+whether it is best achieved through AI generation, practical/physical
+techniques, or a hybrid, and specifying the effect with enough technical
+precision to be executed either way. This template also governs realistic
+injury/gore logic so that effects read as believable rather than
+gratuitous or generic.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[EFFECT TYPE + STORY PURPOSE] + [ANATOMICAL/PHYSICAL ACCURACY BASELINE] +
+[TRANSFORMATION/PROGRESSION STAGES] + [MATERIAL AND TEXTURE SPECIFICATION]
++ [EXECUTION METHOD: AI/PRACTICAL/HYBRID] + [GORE CALIBRATION LEVEL] +
+[REVEAL PACING] + [PLATFORM-SPECIFIC SYNTAX WRAPPER]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{EFFECT_TYPE} — specific effect category (practical injury/wound, body
+  horror transformation, impossible physical phenomenon, decay/
+  deterioration effect, environmental destruction)
+{STORY_PURPOSE} — why this effect exists narratively (never effect for
+  its own sake — tie back to Template 01's thematic spine or antagonist
+  logic)
+{ANATOMICAL_PHYSICAL_BASELINE} — the realistic physical/anatomical starting
+  point being altered, described accurately before deviation is applied
+{TRANSFORMATION_STAGES} — if progressive, 3-5 numbered stages from initial
+  to final state, each independently specified
+{MATERIAL_TEXTURE_SPEC} — precise material qualities (viscosity, color
+  progression, light interaction, practical material equivalents like
+  silicone/gelatin analogs for reference)
+{EXECUTION_METHOD} — AI-generation-only / practical-effects-only / hybrid
+  (AI-generated base with practical compositing, or vice versa), with
+  reasoning for the choice
+{GORE_CALIBRATION} — 1-10 explicit scale, cross-referenced to
+  {RATING_TARGET} from Template 02, with a preference toward implication
+  and aftermath over explicit graphic display unless the story specifically
+  calls for higher calibration
+{REVEAL_PACING} — how much of the effect is shown directly vs. implied
+  through reaction/aftermath/partial view
+{CONTINUITY_STATE} — how this effect should appear consistently in any
+  subsequent scenes (a wound doesn't heal or change inconsistently)
+{NEGATIVE_TRAITS} — exclude generic/unrealistic defaults (no unmotivated
+  excessive gore disconnected from story purpose, no physically implausible
+  effects without an established supernatural justification, no effect
+  that exists purely for shock without narrative function)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Design a horror VFX/practical effect with realistic grounding and clear
+execution planning.
+
+EFFECT TYPE: {EFFECT_TYPE}
+STORY PURPOSE: {STORY_PURPOSE}
+ANATOMICAL/PHYSICAL BASELINE: {ANATOMICAL_PHYSICAL_BASELINE}
+TRANSFORMATION STAGES (if applicable): {TRANSFORMATION_STAGES}
+MATERIAL/TEXTURE SPEC: {MATERIAL_TEXTURE_SPEC}
+EXECUTION METHOD: {EXECUTION_METHOD}
+GORE CALIBRATION (1-10): {GORE_CALIBRATION}
+REVEAL PACING: {REVEAL_PACING}
+CONTINUITY STATE: {CONTINUITY_STATE}
+EXCLUDE: {NEGATIVE_TRAITS}
+
+Specify the effect with enough technical precision that it could be
+executed either via AI generation or practical effects reference,
+according to EXECUTION_METHOD, and confirm the effect serves STORY_PURPOSE
+rather than existing as gratuitous spectacle.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. EFFECT DESIGN SUMMARY (paragraph: what the effect is, why it serves the
+   story, and its intended audience impact)
+2. STAGE-BY-STAGE SPECIFICATION (if progressive, one detailed description
+   per transformation stage)
+3. PLATFORM-READY GENERATION PROMPT (natural-language, video-model-
+   optimized description for AI generation)
+4. PRACTICAL EFFECTS REFERENCE NOTE (translatable guidance for physical
+   effects execution, useful for hybrid productions)
+5. CONTINUITY CHECKLIST (fixed facts about the effect's appearance that
+   must remain consistent in all subsequent scenes)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Always establish ANATOMICAL_PHYSICAL_BASELINE accurately before
+  describing deviation — effects that violate real anatomy convincingly
+  require first understanding what "convincing" means for that anatomy;
+  effects built on inaccurate baselines read as fake regardless of
+  technical polish.
+- Favor implication and aftermath over sustained explicit display for most
+  story purposes — a brief, well-placed glimpse combined with strong
+  reaction performance (Template 11) is frequently more effective and more
+  reusable across platforms with content restrictions than sustained
+  graphic detail.
+- Every effect should trace to STORY_PURPOSE — if an effect can be removed
+  without weakening the narrative or theme, reconsider whether it belongs
+  in the project at this calibration level.
+- Note that most current AI video generation platforms have content
+  policies restricting graphic gore/injury content; keep GORE_CALIBRATION
+  reasonable for the target platform and lean on Template 07/09's
+  suggestion-through-shadow-and-editing techniques where direct generation
+  isn't permitted or advisable.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Design transformation effects in discrete, independently-specified
+  stages rather than one continuous vague description — this both improves
+  AI generation consistency and gives editors precise control over reveal
+  pacing.
+- Cross-check GORE_CALIBRATION against the project's overall RATING_TARGET
+  (Template 02) before finalizing any individual effect, so the film's
+  tone remains consistent rather than having isolated scenes that spike
+  far above or below the established calibration.
+- When AI platform content restrictions limit direct generation of an
+  effect, default to Template 07's camera techniques (partial framing,
+  reaction shots, careful editing implication) rather than attempting to
+  circumvent platform policies.
+- Maintain a single continuity document per character/effect tracking
+  exactly how injuries or transformations should appear at every point in
+  the story, to prevent inconsistent healing or progression across
+  scenes generated out of order.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- AFTERMATH OVER ACTION: show the result of a violent/transformative event
+  rather than the event itself, letting the audience's imagination
+  construct what happened — frequently more disturbing and more broadly
+  usable than direct depiction.
+- THE PARTIAL GLIMPSE: reveal an effect through a brief, partially obscured
+  view (reflection, peripheral framing, quick cut) rather than a sustained
+  clear shot, preserving mystery and reducing content-policy friction
+  simultaneously.
+- REACTION AS EFFECT: let a witnessing character's physical/vocal reaction
+  (Template 11) carry the emotional weight of an effect the camera never
+  directly shows.
+- PROGRESSIVE WRONGNESS: for transformation effects, make early stages
+  subtle enough to be nearly missed, so the audience's realization builds
+  cumulatively rather than arriving all at once.
+- TEXTURE OVER GRAPHIC DETAIL: emphasize unsettling texture and material
+  quality (wetness, unnatural color, wrongness of surface) over explicit
+  anatomical detail, which is often more effective and more broadly
+  platform-compatible.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Pair REVEAL_PACING decisions directly with Template 07's shot scale and
+  Template 09's shadow architecture — effects intended for partial reveal
+  should be explicitly matched with concealing lighting/framing rather
+  than left to chance.
+- Use Template 07's rack-focus or partial-occlusion framing techniques to
+  control exactly how much of an effect is legible at any given moment.
+- Consider that harsh, direct lighting (Template 09) reveals texture and
+  detail with maximum clarity — reserve this lighting choice specifically
+  for effects intended for full clear reveal, and use softer/dimmer/more
+  shadow-heavy lighting for effects intended to stay ambiguous.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Define a specific sound signature for the effect (a transformation's
+  particular sound, an injury's specific audio quality) to pass to
+  Template 13 — sound often carries more of an effect's visceral impact
+  than the visual itself, especially when visual detail is intentionally
+  limited.
+- Consider using sound to imply an effect's severity beyond what's shown
+  visually, allowing lower GORE_CALIBRATION visual choices to still land
+  with full narrative impact through audio design.
+- Match effect-related sound timing precisely to REVEAL_PACING stages for
+  synchronized audio-visual impact.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+EFFECT_TYPE: Body horror transformation (a minor character slowly
+  "becoming" part of the commune's collective in the film's climax)
+STORY_PURPOSE: Visualizes the thematic spine (belonging bought through
+  self-erasure) literally — the character's individual features gradually
+  homogenize toward a shared, communal appearance
+ANATOMICAL_PHYSICAL_BASELINE: A specific named secondary character with
+  established, distinct facial features (from Template 03)
+TRANSFORMATION_STAGES: 1) Baseline — fully distinct individual appearance
+  2) Subtle — skin tone shifts marginally toward the weathered tone shared
+  by long-term commune members 3) Moderate — one distinctive individual
+  feature (an asymmetric feature) begins to soften toward symmetry
+  4) Advanced — expression defaults to the same neutral half-smile shared
+  by other transformed members 5) Complete — visually indistinguishable at
+  a glance from other long-term members, individual identity erased
+MATERIAL_TEXTURE_SPEC: No overt "monster" texture — the horror is in
+  increasing NORMALCY and homogeneity, not grotesque deviation; skin
+  should remain human-realistic throughout, only trending toward
+  sameness
+EXECUTION_METHOD: AI-generation primary, achieved through incremental
+  prompt adjustment across the 5 stages using consistent character tokens
+  with deliberate, small parameter shifts
+GORE_CALIBRATION: 1/10 — this effect is explicitly bloodless; its horror
+  is conceptual/visual homogenization, not violence
+REVEAL_PACING: Gradual across multiple scenes spanning the film's back
+  half; never called attention to explicitly, discovered only if the
+  audience compares early and late appearances
+CONTINUITY_STATE: Once a stage is reached, the character never reverts to
+  an earlier stage for the remainder of the story
+NEGATIVE_TRAITS: No grotesque body horror imagery, no visible pain/gore, no
+  overt "monster" transformation — the horror is the loss of individual
+  distinctness itself
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+EFFECT DESIGN SUMMARY: This transformation carries no blood and no overt
+monstrousness — its horror is the slow erasure of a specific, distinct
+face into interchangeable sameness, visualizing the film's thematic core
+without a single drop of visual gore.
+
+STAGE-BY-STAGE SPECIFICATION:
+Stage 1 (Baseline): [Character's established Template 03 lock token, used
+  verbatim, no modification]
+Stage 3 (Moderate — example mid-point): "[Character lock token, modified]:
+  skin tone shifted subtly toward a weathered, sun-worn quality shared by
+  long-term commune members; the character's signature asymmetric smile
+  now noticeably softer, trending toward the same even half-smile seen in
+  other transformed figures"
+Stage 5 (Complete): "A commune member whose individual features have
+  become difficult to distinguish from others around them — same
+  weathered tone, same even half-smile, same unhurried stillness — visible
+  only as the same figure introduced [X scenes] earlier if directly
+  compared"
+
+PLATFORM-READY GENERATION PROMPT (Stage 3 example): "The character stands
+among other commune members at dusk. Her skin carries a new, weathered
+warmth it didn't have before. Her once-distinctive smile now sits more
+evenly across her face, softer, less her own."
+
+PRACTICAL EFFECTS REFERENCE NOTE: If achieved practically, this would rely
+on subtle makeup tone-matching and directed performance adjustment (a
+performer note to soften a previously distinctive expression) rather than
+prosthetics — the "effect" is primarily a performance and continuity
+choice, not a physical appliance.
+
+CONTINUITY CHECKLIST: Once Stage 3 is reached in a given scene, no
+subsequent earlier-numbered scene should show the character at Stage 1 or
+2 ✓. Progression is one-directional only ✓.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for complex multi-character or franchise-scale effects work:
+
+{MULTI_CHARACTER_TRANSFORMATION_SYNC} — for effects affecting multiple
+  characters at different rates, define relative timing/progression
+  differences between them
+{PRACTICAL_TO_AI_HANDOFF_SPEC} — detailed technical notes for productions
+  combining practically-shot footage with AI-generated effect layers,
+  including matching lighting/grain/color parameters from Templates 08/09
+{PLATFORM_CONTENT_POLICY_WORKAROUND_NOTE} — for effects that push against
+  typical AI platform content restrictions, a note on legitimate technique
+  alternatives (implication, editing, sound) rather than policy
+  circumvention attempts
+{FRANCHISE_EFFECT_CONSISTENCY_BIBLE} — for multi-installment projects,
+  a master reference ensuring signature effects remain recognizable and
+  consistent across separate productions/sessions
+
+ADVANCED OUTPUT ADDITION: Request a "STORY-PURPOSE JUSTIFICATION AUDIT" —
+a final check confirming every designed effect in the project's full
+effects list can be traced to a specific narrative or thematic purpose
+from Template 01, flagging any effect that appears to exist for shock
+value alone.
+
+================================================================================
+              END OF TEMPLATE 14 — HORROR VFX & PRACTICAL EFFECTS
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

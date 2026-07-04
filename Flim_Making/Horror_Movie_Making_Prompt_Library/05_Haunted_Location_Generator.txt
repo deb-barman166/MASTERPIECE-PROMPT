@@ -1,0 +1,265 @@
+================================================================================
+                  HAUNTED LOCATION GENERATOR — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 05 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HAUNTED LOCATION GENERATOR
+Category: Environment & Setting Design
+Compatible Engines: Sora, Veo, Kling, Runway, Pika, Luma, Hailuo (visual
+generation) + GPT/Claude/Gemini/Grok/DeepSeek (design reasoning)
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Designs a fully realized horror location — architecture, history, spatial
+logic, and "wrongness geography" — as a persistent, consistent world that
+functions as a character in its own right. The goal is a location the
+audience could draw a map of, with specific rooms/zones that carry distinct
+emotional registers, avoiding the generic "spooky house" default by forcing
+concrete architectural and historical grounding.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[LOCATION TYPE + ERA] + [ARCHITECTURAL LOGIC] + [HISTORY/ORIGIN OF DREAD] +
+[SPATIAL MAP: ZONE-BY-ZONE EMOTIONAL REGISTER] + [WRONGNESS GEOGRAPHY] +
+[ENVIRONMENTAL STORYTELLING DETAILS] + [SCALE + LIGHT BEHAVIOR] +
+[CONSISTENCY LOCK TOKEN] + [PLATFORM-SPECIFIC SYNTAX WRAPPER]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{LOCATION_TYPE} — specific building/place type (Victorian sanatorium,
+  abandoned grain silo, suburban home built on a specific site history,
+  underground transit tunnel, rural motel)
+{ERA_BUILT} + {ERA_PRESENT_DAY} — when it was built vs. when the story is
+  set, and what decayed/changed between
+{ARCHITECTURAL_LOGIC} — specific structural details that make the space
+  spatially believable (floor plan logic, materials, why rooms are shaped
+  as they are)
+{HISTORY_OF_DREAD} — the specific historical event(s) that give the
+  location its wrongness — avoid vague "bad things happened here"
+{SPATIAL_ZONE_MAP} — 4-6 distinct named zones/rooms, each with a specific
+  emotional register (the zone that feels safe, the zone that's always
+  cold, the zone no character wants to enter alone)
+{WRONGNESS_GEOGRAPHY} — specific ways the space defies normal physics/logic
+  (a hallway that's longer going one direction, a room that's always 10
+  degrees colder, a door that was never there in blueprints)
+{ENVIRONMENTAL_STORYTELLING} — specific objects/details that convey history
+  without exposition (a child's height marks on a doorframe, a boarded
+  window from the inside)
+{SCALE_AND_LIGHT_BEHAVIOR} — how natural/artificial light behaves in the
+  space (which rooms never get direct sun, where shadows fall unnaturally)
+{SEASONAL_TIME_VARIANT} — how the location should look at different times
+  of day/year, for scene-to-scene consistency
+{CONSISTENCY_LOCK_TOKEN} — reusable phrase capturing the location's
+  unmistakable visual/spatial signature
+{NEGATIVE_TRAITS} — exclude generic horror-location clichés unless
+  specifically subverted (no generic cobwebs-everywhere default, no
+  randomly flickering lights without cause)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Design a fully realized horror location with persistent spatial logic.
+
+LOCATION TYPE: {LOCATION_TYPE}
+ERA BUILT / ERA PRESENT: {ERA_BUILT} / {ERA_PRESENT_DAY}
+ARCHITECTURAL LOGIC: {ARCHITECTURAL_LOGIC}
+HISTORY OF DREAD: {HISTORY_OF_DREAD}
+SPATIAL ZONE MAP: {SPATIAL_ZONE_MAP}
+WRONGNESS GEOGRAPHY: {WRONGNESS_GEOGRAPHY}
+ENVIRONMENTAL STORYTELLING DETAILS: {ENVIRONMENTAL_STORYTELLING}
+LIGHT BEHAVIOR: {SCALE_AND_LIGHT_BEHAVIOR}
+SEASONAL/TIME VARIANTS NEEDED: {SEASONAL_TIME_VARIANT}
+EXCLUDE: {NEGATIVE_TRAITS}
+
+Generate:
+1. A CONSISTENCY LOCK TOKEN for the location's overall identity.
+2. A per-zone prompt set — one complete, platform-ready prompt per named
+   zone in SPATIAL_ZONE_MAP, each internally consistent with the overall
+   architectural logic and lock token.
+3. A simple spatial relationship note (which zones connect to which) so
+   the location remains navigable and consistent across multiple scenes.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. LOCATION BIBLE SUMMARY (history, architecture, and central wrongness in
+   one paragraph)
+2. CONSISTENCY LOCK TOKEN (isolated, bolded)
+3. ZONE-BY-ZONE PROMPT SET (one prompt per zone, labeled with its emotional
+   register)
+4. SPATIAL RELATIONSHIP MAP (simple text-based floor logic: which zones
+   are adjacent, which are hidden/hard to find)
+5. PLATFORM ADAPTATIONS (image-model / video-model / LLM reasoning syntax)
+6. CONTINUITY CHECKLIST (fixed facts: number of floors, key architectural
+   features that must remain constant across every future scene prompt)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- A location's dread should come from specific, plausible history, not
+  vague "evil energy." Ground HISTORY_OF_DREAD in a believable human event
+  even in supernatural stories — audiences fear plausible tragedy more than
+  abstract evil.
+- Design zones with contrasting emotional registers deliberately — a
+  location where every room feels equally dangerous has nowhere to
+  escalate to; include at least one "false safe" zone.
+- WRONGNESS_GEOGRAPHY should be internally consistent and rule-bound (the
+  hallway is always 12% longer going north, not randomly different every
+  time) — inconsistent wrongness reads as sloppy rather than uncanny.
+- Environmental storytelling details should never require dialogue to
+  explain — if a detail needs a character to state its meaning aloud, it's
+  not doing its job as environmental storytelling.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Build the floor plan logic before writing zone descriptions — spatial
+  incoherence is one of the fastest ways to break audience immersion in
+  location-driven horror.
+- Limit WRONGNESS_GEOGRAPHY to 1-2 core impossible rules per location;
+  stacking many defies-physics elements dilutes the impact of each and
+  strains internal consistency.
+- Reuse the same 2-3 signature materials/textures (a specific wood, a
+  specific wallpaper pattern, a specific type of window) across all zones
+  to keep the location visually unified across many generated shots.
+- Design at least one zone that must NEVER be shown in full light/scale in
+  any scene, reserved for the location's most significant reveal.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- THE FALSE SAFE ROOM: designate one zone that reads as refuge throughout
+  the story, then subvert it once, late, for maximum impact.
+- GEOGRAPHY THAT LIES: use WRONGNESS_GEOGRAPHY consistently enough that
+  attentive viewers can start to detect the pattern, rewarding rewatches.
+- THE UNSEEN ZONE: keep one mapped zone entirely off-screen for most of the
+  runtime, built up through other characters' dialogue/reactions before
+  ever being shown directly.
+- MATERIAL MEMORY: let specific materials (water stains, worn floorboards)
+  visually "remember" the history of dread without any supernatural
+  embellishment — mundane decay can be as unsettling as the impossible.
+- VERTICALITY AS DREAD: use up/down movement (into a basement, up into an
+  attic) as a structural tension tool — vertical transitions read as
+  higher-stakes than horizontal ones.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Assign a distinct light behavior per zone (the zone that only ever has
+  hard directional light, the zone with no light source at all) to keep
+  Template 09 (Lighting) mapping consistent zone-to-zone.
+- Specify preferred lens/framing tendencies per zone type: wide shots for
+  established "safe" zones to emphasize openness, tighter/narrower framing
+  for wrongness zones to emphasize confinement.
+- Note where natural light sources exist (windows, skylights) precisely,
+  since their position determines shadow behavior across the entire
+  shooting day/night cycle for continuity.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Assign a distinct ambient soundscape per zone (structural creaks specific
+  to that zone's materials, a hum only present in one room) for Template
+  10 and Template 13 continuity.
+- Note where sound should behave abnormally as part of WRONGNESS_GEOGRAPHY
+  (a room with unnatural echo, a zone with total sound dampening).
+- Flag the zone reserved for the location's primary "silence cue" — the
+  space where ambient sound should drop out entirely for maximum dread.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+LOCATION_TYPE: A decommissioned rural telephone exchange building
+ERA_BUILT: 1958 / ERA_PRESENT_DAY: Present day, abandoned since 2003
+ARCHITECTURAL_LOGIC: Single-story brick utility building with a
+  disproportionately deep basement level (original relay equipment
+  storage), narrow service corridors designed for machines, not people
+HISTORY_OF_DREAD: A technician went missing during a night shift in 1974;
+  official record states he "walked off," but his shift-end call was
+  logged forty minutes after his badge-out time
+SPATIAL_ZONE_MAP: 1) Front office (false-safe, dusty but mundane) 2) Main
+  relay hall (oppressive, rows of dead switching equipment) 3) Narrow
+  service corridor (claustrophobic, single-file only) 4) Basement relay
+  vault (coldest, source of the wrongness) 5) Roof access (isolated,
+  overlooks nothing but empty fields)
+WRONGNESS_GEOGRAPHY: The basement stairwell always has exactly one more
+  step going down than coming back up, consistently, every time
+ENVIRONMENTAL_STORYTELLING: A logbook open to the technician's final
+  entry, pen still uncapped beside it after 50 years; a single office
+  chair facing the relay hall door instead of the desk
+SCALE_AND_LIGHT_BEHAVIOR: No windows in relay hall or basement; only light
+  source is battery emergency lighting with a slow amber flicker cycle
+SEASONAL_TIME_VARIANT: Winter, night exteriors only for establishing shots
+NEGATIVE_TRAITS: No generic cobwebs-everywhere default, no random unmotivated
+  flickering unrelated to the emergency lighting logic
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+LOCATION BIBLE SUMMARY: A 1958 rural telephone exchange, abandoned since
+2003, whose basement relay vault holds the specific, quiet wrongness of a
+staircase that never has the same number of steps twice — a small,
+consistent impossibility that mirrors the missing forty minutes in a
+technician's 1974 disappearance.
+
+CONSISTENCY LOCK TOKEN:
+"Abandoned 1958 brick telephone exchange, amber emergency-light flicker,
+narrow machine-scale corridors, basement stairwell with one extra step
+descending"
+
+ZONE PROMPT — Basement Relay Vault (Wrongness core):
+[Lock Token] + "basement relay vault, rows of dead switching equipment
+receding into darkness, single amber emergency light casting long slow-
+flickering shadows, visible breath in the cold air, stairwell entrance
+frames the shot, no windows, oppressive low ceiling"
+
+ZONE PROMPT — Front Office (False-safe):
+[Lock Token] + "front office area, dusty reception desk, faded 1970s
+wall calendar, weak grey daylight through a single dirty window, mundane
+and quiet, contrasts sharply with the windowless interior beyond"
+
+SPATIAL RELATIONSHIP MAP: Front Office → connects to → Main Relay Hall →
+connects to → Narrow Service Corridor → descends to → Basement Relay Vault
+(the wrongness zone) | Roof Access is reached via a separate exterior
+ladder, isolated from the interior zones entirely.
+
+PLATFORM ADAPTATIONS:
+- Video-model syntax: "The camera moves slowly down a narrow basement
+  stairwell into a relay vault filled with rows of dead switching
+  equipment. A single amber emergency light flickers slowly, casting long
+  shadows across the machines. The air is cold enough to see breath."
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for multi-location or franchise-scale worldbuilding:
+
+{MULTI_LOCATION_CONNECTIVITY} — if the story involves multiple linked
+  locations, define how their wrongness geographies relate or contrast
+{DEGRADATION_TIMELINE} — how the location's physical state should change
+  across a story spanning multiple days/weeks (mold spread, structural
+  failure) for shoot-order continuity
+{PRACTICAL_LOCATION_SCOUTING_NOTE} — a note translating the designed space
+  into real-world location-scouting criteria, for hybrid AI-generated/
+  practical production pipelines
+{VIRTUAL_BLUEPRINT_EXPORT} — request a simple top-down text-based floor
+  plan description suitable for conversion into an actual diagram/blueprint
+  reference image
+
+ADVANCED OUTPUT ADDITION: Request a "GEOGRAPHY CONSISTENCY AUDIT" — a
+review pass checking that every zone prompt in the set uses matching
+materials, light sources, and scale language, flagging any zone that
+would visually contradict the established architectural logic if generated
+as-is.
+
+================================================================================
+                 END OF TEMPLATE 05 — HAUNTED LOCATION GENERATOR
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

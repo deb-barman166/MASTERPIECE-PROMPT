@@ -1,0 +1,251 @@
+================================================================================
+           HORROR QUALITY & CONSISTENCY CHECKER — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 19 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR QUALITY & CONSISTENCY CHECKER
+Category: Diagnostic Review & Continuity Audit
+Compatible Engines: GPT-4/5, Claude, Gemini, Grok, DeepSeek, and future LLMs
+(used as a reasoning/review layer over generated text and visual outputs)
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Provides a systematic AUDIT PROTOCOL to run against completed or in-
+progress generations from any other template in this library, checking for
+continuity breaks, consistency-token drift, tonal inconsistency, and
+craft-level quality issues before content moves further down the
+production pipeline. This template is the library's quality-control
+backstop — it doesn't generate new content, it verifies that what's been
+generated actually honors the locked decisions made in every prior
+template.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[CONTENT UNDER REVIEW] + [RELEVANT LOCKED TOKENS/BIBLES FOR COMPARISON] +
+[AUDIT CATEGORY SELECTION] + [SEVERITY CLASSIFICATION SYSTEM] +
+[CORRECTIVE RECOMMENDATION FORMAT] + [RE-VERIFICATION PROTOCOL]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{CONTENT_UNDER_REVIEW} — the generated scene, dialogue, character
+  description, or sequence to be audited
+{RELEVANT_LOCKED_TOKENS} — all applicable consistency lock tokens and
+  bibles from prior templates (character, creature, location,
+  cinematography, lighting) that this content must honor
+
+{AUDIT_CATEGORY} — select relevant categories per review:
+  - VISUAL CONSISTENCY: does character/creature/location appearance match
+    locked tokens exactly (Templates 03/04/05)
+  - TONAL CONSISTENCY: does this content match the established
+    PRACTICAL_VS_STYLIZED_BALANCE and overall tone calibration (Template
+    08)
+  - NARRATIVE CONTINUITY: does this content contradict established plot
+    facts, character knowledge, or timeline (Template 01/02)
+  - ANTAGONIST LOGIC INTEGRITY: does the antagonist/creature behave within
+    its established rules (Template 01/04's ANTAGONIST_LOGIC)
+  - PACING INTEGRITY: does this content honor the established
+    BEAT_TYPE/TENSION_CURVE rather than flattening or rushing it (Template
+    02/06)
+  - CLICHÉ/GENERIC-DEFAULT DETECTION: has this content drifted toward
+    generic horror tropes despite the specific design intentions
+    established across the library
+  - DIALOGUE SUBTEXT INTEGRITY: does dialogue maintain the withholding
+    discipline established in Template 12, or has it become on-the-nose
+  - EFFECTS CONTINUITY: do injury/transformation states match their
+    established progression stage (Template 14)
+
+{SEVERITY_CLASSIFICATION} — CRITICAL (breaks story logic or core design,
+  must be fixed before proceeding) / MODERATE (noticeable inconsistency,
+  should be fixed) / MINOR (small polish issue, fix if time permits)
+{CORRECTIVE_RECOMMENDATION_FORMAT} — for each flagged issue, a specific,
+  actionable fix rather than just a problem description
+{RE_VERIFICATION_PROTOCOL} — instructions for confirming a fix actually
+  resolved the flagged issue without introducing new inconsistencies
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Audit this content against established project consistency requirements.
+
+CONTENT UNDER REVIEW: {CONTENT_UNDER_REVIEW}
+RELEVANT LOCKED TOKENS/BIBLES: {RELEVANT_LOCKED_TOKENS}
+AUDIT CATEGORIES TO CHECK: {AUDIT_CATEGORY}
+
+For each selected audit category, systematically compare the content under
+review against the relevant locked tokens/bibles and story facts,
+identifying any discrepancy, however small. Classify each finding by
+severity and provide a specific corrective recommendation.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. AUDIT SUMMARY (overall pass/fail assessment with total issue count by
+   severity)
+2. DETAILED FINDINGS TABLE (category | specific issue | severity |
+   corrective recommendation)
+3. CRITICAL ISSUES REQUIRING IMMEDIATE ATTENTION (isolated and highlighted
+   separately from the full table for quick triage)
+4. RE-VERIFICATION CHECKLIST (specific points to re-check after
+   corrections are applied)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Compare against LOCKED TOKENS LITERALLY — don't assume minor paraphrasing
+  drift is acceptable; if a character's established eye color, a
+  creature's established limb count, or a location's established
+  architectural feature has changed even slightly, flag it.
+- Distinguish between DELIBERATE, STORY-MOTIVATED changes (a character's
+  wardrobe degrading per an established arc) and UNINTENDED DRIFT (a
+  character's face shape subtly changing between generations) — only the
+  latter is a genuine consistency failure.
+- When auditing antagonist logic integrity, check specifically whether the
+  content shows the antagonist violating its own established rules
+  (Template 01/04) without narrative justification — rule violations
+  without justification are critical-severity issues since they undermine
+  the entire fear architecture.
+- Always provide a specific, actionable corrective recommendation
+  alongside every flagged issue — a quality audit that only identifies
+  problems without suggesting fixes creates extra work rather than saving
+  it.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Run this audit at natural production checkpoints (after each major
+  scene, after each act, before final assembly) rather than only at the
+  very end, since catching drift early prevents it from compounding
+  across many dependent generations.
+- Keep a running MASTER CONSISTENCY DOCUMENT compiling every locked token
+  and story fact from Templates 01-15, and reference this single document
+  during every audit rather than re-deriving facts from scattered prior
+  outputs each time.
+- When the same type of drift keeps appearing across multiple audits (a
+  specific character detail repeatedly rendering incorrectly), address the
+  root cause in the originating template's lock token rather than
+  continuing to catch and fix it downstream every time.
+- Don't over-audit minor stylistic variation that doesn't affect story
+  logic or core design — reserve rigorous scrutiny for elements the story
+  actually depends on, to keep the audit process efficient and focused.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- THE REVEAL LEAKAGE CHECK: specifically audit every "hint" and "partial"
+  stage output from Template 04's reveal architecture to confirm no
+  later-stage detail has leaked into an earlier stage's description.
+- THE RESTRAINT DRIFT CHECK: specifically audit performance (Template 11)
+  and dialogue (Template 12) outputs for creeping melodrama or on-the-nose
+  exposition, since these tend to drift toward genre-generic defaults over
+  a long production more than other elements.
+- THE MOTIF DISCIPLINE CHECK: verify that signature sound/visual motifs
+  (Templates 01/04/13) have not been used outside their established
+  trigger conditions, which would weaken their conditioning effect on the
+  audience.
+- THE ESCALATION LADDER CHECK: verify that tension/intensity across
+  reviewed scenes actually escalates according to Template 01's
+  ESCALATION_BEATS rather than plateauing or peaking prematurely.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Audit camera language (Template 07) specifically for SIGNATURE_MOTIF_
+  LOCK violations — confirm the antagonist-reserved camera combination
+  hasn't been accidentally reused for unrelated content.
+- Audit lighting continuity (Template 09) by checking that established
+  per-location light source rules haven't been contradicted without a
+  specific story reason (e.g., a power restoration beat).
+- Cross-check Template 08's cinematography lock token against a sample of
+  generated content periodically to catch gradual color/contrast drift
+  before it compounds across many scenes.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Audit sound design outputs (Template 13) against the established
+  SILENCE_CUE_PLACEMENT and MOTIF_TOKEN rules, confirming silence hasn't
+  been unintentionally filled and the motif hasn't appeared outside its
+  established trigger logic.
+- Audit atmospheric continuity (Template 10) across a sequence of scenes
+  to confirm weather/environmental states progress consistently with
+  TIME_ELAPSED_INDICATORS rather than resetting or jumping inconsistently.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+CONTENT_UNDER_REVIEW: A newly generated scene showing Warden Voss raising
+  his voice and speaking rapidly to another commune member
+RELEVANT_LOCKED_TOKENS: Voss's Template 03 character bible, which
+  specifies: "unhurried," "measured," "never a raised voice" as explicit
+  NEGATIVE_TRAITS
+AUDIT_CATEGORIES_TO_CHECK: Visual consistency, Tonal consistency,
+  Narrative continuity
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+AUDIT SUMMARY: FAIL — 1 critical issue identified. This scene directly
+contradicts an explicit, established character constraint.
+
+DETAILED FINDINGS TABLE:
+| Category | Issue | Severity | Recommendation |
+|----------|-------|----------|-----------------|
+| Visual/Tonal Consistency | Voss is shown raising his voice and speaking
+rapidly, directly contradicting his Template 03 lock token's explicit
+NEGATIVE_TRAITS ("no raised voice ever," "moves/speaks with deliberate
+slowness") | CRITICAL | Regenerate the scene with Voss maintaining his
+established unhurried, measured, quiet register even under dramatic
+pressure — if the story requires him to convey urgency, use pacing,
+word choice, and the established throat-touch tell (per his character
+bible) rather than volume or speed to convey it |
+
+CRITICAL ISSUES REQUIRING IMMEDIATE ATTENTION: The Voss characterization
+break above must be corrected before this scene proceeds to video
+generation (Template 17), since his unnerving stillness is a core,
+load-bearing element of his character design — losing it undermines his
+established uncanny effect throughout the entire project, not just this
+scene.
+
+RE-VERIFICATION CHECKLIST: After regeneration, confirm — (1) Voss's vocal
+volume/pace remains constant regardless of scene stakes, (2) urgency, if
+needed, is conveyed through word choice or the throat-touch tell instead,
+(3) no other established NEGATIVE_TRAITS from his character bible have
+been introduced in the corrected version.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for full-production, feature-length audit management:
+
+{FULL_PROJECT_AUDIT_PASS} — a comprehensive review protocol run across an
+  entire completed act or full project, rather than a single scene, with
+  findings organized by affected template category
+{DRIFT_TREND_ANALYSIS} — tracking whether specific consistency issues are
+  increasing in frequency over the course of production (suggesting a
+  systemic lock-token weakness) vs. isolated incidents
+{MULTI_REVIEWER_CROSS_CHECK} — a protocol for running the same audit
+  through multiple different LLMs (GPT, Claude, Gemini, etc.) and
+  comparing findings, since different models may catch different types of
+  inconsistency
+{PRE_RELEASE_FINAL_AUDIT} — a comprehensive, maximum-rigor final pass
+  combining every audit category, intended as the last checkpoint before
+  a project is considered complete
+
+ADVANCED OUTPUT ADDITION: Request a "SYSTEMIC WEAKNESS REPORT" — after
+multiple audit passes across a production, an analysis of which specific
+locked tokens or established rules have required the most corrections,
+informing whether those tokens need to be rewritten with greater
+specificity at the source template rather than continuing to catch
+violations after the fact.
+
+================================================================================
+          END OF TEMPLATE 19 — HORROR QUALITY & CONSISTENCY CHECKER
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

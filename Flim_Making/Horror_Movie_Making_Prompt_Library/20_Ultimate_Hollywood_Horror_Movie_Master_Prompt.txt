@@ -1,0 +1,316 @@
+================================================================================
+      ULTIMATE HOLLYWOOD HORROR MOVIE MASTER PROMPT — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 20 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+ULTIMATE HOLLYWOOD HORROR MOVIE MASTER PROMPT
+Category: Full-Production Orchestration System
+Compatible Engines: Full library — GPT-4/5, Claude, Gemini, Grok, DeepSeek
+(narrative/reasoning layers) + Sora, Veo, Kling, Runway, Pika, Luma,
+Hailuo (generation layers), orchestrated as one production pipeline
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+This is the CAPSTONE TEMPLATE of the library — a single orchestration
+document that sequences all 19 prior templates into one coherent, end-to-
+end production pipeline for generating a complete horror short film or
+feature treatment from a single starting concept. It does not replace any
+individual template; it is the map showing exactly which template to run
+when, what output feeds into what input, and how to maintain consistency
+across the entire pipeline from first concept to final assembled cut.
+Use this template first, as your production roadmap, before diving into
+any individual template in the library.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[PROJECT SCOPE DEFINITION] + [SEQUENTIAL TEMPLATE PIPELINE MAP] +
+[CROSS-TEMPLATE CONSISTENCY ARCHITECTURE] + [PRODUCTION CHECKPOINT
+SCHEDULE] + [MASTER CONSISTENCY DOCUMENT STRUCTURE] + [FINAL ASSEMBLY
+PROTOCOL] + [PLATFORM ORCHESTRATION STRATEGY]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{PROJECT_SCOPE} — short film / feature treatment / limited series episode,
+  with target runtime
+{STARTING_CONCEPT} — the initial idea, however rough (a single sentence,
+  a mood, an image) that will be developed through the pipeline
+{PRODUCTION_TIMELINE} — how much time/how many sessions are available,
+  which determines how the checkpoint schedule should be paced
+{TARGET_PLATFORMS} — which AI video/image/audio platforms will be used for
+  final generation (feeds Template 17's platform orchestration)
+{TEAM_SIZE} — solo creator vs. small team, which affects how the Master
+  Consistency Document should be structured and shared
+{QUALITY_BAR} — the level of polish/consistency rigor required (a quick
+  concept demo vs. a fully production-ready pipeline), which determines how
+  many audit checkpoints (Template 19) to schedule
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE — THE FULL PRODUCTION PIPELINE
+────────────────────────────────────────────────────────────────────────────
+PROJECT SCOPE: {PROJECT_SCOPE}
+STARTING CONCEPT: {STARTING_CONCEPT}
+PRODUCTION TIMELINE: {PRODUCTION_TIMELINE}
+TARGET PLATFORMS: {TARGET_PLATFORMS}
+TEAM SIZE: {TEAM_SIZE}
+QUALITY BAR: {QUALITY_BAR}
+
+Execute the following pipeline in sequence. Each phase's output becomes a
+locked input for all subsequent phases. Do not skip phases even under time
+pressure — downstream templates depend on upstream consistency tokens
+existing and being correct.
+
+PHASE 1 — FOUNDATION (Narrative Architecture)
+→ Run Template 01 (Horror Story Generator) using STARTING_CONCEPT as seed
+→ Output: Full story with locked THEMATIC_SPINE, ANTAGONIST_LOGIC,
+  ESCALATION_BEATS
+→ CHECKPOINT: Confirm the core fear mechanic is singular and specific
+  before proceeding
+
+PHASE 2 — SCRIPT DEVELOPMENT
+→ Run Template 02 (Horror Screenplay Generator) using Phase 1 output as
+  SOURCE_MATERIAL
+→ Output: Formatted screenplay with scene breakdown table (beat types,
+  subtext layers)
+→ CHECKPOINT: Confirm pacing profile is consistent and scene count matches
+  PROJECT_SCOPE's runtime target
+
+PHASE 3 — VISUAL DESIGN BIBLE (run in parallel, cross-reference each other)
+→ Run Template 03 (Character Design) for every named character
+→ Run Template 04 (Monster & Creature Design) for every non-human entity
+→ Run Template 05 (Haunted Location Generator) for every distinct setting
+→ Run Template 08 (Cinematography) once, project-wide
+→ Run Template 09 (Lighting & Shadows) per location/scene-type
+→ Run Template 10 (Atmosphere & Environment) per location/time-period
+→ Output: Complete set of CONSISTENCY LOCK TOKENS for every character,
+  creature, location, and the overall visual style
+→ CHECKPOINT: Verify no two characters/creatures share confusable lock
+  tokens; verify SIGNATURE_COLOR (Template 08) and antagonist camera motif
+  (Template 07) are formally reserved and documented
+
+PHASE 4 — SCENE ASSEMBLY (iterative, one pass per scene)
+→ For each scripted scene, run Template 06 (Horror Scene Generator),
+  pulling locked tokens from Phase 3
+→ Run Template 07 (Camera Master) for each scene's specific shot
+  requirements
+→ Run Template 11 (Fear, Emotion & Acting) for each scene's performance
+  beats
+→ Run Template 12 (Horror Dialogue Generator) for each scene's dialogue,
+  if any
+→ Run Template 14 (VFX & Practical Effects) and Template 15 (Blood, Fog,
+  Smoke & Weather) for any scene requiring elemental/practical effects
+→ Output: Fully composed, generation-ready scene prompts for the entire
+  script
+→ CHECKPOINT: Run Template 19 (Quality & Consistency Checker) against a
+  sample of completed scenes before proceeding to full-scale generation
+
+PHASE 5 — AUDIO DESIGN
+→ Run Template 13 (Sound Design & Music) for every scene, using the
+  tension curves established in Phase 2/4
+→ Output: Complete time-synced audio cue sheets for the full project
+→ CHECKPOINT: Verify MOTIF_TOKEN usage discipline across the full project
+  (Template 19's Motif Discipline Check)
+
+PHASE 6 — GENERATION
+→ Run Template 17 (Video Generation Master) to translate every composed
+  scene into platform-specific generation prompts for TARGET_PLATFORMS
+→ Run Template 18 (Negative Prompt Master) alongside every generation call
+  to protect against known failure modes
+→ Output: Generated video/image clips for every scene
+→ CHECKPOINT: Run Template 19 against generated output (not just prompts)
+  to catch generation-specific drift that couldn't be predicted from
+  prompts alone
+
+PHASE 7 — ASSEMBLY
+→ Run Template 16 (Editing & Transitions) to determine cut logic and
+  sequence the generated clips
+→ Output: Fully assembled sequence/cut
+→ FINAL CHECKPOINT: Run Template 19's PRE_RELEASE_FINAL_AUDIT (Advanced
+  Version) across the complete assembled project
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. PRODUCTION ROADMAP (the phase-by-phase plan above, customized with the
+   user's specific PROJECT_SCOPE and timeline)
+2. MASTER CONSISTENCY DOCUMENT TEMPLATE (a structured document format for
+   compiling every locked token from Phases 1-3 into one central
+   reference, to be maintained throughout production)
+3. CHECKPOINT SCHEDULE (specific points in the timeline where Template 19
+   audits should be run, scaled to QUALITY_BAR)
+4. CROSS-TEMPLATE DEPENDENCY MAP (a clear diagram/list showing exactly
+   which templates' outputs feed which other templates' inputs, to prevent
+   sequencing errors)
+5. PLATFORM ORCHESTRATION SUMMARY (which platforms are assigned to which
+   content types, per Template 17's guidance, tailored to TARGET_PLATFORMS)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Never skip Phase 1 or attempt to shortcut directly to scene generation
+  (Phase 4) — every downstream template's quality depends on the
+  specificity established in the foundational story and design phases;
+  skipping ahead produces generic, inconsistent output regardless of how
+  well individual scene prompts are written.
+- Treat the Master Consistency Document as the single source of truth for
+  the entire production — when any template's output seems to conflict
+  with another, the Master Consistency Document (not memory or assumption)
+  should resolve the discrepancy.
+- Scale checkpoint frequency to QUALITY_BAR and PRODUCTION_TIMELINE
+  realistically — a quick concept demo doesn't need every checkpoint in
+  the full pipeline, but a production-ready project should not skip any of
+  them.
+- Maintain phase order even when working iteratively — it's fine to revisit
+  Phase 1 after starting Phase 4 if a story problem is discovered, but the
+  correction should propagate forward through all dependent phases rather
+  than being patched only at the point it was discovered.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- For solo creators or small teams, consider running Phase 3's parallel
+  templates sequentially instead if managing multiple simultaneous design
+  threads becomes overwhelming — the pipeline's logic holds either way, as
+  long as all Phase 3 outputs are complete and cross-referenced before
+  Phase 4 begins.
+- Budget real time for the checkpoint stages — they are not optional
+  overhead but the mechanism that prevents expensive downstream rework
+  from compounding consistency errors across dozens of generated scenes.
+- Keep the Master Consistency Document in a format everyone on the team
+  (or future-you, returning to the project later) can quickly reference
+  without re-reading every prior template output in full.
+- When production timeline is very short, prioritize rigor in Phases 1-3
+  over Phases 4-7 — a slightly less polished generation of a well-designed
+  scene outperforms a highly polished generation of an inconsistent one.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+This template's own "technique" is STRUCTURAL DISCIPLINE — the recognition
+that Hollywood-quality horror (in any medium) comes from a coherent system
+of reinforcing choices (a consistent antagonist logic, a disciplined
+signature motif, a restrained performance style) rather than from any
+single clever trick. The specific techniques catalogued across Templates
+01-19 only compound into genuine cinematic quality when applied through
+this kind of consistent, cross-referenced pipeline rather than in
+isolation. Revisit each template's "Horror Cinematic Techniques" section
+during the relevant pipeline phase rather than trying to apply all
+techniques everywhere at once — over-stuffing every scene with every
+technique from every template dilutes rather than strengthens the result.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+Established once in Phase 3 (Templates 07/08/09) and referenced, never
+re-derived, throughout Phases 4-7. The single most common cause of visual
+inconsistency in AI-assisted horror production is treating camera and
+lighting decisions as scene-by-scene creative choices rather than project-
+wide systems established early and applied consistently — this pipeline
+structure exists specifically to prevent that failure mode.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+Established in Phase 5 but DESIGNED conceptually as early as Phase 1
+(Template 01's sound motif and silence notes) — sound should never be an
+afterthought bolted onto finished visuals. This pipeline deliberately
+plants audio identity (the antagonist's motif, key silence cues) in the
+foundational story phase precisely so Phase 5's full audio design has a
+consistent conceptual seed to build from, rather than inventing sound
+identity from scratch after all visual decisions are already locked.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+PROJECT_SCOPE: Short film, target 8-10 minutes
+STARTING_CONCEPT: "A woman finally finds the community she's always
+  wanted, and slowly realizes belonging here means disappearing"
+PRODUCTION_TIMELINE: Approximately 15-20 focused working sessions
+TARGET_PLATFORMS: Kling for primary generation, Runway as comparison/
+  backup platform
+TEAM_SIZE: Solo creator
+QUALITY_BAR: Production-ready — intended for public release/festival
+  submission, full rigor required
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+PRODUCTION ROADMAP (customized excerpt):
+Given a solo creator with 15-20 sessions and a production-ready quality
+bar, allocate roughly: Sessions 1-2 (Phase 1, Template 01, with 1 full
+revision pass), Sessions 3-4 (Phase 2, Template 02), Sessions 5-8 (Phase
+3, all parallel design templates — this is the longest phase and shouldn't
+be rushed given the quality bar), Sessions 9-14 (Phase 4, scene-by-scene
+assembly for an estimated 12-15 scenes at this runtime), Session 15 (Phase
+5, audio design), Sessions 16-18 (Phase 6, generation across Kling primary/
+Runway backup), Sessions 19-20 (Phase 7, assembly and final audit).
+
+MASTER CONSISTENCY DOCUMENT TEMPLATE (structure):
+```
+PROJECT: [Title]
+=== STORY CORE (Phase 1) ===
+Thematic Spine: [locked]
+Antagonist Logic: [locked ruleset]
+Escalation Beats: [5 beats, locked]
+
+=== CHARACTER TOKENS (Phase 3) ===
+[Character Name]: [Lock Token] | [Key continuity facts]
+
+=== LOCATION TOKENS (Phase 3) ===
+[Location/Zone Name]: [Lock Token] | [Spatial relationships]
+
+=== VISUAL STYLE (Phase 3) ===
+Cinematography Lock Token: [locked]
+Signature Color: [reserved color + usage rule]
+Signature Camera Motif: [reserved combination + usage rule]
+
+=== AUDIO IDENTITY (Phase 1/5) ===
+Motif Token: [locked] | Usage Rule: [locked]
+Key Silence Cues: [scene list]
+
+=== CHECKPOINT LOG ===
+[Date/Session] — [Template 19 audit run] — [Pass/Fail] — [Issues found]
+```
+
+CHECKPOINT SCHEDULE: Given the production-ready quality bar, schedule
+Template 19 audits after Phase 3 completion, after every 3-4 scenes in
+Phase 4, after Phase 6 generation, and as a comprehensive pass in Phase 7
+— five distinct audit points across the 20-session timeline.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+For franchise development, multi-episode series, or team-scale productions,
+extend the pipeline with:
+
+{FRANCHISE_BIBLE_LAYER} — a persistent, cross-project Master Consistency
+  Document layer that survives beyond a single film/episode, tracking
+  world rules, recurring character tokens, and established visual/audio
+  identity across an entire franchise
+{PARALLEL_TEAM_WORKFLOW} — a version of the pipeline restructured for
+  multiple team members working simultaneously on different phases, with
+  explicit hand-off protocols and shared Master Consistency Document access
+{EPISODE_TO_EPISODE_CONTINUITY_PROTOCOL} — for series work, a specific
+  checkpoint added between episodes verifying all locked tokens remain
+  valid and unmodified unless a deliberate story reason requires evolution
+{ITERATIVE_RELEASE_PIPELINE} — a restructured phase order for projects
+  releasing content incrementally (e.g., serialized shorts) rather than as
+  one complete finished piece, with adjusted checkpoint timing
+
+ADVANCED OUTPUT ADDITION: Request a "FULL PIPELINE RETROSPECTIVE" —
+after project completion, a structured review of which phases took longer
+or shorter than planned, which checkpoints caught the most significant
+issues, and specific recommendations for calibrating the pipeline
+timeline on the next production using this same library.
+
+================================================================================
+     END OF TEMPLATE 20 — ULTIMATE HOLLYWOOD HORROR MOVIE MASTER PROMPT
+              Part of: The Ultimate Horror Movie AI Prompt Library
+                         *** LIBRARY COMPLETE: 20/20 ***
+================================================================================

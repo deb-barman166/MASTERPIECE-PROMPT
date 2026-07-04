@@ -1,1 +1,273 @@
+================================================================================
+                     HORROR STORY GENERATOR — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 01 / 20
+================================================================================
 
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR STORY GENERATOR
+Category: Narrative Foundation
+Compatible Engines: GPT-4/5, Claude, Gemini, Grok, DeepSeek, and future LLMs
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+This template generates a complete, structurally sound horror narrative —
+premise, plot architecture, character arcs, thematic core, and ending — that
+functions as the root document for every other template in this library
+(screenplay, scene, dialogue, VFX, etc.). It is built to produce ORIGINAL
+horror fiction that avoids clichés through forced specificity: every variable
+demands a concrete choice instead of a generic placeholder, so the AI cannot
+default to "haunted house + jump scares." Use this first, before any visual
+or screenplay template, so every downstream file inherits a consistent story
+world, tone, and internal logic.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[ROLE ANCHOR] + [SUBGENRE + INFLUENCE STACK] + [CORE FEAR MECHANIC] +
+[PROTAGONIST + FLAW] + [ANTAGONIST/THREAT LOGIC] + [SETTING + ISOLATION
+VECTOR] + [ESCALATION LADDER: 5 BEATS] + [THEMATIC SPINE] + [ENDING TYPE] +
+[TONE CALIBRATION] + [OUTPUT FORMAT LOCK]
+
+Formula logic: Horror fails when the fear is abstract. This formula forces
+concreteness at every stage — a "core fear mechanic" instead of "scary
+things," an "isolation vector" instead of "characters are alone," and an
+"escalation ladder" that prevents flat pacing where every scene has the same
+intensity.
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{SUBGENRE} — psychological, supernatural, slasher, cosmic/Lovecraftian, folk
+  horror, body horror, found-footage, gothic, survival horror, techno-horror
+{INFLUENCE_STACK} — 2-3 named reference points blended (e.g., "Hereditary x
+  The Vanishing x Midsommar's daylight dread")
+{CORE_FEAR_MECHANIC} — the specific psychological trigger being exploited
+  (loss of bodily autonomy, uncertainty of perception, complicity/guilt,
+  inevitability, the uncanny familiar, isolation, loss of control over time)
+{PROTAGONIST_NAME} — name
+{PROTAGONIST_FLAW} — a specific character flaw that the horror will exploit
+  (denial, guilt over a past death, need for control, inability to trust)
+{ANTAGONIST_TYPE} — entity / human / environment / concept / self
+{ANTAGONIST_LOGIC} — the internal rules governing the threat (what it wants,
+  what limits it, what it cannot do — rules create dread; ruleless threats
+  create confusion)
+{SETTING} — specific physical location, era, and cultural context
+{ISOLATION_VECTOR} — the specific mechanism removing escape/help (geographic,
+  social, technological, psychological, temporal)
+{ESCALATION_BEATS} — 5 numbered turning points from normalcy to climax
+{THEMATIC_SPINE} — the human truth the horror is actually about (grief,
+  colonialism, addiction, motherhood, generational trauma, etc.)
+{ENDING_TYPE} — tragic / ambiguous / Pyrrhic victory / total defeat / cyclical
+{TONE} — restrained/slow-burn vs. visceral/maximalist; 1-10 gore scale;
+  1-10 ambiguity scale
+{RUNTIME_TARGET} — short film / feature-length treatment / limited series
+{OUTPUT_LENGTH} — word count or word range
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+You are a horror story architect trained in the tradition of {INFLUENCE_STACK}.
+
+Generate a {SUBGENRE} horror story with the following locked parameters:
+
+CORE FEAR MECHANIC: {CORE_FEAR_MECHANIC}
+PROTAGONIST: {PROTAGONIST_NAME}, whose defining flaw is {PROTAGONIST_FLAW}
+ANTAGONIST: A {ANTAGONIST_TYPE} governed by this internal logic:
+{ANTAGONIST_LOGIC}
+SETTING: {SETTING}
+ISOLATION VECTOR: {ISOLATION_VECTOR}
+THEMATIC SPINE: The story must be secretly about {THEMATIC_SPINE}
+ENDING TYPE: {ENDING_TYPE}
+TONE: {TONE}
+TARGET LENGTH: {OUTPUT_LENGTH}
+
+Structure the narrative across this escalation ladder — do not skip beats or
+compress two beats into one:
+{ESCALATION_BEATS}
+
+Constraints:
+- Do not use these overused tropes unless subverted: cat jump scares, "it was
+  all a dream," generic evil basement, monster fully revealed in act one.
+- The antagonist's rules (from ANTAGONIST_LOGIC) must be internally
+  consistent for the entire story — no rule may be broken without narrative
+  justification established earlier.
+- Every scene must either escalate dread, reveal character, or advance the
+  ANTAGONIST_LOGIC. Cut anything that does none of the three.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Return the story in this exact structure:
+
+1. LOGLINE (1-2 sentences)
+2. THEMATIC STATEMENT (1 sentence — what this story is really about)
+3. ANTAGONIST RULESET (bulleted — the fixed internal logic of the threat)
+4. FULL NARRATIVE (organized under the 5 escalation beats as headers)
+5. ENDING (matching {ENDING_TYPE}, with a final unsettling image as the
+   closing line)
+6. THEME ECHO (1 paragraph explaining how the ending reflects the thematic
+   spine)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Write horror through IMPLICATION before REVELATION. The reader's
+  imagination is scarier than any description — describe effects and
+  reactions before causes.
+- Establish false safety before every major scare (a "breath" beat) so the
+  scare has contrast to work against.
+- Ground the impossible in mundane sensory detail (smell, texture,
+  temperature) — specificity sells the unreal.
+- Withhold full monster/antagonist description as long as possible;
+  fragment the reveal across multiple beats (a sound, then a shadow, then a
+  partial glimpse, then full exposure only near climax if at all).
+- Never explain the antagonist's motive in clinical, expository dialogue —
+  motive should be inferred through action and environment, not stated.
+- Track the protagonist's psychological state as a visible arc: competence →
+  doubt → dread → desperation → transformation/defeat.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- One core fear mechanic per story. Diluting fear across multiple unrelated
+  threats weakens all of them — subplots should feed the same fear, not
+  compete with it.
+- Silence and stillness are tools — call out explicit "quiet beats" in
+  escalation so the AI doesn't pace everything at the same volume.
+- Give the antagonist a LIMIT. Omnipotent threats remove stakes; audiences
+  fear things that can almost, but not quite, be escaped.
+- Foreshadow the ending's final image somewhere in Act 1, disguised as
+  something innocuous.
+- Avoid narrating fear ("she was terrified") — show physiological and
+  behavioral symptoms instead (shallow breath, checking locks twice,
+  flinching at reflections).
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- THE THREAT LADDER: sound → shadow/peripheral glimpse → object evidence →
+  partial reveal → full confrontation. Never front-load.
+- WRONGNESS BEFORE DANGER: establish that something is subtly "off" (a
+  repeated detail slightly changed) before anything is overtly threatening.
+- THE CALM-BEFORE beat: insert one full page/scene of ordinary life
+  immediately before each major escalation to maximize contrast.
+- DELAYED CONSEQUENCE: show the result of an act before showing the act
+  itself, forcing the reader to reconstruct horror retroactively.
+- UNRELIABLE PERCEPTION: seed 1-2 moments where the protagonist's senses are
+  provably wrong, so the reader can never fully trust the narration.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE (Narrative-to-Visual Bridge)
+────────────────────────────────────────────────────────────────────────────
+Even in prose form, write scenes with an implicit "camera" in mind so the
+story translates cleanly into Template 07 (Camera Master) and Template 09
+(Lighting):
+- Mark each escalation beat with an implied shot scale (wide/isolating,
+  medium/observational, close/invasive) in a bracketed note.
+- Note implied light sources per key scene (practical only, moonlight,
+  total darkness + flashlight) so lighting logic is established at the story
+  level and stays consistent downstream.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE (Narrative-to-Audio Bridge)
+────────────────────────────────────────────────────────────────────────────
+- Identify one recurring diegetic sound motif tied to the antagonist (a
+  specific sound that always precedes it) for use in Template 13.
+- Note where TRUE SILENCE should occur — silence is a sound design choice,
+  not an absence of one, and should be flagged explicitly for downstream
+  templates.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+SUBGENRE: Folk horror
+INFLUENCE_STACK: Midsommar x The Wicker Man x Hereditary's inherited dread
+CORE_FEAR_MECHANIC: Complicity — realizing you are not the protagonist of
+  your own rescue, but a chosen participant
+PROTAGONIST_NAME: Ines Calder
+PROTAGONIST_FLAW: Pathological need to belong after a lifetime of exclusion
+ANTAGONIST_TYPE: A rural community bound to a harvest entity
+ANTAGONIST_LOGIC: The entity cannot act directly; it can only "invite," and
+  every invitation must be voluntarily accepted three times before it takes
+  effect — deception is allowed, force is not
+SETTING: An agricultural commune in rural Northern England, present day,
+  during a week-long "welcome festival"
+ISOLATION_VECTOR: Confiscated phones under the guise of "digital detox
+  tradition," combined with Ines's own reluctance to leave because she feels
+  wanted for the first time
+THEMATIC_SPINE: The horror of belonging bought at the cost of self-erasure
+ENDING_TYPE: Ambiguous — victory that is indistinguishable from surrender
+TONE: Slow-burn, restrained, gore scale 3/10, ambiguity scale 9/10
+RUNTIME_TARGET: Short film treatment
+OUTPUT_LENGTH: 1200-1500 words
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed Illustrative Excerpt)
+────────────────────────────────────────────────────────────────────────────
+LOGLINE: A lonely woman finally finds the community she's always wanted —
+and slowly realizes every kindness they've shown her is the second of three
+invitations she doesn't know she's accepting.
+
+THEMATIC STATEMENT: True belonging cannot be purchased with the erasure of
+the self that wanted to belong.
+
+ANTAGONIST RULESET:
+- The entity cannot compel; it can only offer, three times, in escalating
+  intimacy
+- Each acceptance is binding regardless of whether the offer was understood
+- The commune members are not villains — they are also accepted, and believe
+  they are saving Ines from a lonelier fate
+
+[BEAT 1 — NORMALCY]
+[Implied shot: wide, establishing — golden wheat fields, Ines arriving alone]
+Ines had rehearsed the drive so many times she almost missed the turn when
+it finally appeared — a gap in the hedgerow with no sign, exactly as the
+invitation had promised...
+
+[Recurring sound motif for Template 13: a low communal hum, always three
+beats long, that precedes each "offer"]
+
+[Full narrative would continue through all 5 escalation beats to the
+ambiguous ending, following the same technique density shown above.]
+
+THEME ECHO: The final image — Ines humming the three-beat tone to a new
+arrival at the hedgerow gap — completes her transformation from excluded
+outsider to unknowing instrument of the same offer once made to her,
+confirming that belonging here has always meant becoming a door for someone
+else's disappearance.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+For multi-part or feature-length development, extend the formula with:
+
+{SUBPLOT_MIRROR} — a secondary character whose smaller arc mirrors/foreshadows
+  the protagonist's fate at a lower stakes level
+{RED_HERRING_LOGIC} — one deliberate false threat that the story allows the
+  audience to suspect, then subverts, to weaponize misdirection
+{MULTI_POV_SPLIT} — if using multiple viewpoints, specify which beats are
+  seen through which character and why the choice matters
+{CALLBACK_ARCHITECTURE} — 3 specific objects/phrases/images planted in Act 1
+  that must reappear transformed by the climax
+{SEQUEL_HOOK} (optional) — an unresolved thread suggesting the
+  ANTAGONIST_LOGIC extends beyond this story's frame
+
+ADVANCED OUTPUT ADDITION: Request a parallel "ANTAGONIST POV FRAGMENT" — a
+single scene (200-300 words) told from the threat's perspective or
+adjacent to it, revealing the ANTAGONIST_LOGIC in action without breaking
+the withheld-reveal pacing of the main narrative. This fragment is for
+writer's-room use only and should be flagged as NOT part of the final cut
+unless the ENDING_TYPE specifically calls for a POV break.
+
+Chain this Advanced Version output directly into Template 02 (Horror
+Screenplay Generator) as its {SOURCE_MATERIAL} input for seamless
+story-to-script conversion.
+
+================================================================================
+                    END OF TEMPLATE 01 — HORROR STORY GENERATOR
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

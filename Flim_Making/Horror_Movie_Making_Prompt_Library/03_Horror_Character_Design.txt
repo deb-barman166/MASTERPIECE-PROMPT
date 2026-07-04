@@ -1,0 +1,263 @@
+================================================================================
+                   HORROR CHARACTER DESIGN — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 03 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR CHARACTER DESIGN
+Category: Visual Character Development
+Compatible Engines: Midjourney-style image models, Sora, Veo, Kling, Runway,
+Pika, Luma, Hailuo (for visual generation) + GPT/Claude/Gemini/Grok/DeepSeek
+(for design reasoning and prompt construction)
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Generates image/video-ready visual design prompts for HUMAN characters in a
+horror narrative (protagonists, victims, human antagonists, cult members,
+etc. — non-human entities are covered in Template 04). The template's core
+job is CONSISTENCY: producing a locked "character bible" prompt fragment
+that can be reused verbatim across every scene, camera angle, and AI
+platform so the same character doesn't visually drift between shots.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[CHARACTER CORE IDENTITY BLOCK] + [PHYSICAL DESCRIPTION: LOCKED DETAILS] +
+[WARDROBE + STATE OF DECAY/WEAR] + [PSYCHOLOGICAL TELL: VISIBLE TRAITS] +
+[LIGHTING INTERACTION NOTES] + [CONSISTENCY LOCK TOKEN] + [NEGATIVE TRAITS
+TO AVOID] + [PLATFORM-SPECIFIC SYNTAX WRAPPER]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{CHARACTER_NAME} — name/role
+{AGE_RANGE} — specific age or narrow range
+{BUILD} — specific body type and posture habit (not generic — "wiry, tends
+  to hunch shoulders when anxious")
+{FACE_DETAIL} — distinguishing, specific facial features (asymmetries,
+  scars, expression defaults) — avoid generic beauty descriptors
+{EYES} — color, and more importantly, a behavioral note (never blinks fully,
+  darts to exits, fixed stare)
+{HAIR} — style, color, condition (unwashed, recently cut, etc.)
+{WARDROBE_BASE} — the character's default outfit, described with fabric,
+  fit, and wear-level detail
+{WARDROBE_DEGRADATION_ARC} — how wardrobe changes/degrades across the story
+  (clean → torn → bloodstained → etc.) mapped to story beats
+{PSYCHOLOGICAL_TELL} — one recurring physical habit that visualizes internal
+  state (nail-picking, checking behind them, touching a specific object)
+{SKIN_TONE_AND_TEXTURE} — specific, with attention to how it should read
+  under low light (this matters enormously for horror lighting continuity)
+{SCALE_REFERENCE} — height relative to environment/other characters, for
+  consistency across shots
+{CONSISTENCY_LOCK_TOKEN} — a short unique reusable phrase (a "character
+  seed") to append to every future prompt referencing this character
+{ERA_AND_CULTURAL_CONTEXT} — time period and cultural specificity of dress/
+  grooming
+{NEGATIVE_TRAITS} — specific things to exclude (e.g., "no symmetrical
+  face," "not conventionally glamorous," "no visible modern dental work if
+  period piece")
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Design a visually consistent horror character for image/video generation.
+
+CHARACTER: {CHARACTER_NAME}, {AGE_RANGE}
+BUILD: {BUILD}
+FACE: {FACE_DETAIL}
+EYES: {EYES}
+HAIR: {HAIR}
+SKIN: {SKIN_TONE_AND_TEXTURE}
+WARDROBE (BASE STATE): {WARDROBE_BASE}
+WARDROBE ARC: {WARDROBE_DEGRADATION_ARC}
+PSYCHOLOGICAL TELL: {PSYCHOLOGICAL_TELL}
+SCALE REFERENCE: {SCALE_REFERENCE}
+ERA/CULTURE: {ERA_AND_CULTURAL_CONTEXT}
+EXCLUDE: {NEGATIVE_TRAITS}
+
+Generate:
+1. A single CONSISTENCY LOCK TOKEN — a compact, distinctive phrase (12-20
+   words) capturing the character's unmistakable visual signature, written
+   so it can be pasted at the start of every future prompt for this
+   character across any scene or platform.
+2. Three wardrobe-state prompt variants (clean/base, mid-story wear, final
+   degraded state) each built around the same lock token.
+3. Platform-specific syntax adaptations (see Output Structure).
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. CHARACTER BIBLE SUMMARY (one paragraph, all locked visual facts)
+2. CONSISTENCY LOCK TOKEN (the reusable phrase, isolated and bolded)
+3. WARDROBE STATE VARIANTS (3 full prompts, one per degradation stage)
+4. PLATFORM ADAPTATIONS:
+   - Image-model syntax (comma-separated descriptor style)
+   - Video-model syntax (Sora/Veo/Kling/Runway/Pika/Luma/Hailuo — natural
+     language cinematic sentence style, since these models favor descriptive
+     prose over keyword stacking)
+   - LLM reasoning syntax (for use inside Claude/GPT/Gemini when the
+     character needs to be referenced in written scene descriptions)
+5. CONTINUITY CHECKLIST (a short bullet list of facts that must never
+   contradict across future prompts — hair length, scars, height ratio)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Specificity defeats drift. Vague descriptors ("attractive," "scary
+  looking") get reinterpreted differently by every model and every
+  generation. Numeric, comparative, or highly specific descriptors
+  ("cheekbones higher on the left side than the right") anchor consistency.
+- Horror character design should locate fear in ASYMMETRY and WRONGNESS
+  within a human-normal frame — the most effective horror characters look
+  almost entirely ordinary, with one detail slightly off, rather than
+  overtly monstrous (monstrous humans belong in Template 04 territory).
+- Always describe the psychological tell as a PHYSICAL action, not an
+  adjective, so it renders visually in image/video models.
+- Lock skin texture and lighting-interaction notes early — how a face reads
+  under harsh top-light versus soft underlight changes horror readability
+  enormously, and must be decided before Template 09 (Lighting) is applied.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Keep the CONSISTENCY_LOCK_TOKEN under 25 words — long tokens dilute weight
+  per descriptor in most diffusion and video models.
+- Test the lock token across at least 2 different camera angles/lighting
+  setups before finalizing a character for full production use.
+- Never redescribe the character from scratch in later scene prompts —
+  always paste the lock token plus scene-specific context only.
+- Build wardrobe degradation as a literal checklist tied to screenplay
+  beats, not vague "gets messier" — specify exactly which beat introduces
+  which new damage.
+- Avoid stacking more than 4-5 distinguishing facial features — beyond that,
+  most models start dropping or blending details.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- THE ALMOST-NORMAL FACE: design human antagonists to be 90% unremarkable
+  and 10% subtly wrong (a smile that doesn't reach the eyes, a blink rate
+  slightly too slow) — full monstrousness in a human character undercuts
+  uncanny dread.
+- COSTUME AS CLOCK: use wardrobe degradation as a silent timer the audience
+  reads unconsciously to track story progression and danger escalation.
+- STILLNESS DESIGN: specify a default resting posture that reads as
+  unnaturally still or controlled, which becomes unsettling precisely
+  because it contrasts with expected human fidgeting.
+- SCALE DISTORTION: for antagonist-adjacent human characters, consider a
+  height/build slightly outside expected proportion (too tall, too thin)
+  without crossing into non-human territory.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Specify how the face should read in three lighting conditions: harsh
+  single-source, deep shadow with partial illumination, and total darkness
+  with brief flash exposure — since horror characters are rarely shot in
+  even, flattering light.
+- Note which facial features should remain legible in silhouette (a
+  distinctive hairline, posture) for wide/dark shots where detail is lost.
+- Flag whether the character should read as camera-aware or camera-oblivious
+  by design — antagonists who occasionally seem to acknowledge the camera/
+  viewer create a distinct, deeply unsettling effect.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Note a signature movement sound for the character (footstep pattern,
+  fabric rustle, breathing pattern) to pass to Template 13 for audio
+  continuity tied to visual identity.
+- Specify vocal register/pace at the design stage so Template 12 (Dialogue)
+  and Template 11 (Fear/Acting) inherit a consistent voice profile.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+CHARACTER_NAME: Warden Elial Voss (human antagonist, commune elder)
+AGE_RANGE: Early 60s
+BUILD: Tall, unnaturally upright posture, moves with deliberate slowness
+FACE_DETAIL: Deep asymmetric smile lines only on the left side; right side
+  of face rarely moves when speaking
+EYES: Pale grey, does not blink during direct address to others
+HAIR: White, cropped short, meticulously maintained
+SKIN_TONE_AND_TEXTURE: Weathered, sun-worn, deep creases that hold shadow
+WARDROBE_BASE: Undyed linen robe, hand-stitched, ceremonially plain
+WARDROBE_DEGRADATION_ARC: Robe remains pristine throughout the entire film
+  regardless of surrounding chaos — this is itself the wrongness
+PSYCHOLOGICAL_TELL: Touches his own throat lightly before speaking any
+  "invitation"
+SCALE_REFERENCE: A full head taller than most commune members
+ERA_AND_CULTURAL_CONTEXT: Contemporary rural England, intentionally
+  anachronistic dress
+NEGATIVE_TRAITS: No visible modern jewelry, no rushed movement ever, no
+  raised voice
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+CHARACTER BIBLE SUMMARY: Warden Elial Voss is a tall, unnervingly composed
+man in his early sixties whose defining wrongness is stillness — a face
+that only half-moves, a robe that never stains, and a throat-touch that
+precedes every dangerous line of dialogue.
+
+CONSISTENCY LOCK TOKEN:
+"Elial Voss — tall elder, pristine undyed linen robe, asymmetric half-smile
+(left side only), unblinking pale grey eyes, cropped white hair, touches
+throat before speaking"
+
+WARDROBE STATE VARIANT (Base — used throughout, per design):
+[Consistency Lock Token] + "standing motionless in golden wheat field at
+dusk, robe catching no dust despite the wind, hands loosely clasped at
+waist, warm backlight silhouetting his upright frame"
+
+PLATFORM ADAPTATIONS:
+- Image-model syntax: "elial voss, tall elder, pristine white linen robe,
+  asymmetric smile left side only, unblinking pale grey eyes, cropped white
+  hair, weathered skin, deep shadow creases, dusk backlight, cinematic,
+  folk horror"
+- Video-model syntax (Sora/Veo/Kling/etc.): "A tall, composed elderly man in
+  a pristine white linen robe stands perfectly still in a golden wheat
+  field at dusk. His smile only lifts on the left side of his face. His
+  pale grey eyes do not blink as he watches. He lightly touches his own
+  throat before he begins to speak."
+- LLM reasoning syntax: "[Elial Voss: tall commune elder, unnaturally still,
+  asymmetric half-smile, unblinking, pristine white robe that never stains,
+  throat-touch tell before speaking]"
+
+CONTINUITY CHECKLIST:
+- Robe must NEVER show dirt/blood regardless of scene chaos (this is a
+  plot-relevant visual fact)
+- Smile asymmetry always on the left side, never mirrored
+- Throat-touch gesture must appear before every line of "invitation"
+  dialogue across all scenes
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for ensemble casts or multi-character continuity at scale:
+
+{ENSEMBLE_RELATIONSHIP_MAP} — how this character's design should visually
+  contrast with 2-3 other named characters (avoid visual confusion in
+  group/wide shots)
+{AGE_PROGRESSION_SET} — if the character appears at multiple timeline points,
+  generate locked tokens for each age state
+{INJURY_CONTINUITY_TRACKER} — a beat-by-beat log of physical injuries that
+  must persist/heal consistently across all subsequent generations
+{MULTI_ANGLE_VALIDATION_SET} — request the same lock token rendered
+  conceptually from front, 3/4, and profile angle descriptions to
+  stress-test consistency before production use
+
+ADVANCED OUTPUT ADDITION: Request an "AI MODEL DRIFT WARNING" — the
+template should flag any element of the design (e.g., very specific
+asymmetric detail) that historically has low consistency retention across
+multiple generations in current-generation video models, so the user knows
+which details need manual verification per shot.
+
+================================================================================
+                   END OF TEMPLATE 03 — HORROR CHARACTER DESIGN
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

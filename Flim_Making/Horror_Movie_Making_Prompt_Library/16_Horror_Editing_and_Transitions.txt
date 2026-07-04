@@ -1,0 +1,257 @@
+================================================================================
+                HORROR EDITING & TRANSITIONS — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 16 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR EDITING & TRANSITIONS
+Category: Post-Production Pacing & Cut Logic
+Compatible Engines: Editing reasoning applies to any assembly platform;
+GPT/Claude/Gemini/Grok/DeepSeek for edit-decision reasoning; guidance
+translates directly to manual editing in Premiere/Resolve/etc. or to
+sequencing instructions for AI video assembly tools
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Specifies CUT LOGIC — where scenes begin and end, how transitions between
+shots manipulate pacing and dread, and how rhythm itself becomes a horror
+tool. Unlike the generation-focused templates, this template governs
+ASSEMBLY: given a set of generated clips (from Template 06), how they
+should be sequenced, trimmed, and transitioned to maximize the tension
+architecture established across the entire project.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[SEQUENCE CONTEXT + BEAT MAP] + [CUT TYPE SELECTION PER TRANSITION] +
+[PACING RHYTHM: SHOT LENGTH PATTERN] + [MATCH-CUT / CONTRAST-CUT LOGIC] +
+[SOUND-TO-CUT SYNC RULES] + [WITHHOLD/REVEAL TIMING VIA EDIT] +
+[PLATFORM-SPECIFIC OUTPUT FORMAT]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{SEQUENCE_CONTEXT} — the scene/sequence being edited, with its beat map
+  from Template 02/06
+{CUT_TYPE_PER_TRANSITION} — select per transition point:
+  - HARD CUT: default, neutral, or can be jarring if timed against
+    expectation
+  - MATCH CUT: visual/compositional similarity across the cut, used to
+    create uncanny connection or seamless dread continuity
+  - CONTRAST CUT: deliberate visual/tonal opposition across the cut
+    (violence to stillness, chaos to silence) for whiplash effect
+  - J-CUT/L-CUT: audio leads or trails the visual cut, used to create
+    anticipatory dread (sound of the next scene bleeding in early) or
+    lingering unease (sound of the previous scene bleeding out)
+  - SLOW DISSOLVE: rare in horror, reserved for specific dreamlike/
+    temporal-distortion moments
+  - HOLD-THEN-CUT: extending a shot's held duration beyond comfort before
+    finally cutting, weaponizing the cut's timing itself
+{SHOT_LENGTH_PATTERN} — the rhythm of cut frequency across a sequence
+  (long holds building to rapid cutting, or consistently long holds
+  throughout for a slow-burn sequence)
+{MATCH_CONTRAST_CUT_LOGIC} — specific instances where compositional
+  elements should align or oppose across a cut, and why
+{SOUND_TO_CUT_SYNC} — whether cuts should land on sound beats, against
+  them, or in silence (inherited from Template 13)
+{WITHHOLD_REVEAL_VIA_EDIT} — how editing itself controls information
+  pacing (cutting away just before a reveal, holding just past the
+  expected cut point)
+{FALSE_CUT_RHYTHM} — establishing a predictable cutting rhythm, then
+  breaking it once at a key moment for maximum disruption
+{NEGATIVE_TRAITS} — exclude generic/overused editing defaults (no
+  rapid-cut jump-scare montage as a default response to every tense
+  moment, no arbitrary quick-cut "style" disconnected from the specific
+  scene's needs)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Design the cut logic and transition strategy for this horror sequence.
+
+SEQUENCE CONTEXT (with beat map): {SEQUENCE_CONTEXT}
+CUT TYPE PER TRANSITION: {CUT_TYPE_PER_TRANSITION}
+SHOT LENGTH PATTERN: {SHOT_LENGTH_PATTERN}
+MATCH/CONTRAST CUT LOGIC: {MATCH_CONTRAST_CUT_LOGIC}
+SOUND-TO-CUT SYNC: {SOUND_TO_CUT_SYNC}
+WITHHOLD/REVEAL VIA EDIT: {WITHHOLD_REVEAL_VIA_EDIT}
+FALSE CUT RHYTHM (if applicable): {FALSE_CUT_RHYTHM}
+EXCLUDE: {NEGATIVE_TRAITS}
+
+Produce a shot-by-shot edit decision list specifying exact cut points, cut
+types, and approximate held duration for each shot in the sequence,
+explaining how the rhythm serves the sequence's tension curve.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. EDIT STRATEGY SUMMARY (paragraph describing the overall cutting
+   philosophy for this sequence and its psychological function)
+2. SHOT-BY-SHOT EDIT DECISION LIST (numbered: shot content reference, held
+   duration, cut type into next shot, sound sync note)
+3. RHYTHM VISUALIZATION (a simple text-based representation of shot-length
+   pattern across the sequence — e.g., a row of relative bar lengths —
+   to visualize pacing at a glance)
+4. KEY TRANSITION RATIONALE (detailed explanation of the 1-2 most
+   important transition choices in the sequence and why they were made)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Editing rhythm should mirror the sequence's tension curve from Template
+  06 — builds typically favor longer holds with gradually shortening
+  duration as tension increases; releases typically favor a single clean
+  cut to a contrasting, calmer shot.
+- Reserve rapid-cut montage editing for genuine chaos/climax moments — its
+  overuse as a default horror editing style is one of the most common
+  ways tension gets diluted rather than heightened.
+- Use J-cuts and L-cuts deliberately for anticipatory dread — letting the
+  next scene's sound arrive before its picture is one of horror editing's
+  most efficient and underused tools.
+- Match cut timing to sound design (Template 13) explicitly — a cut
+  landing exactly on a sound cue reads very differently than one landing
+  slightly before or after; specify which effect is intended.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Establish a baseline cutting rhythm for "normal world" scenes early in a
+  project, so that rhythm changes during tension/horror sequences register
+  clearly as deliberate shifts.
+- Hold shots slightly longer than feels comfortable during build sequences
+  — the instinct to cut away from stillness is usually premature; test
+  extending holds before assuming a shot needs to be shorter.
+- Plan match cuts and their targets before generation/shooting begins
+  where possible, since achieving precise compositional alignment across
+  a cut is far easier with advance planning than in post-hoc assembly.
+- Break an established cutting rhythm no more than once or twice per major
+  sequence — a "false cut rhythm" disruption only works as a surprise if
+  it's rare.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- THE WITHHELD CUT: extend a shot noticeably past the point where a
+  standard edit would cut away, forcing the audience to search the frame
+  themselves during the extra duration.
+- THE PREMATURE CUT: cut away from an expected reveal slightly before it
+  would complete, denying the audience visual confirmation and letting
+  imagination fill the gap.
+- SOUND-LED ANTICIPATION (J-CUT): let the next scene's sound (particularly
+  a MOTIF_TOKEN from Template 13) begin under the tail of the current
+  scene, creating dread before the cut even happens.
+- THE RHYTHM BREAK: establish a clear, predictable cutting pattern across
+  several shots, then break the pattern once at a key story moment — the
+  disruption of expectation is itself the scare.
+- MATCH CUT AS UNCANNY BRIDGE: use a match cut between two visually similar
+  but contextually very different images (a spinning object in a safe
+  scene matched to a similar shape in a dangerous one) to create a
+  subconscious connection between disparate moments.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Cut points should respect the camera movement established in Template
+  07 — cutting mid-movement (during a push-in or pan) produces a very
+  different effect than cutting only at movement completion; specify
+  which is intended.
+- Match cuts work best when Template 08's cinematography style
+  (contrast, color) is deliberately aligned or opposed across the cut —
+  coordinate explicitly with the project's established visual style.
+- Consider how Template 09's lighting states transition across a cut — a
+  hard cut between very different lighting states can itself function as
+  a jarring effect; a match cut between similarly-lit shots creates
+  smoother, more uncanny continuity.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- SOUND_TO_CUT_SYNC decisions should be made in direct coordination with
+  Template 13's cue sheet — specify explicitly whether each cut lands on,
+  before, or after its associated sound cue.
+- Silence cues from Template 13 often pair with the HOLD-THEN-CUT
+  technique — extending a shot within an established silence before
+  cutting compounds the tension of both techniques.
+- Consider using a sudden, hard sound cut (audio drops to silence exactly
+  on a picture cut) as a distinct technique from a gradual audio fade,
+  since the abruptness itself carries a different psychological effect.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+SEQUENCE_CONTEXT: The ledger discovery sequence (Template 06's Scene 14)
+  transitioning into the following scene where Ines exits the record room
+CUT_TYPE_PER_TRANSITION: Hold-then-cut from the ledger scene's final still
+  frame into a hard cut on the following scene
+SHOT_LENGTH_PATTERN: The ledger scene is held roughly 3x longer than
+  average; the cut to the next scene is abrupt and unadorned
+MATCH_CONTRAST_CUT_LOGIC: Contrast cut — from total stillness and near-
+  silence to a scene with more movement and the return of faint ambient
+  sound, creating a small relief that the audience should not fully trust
+SOUND_TO_CUT_SYNC: Audio cut is hard and immediate, exactly on the picture
+  cut — no fade, no J-cut bleed
+WITHHOLD_REVEAL_VIA_EDIT: The cut deliberately occurs before showing Ines
+  actually stand up or move, denying the audience the small relief of
+  seeing her physically recover before the scene ends
+NEGATIVE_TRAITS: No fade-to-black, no dissolve, no music sting bridging
+  the cut
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+EDIT STRATEGY SUMMARY: This transition weaponizes both duration and
+abruptness — holding the ledger discovery in stillness roughly three times
+longer than the sequence's average shot length before cutting hard,
+without warning or softening, denying the audience even the small relief
+of watching Ines physically recover from what she's just seen.
+
+SHOT-BY-SHOT EDIT DECISION LIST:
+Shot 1 (Ledger scene, final still frame): Held approximately 3x average
+  sequence shot length; camera static, no movement in frame
+Cut: HARD CUT, no transition effect, audio cuts immediately and completely
+  with the picture — no fade, no bleed
+Shot 2 (Following scene, opening frame): Begins mid-action already in
+  motion, denying any "settling in" beat
+
+RHYTHM VISUALIZATION:
+Shot 1: [========================] (extended hold, ~3x average)
+Cut:    [|] (hard, instant)
+Shot 2: [====] (returns to standard sequence rhythm immediately)
+
+KEY TRANSITION RATIONALE: The extended hold on stillness trains the
+audience to expect the scene will eventually release its tension through
+Ines's own movement or reaction — cutting away before that release
+happens, combined with the totally unsoftened hard audio cut, denies
+resolution and carries unprocessed dread directly into the next scene
+rather than letting the audience exhale first.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for full-sequence or feature-length edit planning:
+
+{FULL_SEQUENCE_RHYTHM_MAP} — a complete shot-length pattern chart across
+  an entire scene or act, visualizing pacing architecture at scale
+{CROSS_SCENE_MATCH_CUT_PLANNING} — identify match-cut opportunities across
+  widely separated scenes in the story (not just adjacent ones) for
+  structural, callback-driven editing
+{ALTERNATE_CUT_VERSIONS} — request 2 alternate edit strategies for the same
+  sequence (a more restrained/slow-burn version vs. a more aggressive/
+  rapid version) for creative comparison
+{TRAILER_CUT_LOGIC} — a distinct, separate cutting philosophy optimized for
+  marketing trailer assembly, which typically uses different (faster,
+  more revealing) rhythm than the feature itself
+
+ADVANCED OUTPUT ADDITION: Request a "RHYTHM MONOTONY AUDIT" — a review of
+the full sequence or act's shot-length pattern flagging any extended
+stretch of uniform cutting rhythm that risks audience disengagement,
+recommending where a deliberate variation should be introduced.
+
+================================================================================
+               END OF TEMPLATE 16 — HORROR EDITING & TRANSITIONS
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

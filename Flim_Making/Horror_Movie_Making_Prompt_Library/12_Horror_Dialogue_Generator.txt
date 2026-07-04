@@ -1,0 +1,282 @@
+================================================================================
+                   HORROR DIALOGUE GENERATOR — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 12 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR DIALOGUE GENERATOR
+Category: Dialogue & Subtext Writing
+Compatible Engines: GPT-4/5, Claude, Gemini, Grok, DeepSeek, and future LLMs
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Generates horror dialogue built on SUBTEXT and WITHHOLDING rather than
+exposition. The most common failure in AI-generated horror dialogue is
+characters explaining the plot, their feelings, or the threat directly to
+each other. This template enforces the opposite discipline: characters
+should almost never say what they mean, and dialogue should do its real
+work through what's avoided, interrupted, or said about something else
+entirely.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[CHARACTER VOICE PROFILES] + [SCENE OBJECTIVE + SUBTEXT LAYER] +
+[WHAT-IS-NOT-SAID MAP] + [CONVERSATIONAL DEFLECTION PATTERN] + [DIALOGUE
+RHYTHM CALIBRATION] + [SILENCE AND INTERRUPTION PLACEMENT] +
+[NEGATIVE INSTRUCTION SET] + [OUTPUT FORMAT LOCK]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{CHARACTER_VOICE_PROFILES} — per character: speech rhythm, vocabulary
+  register, verbal tics, and specifically what topics/words they avoid
+  (inherited from Template 02/03)
+{SCENE_OBJECTIVE} — what each character actually wants from this
+  conversation (stated for the writer, never for the characters to voice
+  directly)
+{SUBTEXT_LAYER} — what's really being negotiated/feared/hidden beneath the
+  surface topic of conversation
+{SURFACE_TOPIC} — the ostensible, mundane subject characters are
+  "actually" discussing (weather, a chore, a minor logistical detail) while
+  the subtext operates beneath it
+{WHAT_IS_NOT_SAID} — the specific information/feeling that must never be
+  stated directly in this scene, regardless of how tense it gets
+{DEFLECTION_PATTERN} — how characters redirect when conversation
+  approaches the unsaid thing (changing subject, answering a different
+  question than asked, over-literal responses to avoid emotional ones)
+{DIALOGUE_RHYTHM} — pace and structure (short clipped exchanges vs. one
+  character over-explaining to fill silence vs. long pauses between lines)
+{SILENCE_INTERRUPTION_PLACEMENT} — where specifically a character should
+  trail off, be cut off, or leave a silence unfilled
+{POWER_DYNAMIC} — who has conversational control and how it shifts during
+  the scene
+{NEGATIVE_TRAITS} — exclude generic horror dialogue defaults (no "did you
+  hear that?", no characters narrating obvious danger aloud, no on-the-nose
+  emotional statements, no expository monologuing about backstory/rules)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Write horror dialogue built entirely on subtext and withholding.
+
+CHARACTERS AND VOICE PROFILES: {CHARACTER_VOICE_PROFILES}
+SURFACE TOPIC (what they appear to discuss): {SURFACE_TOPIC}
+SUBTEXT LAYER (what's really happening): {SUBTEXT_LAYER}
+WHAT MUST NEVER BE SAID DIRECTLY: {WHAT_IS_NOT_SAID}
+SCENE OBJECTIVES (per character, for writer reference only): {SCENE_OBJECTIVE}
+DEFLECTION PATTERN: {DEFLECTION_PATTERN}
+DIALOGUE RHYTHM: {DIALOGUE_RHYTHM}
+SILENCE/INTERRUPTION PLACEMENT: {SILENCE_INTERRUPTION_PLACEMENT}
+POWER DYNAMIC: {POWER_DYNAMIC}
+EXCLUDE: {NEGATIVE_TRAITS}
+
+Write the scene so that a reader/viewer who is paying close attention can
+infer WHAT_IS_NOT_SAID entirely through subtext, deflection, and behavior —
+but the dialogue itself never states it. If a line risks stating the unsaid
+thing directly, rewrite it as a deflection or partial statement instead.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. SUBTEXT MAP (a brief writer's-reference summary of what's really
+   happening beneath the dialogue, NOT part of the final scene)
+2. FULL DIALOGUE SCENE (properly formatted, ready for screenplay
+   integration via Template 02)
+3. SUBTEXT VERIFICATION (confirms no line accidentally states WHAT_IS_NOT_
+   SAID directly; flags any line that risks being too on-the-nose)
+4. ALTERNATE LINE OPTIONS (2-3 alternate versions of the scene's single
+   most important line, offering different levels of directness for
+   creative flexibility)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Characters should discuss the SURFACE_TOPIC with full attention and
+  specificity — subtext works because the surface conversation is
+  genuinely about something concrete, not a vague placeholder waiting to
+  be replaced by the "real" conversation.
+- Use DEFLECTION_PATTERN consistently per character — a character who
+  deflects through humor should do so every time they approach the unsaid
+  thing, not switch deflection styles arbitrarily.
+- Withhold explanation of rules, threats, or backstory through dialogue
+  wherever possible — if the audience needs this information, prefer
+  environmental storytelling (Template 05) or visual implication over a
+  character stating it aloud.
+- Trust silence. A character's unfinished sentence or an unanswered
+  question left hanging is frequently more effective than any line that
+  could complete it.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Read dialogue aloud (or have it read) checking specifically whether any
+  line could be cut entirely without losing information the audience
+  needs — if so, cut it.
+- Vary DEFLECTION_PATTERN across different characters in the same story so
+  each character's avoidance style remains distinct and recognizable.
+- Keep exchanges shorter than feels natural in early drafts, then only add
+  words back where genuinely needed — horror dialogue trends toward
+  economy far more than naturalistic conversation does.
+- Reserve any moment where a character DOES say the unsaid thing directly
+  (if ever) for one specific, high-stakes turning point — breaking the
+  pattern only works if the pattern has been consistently established
+  first.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- THE MUNDANE MASK: have characters discuss something trivial (what to
+  make for dinner) while the actual scene tension is about something life-
+  threatening, letting the mismatch generate dread through contrast.
+- THE UNANSWERED QUESTION: end a scene on a direct question that goes
+  unanswered on-screen, forcing the audience to sit with the same
+  uncertainty as the character who asked it.
+- OVER-LITERAL DEFLECTION: have a character respond to an emotionally
+  loaded question with an oddly literal, factual answer, signaling
+  avoidance without stating it.
+- THE THIRD-PARTY CONFESSION: let a character reveal fear/knowledge only
+  by talking ABOUT a third party or a hypothetical rather than themselves
+  directly ("someone could get scared out here" instead of "I'm scared").
+- REPETITION AS TELL: have a character repeat a specific, seemingly
+  innocuous phrase multiple times across a scene/story as an unconscious
+  verbal tic revealing suppressed anxiety, without ever naming the anxiety.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Dialogue-heavy scenes benefit from Template 07's close-up/medium shot
+  guidance to register the small facial tells that carry subtext when
+  words don't.
+- Consider pairing SILENCE_INTERRUPTION_PLACEMENT moments with a
+  corresponding camera hold (Template 07's locked-off static technique) so
+  the visual treatment reinforces the conversational silence rather than
+  cutting away from it.
+- Lighting (Template 09) during withholding dialogue often benefits from
+  partial facial illumination, letting only part of a character's
+  reaction be visible as they deflect.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Silences within dialogue should be passed explicitly to Template 13 as
+  SILENCE CUE moments, distinguished from ambient continuous background
+  sound.
+- Consider whether ambient sound should subtly intensify during moments a
+  character approaches WHAT_IS_NOT_SAID, creating a sound-based tension
+  cue that mirrors the conversational avoidance.
+- Vocal delivery notes (pace, pitch, volume) from this template should
+  feed directly into any voice-generation or performance-direction layer
+  for consistency with Template 11.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+CHARACTER_VOICE_PROFILES: Ines — clipped, self-interrupting when anxious,
+  avoids first-person fear statements. Warden Voss — measured, unhurried,
+  answers questions with questions when avoiding a direct answer
+SURFACE_TOPIC: Whether Ines should stay for one more day of the festival
+SUBTEXT_LAYER: Voss is confirming whether Ines will accept the third and
+  final "invitation"; Ines is beginning to suspect something is wrong but
+  cannot articulate what
+WHAT_IS_NOT_SAID: That staying constitutes final, binding acceptance of
+  the entity's offer
+DEFLECTION_PATTERN: Voss deflects by answering questions with questions;
+  Ines deflects by focusing on logistics (train times, her return ticket)
+  instead of her actual unease
+DIALOGUE_RHYTHM: Slow, unhurried, long pauses between Voss's lines
+  specifically
+SILENCE_INTERRUPTION_PLACEMENT: Ines starts to ask "Is there something
+  I'm supposed to—" and is gently, warmly interrupted by Voss before she
+  finishes
+POWER_DYNAMIC: Voss maintains total conversational control throughout,
+  never raising his voice, never rushing
+NEGATIVE_TRAITS: No direct mention of "invitation" or "entity," no
+  villain monologue, no raised voices
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+SUBTEXT MAP: Voss is confirming Ines's third acceptance without her
+awareness that acceptance is even being requested; Ines is trying to
+locate her unease in something practical (train times) because she can't
+yet name what's actually wrong.
+
+FULL DIALOGUE SCENE:
+
+VOSS
+You have a return ticket, I imagine.
+
+INES
+Tomorrow evening. The six-fifteen.
+
+VOSS
+(a long pause)
+The harvest supper is tomorrow evening.
+
+INES
+I know. I just — I told my sister I'd be back by Thursday.
+
+VOSS
+Does she worry about you often?
+
+INES
+(deflecting)
+The six-fifteen gets in around nine. That should still work, if I—
+
+VOSS
+If you leave in the morning, you'll miss the supper.
+
+INES
+(a beat)
+Is there something I'm supposed to—
+
+VOSS
+(warmly, before she finishes)
+Stay for supper, Ines. Sisters worry. That's what they're for.
+
+SUBTEXT VERIFICATION: No line states the invitation/acceptance mechanic
+directly ✓. Ines's unfinished question is interrupted before any risk of
+revealing the rule ✓. Voss's deflection pattern (question-for-question)
+is consistent with his established profile ✓.
+
+ALTERNATE LINE OPTIONS (for Voss's final line):
+1. (as written) "Stay for supper, Ines. Sisters worry. That's what they're
+   for." — warm, deflecting through domestic reassurance
+2. "You've come this far." — colder, more overtly ominous if a harder tone
+   is wanted
+3. "One more night costs you nothing." — more direct pressure, useful if
+   escalating urgency is needed for pacing
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for multi-scene dialogue arcs or ensemble conversation dynamics:
+
+{DIALOGUE_ARC_ACROSS_STORY} — track how a specific character's willingness
+  to say the unsaid thing evolves across the full story, mapped to
+  escalation beats from Template 01
+{GROUP_CONVERSATION_DYNAMICS} — for scenes with 3+ speaking characters,
+  define how subtext operates differently in group settings (who can speak
+  freely, who must perform for an audience within the scene)
+{LANGUAGE_AND_DIALECT_LAYER} — for period pieces or specific cultural
+  settings, define period-appropriate or dialect-consistent speech patterns
+  that must be maintained throughout
+{CALLBACK_LINE_TRACKER} — identify specific lines/phrases planted early
+  that should recur, transformed, at later key moments (connects to
+  Template 01's CALLBACK_ARCHITECTURE)
+
+ADVANCED OUTPUT ADDITION: Request an "ON-THE-NOSE AUDIT" — a dedicated
+review pass scanning the full dialogue draft for any line that states
+emotion, threat, or plot information more directly than the established
+DEFLECTION_PATTERN would allow, with rewrite suggestions for each flagged
+line.
+
+================================================================================
+                 END OF TEMPLATE 12 — HORROR DIALOGUE GENERATOR
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

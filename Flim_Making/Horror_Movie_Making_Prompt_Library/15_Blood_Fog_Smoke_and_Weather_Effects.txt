@@ -1,0 +1,279 @@
+================================================================================
+           BLOOD, FOG, SMOKE & WEATHER EFFECTS — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 15 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+BLOOD, FOG, SMOKE & WEATHER EFFECTS
+Category: Elemental & Particulate Effects Design
+Compatible Engines: Sora, Veo, Kling, Runway, Pika, Luma, Hailuo (video
+generation) + GPT/Claude/Gemini/Grok/DeepSeek (effects reasoning)
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Provides precise technical specification for the four elemental effect
+categories that most frequently render as generic or physically
+unconvincing in AI-generated horror: blood behavior, fog/mist density and
+movement, smoke behavior, and weather intensity. Unlike Template 10
+(overall atmospheric world-state), this template drills into the specific
+PHYSICS and MATERIAL BEHAVIOR of each element so it renders with
+believable weight, viscosity, and motion rather than as a flat visual
+overlay.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[ELEMENT TYPE] + [PHYSICAL BEHAVIOR SPECIFICATION] + [INTERACTION WITH
+LIGHT/SURFACE] + [MOTION AND TIMING LOGIC] + [INTENSITY CALIBRATION] +
+[STORY-MOTIVATED CAUSE] + [CONSISTENCY LOCK TOKEN] + [PLATFORM-SPECIFIC
+SYNTAX WRAPPER]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{ELEMENT_TYPE} — blood / fog-mist / smoke / rain / snow / wind-driven
+  debris (select one per prompt instance; combine multiple instances for
+  scenes requiring layered elements)
+
+FOR BLOOD:
+{BLOOD_VISCOSITY_STAGE} — fresh (bright, high-flow, reflective) vs. oxidized
+  (darkening, tackier, less reflective) vs. dried (matte, dark, flaking)
+{BLOOD_FLOW_PHYSICS} — how it moves given the specific surface/gravity
+  context (pooling rate on a given material, drip pattern, spatter
+  distribution logic)
+{BLOOD_LIGHT_INTERACTION} — reflectivity and color shift under the
+  established lighting (Template 09) — fresh blood reflects specularly,
+  oxidized blood absorbs more light
+
+FOR FOG/MIST:
+{FOG_DENSITY_PROFILE} — thin/atmospheric vs. moderate/obscuring vs. dense/
+  near-opaque, with visibility distance specified in approximate meters
+{FOG_MOVEMENT_LOGIC} — how it moves relative to established wind conditions
+  (Template 10) — including any deliberate WRONGNESS (moving against wind)
+{FOG_LIGHT_INTERACTION} — how it scatters/diffuses specific light sources
+  (a flashlight beam becoming visible as a cone, headlights creating a wall
+  of glare)
+
+FOR SMOKE:
+{SMOKE_SOURCE_LOGIC} — the specific combustion/origin source and how that
+  determines color, density, and rise behavior
+{SMOKE_BEHAVIOR} — rise rate, dispersal pattern, and interaction with air
+  currents established in the scene
+
+FOR WEATHER (RAIN/SNOW/WIND):
+{PRECIPITATION_INTENSITY} — specific intensity level with real-world
+  reference points (light drizzle vs. heavy downpour, with associated
+  visual effects like puddle formation rate, sound implications)
+{WIND_INTENSITY_AND_DIRECTION} — specific and consistent across all
+  affected elements in a scene (hair, clothing, environmental objects)
+
+UNIVERSAL:
+{STORY_MOTIVATED_CAUSE} — why this element is present now (never
+  unmotivated atmospheric decoration)
+{CONSISTENCY_LOCK_TOKEN} — reusable phrase for this specific effect state
+{NEGATIVE_TRAITS} — exclude generic defaults (no cartoonish bright-red
+  blood with no viscosity logic, no generic "fog machine" flat white fog,
+  no rain that doesn't affect visible surfaces/characters)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Specify the physical behavior of an elemental/particulate effect for this
+scene.
+
+ELEMENT TYPE: {ELEMENT_TYPE}
+[Relevant sub-variables from section 4 based on element type selected]
+STORY-MOTIVATED CAUSE: {STORY_MOTIVATED_CAUSE}
+EXCLUDE: {NEGATIVE_TRAITS}
+
+Generate a CONSISTENCY LOCK TOKEN for this effect state and specify exactly
+how it should interact with established lighting (Template 09), atmosphere
+(Template 10), and any characters/surfaces present in the scene.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. EFFECT PHYSICS SUMMARY (paragraph describing the specific physical
+   behavior and why it was calibrated this way)
+2. CONSISTENCY LOCK TOKEN (isolated, bolded)
+3. LIGHT/SURFACE INTERACTION NOTE (how this element should render given
+   established lighting and materials)
+4. PLATFORM-READY GENERATION PROMPT (video-model natural-language,
+   optimized for physical plausibility)
+5. CONTINUITY CHECKLIST (fixed facts: viscosity stage progression for
+   blood, density consistency for fog, direction consistency for wind —
+   must not contradict across scenes without a specified in-story reason)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Every elemental effect needs a real-world physical reference point —
+  describe blood, fog, or rain with the same precision a practical effects
+  supervisor would use, since AI video models produce noticeably more
+  convincing results when given specific physical behavior rather than
+  vague mood descriptors.
+- Blood viscosity stage must match time-since-injury logic established in
+  Template 14 — fresh, bright, high-flow blood immediately after an injury
+  should oxidize and darken believably if the scene continues or a later
+  scene revisits the same wound.
+- Fog and smoke must respect the wind conditions established in Template
+  10 unless a deliberate WRONGNESS signal is intended — inconsistent
+  particulate movement is one of the most common tells of ungrounded AI
+  generation.
+- Calibrate GORE_CALIBRATION-adjacent blood effects (viscosity, spatter
+  extent) against Template 14's overall gore calibration and Template 02's
+  rating target for tonal consistency.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Build a short reference library of real-world physical behavior notes
+  per element type (how blood pools on wood vs. concrete vs. fabric; how
+  fog behaves near ground level vs. at height) to reuse across a project
+  for consistency.
+- Layer elements deliberately when combining multiple effects in one scene
+  (rain plus wind plus a practical light source) — specify their
+  interaction explicitly rather than listing them as independent,
+  unconnected elements.
+- Reserve maximum-intensity versions of any element (densest fog, heaviest
+  downpour, most extensive blood) for the story's highest-stakes moments,
+  building intensity progressively rather than starting at maximum.
+- Validate that element behavior renders consistently on your specific
+  target platform with a short test generation, since fluid/particulate
+  simulation quality varies meaningfully between Sora, Veo, Kling, Runway,
+  Pika, Luma, and Hailuo.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- BLOOD AS TIMELINE: use blood's viscosity/oxidation stage as a silent,
+  readable indicator of how much time has passed since an off-screen
+  event, letting the audience infer story information without dialogue.
+- FOG AS REVEAL CONTROL: use fog density specifically to control exactly
+  how much of a creature/threat (Template 04's reveal map) is legible at
+  a given moment, adjusting density progressively as the reveal
+  progresses.
+- WEATHER AS ESCALATION CLOCK: intensify weather conditions (wind picking
+  up, rain increasing) in sync with the story's escalation ladder
+  (Template 01), giving the environment itself a sense of building toward
+  something.
+- THE WRONG-DIRECTION ELEMENT: have smoke or fog drift in a direction that
+  contradicts all other visible wind indicators in frame, reserved for a
+  specific, deliberate wrongness beat rather than general use.
+- BLOOD IN NEGATIVE SPACE: let blood spatter or pooling extend into frame
+  areas the audience wasn't tracking, discovered rather than centered,
+  for a more unsettling reveal than direct display.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Blood's reflectivity (fresh vs. oxidized) interacts directly with
+  Template 09's light source — specify explicitly how the established key
+  light should catch or fail to catch the blood's surface at its current
+  viscosity stage.
+- Fog/smoke density affects effective depth of field and shot legibility
+  — coordinate with Template 07's lens choices, since dense atmospheric
+  elements naturally compress perceived depth and may require adjusted
+  shot scale to maintain composition clarity.
+- Rain/wind effects on camera (implied lens moisture, motion blur on fast-
+  moving precipitation) should be noted if the intended aesthetic calls
+  for handheld, in-the-elements camera work per Template 07.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Each element type carries a specific, physically accurate sound
+  signature (blood's wet sound on specific surfaces, fog's characteristic
+  near-silence, rain's intensity-dependent sound on specific materials,
+  wind's pitch varying with speed and obstruction) — specify these for
+  Template 13 continuity.
+- Weather intensity should scale its sound presence proportionally —
+  don't pair visually heavy rain with a quiet sound bed or vice versa,
+  unless the mismatch is a deliberate wrongness signal.
+- Cross-reference Template 10's atmospheric sound notes to ensure this
+  template's elemental effects don't contradict the broader environmental
+  soundscape already established.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+ELEMENT_TYPE: Fog/mist
+FOG_DENSITY_PROFILE: Dense, near-opaque; visibility reduced to
+  approximately 15-20 meters
+FOG_MOVEMENT_LOGIC: Completely still, unmoving, despite no windbreak that
+  would naturally explain the total absence of drift (deliberate
+  wrongness, established in Template 10's example)
+FOG_LIGHT_INTERACTION: A handheld flashlight beam becomes clearly visible
+  as a solid-seeming cone of light within the fog; distant sources (the
+  exchange building's silhouette) are reduced to soft, indistinct shapes
+STORY_MOTIVATED_CAUSE: Fourth consecutive day of unseasonal fog
+  (established atmospheric wrongness from Template 10), correlating with
+  the story's inciting event
+NEGATIVE_TRAITS: No flat, uniformly white "fog machine" look; no fog that
+  moves inconsistently shot-to-shot
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+EFFECT PHYSICS SUMMARY: A dense, unnaturally still fog reduces visibility
+to roughly fifteen meters, thick enough to turn a flashlight beam into a
+visible, solid-seeming cone, while remaining completely motionless despite
+having no windbreak that would explain such total stillness.
+
+CONSISTENCY LOCK TOKEN:
+"Dense unmoving fog, ~15-20m visibility, flashlight beam visible as solid
+cone, distant shapes reduced to soft silhouette, no drift despite open
+terrain"
+
+LIGHT/SURFACE INTERACTION NOTE: Per Template 09's established practical
+light sources, any flashlight or bulb light passing through this fog
+density should scatter visibly, creating a defined light cone rather than
+a clean beam — this scattering effect should intensify with fog density
+and remain consistent across all scenes sharing this atmospheric state.
+
+PLATFORM-READY GENERATION PROMPT: "Thick, unmoving fog reduces visibility
+to about fifteen meters in every direction, completely still despite the
+open, windbreak-free terrain. A flashlight beam cuts through it as a
+visible, solid cone of scattered light. The building ahead is reduced to
+a soft, indistinct grey shape."
+
+CONTINUITY CHECKLIST: Fog density and total stillness must remain
+identical across every scene set within the established "day four" window
+✓. Any scene depicting days 1-3 should show visibly different, lighter,
+moving fog for contrast per Template 10 ✓.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for complex multi-element or escalating-severity sequences:
+
+{MULTI_ELEMENT_LAYERING_MAP} — for scenes combining multiple elements
+  (blood plus rain, fog plus wind-driven debris), specify their interaction
+  physics explicitly (rain diluting/spreading blood, wind affecting fog
+  density unevenly)
+{ESCALATION_INTENSITY_CURVE} — a full-story chart of how a given element
+  (weather severity, blood extent) should intensify across the escalation
+  ladder from Template 01
+{PRACTICAL_EFFECTS_MATERIAL_REFERENCE} — real-world practical effects
+  material equivalents (corn syrup blood formulations, glycerin fog
+  density equivalents) for hybrid AI/practical productions
+{CROSS_SCENE_ELEMENT_CONTINUITY_LOG} — a tracking document ensuring
+  element states (a specific pool of blood, a specific fog bank) remain
+  positionally and physically consistent if a location is revisited later
+  in the story
+
+ADVANCED OUTPUT ADDITION: Request a "PHYSICAL PLAUSIBILITY AUDIT" — a
+verification pass confirming the described element behavior is consistent
+with real-world physics at the stated intensity, flagging any element
+description that would read as physically implausible even accounting for
+supernatural story elements (unless WRONGNESS is explicitly intended and
+flagged).
+
+================================================================================
+          END OF TEMPLATE 15 — BLOOD, FOG, SMOKE & WEATHER EFFECTS
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

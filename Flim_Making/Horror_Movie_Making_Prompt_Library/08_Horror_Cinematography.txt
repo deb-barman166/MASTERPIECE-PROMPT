@@ -1,0 +1,260 @@
+================================================================================
+                    HORROR CINEMATOGRAPHY — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 08 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR CINEMATOGRAPHY
+Category: Visual Style & Color Science
+Compatible Engines: Sora, Veo, Kling, Runway, Pika, Luma, Hailuo (video
+generation) + GPT/Claude/Gemini/Grok/DeepSeek (style reasoning)
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Defines the overarching VISUAL STYLE SYSTEM of a horror project — color
+grading philosophy, film stock/digital character emulation, contrast
+handling, and grain/texture treatment — distinct from Template 07's shot-
+by-shot camera mechanics. Where Camera Master answers "how is this shot
+composed," Cinematography answers "what does this entire film look and
+feel like as a consistent visual object," ensuring every generated scene
+shares the same photographic DNA regardless of which AI platform produced
+it.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[VISUAL REFERENCE ANCHOR] + [COLOR PALETTE PHILOSOPHY] + [CONTRAST/DYNAMIC
+RANGE PROFILE] + [TEXTURE/GRAIN TREATMENT] + [SATURATION LOGIC BY SCENE
+TYPE] + [PRACTICAL VS. STYLIZED BALANCE] + [CONSISTENCY LOCK TOKEN] +
+[PLATFORM-SPECIFIC SYNTAX WRAPPER]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{VISUAL_REFERENCE_ANCHOR} — 2-3 named cinematographic reference points
+  (described by their qualities, not just named, e.g., "the desaturated
+  naturalism of Roger Deakins' night exteriors")
+{COLOR_PALETTE_PHILOSOPHY} — the core palette logic (desaturated with one
+  intruding color, monochromatic with warm/cool split, high-saturation
+  wrongness against muted reality)
+{CONTRAST_PROFILE} — high-contrast/crushed-blacks vs. low-contrast/flat
+  vs. selective-contrast (deep blacks with one carefully lit subject)
+{TEXTURE_GRAIN_TREATMENT} — clean digital vs. film-grain emulation vs.
+  degraded/found-footage texture, and consistency requirements across
+  scenes
+{SATURATION_LOGIC_BY_SCENE_TYPE} — how saturation should shift between
+  "normal world" scenes and "wrongness" scenes (a specific, repeatable
+  rule, not a vague mood shift)
+{PRACTICAL_VS_STYLIZED_BALANCE} — how naturalistic vs. how expressionistic
+  the visual treatment should be overall (a 1-10 scale is useful here)
+{SIGNATURE_COLOR} — one specific color reserved exclusively for
+  wrongness/danger moments, never used elsewhere in the palette
+{TIME_OF_DAY_TREATMENT} — how day/night/magic-hour should each be rendered
+  within the established palette philosophy
+{CONSISTENCY_LOCK_TOKEN} — reusable phrase capturing the overall visual
+  signature for insertion into every scene prompt
+{NEGATIVE_TRAITS} — exclude default AI-generation tendencies (no default
+  overly-saturated "cinematic" look, no unmotivated lens flare, no generic
+  teal-and-orange grading unless deliberately chosen)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Define the overarching cinematographic style system for this horror
+project.
+
+VISUAL REFERENCE ANCHOR: {VISUAL_REFERENCE_ANCHOR}
+COLOR PALETTE PHILOSOPHY: {COLOR_PALETTE_PHILOSOPHY}
+CONTRAST PROFILE: {CONTRAST_PROFILE}
+TEXTURE/GRAIN TREATMENT: {TEXTURE_GRAIN_TREATMENT}
+SATURATION LOGIC (normal vs. wrongness scenes): {SATURATION_LOGIC_BY_SCENE_TYPE}
+PRACTICAL VS. STYLIZED BALANCE (1-10): {PRACTICAL_VS_STYLIZED_BALANCE}
+SIGNATURE COLOR (reserved for danger): {SIGNATURE_COLOR}
+TIME OF DAY TREATMENT: {TIME_OF_DAY_TREATMENT}
+EXCLUDE: {NEGATIVE_TRAITS}
+
+Generate a CONSISTENCY LOCK TOKEN capturing this visual style in a form
+that can be appended to every scene prompt across the entire project,
+regardless of which platform generates it.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. CINEMATOGRAPHY BIBLE SUMMARY (paragraph describing the complete visual
+   philosophy and how it serves the story's themes)
+2. CONSISTENCY LOCK TOKEN (isolated, bolded — the style fragment for every
+   scene prompt)
+3. SCENE-TYPE VARIANTS (specific palette/contrast adjustments for: normal-
+   world scenes, build/tension scenes, wrongness/reveal scenes, climax)
+4. PLATFORM ADAPTATIONS (how to phrase this style system for image-model
+   syntax vs. video-model natural language vs. LLM reasoning blocks)
+5. CONTINUITY CHECKLIST (fixed visual facts that must never drift: grain
+   level, signature color usage rule, contrast baseline)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Establish the visual style BEFORE generating any scenes, not after — style
+  drift across a project is one of the most common failure modes when
+  multiple AI platforms or multiple generation sessions are involved.
+- Reserve SIGNATURE_COLOR with absolute discipline — a color that appears
+  everywhere loses its power to signal danger; audiences learn visual
+  grammar quickly and will read the pattern within a few appearances.
+- Avoid defaulting to generic "cinematic" AI-generation aesthetics (overly
+  saturated, excessive lens flare, glossy digital sheen) unless
+  specifically serving the story — these defaults actively work against
+  horror's need for naturalistic dread.
+- Describe grain/texture treatment with enough specificity that it survives
+  translation across platforms — vague terms like "moody" or "cinematic"
+  are interpreted wildly differently by different video models.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Build 3-4 reference frames (even as rough test generations) early in
+  production to validate that the described style actually renders
+  consistently on your target platform(s) before committing to full-scene
+  generation.
+- Keep the CONSISTENCY_LOCK_TOKEN concise (15-20 words) — style tokens
+  compete for descriptive weight with character/location/action tokens in
+  the same prompt, so brevity here preserves fidelity elsewhere.
+- Document exactly which scenes are permitted to break the established
+  palette rules (if any) as deliberate, planned exceptions — unplanned
+  exceptions read as inconsistency, planned ones read as intentional
+  visual punctuation.
+- When working across multiple video platforms for a single project,
+  test the same lock token on each and note necessary micro-adjustments
+  per platform in the continuity checklist.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- THE CREEPING DESATURATION: gradually reduce saturation across the film's
+  runtime as dread mounts, so the "normal world" at the start looks
+  noticeably more vivid in retrospect than the washed-out climax.
+- SIGNATURE COLOR INTRUSION: introduce SIGNATURE_COLOR in small, easy-to-
+  miss doses early (a single object) before it dominates a frame at the
+  climax, training audience recognition subliminally.
+- CONTRAST AS THREAT INDICATOR: use a measurable contrast increase (deeper
+  blacks, harder falloff) specifically in scenes where the antagonist is
+  present or imminent, even if the audience can't consciously name why the
+  scene "feels different."
+- GRAIN AS TEXTURE OF DREAD: increase grain/texture noise subtly during
+  high-tension sequences — a slightly "dirtier" image reads as more
+  vulnerable and analog, less controlled.
+- THE FALSE-WARMTH SCENE: occasionally light a dangerous scene with
+  the "safe" warm palette reserved for normal-world scenes, creating
+  unconscious unease through mismatched visual grammar.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- This template governs the "paint," Template 09 governs the "light
+  sources" — they must be developed together, since contrast profile and
+  practical lighting choices are deeply interdependent.
+- CONTRAST_PROFILE should specify exact black/shadow behavior (crushed to
+  near-void vs. detail-retaining) since this single choice affects every
+  night/dark scene generated across the entire project.
+- Cross-reference Template 07's lens choices — wide lenses and shallow
+  depth of field interact differently with different grain/texture
+  treatments, and should be validated together on sample generations.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Note whether SIGNATURE_COLOR intrusions should be paired with a
+  corresponding signature sound cue (from Template 13) for cross-sensory
+  conditioning of the audience.
+- Match the overall PRACTICAL_VS_STYLIZED_BALANCE to a corresponding sound
+  design philosophy (naturalistic sound design for low stylization,
+  processed/synthetic sound design for high stylization) for tonal
+  cohesion between image and audio.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+VISUAL_REFERENCE_ANCHOR: The patient, naturalistic dread of "The Witch"
+  combined with the creeping desaturation of "The Road"
+COLOR_PALETTE_PHILOSOPHY: Muted earth tones (ochre, faded green, bone white)
+  for the "normal" commune world, with a single reserved deep amber-gold
+  for anything tied to the entity's "invitations"
+CONTRAST_PROFILE: Low-to-moderate contrast for daylight commune scenes
+  (soft, overcast naturalism); high contrast with crushed shadow detail for
+  all night/interior scenes
+TEXTURE_GRAIN_TREATMENT: Fine, consistent 35mm-emulation grain throughout;
+  no clean digital look permitted at any point
+SATURATION_LOGIC_BY_SCENE_TYPE: Normal-world scenes start at moderate
+  saturation and decrease by a visible increment at each of the 5 major
+  escalation beats; wrongness/invitation scenes always carry the reserved
+  amber-gold at full saturation regardless of surrounding desaturation
+PRACTICAL_VS_STYLIZED_BALANCE: 3/10 (highly naturalistic, minimal overt
+  stylization)
+SIGNATURE_COLOR: Deep amber-gold, reserved exclusively for entity-related
+  "invitation" moments
+TIME_OF_DAY_TREATMENT: Daylight scenes overcast/soft; night scenes deep,
+  near-black shadow with minimal practical illumination
+NEGATIVE_TRAITS: No teal-and-orange default grading, no glossy digital
+  sheen, no unmotivated lens flare
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+CINEMATOGRAPHY BIBLE SUMMARY: A naturalistic, 35mm-grain-emulated visual
+world built on muted earth tones that grow quieter and more desaturated
+with each escalation beat, punctuated only by a single reserved amber-gold
+that marks the entity's presence — the palette itself tells the story of
+a world slowly losing its color to something that offers only one.
+
+CONSISTENCY LOCK TOKEN:
+"Naturalistic 35mm grain, muted earth-tone palette, overcast soft daylight,
+crushed-shadow night interiors, reserved deep amber-gold for entity
+moments only"
+
+SCENE-TYPE VARIANT — Wrongness/Invitation Scene:
+[Lock Token] + "this scene carries the full reserved amber-gold at maximum
+saturation against the otherwise desaturated surroundings, contrast
+elevated, shadows crushed to near-black outside the amber's reach"
+
+PLATFORM ADAPTATIONS:
+- Video-model syntax: "Shot on naturalistic 35mm-style film grain, muted
+  earth-tone color palette throughout — ochre, faded green, bone white.
+  Daylight scenes are soft and overcast. Night interiors carry high
+  contrast with deep crushed shadow. In this moment, a single warm
+  amber-gold glow dominates the frame, more saturated than anything else
+  in the world around it."
+
+CONTINUITY CHECKLIST: Amber-gold NEVER appears outside entity/invitation
+moments ✓. Grain level remains constant across all scenes regardless of
+platform ✓. Saturation decrease is measured per escalation beat, not
+randomly applied ✓.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for feature-length or franchise-scale visual consistency management:
+
+{LUT_EQUIVALENT_DESCRIPTION} — a detailed text description equivalent to a
+  color-grading LUT, for use in post-production compositing if AI-generated
+  footage is combined with practical footage
+{CROSS_PLATFORM_COLOR_DRIFT_LOG} — a tracking document format for recording
+  how the same lock token renders differently across Sora/Veo/Kling/Runway/
+  Pika/Luma/Hailuo, with correction notes per platform
+{ACT_BY_ACT_PALETTE_EVOLUTION} — a detailed shot-by-shot or act-by-act
+  saturation/contrast progression chart for features spanning many scenes
+{MARKETING_STILL_VARIANT} — a separate style variant optimized for poster/
+  key-art generation, which may permit slightly higher stylization than
+  in-motion footage
+
+ADVANCED OUTPUT ADDITION: Request a "STYLE DRIFT AUDIT PROTOCOL" — a
+step-by-step process for periodically checking a growing set of generated
+scenes against the original lock token to catch gradual palette drift
+before it compounds across a long production.
+
+================================================================================
+                    END OF TEMPLATE 08 — HORROR CINEMATOGRAPHY
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

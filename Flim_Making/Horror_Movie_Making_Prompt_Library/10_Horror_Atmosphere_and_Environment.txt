@@ -1,0 +1,259 @@
+================================================================================
+              HORROR ATMOSPHERE & ENVIRONMENT — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 10 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR ATMOSPHERE & ENVIRONMENT
+Category: Ambient World-State Design
+Compatible Engines: Sora, Veo, Kling, Runway, Pika, Luma, Hailuo (video
+generation) + GPT/Claude/Gemini/Grok/DeepSeek (atmosphere reasoning)
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Defines the AMBIENT WORLD-STATE surrounding a scene — weather, air quality,
+temperature-implied visual cues, seasonal decay, and environmental motion
+(wind, dust, insect activity) — as a distinct layer from location
+architecture (Template 05) and lighting (Template 09). Atmosphere is what
+makes a location feel ALIVE and PRESENT rather than like a static backdrop;
+this template ensures that "liveness" consistently serves dread rather than
+being generic scene-dressing.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[SEASON + WEATHER STATE] + [AIR QUALITY/PARTICULATE DETAIL] +
+[TEMPERATURE-IMPLIED VISUAL CUES] + [ENVIRONMENTAL MOTION LAYER] +
+[BIOLOGICAL/DECAY PRESENCE] + [AMBIENT WRONGNESS SIGNAL] + [CONSISTENCY
+LOCK TOKEN] + [PLATFORM-SPECIFIC SYNTAX WRAPPER]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{SEASON_AND_WEATHER} — specific season and weather state (not generic
+  "stormy night" — specify intensity, duration implied, recent history:
+  "third day of unseasonal fog that hasn't lifted")
+{AIR_QUALITY_PARTICULATE} — visible atmospheric detail (dust motes in
+  light beams, fog density and behavior, smoke, humidity haze, pollen)
+{TEMPERATURE_VISUAL_CUES} — how implied temperature reads visually (visible
+  breath, condensation on surfaces, frost patterns, heat shimmer) since
+  video generation cannot convey temperature directly except through such
+  cues
+{ENVIRONMENTAL_MOTION} — specific ambient movement (wind direction and
+  strength affecting specific objects, curtain movement, tree behavior,
+  water surface state) — described precisely enough to remain consistent
+{BIOLOGICAL_DECAY_PRESENCE} — organic detail appropriate to setting/story
+  (mold growth stage, insect activity type and density, plant overgrowth
+  or die-off, animal presence/absence as a wrongness signal)
+{AMBIENT_WRONGNESS_SIGNAL} — one specific atmospheric detail that violates
+  expected natural behavior (wind that doesn't match visible tree motion,
+  fog that moves against the wind, complete absence of insects/birds where
+  expected)
+{TIME_ELAPSED_INDICATORS} — atmospheric details that convey how much time
+  has passed since a key story event (dust accumulation, decay
+  progression, weather pattern duration)
+{CONSISTENCY_LOCK_TOKEN} — reusable phrase for this atmospheric state,
+  scoped to a specific scene-type or story period
+{NEGATIVE_TRAITS} — exclude generic/overused atmosphere defaults (no
+  generic "spooky fog everywhere" without motivation, no random unmotivated
+  wind gusts, no decorative-only cobwebs disconnected from decay logic)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Design the ambient atmospheric world-state for a horror scene/sequence.
+
+SEASON/WEATHER: {SEASON_AND_WEATHER}
+AIR QUALITY/PARTICULATE: {AIR_QUALITY_PARTICULATE}
+TEMPERATURE VISUAL CUES: {TEMPERATURE_VISUAL_CUES}
+ENVIRONMENTAL MOTION: {ENVIRONMENTAL_MOTION}
+BIOLOGICAL/DECAY PRESENCE: {BIOLOGICAL_DECAY_PRESENCE}
+AMBIENT WRONGNESS SIGNAL: {AMBIENT_WRONGNESS_SIGNAL}
+TIME ELAPSED INDICATORS: {TIME_ELAPSED_INDICATORS}
+EXCLUDE: {NEGATIVE_TRAITS}
+
+Generate a CONSISTENCY LOCK TOKEN for this atmospheric state and specify
+how it should evolve (if at all) across the scenes/sequence it applies to.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. ATMOSPHERE BIBLE SUMMARY (paragraph describing the ambient world-state
+   and its intended psychological function)
+2. CONSISTENCY LOCK TOKEN (isolated, bolded)
+3. SCENE-TYPE VARIANTS (how atmosphere should shift between normal-world
+   scenes and wrongness/tension scenes, if applicable)
+4. PLATFORM ADAPTATIONS (image-model / video-model natural-language / LLM
+   reasoning syntax)
+5. CONTINUITY CHECKLIST (fixed atmospheric facts: wind direction, fog
+   density, decay stage — must remain constant or evolve only per
+   TIME_ELAPSED_INDICATORS)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Atmosphere should always be traceable to a specific, motivated cause
+  (real weather patterns, real decay timelines, real biological behavior)
+  even when the story is supernatural — grounded atmospheric logic makes
+  supernatural elements land harder by contrast.
+- Use AMBIENT_WRONGNESS_SIGNAL sparingly and with precision — one well-
+  chosen physically-impossible detail (fog moving against the wind) is far
+  more effective than many small inconsistencies, which read as generation
+  error rather than deliberate design.
+- Temperature cannot be shown directly in visual media — always translate
+  it into a specific visual cue (breath, condensation, frost) rather than
+  leaving it as an unstated environmental fact.
+- Track TIME_ELAPSED_INDICATORS carefully across a story's timeline —
+  atmospheric decay/growth details are one of the most common continuity
+  errors in AI-assisted horror production when scenes are generated out of
+  sequence.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Establish a baseline atmospheric "normal" for the story's setting early,
+  so that any deviation (a sudden windless stillness, an unseasonal
+  temperature drop) reads clearly as a deliberate wrongness signal rather
+  than random variation.
+- Keep environmental motion internally consistent across a single scene —
+  if wind direction is established as blowing curtains one way, every
+  other wind-affected element in the same scene should match.
+- Reserve the most extreme atmospheric wrongness signal for the story's
+  most significant moment; don't spend it on an early or minor scene.
+- When batching multiple scenes for generation, group by atmospheric state
+  where possible to reduce the risk of unintended environmental drift
+  between visually adjacent scenes.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- THE UNNATURAL STILLNESS: remove expected environmental motion entirely
+  (no wind, no insect sound, no bird activity) in scenes preceding a major
+  reveal — absence of ambient life is one of horror's most efficient dread
+  tools.
+- WEATHER AS EMOTIONAL MIRROR (used sparingly): let atmospheric conditions
+  track the protagonist's psychological state, but avoid overuse — reserve
+  for 1-2 key moments rather than constant pathetic fallacy.
+- DECAY AS CLOCK: use progressive biological decay across a location as a
+  silent, readable timer for how long since a key event occurred.
+- THE WRONG DIRECTION: have fog, smoke, or dust move in a direction that
+  contradicts visible wind cues on other objects in frame — small enough
+  that it registers as unease before it registers as impossible.
+- PARTICULATE AS REVEAL TOOL: use dust motes or fog density to partially
+  obscure a creature/threat reveal (Template 04's REVEAL_FRAGMENT_MAP),
+  letting atmosphere do reveal-pacing work that lighting alone cannot.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Particulate detail (dust, fog, humidity haze) interacts directly with
+  Template 09's light sources — specify how the established LIGHT_SOURCE
+  should interact with atmosphere (a single bulb's light cutting visibly
+  through dust-heavy air, a flashlight beam scattering in fog).
+- Match ENVIRONMENTAL_MOTION to Template 07's camera movement choices —
+  static camera shots benefit from environmental motion to prevent visual
+  staleness; already-dynamic camera movement may need calmer atmosphere to
+  avoid overwhelming the frame.
+- Consider how atmosphere affects depth perception and shot scale choices
+  (heavy fog naturally limits effective wide-shot legibility, favoring
+  medium/close compositions).
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Environmental motion should have a matching sound signature (wind
+  through specific materials, rain on specific surfaces) passed explicitly
+  to Template 13 for audio-visual consistency.
+- The absence of expected ambient sound (no insects, no birds, no wind
+  despite visible triggers) is itself a powerful and inexpensive atmosphere
+  tool — flag these silence-as-atmosphere moments explicitly.
+- Biological/decay presence often carries subtle sound correlates (settling
+  structures, insect activity) that reinforce the visual atmospheric
+  design when included in the sound layer.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+SEASON_AND_WEATHER: Late autumn, fourth consecutive day of unseasonal dense
+  fog that has not lifted even at midday
+AIR_QUALITY_PARTICULATE: Fog density heavy enough to reduce visibility to
+  roughly 15-20 meters outdoors; fine moisture visible as haze in any
+  direct light source
+TEMPERATURE_VISUAL_CUES: Visible breath outdoors and in unheated interior
+  spaces; condensation beading on the relay vault's cold metal equipment
+ENVIRONMENTAL_MOTION: No wind at all for the full fourth day — a stillness
+  notably different from the light breeze of the preceding three days
+BIOLOGICAL_DECAY_PRESENCE: No birds visible or audible anywhere on the
+  property since the fog began; moderate dust accumulation throughout
+  consistent with roughly two decades of abandonment
+AMBIENT_WRONGNESS_SIGNAL: The fog does not disperse or thin at any point
+  during the fourth day, including at midday when autumn fog would
+  naturally burn off
+TIME_ELAPSED_INDICATORS: Dust accumulation on the logbook and desk
+  consistent with the stated ~50 years since abandonment; fog specifically
+  began four days ago, correlating with the story's inciting event
+NEGATIVE_TRAITS: No generic decorative cobwebs disconnected from the decay
+  timeline, no random gusts contradicting the established stillness
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+ATMOSPHERE BIBLE SUMMARY: A fourth unbroken day of windless, unlifting fog
+that should have burned off by midday and hasn't, in a place where the
+birds stopped making sound the same day it arrived — the atmosphere itself
+is the story's first, quietest clue that something has changed.
+
+CONSISTENCY LOCK TOKEN:
+"Fourth day of dense unlifting fog, no wind, no birds, visible breath,
+condensation on cold metal, ~15m visibility"
+
+SCENE-TYPE VARIANT — Approaching the Building (Build beat):
+[Lock Token] + "the exchange building emerges gradually from the fog at
+close range, its outline visibly damp, no birds break the silence, her
+breath fogs visibly in the still, windless air"
+
+PLATFORM ADAPTATIONS:
+- Video-model syntax: "Dense fog blankets the property, thick enough to
+  limit visibility to about fifteen meters, unmoved by any wind on this,
+  the fourth straight day it has failed to lift even at midday. No birds
+  call anywhere nearby. Her breath is visible in the cold, still air as
+  she approaches."
+
+CONTINUITY CHECKLIST: Fog must remain equally dense and unlifting across
+every exterior scene set on "day four" ✓. Absence of birds must be
+consistent throughout ✓. Any scene set on days 1-3 must show light breeze
+and thinner fog for contrast ✓.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for multi-day or seasonal-progression stories:
+
+{MULTI_DAY_ATMOSPHERIC_PROGRESSION} — a day-by-day atmospheric evolution
+  chart for stories spanning an extended timeline, ensuring gradual and
+  trackable change rather than random daily variation
+{CLIMATE_LOGIC_DOCUMENT} — for supernatural stories where atmosphere itself
+  is partially controlled by the antagonist, define the exact rules
+  governing when/how this control manifests (rules prevent it from feeling
+  arbitrary)
+{CROSS_LOCATION_ATMOSPHERIC_CONTRAST} — if the story moves between
+  distinct locations, define how atmosphere should contrast between them to
+  reinforce the isolation vector from Template 01
+{PARTICULATE_VFX_HANDOFF} — flag any atmospheric element (heavy fog
+  interaction with practical light, complex decay detail) that may need
+  Template 14/15 VFX layering rather than being achievable in a single
+  generation pass
+
+ADVANCED OUTPUT ADDITION: Request an "ATMOSPHERIC CONTINUITY TIMELINE" — a
+simple chronological chart mapping every scene to its correct atmospheric
+state per TIME_ELAPSED_INDICATORS, to catch out-of-sequence generation
+errors before they compound.
+
+================================================================================
+              END OF TEMPLATE 10 — HORROR ATMOSPHERE & ENVIRONMENT
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

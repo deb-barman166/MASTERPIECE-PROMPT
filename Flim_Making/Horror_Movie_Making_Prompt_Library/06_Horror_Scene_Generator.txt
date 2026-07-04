@@ -1,0 +1,258 @@
+================================================================================
+                     HORROR SCENE GENERATOR — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 06 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR SCENE GENERATOR
+Category: Scene-Level Composition
+Compatible Engines: Sora, Veo, Kling, Runway, Pika, Luma, Hailuo (video
+generation) + GPT/Claude/Gemini/Grok/DeepSeek (scene reasoning)
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Assembles all prior design layers (story, character, creature, location)
+into a single, complete, generation-ready SCENE prompt — the unit that
+actually gets fed to a video model. This template is the assembly point of
+the library: it doesn't invent new elements, it composes locked tokens from
+Templates 01-05 with scene-specific beat logic, camera intent, and timing
+into one coherent, production-ready instruction block.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[SCENE CONTEXT + BEAT TYPE] + [LOCKED CHARACTER/CREATURE TOKENS] +
+[LOCKED LOCATION ZONE TOKEN] + [ACTION SEQUENCE: BEAT-BY-BEAT] + [TENSION
+CURVE MARKER] + [CAMERA INTENT SUMMARY] + [LIGHT/SOUND STATE] + [DURATION +
+PACING] + [PLATFORM-SPECIFIC SYNTAX WRAPPER]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{SCENE_NUMBER_AND_CONTEXT} — where this scene falls in the larger story
+{BEAT_TYPE} — build / release / false-release / climax (inherited from
+  Template 02 scene breakdown)
+{CHARACTER_TOKENS} — pasted consistency lock tokens from Template 03 for
+  every character present
+{CREATURE_TOKEN} — pasted consistency lock token from Template 04, at the
+  correct REVEAL_FRAGMENT_MAP stage for this point in the story
+{LOCATION_ZONE_TOKEN} — pasted zone-specific token from Template 05
+{ACTION_SEQUENCE} — 3-6 numbered micro-beats describing exactly what
+  happens, in order, within the scene
+{TENSION_CURVE} — where the scene's peak intensity falls (opening / middle
+  / final second) described explicitly
+{CAMERA_INTENT_SUMMARY} — brief note on primary camera approach (detailed
+  shot list belongs in Template 07; this is a scene-level directive only)
+{LIGHT_SOUND_STATE} — the specific lighting and ambient sound state
+  inherited from Templates 05/09/13 for this exact moment
+{SCENE_DURATION} — target length in seconds (critical for video model
+  prompting, since most platforms generate in short clips)
+{CONTINUITY_ANCHORS} — specific facts that must match the immediately
+  preceding and following scenes (character position, time of day, injury
+  state)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Assemble a complete, generation-ready horror scene prompt.
+
+SCENE CONTEXT: {SCENE_NUMBER_AND_CONTEXT}
+BEAT TYPE: {BEAT_TYPE}
+CHARACTERS PRESENT (locked tokens): {CHARACTER_TOKENS}
+CREATURE STATE (locked token, correct reveal stage): {CREATURE_TOKEN}
+LOCATION (locked zone token): {LOCATION_ZONE_TOKEN}
+ACTION SEQUENCE: {ACTION_SEQUENCE}
+TENSION CURVE: {TENSION_CURVE}
+CAMERA INTENT: {CAMERA_INTENT_SUMMARY}
+LIGHT/SOUND STATE: {LIGHT_SOUND_STATE}
+DURATION: {SCENE_DURATION}
+CONTINUITY ANCHORS: {CONTINUITY_ANCHORS}
+
+Compose these into ONE cohesive scene description per target platform,
+never contradicting any locked token, and respecting the specified
+BEAT_TYPE pacing logic (builds should feel unresolved at the cut point;
+releases should land on a clear image; false-releases should end on a
+detail the audience may not consciously register as wrong yet).
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. SCENE SUMMARY (one line: what happens and why it matters to the larger
+   story)
+2. MICRO-BEAT BREAKDOWN (numbered, matching ACTION_SEQUENCE, each beat
+   flagged with its approximate timestamp within SCENE_DURATION)
+3. FULL COMPOSED PROMPT — PLATFORM VARIANTS:
+   - Sora/Veo/Kling/Runway/Pika/Luma/Hailuo natural-language cinematic
+     prompt (single flowing paragraph, present tense, descriptive prose)
+   - Image-model keyframe variant (for generating a key still/reference
+     frame, comma-separated descriptor style)
+4. CONTINUITY VERIFICATION (confirms no contradiction with prior/next scene
+   anchors)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Never re-describe a character/creature/location from scratch here — this
+  template's discipline is COMPOSITION, not invention. Paste locked tokens
+  verbatim and add only scene-specific action/state.
+- Match verb tense and descriptive register to the target platform: video
+  models respond best to present-tense, single-flow cinematic prose;
+  keyword-stacked syntax under-performs on most current video generators
+  compared to descriptive sentences.
+- Respect SCENE_DURATION realistically — most video generation platforms
+  produce short clips (typically 4-20 seconds); a scene with 6 major
+  action beats needs to be split into multiple generation calls rather
+  than compressed into one over-stuffed prompt.
+- The TENSION_CURVE placement changes what the LAST described moment in the
+  prompt should be — always end the written prompt on the image you want
+  the clip to end on, since video models weight recency in prompts heavily.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Keep ACTION_SEQUENCE micro-beats simple and physical — "she reaches for
+  the handle" not "she nervously considers her options" — video models
+  render physical action far more reliably than internal states.
+- When a scene requires precise timing (a reveal must happen at a specific
+  second), state it explicitly in the prompt ("in the final moment...")
+  rather than relying on the model to infer pacing from description order.
+- Batch scenes with matching LIGHT_SOUND_STATE together in your generation
+  queue where possible — this reduces the chance of unwanted lighting
+  drift between visually adjacent scenes.
+- If a platform-specific generation looks inconsistent with locked tokens,
+  revise the SCENE_DURATION or ACTION_SEQUENCE complexity down before
+  changing the tokens themselves — over-stuffed prompts are a more common
+  failure cause than weak tokens.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- THE UNRESOLVED CUT: for BUILD beats, deliberately end the described
+  action mid-motion (a door beginning to open) rather than on a completed
+  action, so the generated clip carries unresolved tension into the edit.
+- BREATH BEFORE SCARE: for scenes preceding a major scare, include one
+  explicit "nothing happens" micro-beat (nearly-still environment, minimal
+  character motion) as the second-to-last beat.
+- ENVIRONMENTAL FOREGROUNDING: place a small, specific environmental detail
+  in the foreground of the composed prompt that will pay off in a later
+  scene, creating subconscious dread on first viewing and payoff on rewatch.
+- THE WRONG DETAIL LAST: for false-release beats, place a single subtly
+  incorrect detail as the very last described element in the prompt so it
+  lands on the final frame without being narratively explained.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- CAMERA_INTENT_SUMMARY here should be a single directive sentence (e.g.,
+  "slow push-in throughout, never cutting away") — full technical shot
+  specification belongs in Template 07 and should be merged in before
+  final platform submission.
+- LIGHT_SOUND_STATE must exactly match the values locked in Templates 05
+  and 09 for this location/time — treat any mismatch as a continuity bug
+  to fix before generation, not a creative variation to allow.
+- For scenes spanning a light-state transition (day to night, lit to
+  power-outage), explicitly sequence the transition within ACTION_SEQUENCE
+  rather than describing a static single state.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Confirm the antagonist/creature sound motif (from Templates 01/04) is
+  referenced at the correct micro-beat if the entity is present or
+  imminent in this scene.
+- Explicitly note any SILENCE CUE inherited from Template 02's script
+  breakdown so downstream audio generation/scoring respects it.
+- If LIGHT_SOUND_STATE calls for ambient ramp-up or ramp-down across the
+  scene, sequence it as its own micro-beat rather than a static background
+  descriptor.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+SCENE_NUMBER_AND_CONTEXT: Scene 14 — Ines finds the ledger (mid-Act 2)
+BEAT_TYPE: Build
+CHARACTER_TOKENS: [Ines Calder lock token: "young woman, dark bob haircut,
+  oversized borrowed cardigan, restless hands, clipped anxious speech"]
+CREATURE_TOKEN: N/A (human-antagonist story; Elial Voss token used instead
+  in adjacent scenes)
+LOCATION_ZONE_TOKEN: [Record House Back Shelf token from Template 05
+  equivalent: "dust-heavy back room, single bulb, floor-to-ceiling leather
+  ledgers, cold despite the season"]
+ACTION_SEQUENCE:
+  1. Ines enters the back shelf room alone, flashlight in hand
+  2. She scans the ledger spines, finds the most recent one
+  3. She opens to the final page, finds her own name and today's date
+  4. She flips backward through the pages, finding her name repeating at
+     earlier and earlier dates
+  5. The single bulb flickers once, does not go out
+  6. She closes the ledger slowly and does not move for a moment
+TENSION_CURVE: Peak at final second (the flicker + stillness)
+CAMERA_INTENT_SUMMARY: Static locked-off camera for the entire scene; no
+  movement until the very last beat, where a very slow, almost
+  imperceptible push-in begins
+LIGHT_SOUND_STATE: Single practical bulb, warm but dim, heavy shadow;
+  three-beat low hum plays once, distant, during beat 4
+SCENE_DURATION: 12 seconds
+CONTINUITY_ANCHORS: Ines's cardigan must match prior scene (unchanged,
+  clean); time of day is night, consistent with Scene 13's ending
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+SCENE SUMMARY: Ines discovers she was named in the commune's ledger years
+before she ever arrived — the scene's dread comes entirely from stillness
+and dawning realization, not action.
+
+MICRO-BEAT BREAKDOWN:
+0:00-0:02 — Enter, flashlight in teeth, scanning shelf
+0:02-0:04 — Finds newest ledger, opens to final page
+0:04-0:07 — Sees her own name and today's date; reacts with stillness
+0:07-0:10 — Flips backward, name repeats at earlier dates
+0:10-0:11 — Bulb flickers once
+0:11-0:12 — She closes the ledger, motionless
+
+FULL COMPOSED PROMPT (Video-model variant):
+"A young woman with a dark bob haircut, wearing an oversized cardigan,
+kneels in a dust-heavy back room lined floor to ceiling with old leather
+ledgers, a single warm bulb providing the only dim light. She opens the
+newest ledger to its final page and goes still — her own name is written
+there, dated today. She flips backward through the pages, finding her name
+repeated at earlier and earlier dates. A low three-beat hum sounds once,
+distant. The bulb flickers a single time and steadies. She closes the
+ledger slowly and does not move, the camera holding perfectly still before
+beginning an almost imperceptible push toward her."
+
+CONTINUITY VERIFICATION: Cardigan state matches Scene 13 (clean, unchanged)
+✓. Night setting matches prior scene end state ✓. No creature token
+required for this scene ✓.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for multi-shot scenes or complex sequence assembly:
+
+{MULTI_CLIP_SPLIT_PLAN} — if SCENE_DURATION exceeds a single platform's
+  generation limit, define exactly how to split the scene into sequential
+  clips with matching end-frame/start-frame continuity
+{CROSS_CUT_INSTRUCTION} — for scenes intercut with a parallel scene (per
+  Template 02's PARALLEL_SCENE_WEAVE), define the exact alternation pattern
+{PRACTICAL_VFX_HANDOFF_NOTE} — flag any beat requiring compositing/VFX
+  layering (feeds Template 14) that cannot be achieved in a single
+  generation pass
+{ITERATION_SEED_LOG} — a tracking field for recording which generation
+  seeds/settings produced the best continuity match, for reuse across
+  reshoots or platform retries
+
+ADVANCED OUTPUT ADDITION: Request a "PACING STRESS TEST" — a short note
+estimating whether the ACTION_SEQUENCE beat count is realistic for
+SCENE_DURATION on current-generation video platforms, flagging scenes that
+likely need splitting before submission.
+
+================================================================================
+                   END OF TEMPLATE 06 — HORROR SCENE GENERATOR
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

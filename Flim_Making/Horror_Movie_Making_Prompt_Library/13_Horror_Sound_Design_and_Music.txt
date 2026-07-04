@@ -1,0 +1,267 @@
+================================================================================
+               HORROR SOUND DESIGN & MUSIC — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 13 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR SOUND DESIGN & MUSIC
+Category: Audio Design & Score
+Compatible Engines: AI music/audio generation platforms (Suno, Udio, ElevenLabs
+Sound, Stable Audio, and similar) + GPT/Claude/Gemini/Grok/DeepSeek for
+audio-direction reasoning and cue-sheet construction
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Specifies the complete audio landscape of a horror scene — score, diegetic
+sound, ambient bed, and SILENCE as an active compositional choice. Horror
+is arguably more dependent on sound design than any other genre; this
+template treats audio with equal rigor to the visual templates, defining
+exact cue placement, frequency character, and — critically — where sound
+should be deliberately withheld.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[SCENE TENSION CURVE] + [AMBIENT BED DESIGN] + [DIEGETIC SOUND INVENTORY] +
+[SCORE APPROACH + INSTRUMENTATION] + [FREQUENCY/TEXTURE CHARACTER] +
+[SILENCE CUE PLACEMENT] + [STINGER/HIT TIMING] + [MOTIF CONSISTENCY LOCK] +
+[PLATFORM-SPECIFIC SYNTAX WRAPPER]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{SCENE_TENSION_CURVE} — inherited from Template 06, where the scene's peak
+  intensity falls, to align audio escalation with visual pacing
+{AMBIENT_BED_DESIGN} — the continuous background sound layer (room tone,
+  environmental hum, wind, mechanical drone) and its specific character
+{DIEGETIC_SOUND_INVENTORY} — specific in-world sounds present (footsteps
+  on a specific surface, a specific door's hinge quality, clothing rustle)
+  described precisely enough for consistency
+{SCORE_APPROACH} — orchestral/traditional vs. drone/ambient vs. musique
+  concrète/processed-sound vs. silence-dominant with minimal scoring
+{INSTRUMENTATION} — if scored, specific instrument choices and why (low
+  strings for dread, prepared piano for wrongness, extended techniques for
+  the uncanny)
+{FREQUENCY_TEXTURE_CHARACTER} — low-frequency rumble (subconscious unease,
+  often below conscious hearing threshold) vs. high-frequency tension
+  (physical discomfort) vs. mid-range naturalism
+{SILENCE_CUE_PLACEMENT} — exact moments where sound should drop out
+  entirely or near-entirely, inherited from Template 02/06 script
+  breakdown
+{STINGER_HIT_TIMING} — precise moment(s) for a sudden sound accent, and
+  explicit calibration of how loud/sudden relative to the preceding bed
+  (avoid overuse; reserve for genuine peak moments)
+{MOTIF_TOKEN} — the antagonist/threat's specific recurring sound signature
+  (inherited from Templates 01/04), to be placed consistently
+{DYNAMIC_RANGE_STRATEGY} — overall loud/quiet contrast philosophy across
+  the scene or full project
+{NEGATIVE_TRAITS} — exclude generic horror audio defaults (no generic
+  "jump scare stinger" overuse, no continuous droning tension score with
+  no variation, no telegraphed musical cues that announce a scare before
+  it happens)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Design the complete audio landscape for this horror scene.
+
+TENSION CURVE (from Template 06): {SCENE_TENSION_CURVE}
+AMBIENT BED: {AMBIENT_BED_DESIGN}
+DIEGETIC SOUND INVENTORY: {DIEGETIC_SOUND_INVENTORY}
+SCORE APPROACH: {SCORE_APPROACH}
+INSTRUMENTATION: {INSTRUMENTATION}
+FREQUENCY/TEXTURE CHARACTER: {FREQUENCY_TEXTURE_CHARACTER}
+SILENCE CUE PLACEMENT: {SILENCE_CUE_PLACEMENT}
+STINGER TIMING: {STINGER_HIT_TIMING}
+MOTIF TOKEN (antagonist signature sound): {MOTIF_TOKEN}
+DYNAMIC RANGE STRATEGY: {DYNAMIC_RANGE_STRATEGY}
+EXCLUDE: {NEGATIVE_TRAITS}
+
+Produce a time-synced audio cue sheet matching the scene's exact duration
+(from Template 06), specifying what is heard at each moment, and
+explicitly marking every SILENCE_CUE as a deliberate absence rather than a
+gap to be filled.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. AUDIO DESIGN SUMMARY (paragraph describing the overall sonic strategy
+   and its intended psychological effect)
+2. TIME-SYNCED CUE SHEET (timestamped: ambient bed state, diegetic sounds,
+   score presence/absence, silence cues, stinger placement)
+3. PLATFORM-READY GENERATION PROMPTS (separate prompts for score/music
+   generation platforms vs. sound-effect/ambient generation platforms,
+   since these typically require different tools)
+4. MOTIF CONSISTENCY NOTE (confirms MOTIF_TOKEN placement aligns with its
+   established usage rules from Template 01/04)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Treat silence as a designed element with explicit start/end points, not
+  as an absence that happens by default when no other instruction is
+  given — unplanned silence often gets filled with generic ambient bed by
+  default in automated audio pipelines.
+- Reserve stingers/sudden accents for genuine narrative peaks — frequency
+  of use inversely correlates with effectiveness; a project with constant
+  stingers trains the audience to stop reacting to them.
+- Low-frequency sound (often at or near the edge of conscious perception)
+  is one of horror's most effective and most underused tools — consider
+  it deliberately for build/dread beats rather than defaulting to audible
+  melodic tension cues.
+- Never let score telegraph a scare before it visually happens — if music
+  swells noticeably before a reveal, the audience anticipates and braces,
+  reducing impact; sync stinger placement to the moment of reveal, not
+  before it.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Establish the MOTIF_TOKEN early and use it with strict discipline —
+  never let the antagonist's signature sound play when the antagonist is
+  not present or imminent, or the audience will stop trusting the cue.
+- Build dynamic range deliberately: a scene at constant volume/intensity
+  has nowhere to escalate; plan quiet stretches specifically so louder
+  moments have contrast to work against.
+- When generating with AI music/audio tools, provide explicit timing and
+  structural instructions (not just mood descriptors), since most audio
+  generation platforms need concrete structural guidance to produce usable,
+  syncable output.
+- Cross-check DIEGETIC_SOUND_INVENTORY against Template 05's location
+  materials and Template 09's practical light sources — sounds should be
+  physically plausible given the established environment.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- THE FALSE QUIET: bring the ambient bed down to near-silence, hold it
+  there longer than comfortable, then resolve it with something mundane —
+  training the audience that silence doesn't always mean danger, so a
+  later true silence-to-threat cut lands harder.
+- SUB-AUDIBLE DREAD: introduce a very low-frequency tone, barely
+  perceptible, beneath a scene's ambient bed during build sequences,
+  creating subconscious unease the audience can't easily identify.
+- THE MOTIF WHISPER: play MOTIF_TOKEN at extremely low volume, almost
+  buried in the ambient bed, before its first clear appearance — rewards
+  close listening/rewatching.
+- SOUND WITHOUT SOURCE: introduce a specific diegetic sound with no visible
+  or logical source in-frame, left unresolved, as an inexpensive and
+  highly effective unease generator.
+- THE DELAYED STINGER: place a sound accent slightly after the visual
+  moment it's associated with, rather than in perfect sync, creating a
+  subtle sense of wrongness or lag.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Sync stinger timing precisely to Template 07's cut/hold timing — a
+  stinger landing on a hard cut has a different effect than one landing
+  mid-hold on a static shot.
+- Match FREQUENCY_TEXTURE_CHARACTER to the scene's established
+  Cinematography (Template 08) — high-stylization visual sequences often
+  pair with more processed/synthetic sound design, naturalistic visual
+  sequences with more grounded, recorded-feeling sound design.
+- Silence cues often pair most effectively with locked-off static camera
+  work (Template 07) — combining visual and audio stillness compounds the
+  effect more than pairing silence with camera movement.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+This entire template functions as the sound and atmosphere guide for the
+project's audio layer. Cross-reference Template 10 for how environmental
+atmospheric elements (wind, fog behavior) should translate into their
+corresponding ambient bed sound design, ensuring visual and audio
+atmosphere remain consistent and mutually reinforcing.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+SCENE_TENSION_CURVE: Peak at final second (from Template 06's Scene 14
+  example)
+AMBIENT_BED_DESIGN: Near-total silence; only a very faint room tone (old
+  building settling, distant) at extremely low volume
+DIEGETIC_SOUND_INVENTORY: Pages turning (dry, old paper), her own breathing
+  (controlled, becoming shallower), a single bulb's faint electrical hum
+SCORE_APPROACH: Silence-dominant with minimal scoring; only a single
+  sustained low tone introduced in the final 3 seconds
+INSTRUMENTATION: If scored, a single sustained low cello or synthesized
+  low-drone tone, no melody, no rhythm
+FREQUENCY_TEXTURE_CHARACTER: Sub-audible low-frequency rumble beginning
+  faintly underneath the silence from beat 4 onward, rising slightly by
+  the final beat
+SILENCE_CUE_PLACEMENT: True silence (no score, minimal diegetic sound)
+  from 0:00-0:10; the three-beat motif hum plays once, quietly, at 0:04
+STINGER_HIT_TIMING: No traditional stinger; instead, the low sustained
+  tone begins precisely when the bulb flickers at 0:10
+MOTIF_TOKEN: The three-beat low communal hum (established in Template 01),
+  played once, quiet and distant, not attention-grabbing
+DYNAMIC_RANGE_STRATEGY: Extremely narrow dynamic range throughout (near-
+  silent to only slightly less silent) — no loud moment at all in this
+  scene, reserving louder dynamics for later scenes
+NEGATIVE_TRAITS: No jump-scare stinger, no swelling orchestral tension cue,
+  no obvious "scary music" signaling
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+AUDIO DESIGN SUMMARY: This scene is built almost entirely on the absence
+of sound — a near-silent room, dry pages turning, and her own increasingly
+shallow breath — with the antagonist's motif appearing once, quietly,
+almost buried, before a single low tone arrives precisely with the bulb's
+flicker.
+
+TIME-SYNCED CUE SHEET:
+0:00-0:02 — Near-silence; faint old-building room tone only; dry page
+  sounds as she scans the shelf
+0:02-0:04 — Page-turning continues; breathing audible, still normal pace
+0:04-0:07 — Three-beat motif hum plays once, quiet and distant; her
+  breathing becomes audibly shallower
+0:07-0:10 — Total near-silence resumes; only her breath and the bulb's
+  faint electrical hum remain; sub-audible low rumble begins very faintly
+  beneath everything
+0:10-0:12 — Single sustained low tone begins exactly as the bulb flickers;
+  holds through her stillness; no other sound
+
+PLATFORM-READY GENERATION PROMPTS:
+- Score/tone generation: "A single sustained low drone tone, cello or deep
+  synthesized texture, no melody, no rhythmic pulse, beginning quietly and
+  holding steady, approximately 2-3 seconds duration, unresolved ending"
+- Ambient/SFX generation: "Near-silent old building room tone, very faint
+  settling creaks, dry paper page-turning sounds, faint electrical bulb
+  hum, extremely low dynamic range throughout"
+
+MOTIF CONSISTENCY NOTE: The three-beat hum's quiet, buried placement here
+(0:04) is consistent with its established rule of not appearing at full
+volume until the entity is directly and consciously engaged ✓.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for full-score composition or feature-length audio continuity:
+
+{FULL_SCORE_ARC_MAP} — a complete act-by-act musical/tension arc for the
+  entire project, ensuring score intensity and instrumentation evolve
+  purposefully rather than scene-by-scene in isolation
+{MOTIF_VARIATION_SET} — define how MOTIF_TOKEN should transform (tempo,
+  instrumentation, volume) across escalating story beats while remaining
+  recognizably the same motif
+{MIX_AND_MASTER_NOTES} — technical notes on relative levels between
+  dialogue, score, and effects for final audio mix consistency
+{MULTI_PLATFORM_AUDIO_PIPELINE} — a note on which AI audio tools handle
+  score vs. sound-effects vs. voice generation, and how to keep output
+  levels/quality consistent across tools
+
+ADVANCED OUTPUT ADDITION: Request a "SILENCE BUDGET AUDIT" — a project-wide
+tally of how much runtime is allocated to true silence vs. scored/sound-
+active time, flagging if silence is being under-used (constant sound bed
+throughout) or over-used (audience fatigue from too little sonic variation).
+
+================================================================================
+              END OF TEMPLATE 13 — HORROR SOUND DESIGN & MUSIC
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

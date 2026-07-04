@@ -1,0 +1,278 @@
+================================================================================
+        HORROR CAMERA MASTER (Shots, Angles, Movements, Lens) — TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 07 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR CAMERA MASTER
+Category: Cinematographic Technical Specification
+Compatible Engines: Sora, Veo, Kling, Runway, Pika, Luma, Hailuo (all
+support natural-language camera direction to varying degrees of fidelity)
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Provides a comprehensive, reusable reference system for specifying shot
+type, camera angle, movement, and lens choice with the precise psychological
+effect each produces in horror. This template functions as a LOOKUP AND
+COMPOSITION SYSTEM rather than a single fill-in-the-blank prompt — it lets
+a user select the exact technical combination that matches the intended
+fear response, then outputs it as ready-to-insert prompt language for
+Template 06 scene assembly.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[INTENDED PSYCHOLOGICAL EFFECT] + [SHOT SCALE SELECTION] + [ANGLE
+SELECTION] + [MOVEMENT SELECTION] + [LENS SELECTION] + [FRAMING/COMPOSITION
+RULE] + [DURATION AND CUT TIMING] + [PLATFORM-SPECIFIC PHRASING WRAPPER]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{INTENDED_EFFECT} — the specific psychological/emotional target (isolation,
+  claustrophobia, vulnerability, dread of the unseen, disorientation, false
+  security, invasive intimacy)
+
+{SHOT_SCALE} — select and combine as needed:
+  - EXTREME WIDE: isolation, smallness against environment
+  - WIDE/FULL: establishing wrongness in a space, showing full body
+    vulnerability
+  - MEDIUM: neutral observation, used to lull before a scale change
+  - CLOSE-UP: forced intimacy, discomfort, nowhere to look away
+  - EXTREME CLOSE-UP: invasive dread, fragmenting the body/face into
+    unfamiliar parts (an eye alone, a hand alone)
+
+{ANGLE} — select:
+  - EYE-LEVEL: neutral, used deliberately to make later angle shifts land
+  - HIGH ANGLE (looking down): vulnerability, smallness, prey positioning
+  - LOW ANGLE (looking up): threat dominance, powerlessness of viewer
+  - DUTCH/CANTED: disorientation, wrongness, loss of stable ground
+  - OVERHEAD/BIRD'S EYE: clinical detachment, inevitability, god's-eye
+    dread
+
+{MOVEMENT} — select:
+  - LOCKED-OFF STATIC: stillness as dread, forces the audience to search
+    the frame themselves
+  - SLOW PUSH-IN: mounting inevitability, discomfort that builds without
+    resolution
+  - SLOW PULL-BACK: revealing scale or isolation gradually, often revealing
+    something was present all along
+  - HANDHELD: instability, panic, subjective vulnerability
+  - STEADICAM/GLIDING: uncanny smoothness, often used FOR the threat's
+    POV to feel inhumanly controlled
+  - WHIP PAN: sudden reorientation, jarring discovery
+  - RACK FOCUS: redirect attention within a static frame without cutting
+
+{LENS_CHOICE} — select:
+  - WIDE ANGLE (14-24mm equivalent): environmental distortion, makes close
+    spaces feel warped and wrong, exaggerates depth
+  - STANDARD (35-50mm equivalent): neutral, natural human perspective,
+    used for grounding scenes before distortion
+  - TELEPHOTO (85mm+ equivalent): compression, claustrophobia even in open
+    spaces, voyeuristic "being watched" quality
+  - SHALLOW DEPTH OF FIELD: isolates subject, blurs threat into
+    unrecognizable background presence
+  - DEEP FOCUS: everything sharp, nowhere for the threat to hide from
+    scrutiny — or nowhere for the viewer to avoid seeing it
+
+{FRAMING_RULE} — select:
+  - NEGATIVE SPACE DOMINANT: leave significant empty frame space where a
+    threat could emerge, deliberately unbalanced
+  - RULE OF THIRDS VIOLATION: center-frame subject placement to create
+    unease through compositional wrongness
+  - PARTIAL OCCLUSION: foreground objects partially block the frame,
+    implying unseen space just out of view
+  - MIRROR/REFLECTION FRAMING: doubled imagery for uncanny or reveal effect
+
+{CUT_TIMING} — hold duration relative to expected editing rhythm (held
+  2-3x longer than a "normal" scene for dread, or cut unnaturally fast for
+  disorientation)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Specify the camera language for a horror shot/sequence.
+
+INTENDED PSYCHOLOGICAL EFFECT: {INTENDED_EFFECT}
+SHOT SCALE: {SHOT_SCALE}
+ANGLE: {ANGLE}
+MOVEMENT: {MOVEMENT}
+LENS: {LENS_CHOICE}
+FRAMING RULE: {FRAMING_RULE}
+CUT TIMING: {CUT_TIMING}
+SCENE CONTEXT (from Template 06, if applicable): [paste scene summary]
+
+Combine the selected technical elements into natural-language camera
+direction appropriate for the target platform, explaining briefly why this
+combination produces the {INTENDED_EFFECT}.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. TECHNICAL SPECIFICATION SUMMARY (the selected combination, listed)
+2. PSYCHOLOGICAL RATIONALE (2-3 sentences on why this combination achieves
+   the intended effect)
+3. PLATFORM-READY CAMERA DIRECTION LANGUAGE:
+   - Natural-language sentence form (for Sora/Veo/Kling/Runway/Pika/Luma/
+     Hailuo insertion into Template 06 scene prompts)
+   - Traditional shot-list notation (for human crew/storyboard reference:
+     e.g., "LOW ANGLE, SLOW PUSH-IN, 24mm, held 8s")
+4. RECOMMENDED PAIRING NOTE (which lighting setup from Template 09 and
+   which sound treatment from Template 13 typically pairs with this camera
+   choice for maximum combined effect)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Match camera choice to INTENDED_EFFECT deliberately — never select
+  camera language for visual novelty alone; every choice should trace back
+  to a specific psychological target.
+- Reserve extreme techniques (dutch angle, whip pan, extreme close-up) for
+  genuine peak moments — overuse causes audience desensitization and
+  reads as stylistic excess rather than earned intensity.
+- Establish a "neutral baseline" (eye-level, standard lens, steady
+  movement) early in a sequence so that deviations register as
+  deliberate wrongness rather than the film's default visual language.
+- When writing natural-language prompts for video generation platforms,
+  translate technical terms into descriptive action/effect language, since
+  most current models respond better to descriptive intent phrasing than
+  to raw technical jargon (e.g., "the camera creeps slowly closer" often
+  outperforms "slow dolly-in, 50mm" alone — consider including both).
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Build a per-project "camera language bible" early — decide which
+  angle/movement combinations are reserved exclusively for the antagonist's
+  POV or presence, and never use that combination for any other purpose in
+  the same project, so the audience unconsciously learns to fear it.
+- Vary shot scale across a sequence rather than holding one scale for an
+  entire scene — a scene entirely in close-up loses the contrast that
+  makes close-ups intense.
+- Pair slow push-ins with locked-off framing rather than handheld
+  instability when the goal is inevitability rather than panic — mixing
+  these movement philosophies muddies the intended effect.
+- Test camera direction language on the actual target platform before
+  finalizing a sequence — natural-language camera fidelity varies
+  significantly between Sora, Veo, Kling, Runway, Pika, Luma, and Hailuo,
+  and what renders correctly on one may need rephrasing for another.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- THE CREATURE-CAM SIGNATURE: reserve one specific movement/lens
+  combination exclusively for shots implying the antagonist's POV (e.g.,
+  gliding steadicam + telephoto compression), training the audience to
+  recognize danger from camera language alone before anything is shown.
+- THE UNCUT HOLD: hold a static, seemingly empty frame significantly
+  longer than narratively "necessary," forcing the audience to actively
+  search the image for a threat that may or may not appear.
+- FALSE POV MISDIRECTION: use a subjective handheld shot that the audience
+  assumes belongs to the protagonist, then reveal it belongs to something
+  else.
+- THE SLOW REVEAL PULL-BACK: begin tightly framed on a mundane detail and
+  pull back slowly to reveal the surrounding wrongness only at the very
+  end of the movement.
+- COMPOSITIONAL WRONGNESS: violate the rule of thirds specifically at
+  moments of dawning dread — dead-center framing reads as clinical and
+  inescapable in a way off-center framing does not.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+This entire template IS the camera guide; for lighting pairing
+recommendations, always cross-reference Template 09 using the
+RECOMMENDED_PAIRING_NOTE output field. General pairing principles:
+- Low angle + hard underlight = maximum threat dominance
+- High angle + soft overhead light = maximum vulnerability/exposure
+- Telephoto compression + practical single-source light = voyeuristic
+  claustrophobia
+- Wide lens distortion + even ambient light = environmental wrongness
+  without relying on shadow
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Static/locked-off shots pair strongly with near-silence or single
+  sustained tones (Template 13) — movement in the soundscape compensates
+  for stillness in the frame.
+- Handheld/unstable camera pairs with layered, irregular ambient sound to
+  reinforce disorientation.
+- Slow push-ins often pair with a single rising sustained tone timed to
+  match the movement's duration exactly, reinforcing the inevitability
+  effect at the audio level.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+INTENDED_EFFECT: Mounting inevitability and helplessness as the protagonist
+  realizes she cannot look away from the ledger
+SHOT_SCALE: Medium, transitioning to close-up
+ANGLE: Eye-level, static
+MOVEMENT: Slow push-in, imperceptibly slow, beginning only in the final
+  2 seconds of the shot
+LENS_CHOICE: Standard (40mm equivalent), shallow depth of field isolating
+  her face against the blurred shelves
+FRAMING_RULE: Center-frame, rule-of-thirds violation, deliberate
+CUT_TIMING: Held 3x longer than the scene's average shot length
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+TECHNICAL SPECIFICATION SUMMARY: Medium-to-close-up, eye-level static
+holding into an imperceptibly slow push-in, 40mm equivalent with shallow
+depth of field, center-frame composition, held roughly 3x longer than
+surrounding shots.
+
+PSYCHOLOGICAL RATIONALE: The eye-level static start denies any visual
+"escape" through angle drama, forcing the dread to build purely through
+duration and the barely-perceptible push. Center-frame placement (a
+deliberate rule-of-thirds violation) makes her feel clinically trapped
+rather than naturally observed, while the shallow depth of field blurring
+the ledger shelves behind her keeps the true scale of the wrongness just
+out of legible focus.
+
+PLATFORM-READY CAMERA DIRECTION LANGUAGE:
+- Natural-language: "The camera holds perfectly still at eye level,
+  centered on her face, the shelves behind her softly out of focus. Only
+  in the final moments does it begin an almost imperceptible creep
+  closer, as if drawn in against its own stillness."
+- Traditional notation: "MS→CU, EYE-LEVEL STATIC → SLOW PUSH (final 2s
+  only), 40mm, shallow DOF, dead-center framing, held 3x average shot
+  length"
+
+RECOMMENDED PAIRING NOTE: Pair with Template 09's single warm practical
+bulb setup (low-key, minimal fill) and Template 13's single rising
+sustained tone timed to begin exactly when the push-in begins.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for full-sequence camera choreography across multiple shots:
+
+{SHOT_SEQUENCE_PROGRESSION} — define how camera language should evolve
+  across a full multi-shot sequence (e.g., establishing wide → medium →
+  close → extreme close, mapped to escalating beats)
+{SIGNATURE_MOTIF_LOCK} — formally lock which camera combination is reserved
+  for the antagonist across the entire project, to be referenced by every
+  future Template 06 scene assembly
+{CROSS_PLATFORM_FIDELITY_NOTES} — a comparison note on how a given camera
+  instruction is likely to render differently across Sora vs. Veo vs. Kling
+  vs. Runway vs. Pika vs. Luma vs. Hailuo, based on each platform's known
+  strengths in camera-motion adherence
+{STORYBOARD_EXPORT_FORMAT} — request the full shot sequence output as a
+  simple numbered storyboard list suitable for pre-visualization
+
+ADVANCED OUTPUT ADDITION: Request a "MOTIF INTEGRITY CHECK" — verify that
+no camera combination reserved for SIGNATURE_MOTIF_LOCK has been
+accidentally reused elsewhere in the project's shot list, which would
+weaken the conditioning effect on the audience.
+
+================================================================================
+                    END OF TEMPLATE 07 — HORROR CAMERA MASTER
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

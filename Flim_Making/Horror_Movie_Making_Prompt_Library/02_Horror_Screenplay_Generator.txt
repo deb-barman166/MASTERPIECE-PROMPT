@@ -1,0 +1,245 @@
+================================================================================
+                  HORROR SCREENPLAY GENERATOR — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 02 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR SCREENPLAY GENERATOR
+Category: Script Development
+Compatible Engines: GPT-4/5, Claude, Gemini, Grok, DeepSeek, and future LLMs
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Converts a story/treatment (ideally from Template 01) into an industry-
+standard horror screenplay in proper format — sluglines, action lines,
+dialogue blocks, parentheticals — while encoding cinematic timing directly
+into the prose. Horror screenwriting differs from general screenwriting in
+one critical way: PACING IS THE PRODUCT. This template forces explicit
+control over beat length, white space, and silence so the script reads with
+the same tension it's meant to produce on screen.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[FORMAT LOCK] + [SOURCE MATERIAL] + [SCENE LIST WITH SLUGLINES] +
+[PACING RULE SET] + [SUBTEXT LAYER PER SCENE] + [SOUND CUE INTEGRATION] +
+[CHARACTER VOICE PROFILES] + [WHITE SPACE DIRECTIVE] + [OUTPUT FORMAT LOCK]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{SOURCE_MATERIAL} — story/treatment text or logline+beats to adapt
+{SCENE_COUNT} — number of scenes to script in this pass
+{FORMAT_STANDARD} — US Feature Standard / Netflix Style Guide / Short Film
+{PACING_PROFILE} — slow-burn (long action lines, sparse dialogue) vs.
+  kinetic (short lines, rapid cuts implied)
+{SUBTEXT_LAYER} — what each character is NOT saying that the audience should
+  sense (per major scene)
+{DIALOGUE_DENSITY} — minimal (horror often needs less talk, more behavior)
+  / moderate / dialogue-driven
+{CHARACTER_VOICE_PROFILE} — per named character: speech rhythm, vocabulary
+  level, verbal tics, what they never say
+{SOUND_CUE_STYLE} — inline (SOUND CUE: ...) vs. integrated into action lines
+{PAGE_TARGET} — approximate page count (1 page ≈ 1 minute of screen time)
+{RATING_TARGET} — R / Unrated / TV-14 equivalent, for gore/language ceiling
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+You are a professional horror screenwriter formatting to {FORMAT_STANDARD}.
+
+SOURCE MATERIAL:
+{SOURCE_MATERIAL}
+
+Convert this into {SCENE_COUNT} fully formatted screenplay scenes.
+
+PACING PROFILE: {PACING_PROFILE}
+DIALOGUE DENSITY: {DIALOGUE_DENSITY}
+SOUND CUE STYLE: {SOUND_CUE_STYLE}
+RATING TARGET: {RATING_TARGET}
+PAGE TARGET: {PAGE_TARGET}
+
+CHARACTER VOICE PROFILES:
+{CHARACTER_VOICE_PROFILE}
+
+For each scene, before writing it, internally identify:
+- The SUBTEXT_LAYER (what's unsaid) driving the scene
+- The single moment of maximum tension and where it falls in the scene
+  (front-loaded / mid-scene / final beat)
+- Whether this scene is a BUILD, RELEASE, or FALSE RELEASE beat
+
+Formatting rules:
+- Standard screenplay format: INT./EXT. SLUGLINE - TIME, action lines in
+  present tense, character names in caps on first introduction, dialogue
+  centered under character cues.
+- Action lines describing dread must be SHORT. One idea per line. Horror
+  scripts breathe through white space — never write a dense action
+  paragraph during a tension beat.
+- Use silence explicitly: write "(silence)" or a beat of pure action-line
+  description with no dialogue when the scene calls for it. Do not fill
+  silence with unnecessary dialogue.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. SCENE BREAKDOWN TABLE (scene # | slugline | beat type: build/release/
+   false-release | subtext layer | est. page length)
+2. FULL FORMATTED SCREENPLAY (industry standard formatting)
+3. PRODUCTION NOTES (per scene: recommended pacing on set, one line on the
+   intended audience physiological response — held breath, dread, relief)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Action lines are the horror screenwriter's primary tool — dialogue is
+  secondary. Write what the camera sees, not what characters feel.
+- Withhold character interiority; a horror script shows fear through
+  behavior described in action lines (a hand that won't stop checking a
+  lock) never through parentheticals like "(terrified)."
+- Cut dialogue that explains what the audience can already infer from
+  action. If a line can be deleted without losing information, delete it.
+- Use ellipses and interruptions in dialogue to convey unspoken dread —
+  characters in horror rarely finish sentences about the thing they fear.
+- Sluglines should imply mood through specificity: "INT. STAIRWELL — NIGHT"
+  is generic; "INT. STAIRWELL, THIRD LANDING — NIGHT, POWER OUT" plants
+  atmosphere in the format itself.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- One scare per scene, maximum, unless explicitly writing a climax
+  sequence — stacking scares in one scene dilutes both.
+- Write the "wrong" version of a normal action once per act (a character
+  reaching for a light switch that isn't where it should be) as a low-cost,
+  high-effect unease generator.
+- Keep parentheticals almost entirely absent — reserve them only for
+  genuinely ambiguous line readings, never for emotion the dialogue already
+  conveys.
+- End scenes on the image, not on dialogue, whenever possible — horror
+  scripts should cut on visual dread, not on a spoken line.
+- Vary scene length deliberately: a 1/8-page scene after three long scenes
+  creates rhythmic disruption that mirrors anxiety.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- THE HELD SHOT IMPLICATION: write action lines that imply a static camera
+  holding on stillness longer than comfortable ("The hallway stays empty.
+  It stays empty. It stays empty a beat too long.").
+- OFF-SCREEN GEOGRAPHY: establish where the threat is NOT, explicitly, in
+  action lines, so its later appearance in that "safe" space lands harder.
+- THE FALSE RELEASE SCENE: script one scene per act that resolves like a
+  release beat but plants a small, easy-to-miss wrongness in its final line
+  of action.
+- DIALOGUE UNDERCUT: write one scene of mundane dialogue running
+  concurrently with an action line revealing something the characters
+  cannot see, creating dramatic irony as dread engine.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Embed minimal camera direction ONLY when essential to the scare (a script
+  should mostly trust the director, but horror scripts earn exceptions):
+  use sparingly, e.g., "The camera doesn't move. Neither does she."
+- Cross-reference Template 07 (Camera Master) for full shot lists per scene
+  once this screenplay pass is locked — this template intentionally
+  under-specifies camera to preserve screenwriter/director separation of
+  concerns.
+- Flag lighting-dependent scenes (e.g., a scene that ONLY works in total
+  darkness) with a bracketed production note for Template 09 continuity.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Use {SOUND_CUE_STYLE} consistently across the entire script — never mix
+  inline SOUND CUE tags with embedded-in-action-line sound description in
+  the same draft.
+- Mark at least one "SILENCE CUE" per act explicitly — silence must be
+  scripted, not assumed, or it will be scored over in post.
+- Flag the antagonist's sound motif (inherited from Template 01) at every
+  scene where it appears, using a consistent tag for continuity tracking.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+SOURCE_MATERIAL: [Beat 3 from a folk-horror treatment: protagonist Ines
+  discovers the commune's ledger of "guests" and realizes the names
+  loop back to her own, three entries deep, dated years before she arrived]
+SCENE_COUNT: 1
+FORMAT_STANDARD: US Feature Standard
+PACING_PROFILE: Slow-burn
+DIALOGUE_DENSITY: Minimal
+CHARACTER_VOICE_PROFILE: Ines — clipped, self-interrupting when anxious,
+  avoids first-person statements of fear ("It's probably nothing" instead
+  of "I'm scared")
+SOUND_CUE_STYLE: Inline
+RATING_TARGET: R
+PAGE_TARGET: 2 pages
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Formatted Excerpt)
+────────────────────────────────────────────────────────────────────────────
+SCENE BREAKDOWN:
+Scene 1 | INT. RECORD HOUSE, BACK SHELF — NIGHT | BUILD | Subtext: Ines
+believes she's found evidence to escape; the scene is actually confirming
+she was chosen before she chose | Est. 2 pages
+
+INT. RECORD HOUSE, BACK SHELF — NIGHT
+
+Dust. A single bulb. INES kneels at a shelf of leather ledgers, flashlight
+in her teeth.
+
+She finds the newest one. Flips to the back page.
+
+Her name. Today's date.
+
+She flips back a page. Her name again. A date three years ago.
+
+SOUND CUE: the low three-beat hum, distant, once.
+
+She flips back further. And further.
+
+INES
+(barely audible)
+Okay. Okay, that's —
+
+She doesn't finish it.
+
+Her name. Ten years ago. She would have been eleven.
+
+The bulb flickers once. Doesn't go out.
+
+She closes the ledger very slowly, like it's asleep and she doesn't want
+to wake it.
+
+PRODUCTION NOTE: Held-breath beat. No score under this scene — the hum is
+the only sound permitted. Actor should physically shrink rather than
+startle; the horror here is dawning, not sudden.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add these variables for feature-length or multi-episode scripting:
+
+{ACT_STRUCTURE} — 3-act / 5-act / non-linear, with page ranges per act
+{PARALLEL_SCENE_WEAVE} — instructions for intercutting two simultaneous
+  scenes (A/B scene structure) for cross-cutting dread
+{DIALECT_CONSISTENCY_TRACKER} — a running log ensuring character voice
+  profiles remain consistent across 20+ pages
+{REVISION_PASS_MODE} — instruct the AI to take a completed draft and perform
+  a dedicated "silence pass" (find 3 scenes to cut dialogue from) or
+  "white space pass" (find overly dense action paragraphs to break up)
+
+ADVANCED OUTPUT ADDITION: Request a "TABLE READ TIMING ESTIMATE" — a
+per-scene estimated runtime based on white space density and dialogue
+count, to validate that {PAGE_TARGET} pacing assumptions hold before
+moving to Template 17 (Video Generation Master).
+
+================================================================================
+                  END OF TEMPLATE 02 — HORROR SCREENPLAY GENERATOR
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

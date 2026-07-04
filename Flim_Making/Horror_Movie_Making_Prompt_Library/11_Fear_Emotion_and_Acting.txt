@@ -1,0 +1,270 @@
+================================================================================
+                  FEAR, EMOTION & ACTING — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 11 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+FEAR, EMOTION & ACTING
+Category: Performance Direction
+Compatible Engines: Sora, Veo, Kling, Runway, Pika, Luma, Hailuo (video
+generation, for performance rendering) + GPT/Claude/Gemini/Grok/DeepSeek
+(performance reasoning and direction notes)
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Directs believable, PHYSIOLOGICALLY GROUNDED fear performance rather than
+generic "scared face" defaults. Real fear reads through specific,
+observable physical behavior — most AI-generated horror performance fails
+because it defaults to exaggerated screaming or blank generic distress.
+This template forces a physiology-first approach: what does the body
+actually do under this specific type and intensity of fear, moment by
+moment.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[FEAR TYPE + INTENSITY LEVEL] + [PHYSIOLOGICAL RESPONSE MAP] +
+[MICRO-EXPRESSION SEQUENCE] + [BODY LANGUAGE PROGRESSION] + [BREATH AND
+VOCAL CONTROL STATE] + [RESTRAINT VS. RELEASE CALIBRATION] + [CHARACTER-
+SPECIFIC FEAR SIGNATURE] + [PLATFORM-SPECIFIC SYNTAX WRAPPER]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{FEAR_TYPE} — specific fear category (acute startle, mounting dread,
+  paralytic freeze, controlled suppression/masking, creeping realization,
+  panic/fight-or-flight activation, existential/ontological dread)
+{INTENSITY_LEVEL} — 1-10 scale, with explicit note that horror performance
+  is almost always more effective below a 7 than above it — restraint
+  reads as more real
+{PHYSIOLOGICAL_RESPONSE_MAP} — specific bodily response for THIS fear type
+  at THIS intensity (pupil dilation, shallow rapid breathing, muscle
+  tension location, skin pallor, trembling location and degree)
+{MICRO_EXPRESSION_SEQUENCE} — 2-4 sequential facial micro-expressions in
+  order (a flicker of confusion before fear registers, a brief attempt to
+  suppress before it breaks through)
+{BODY_LANGUAGE_PROGRESSION} — how posture/positioning changes across the
+  fear beat (from open/normal to closed/defensive to frozen or fleeing)
+{BREATH_AND_VOCAL_STATE} — breathing pattern and vocal control (held
+  breath, broken speech patterns, voice pitch change, or notably the
+  ABSENCE of vocalization when silence would be more realistic)
+{RESTRAINT_VS_RELEASE} — whether this character suppresses or expresses
+  fear openly, and why (tied to Template 03's character psychology)
+{CHARACTER_FEAR_SIGNATURE} — a specific, personal, recurring way THIS
+  character physically manifests fear (inherited from Template 03's
+  PSYCHOLOGICAL_TELL), distinguishing them from generic fear performance
+{SCENE_CONTEXT} — what specifically is happening to trigger this fear
+  response, pulled from Template 06
+{NEGATIVE_TRAITS} — exclude generic/overused performance defaults (no
+  generic wide-eyed scream-face default, no cartoonish freeze-frame
+  terror, no melodramatic overacting unless the character/tone specifically
+  calls for it)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Direct a physiologically grounded fear performance for this scene.
+
+FEAR TYPE: {FEAR_TYPE}
+INTENSITY (1-10): {INTENSITY_LEVEL}
+PHYSIOLOGICAL RESPONSE: {PHYSIOLOGICAL_RESPONSE_MAP}
+MICRO-EXPRESSION SEQUENCE: {MICRO_EXPRESSION_SEQUENCE}
+BODY LANGUAGE PROGRESSION: {BODY_LANGUAGE_PROGRESSION}
+BREATH/VOCAL STATE: {BREATH_AND_VOCAL_STATE}
+RESTRAINT VS. RELEASE: {RESTRAINT_VS_RELEASE}
+CHARACTER FEAR SIGNATURE: {CHARACTER_FEAR_SIGNATURE}
+SCENE CONTEXT: {SCENE_CONTEXT}
+EXCLUDE: {NEGATIVE_TRAITS}
+
+Sequence the performance as a time-ordered progression (not a static
+description) matching the scene's duration, ensuring the CHARACTER_FEAR_
+SIGNATURE appears at the appropriate escalation point rather than being a
+constant background trait.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. PERFORMANCE DIRECTION SUMMARY (one paragraph: the emotional arc of this
+   specific fear beat)
+2. TIME-SEQUENCED PERFORMANCE BREAKDOWN (numbered micro-beats matching
+   scene duration, each describing physical/vocal state at that moment)
+3. PLATFORM-READY PERFORMANCE PROMPT (natural-language description
+   suitable for insertion into Template 06's ACTION_SEQUENCE, written as
+   observable physical behavior only — no internal-state language)
+4. ACTOR/ANIMATION REFERENCE NOTE (a brief note translatable to human
+   actor direction, useful if AI generation is later combined with or
+   replaced by practical performance)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Describe fear through OBSERVABLE PHYSICAL BEHAVIOR exclusively, never
+  through internal-state adjectives — "her hand tightens on the door
+  frame" renders in video generation; "she feels a wave of terror" does
+  not translate to any visual output.
+- Default toward restraint. Real fear in life-threatening situations is
+  often quiet, controlled, and physically small (frozen stillness,
+  suppressed breathing) rather than loud and expansive — reserve high-
+  intensity release for genuine peak moments only.
+- Sequence micro-expressions realistically: fear rarely appears instantly
+  at full intensity in real physiology — build in a brief prior beat
+  (confusion, denial, a false composure) before the fear response fully
+  registers.
+- Always tie performance back to CHARACTER_FEAR_SIGNATURE — generic fear
+  performance disconnected from the specific character established in
+  Template 03 reads as flat regardless of technical execution quality.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Keep INTENSITY_LEVEL calibrated relative to the scene's place in the
+  overall story arc — a level-8 performance early in the story leaves no
+  room to escalate further at the actual climax.
+- Vary RESTRAINT_VS_RELEASE across different characters in an ensemble
+  scene — not everyone should express fear the same way; contrast between
+  characters' fear responses adds realism and can itself become a source
+  of dramatic tension.
+- Test physiological descriptions against real human fear response
+  research rather than genre-convention defaults — genuine physiological
+  grounding consistently outperforms "movie version" fear behavior.
+- Build a short, reusable "fear vocabulary" per major character early
+  (their specific tells, their specific restraint pattern) and reuse it
+  consistently rather than reinventing performance language per scene.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- THE DELAYED REGISTER: show the triggering stimulus, then a beat of the
+  character NOT yet reacting (processing lag), before the fear response
+  begins — this delay is often more unsettling than an instant reaction.
+- CONTROLLED UNRAVELING: for suppression-type characters, show the
+  suppression mechanism visibly failing in small, specific increments
+  rather than collapsing all at once.
+- THE WRONG CALM: occasionally direct a character to respond to something
+  objectively terrifying with unnervingly little visible fear, signaling
+  to the audience that something is wrong with the character themselves,
+  not just the situation.
+- STILLNESS AS TERROR: for freeze-type fear responses, hold the performance
+  in near-total physical stillness longer than feels natural, using only
+  breath and eye movement to carry the entire beat.
+- THE FEAR ECHO: have a character's fear signature from an earlier, lower-
+  stakes scene reappear at higher intensity during the climax, creating a
+  performance callback that rewards attentive viewers.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Match shot scale to fear intensity via Template 07: subtle, restrained
+  fear performances are often best served by close-up framing that can
+  register small physical detail; larger physical fear responses (fleeing,
+  collapsing) may need wider framing to show full-body behavior.
+- Consider lighting's role in performance legibility (Template 09) — a
+  suppressed, restrained performance in heavy shadow may lose critical
+  detail; ensure enough key light reaches the performer's face for the
+  micro-expression sequence to register.
+- For extreme close-up fear beats, coordinate with Template 07's lens
+  choice (shallow depth of field) to isolate the performance from
+  distracting background detail.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Breath and vocal control state should be explicitly passed to Template
+  13 for accurate foley/vocal sound design — a held breath needs to be
+  audible or its absence needs to be a deliberate silence choice.
+- Consider whether the character's fear signature has an audible component
+  (a specific verbal tic, a habitual sound) that should recur consistently
+  across scenes as an audio-performance signature.
+- Match ambient sound intensity to performance restraint level — a highly
+  restrained, quiet performance is often best served by a correspondingly
+  sparse soundscape that doesn't compete for attention.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+FEAR_TYPE: Creeping realization (not acute startle)
+INTENSITY_LEVEL: 5/10 — restrained, internal, building slowly
+PHYSIOLOGICAL_RESPONSE_MAP: Slight pallor increase, breathing shifts from
+  normal to shallow and slightly faster, no trembling yet at this
+  intensity, slight muscle tension visible in jaw and shoulders
+MICRO_EXPRESSION_SEQUENCE: 1) Neutral concentration while reading 2) brief
+  confusion/re-checking flicker 3) stillness as recognition lands 4) a
+  swallow, suppressed
+BODY_LANGUAGE_PROGRESSION: Relaxed kneeling posture → gradual stiffening
+  through the spine → complete stillness, hands stop moving entirely
+BREATH_AND_VOCAL_STATE: Breathing audible but controlled; one aborted,
+  unfinished word ("Okay, that's—") then silence; no further vocalization
+RESTRAINT_VS_RELEASE: Full restraint — Ines's established flaw (need to
+  belong) makes her suppress visible fear even when alone, from years of
+  masking distress to seem agreeable
+CHARACTER_FEAR_SIGNATURE: Ines touches the inside of her own wrist lightly
+  when suppressing visible distress (established in Template 03)
+SCENE_CONTEXT: Discovering her own name repeated across decades in the
+  commune ledger (from Template 06's Scene 14)
+NEGATIVE_TRAITS: No gasping, no wide-eyed exaggeration, no crying, no
+  raised voice
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+PERFORMANCE DIRECTION SUMMARY: This is fear that arrives as stillness, not
+motion — Ines's years of practiced agreeableness mean even a discovery
+this destabilizing surfaces as controlled breath and a private, almost
+invisible gesture rather than any outward display.
+
+TIME-SEQUENCED PERFORMANCE BREAKDOWN:
+0:00-0:02 — Relaxed kneeling posture, neutral concentration, scanning
+  the page normally
+0:02-0:04 — Slight confusion flicker; re-reads the same line; posture
+  begins almost imperceptibly stiffening through the spine
+0:04-0:07 — Recognition lands; complete physical stillness; hands stop
+  mid-motion on the page; breathing becomes visibly shallower and faster
+0:07-0:09 — She touches the inside of her own wrist lightly (fear
+  signature); begins to speak — "Okay, that's—" — and stops
+0:09-0:12 — Total stillness resumes; one controlled swallow; no further
+  movement or sound
+
+PLATFORM-READY PERFORMANCE PROMPT: "She goes still mid-motion, her hands
+frozen on the page. Her breathing becomes shallow and quick, though she
+makes no sound. She touches the inside of her own wrist lightly. She
+starts to speak — 'Okay, that's—' — and stops herself, swallowing once,
+her body otherwise completely motionless."
+
+ACTOR/ANIMATION REFERENCE NOTE: Direct as internalized shock, not
+outward panic — think held breath and stopped motion rather than gasping;
+the wrist-touch gesture should read as small and almost unconscious, not
+a deliberate, visible action.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for ensemble scenes or extended psychological arcs:
+
+{MULTI_CHARACTER_CONTRAST_MAP} — for scenes with multiple characters
+  present, define how each character's fear response should visibly
+  contrast with the others, avoiding uniform group reactions
+{FEAR_ARC_ACROSS_RUNTIME} — a full-story chart tracking how a single
+  character's fear signature and restraint/release balance should evolve
+  from Act 1 through the climax
+{TRAUMA_RESPONSE_ACCURACY_NOTE} — for stories involving specific
+  psychological trauma responses, a note ensuring the depicted response
+  aligns with realistic, respectful physiological/psychological patterns
+  rather than dramatized stereotypes
+{DIRECTOR_ALT_TAKE_SET} — request 2-3 alternate performance calibrations
+  (more restrained / more expressive / different fear type) for the same
+  beat, to give production flexibility in final scene assembly
+
+ADVANCED OUTPUT ADDITION: Request a "PHYSIOLOGICAL PLAUSIBILITY CHECK" — a
+brief verification that the described response sequence is consistent with
+realistic human fear physiology at the stated intensity level, flagging
+any beat that reads as exaggerated beyond what the INTENSITY_LEVEL would
+realistically produce.
+
+================================================================================
+                 END OF TEMPLATE 11 — FEAR, EMOTION & ACTING
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

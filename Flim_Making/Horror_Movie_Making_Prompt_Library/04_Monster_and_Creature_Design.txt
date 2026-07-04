@@ -1,0 +1,278 @@
+================================================================================
+                  MONSTER & CREATURE DESIGN — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 04 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+MONSTER & CREATURE DESIGN
+Category: Non-Human Entity Visual Development
+Compatible Engines: Sora, Veo, Kling, Runway, Pika, Luma, Hailuo (visual
+generation) + GPT/Claude/Gemini/Grok/DeepSeek (design reasoning)
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Designs non-human horror entities — monsters, creatures, supernatural forms,
+body-horror transformations — with an emphasis on BIOLOGICAL/PHYSICAL LOGIC
+and PARTIAL-REVEAL ARCHITECTURE. The template's central discipline is
+building a creature that makes sense as a "thing" (it has an origin, a
+locomotion logic, a reason for its form) rather than a random assemblage of
+scary parts, because internally consistent monsters are what separate
+Hollywood-tier design from generic AI-slop creature generation.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[ORIGIN LOGIC] + [ANATOMICAL BASE + DEVIATION POINTS] + [LOCOMOTION LOGIC] +
+[SCALE + PROPORTION RULES] + [SURFACE/TEXTURE DETAIL] + [REVEAL FRAGMENT
+MAP: WHAT SHOWS AT EACH STAGE] + [BEHAVIORAL SIGNATURE] + [CONSISTENCY LOCK
+TOKEN] + [PLATFORM-SPECIFIC SYNTAX WRAPPER]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{ORIGIN_LOGIC} — where this creature came from and why it looks the way it
+  does (biological mutation, ritual transformation, alien/cosmic, digital/
+  synthetic corruption) — form must follow origin
+{ANATOMICAL_BASE} — the recognizable base this deviates from (humanoid,
+  quadruped, insectoid, amorphous, architectural/environmental)
+{DEVIATION_POINTS} — 2-4 specific anatomical wrongnesses (joint that bends
+  backward, too many/too few of something, proportion violation) — fewer,
+  well-chosen deviations outperform maximalist "everything is wrong" design
+{LOCOMOTION_LOGIC} — exactly how it moves, specifically, and why that
+  movement is unsettling (too many points of contact, unnatural speed
+  changes, moves like it's being operated rather than living)
+{SCALE_PROPORTION} — size relative to human characters, described precisely
+{SURFACE_TEXTURE} — skin/exterior detail, with attention to how light and
+  shadow interact with it (matte/absorbing vs. wet/reflective changes
+  horror readability enormously)
+{COLOR_LOGIC} — palette, and whether it's camouflaged-into-environment or
+  jarringly present
+{REVEAL_FRAGMENT_MAP} — what portion of the creature is visible at each of:
+  first hint, first sighting, mid-story partial view, full reveal (if ever)
+{BEHAVIORAL_SIGNATURE} — one specific recurring behavior pattern (a sound
+  before attacking, a stillness tell, a hunting pattern)
+{SENSORY_DETAIL} — smell, sound, temperature associated with proximity
+{CONSISTENCY_LOCK_TOKEN} — reusable short phrase for cross-scene consistency
+{NEGATIVE_TRAITS} — explicitly exclude generic tropes (no generic zombie
+  gait unless subverted, no simple black-eyes-and-fangs default, no
+  copyrighted creature resemblance)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Design a non-human horror entity for image/video generation with internally
+consistent biological/physical logic.
+
+ORIGIN LOGIC: {ORIGIN_LOGIC}
+ANATOMICAL BASE: {ANATOMICAL_BASE}
+DEVIATION POINTS: {DEVIATION_POINTS}
+LOCOMOTION LOGIC: {LOCOMOTION_LOGIC}
+SCALE: {SCALE_PROPORTION}
+SURFACE/TEXTURE: {SURFACE_TEXTURE}
+COLOR LOGIC: {COLOR_LOGIC}
+BEHAVIORAL SIGNATURE: {BEHAVIORAL_SIGNATURE}
+SENSORY DETAIL: {SENSORY_DETAIL}
+REVEAL MAP: {REVEAL_FRAGMENT_MAP}
+EXCLUDE: {NEGATIVE_TRAITS}
+
+Generate:
+1. A CONSISTENCY LOCK TOKEN capturing the unmistakable silhouette/signature
+   of the creature in under 25 words.
+2. Four fragment-stage prompts, one for each stage in REVEAL_FRAGMENT_MAP,
+   each describing ONLY what should be visible at that stage — do not leak
+   full-creature detail into early-stage prompts.
+3. Platform-specific syntax adaptations.
+
+Constraint: The creature design must justify itself against ORIGIN_LOGIC —
+every anatomical deviation should be traceable to the stated origin. Reject
+"scary for scary's sake" additions that don't serve the origin logic.
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. CREATURE BIBLE SUMMARY (paragraph covering origin, form, and why it's
+   frightening beyond surface appearance)
+2. CONSISTENCY LOCK TOKEN (isolated, bolded)
+3. REVEAL-STAGE PROMPT SET (4 prompts: hint / first sighting / partial /
+   full — each self-contained and platform-ready)
+4. PLATFORM ADAPTATIONS (image-model / video-model natural-language / LLM
+   reasoning-block syntax)
+5. CONTINUITY CHECKLIST (fixed facts that must never contradict: number of
+   limbs, scale, texture, color)
+6. ORIGINALITY VERIFICATION NOTE (a brief statement on how this design
+   avoids resembling existing copyrighted creatures/franchises)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Fewer, sharper deviations beat maximalist design. A creature with one
+  deeply wrong feature (a joint bending the wrong way) is more effective
+  than a creature with twelve random horror features stacked together.
+- Locomotion is often scarier than appearance. Specify HOW it moves with as
+  much care as WHAT it looks like — many iconic horror creatures are
+  defined by movement (unnatural speed, wrong gait) more than static form.
+- Texture and light interaction matter more than color. A matte, light-
+  absorbing surface reads as a void; a wet, light-catching surface reads as
+  organic and recently-alive. Choose deliberately per the intended effect.
+- Never fully explain the creature's biology in-world through dialogue —
+  this template is for VISUAL design; narrative explanation belongs in
+  Template 01, and even there should remain fragmentary.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Design the silhouette first, then details — most horror creature
+  recognition happens through silhouette in low light, so validate the lock
+  token reads correctly as a dark shape before adding surface detail.
+- Keep the REVEAL_FRAGMENT_MAP strict — writing a "hint" stage prompt that
+  accidentally includes full-body detail defeats the entire reveal
+  architecture and should be caught before use.
+- Cap named deviation points at 2-4; test shows more than this causes most
+  current-generation models to blend deviations into visual noise rather
+  than distinct, readable wrongness.
+- Cross-check design against NEGATIVE_TRAITS for accidental resemblance to
+  well-known copyrighted creatures/media before finalizing.
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- SILHOUETTE-FIRST DESIGN: the creature should be identifiable and unsettling
+  as a pure black shape against light before any texture is visible.
+- THE WRONG NUMBER: a single deviation in count (fingers, joints, eyes) reads
+  as far more disturbing than total anatomical replacement.
+- MOVEMENT BEFORE FORM: introduce the creature via its motion signature (in
+  peripheral vision, in a mirror, in a reflection) before a clear shape is
+  ever presented.
+- SCALE AMBIGUITY: withhold clear scale reference in early appearances so
+  the audience cannot judge size/danger — reveal true scale only at a
+  chosen dramatic beat.
+- THE STILLNESS TRAP: for many creature types, stillness that mimics an
+  inanimate object (a coat rack, a tree, furniture) until sudden movement
+  is a highly effective technique — specify if applicable.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Specify how each reveal stage should be lit: hints typically favor
+  backlight/silhouette, partial reveals favor raking side-light that shows
+  texture without full form, full reveals (if used) can afford even
+  frontal light since mystery has been spent.
+- Note whether the creature should be lit as though it ABSORBS or REFLECTS
+  ambient light differently than the environment around it — this single
+  choice heavily impacts perceived wrongness.
+- Cross-reference Template 07 for exact lens/angle pairing per reveal
+  stage — wide lenses distort proportion for unease, telephoto compresses
+  for a suffocating, "closer than it should be" feeling.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Define a signature sound tied to locomotion (not just a generic roar/
+  screech) — the specific sound the wrongness makes when it moves is often
+  more memorable than any visual.
+- Note environmental sound displacement: does the creature's presence
+  silence ambient sound (birds stop, wind stops) or add to it? This choice
+  should be locked here and passed to Template 13.
+- Define a pre-appearance audio tell (distinct from the sound it makes while
+  visible) for use in the Threat Ladder technique from Template 01/09.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+ORIGIN_LOGIC: A drowning victim's body reanimated by lakewater that
+  "remembers" the shape of everyone who has ever drowned in it, layering
+  their forms imperfectly
+ANATOMICAL_BASE: Humanoid
+DEVIATION_POINTS: Face shifts between at least three overlapping visages
+  when viewed directly; skin has the sheen and give of standing water, not
+  flesh; joints articulate one extra time each (a "double elbow" motion)
+LOCOMOTION_LOGIC: Moves only when not directly observed — freezes mid-motion
+  the instant it is looked at directly, like a stopped video frame
+SCALE_PROPORTION: Human-sized, but height shifts subtly by up to 6 inches
+  between appearances (matching different drowning victims' statures)
+SURFACE_TEXTURE: Wet-sheen, rippling faintly, never fully dry, catches light
+  like disturbed water
+COLOR_LOGIC: Pallid, lake-water grey-green, no natural skin tone
+BEHAVIORAL_SIGNATURE: Always found closer to the nearest body of water than
+  physically possible given time elapsed since last sighting
+SENSORY_DETAIL: Smell of stagnant water and cold; temperature drop of
+  several degrees in its presence
+REVEAL_FRAGMENT_MAP: Hint = ripples with no source; First sighting = a wet
+  handprint drying nowhere near water; Partial = glimpsed still-frame
+  silhouette at the edge of vision; Full = only in climax, direct
+  confrontation at the water's edge
+NEGATIVE_TRAITS: No generic "ghost girl in wet hair" trope, no resemblance
+  to existing J-horror franchise antagonists
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+CREATURE BIBLE SUMMARY: The entity is a lake-memory composite that can only
+move unobserved, freezing into an unnervingly specific still frame the
+instant it's looked at directly — its horror lies not in its overlapping,
+water-sheened face but in the dawning realization that it was moving a
+half-second before you turned around.
+
+CONSISTENCY LOCK TOKEN:
+"Lake-memory figure, wet grey-green sheen skin, overlapping shifting
+visages, freezes to a stopped-frame stillness the instant it's observed
+directly"
+
+REVEAL-STAGE PROMPTS:
+- HINT: "Concentric ripples spread across still lake water with no visible
+  source, the shoreline empty in every direction, dusk light."
+- FIRST SIGHTING: "A single wet handprint glistens on a dry wooden dock
+  railing, far from the water's edge, slowly darkening the wood beneath
+  it as it seeps in."
+- PARTIAL: "A humanoid shape stands frozen mid-stride at the edge of a
+  hallway, wet grey-green skin catching hallway light like disturbed water,
+  visible only in peripheral framing, gone from a direct angle."
+- FULL (climax only): "At the water's edge, a human silhouette with skin
+  like rippling grey-green water stands motionless, its face resolving into
+  three overlapping, shifting visages as it is finally looked at directly."
+
+PLATFORM ADAPTATIONS:
+- Video-model syntax: "A figure with wet, grey-green, water-like skin
+  stands frozen at the treeline, mid-stride, as if paused. Its face seems
+  to hold two or three overlapping expressions at once, shifting subtly.
+  The moment the camera holds on it directly, it does not move at all."
+- Image-model syntax: "humanoid figure, wet grey-green sheen skin,
+  overlapping shifting facial visages, frozen mid-stride stillness, lake
+  water texture, dusk lighting, folk horror, unsettling"
+
+ORIGINALITY VERIFICATION NOTE: Distinct from existing wet-haired ghost
+archetypes through its freeze-when-observed mechanic and water-memory
+origin logic rather than vengeful-spirit framing, and through overlapping
+multi-visage design rather than a single fixed face.
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for franchise-scale or multi-form creature work:
+
+{TRANSFORMATION_SEQUENCE_MAP} — if the creature evolves/transforms across
+  the story, generate a locked token per transformation stage with explicit
+  visual bridge notes between stages
+{MULTI_INSTANCE_VARIATION} — rules for how multiple instances of the same
+  creature type may vary (useful for "swarm" or "infection" horror) while
+  keeping a recognizable shared identity
+{PRACTICAL_EFFECS_FEASIBILITY_NOTE} — a note on which design elements would
+  be achievable via practical effects vs. requiring VFX, for hybrid
+  production planning (feeds Template 14)
+{CROSS_MEDIA_CONSISTENCY_SET} — locked token variants optimized separately
+  for still-image marketing materials vs. in-motion video generation
+
+ADVANCED OUTPUT ADDITION: Request a "DRIFT-RESISTANT CORE TOKEN" — a
+maximally compressed 8-10 word version of the consistency lock token
+containing ONLY the 2-3 most drift-resistant, load-bearing visual details,
+for use in tools/platforms with very short effective prompt-adherence
+windows.
+
+================================================================================
+                 END OF TEMPLATE 04 — MONSTER & CREATURE DESIGN
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================

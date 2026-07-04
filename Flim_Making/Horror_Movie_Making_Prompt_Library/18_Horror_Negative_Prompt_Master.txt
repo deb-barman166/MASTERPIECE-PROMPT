@@ -1,0 +1,266 @@
+================================================================================
+              HORROR NEGATIVE PROMPT MASTER — MASTER TEMPLATE
+                         Ultimate Horror Movie AI Prompt Library
+                                  Template 18 / 20
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────
+1. TITLE
+────────────────────────────────────────────────────────────────────────────
+HORROR NEGATIVE PROMPT MASTER
+Category: Exclusion & Quality-Control Specification
+Compatible Engines: Sora, Veo, Kling, Runway, Pika, Luma, Hailuo (varying
+native negative-prompt support) + universal principle applicable to any
+platform via positive-phrasing translation
+
+────────────────────────────────────────────────────────────────────────────
+2. PURPOSE
+────────────────────────────────────────────────────────────────────────────
+Provides a comprehensive, reusable library of EXCLUSION LANGUAGE targeting
+the specific failure modes that make AI-generated horror content look
+generic, cheap, or "AI-slop" — rather than a generic list of unwanted
+objects. This template treats negative prompting as a genre-specific
+craft discipline: knowing exactly which default tendencies of current
+video/image models actively undermine horror's specific needs (naturalism,
+restraint, motivated wrongness) and excluding them precisely.
+
+────────────────────────────────────────────────────────────────────────────
+3. PROMPT FORMULA
+────────────────────────────────────────────────────────────────────────────
+[CATEGORY OF UNWANTED DEFAULT] + [SPECIFIC EXCLUSION LANGUAGE] +
+[POSITIVE-PHRASING ALTERNATIVE] + [PLATFORM-SPECIFIC NEGATIVE-PROMPT
+SYNTAX] + [SEVERITY/PRIORITY RANKING]
+
+────────────────────────────────────────────────────────────────────────────
+4. VARIABLES
+────────────────────────────────────────────────────────────────────────────
+{EXCLUSION_CATEGORY} — select relevant categories per project:
+
+VISUAL QUALITY DEFAULTS TO EXCLUDE:
+- Overly glossy/clean "AI-generated" sheen inappropriate to naturalistic
+  horror
+- Generic "cinematic" oversaturation and excessive bloom/lens flare
+- Uncanny valley facial rendering artifacts (asymmetric eye rendering,
+  unnatural skin smoothing)
+- Inconsistent character/creature appearance across frames (the core
+  drift problem this entire library's lock-token system addresses)
+- Overly symmetrical, "beautiful" default human rendering when a specific
+  asymmetric/flawed design was requested
+
+GENRE CLICHÉ DEFAULTS TO EXCLUDE:
+- Generic jump-scare cat/animal reveal
+- Random unmotivated flickering lights disconnected from any established
+  light source logic
+- Fog/smoke with no physical motivation or inconsistent density
+- Blood rendered as flat, cartoonish bright red with no viscosity logic
+- Generic "creepy little girl/doll" default when a different specific
+  design was requested
+- Fully-revealed monster too early, undermining Template 04's reveal
+  architecture
+
+TONAL/PERFORMANCE DEFAULTS TO EXCLUDE:
+- Melodramatic overacting/screaming when restrained performance was
+  specified (Template 11)
+- On-the-nose expository dialogue when subtext-driven writing was
+  specified (Template 12)
+- Generic horror stock music stinger when specific sound design was
+  specified (Template 13)
+
+COMPOSITIONAL DEFAULTS TO EXCLUDE:
+- Perfectly centered, symmetrical "safe" composition when deliberate
+  compositional wrongness was specified (Template 07)
+- Even, flat, shadowless lighting when specific shadow architecture was
+  specified (Template 09)
+- Generic wide-establishing-shot default when a specific shot scale was
+  requested
+
+{POSITIVE_ALTERNATIVE} — for every exclusion, the corresponding positive
+  instruction that should be emphasized instead (most current video
+  platforms respond better to positive instruction than negative
+  exclusion alone)
+{PLATFORM_NEGATIVE_SYNTAX} — whether the target platform supports a
+  dedicated negative-prompt field, or whether exclusions must be
+  translated entirely into positive phrasing within the main prompt
+{PRIORITY_RANKING} — which exclusions are critical (would break the scene)
+  vs. minor (would reduce polish but not break intent)
+
+────────────────────────────────────────────────────────────────────────────
+5. INPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+Generate a targeted negative-prompt/exclusion set for this specific scene
+or project.
+
+SCENE/PROJECT CONTEXT: [paste relevant scene from Template 06 or project-
+  wide style from Templates 08/09]
+RELEVANT EXCLUSION CATEGORIES: {EXCLUSION_CATEGORY}
+TARGET PLATFORM: {PLATFORM_NEGATIVE_SYNTAX}
+PRIORITY LEVEL NEEDED: {PRIORITY_RANKING}
+
+For each relevant exclusion, provide both the negative-prompt-field
+version (for platforms supporting it) and the positive-phrasing
+translation (for platforms that don't, or as a stronger primary
+instruction even on platforms that do).
+
+────────────────────────────────────────────────────────────────────────────
+6. OUTPUT STRUCTURE
+────────────────────────────────────────────────────────────────────────────
+1. EXCLUSION SET SUMMARY (which categories apply to this scene/project and
+   why)
+2. NEGATIVE-PROMPT-FIELD VERSION (comma-separated exclusion terms, for
+   platforms with dedicated negative prompt support)
+3. POSITIVE-PHRASING INTEGRATION (specific sentences to add/emphasize
+   within the main prompt as the stronger, platform-universal alternative)
+4. PRIORITY-RANKED CHECKLIST (critical vs. minor exclusions, so users can
+   triage if prompt length is constrained)
+
+────────────────────────────────────────────────────────────────────────────
+7. PROFESSIONAL INSTRUCTIONS
+────────────────────────────────────────────────────────────────────────────
+- Positive phrasing consistently outperforms negative exclusion on most
+  current video generation models — treat the negative-prompt field (where
+  available) as a supplementary safety net, not the primary control
+  mechanism, and always provide the positive-phrasing translation as well.
+- Target exclusions specifically to what THIS project's design choices
+  require — a generic, maximalist negative prompt list applied
+  indiscriminately dilutes focus; only include exclusions relevant to
+  known failure modes for the specific requested content.
+- Prioritize exclusions that would break core story/design requirements
+  (a creature revealed too early, a character's asymmetric feature
+  rendered symmetrically) over purely aesthetic polish exclusions when
+  prompt length or negative-prompt slots are limited.
+- Revisit and refine the exclusion set based on actual generation results
+  — if a specific unwanted default keeps appearing despite exclusion
+  language, strengthen the positive-phrasing alternative rather than
+  simply repeating the negative instruction more forcefully.
+
+────────────────────────────────────────────────────────────────────────────
+8. BEST PRACTICES
+────────────────────────────────────────────────────────────────────────────
+- Build a project-specific "known failure modes" log during production,
+  recording which unwanted defaults actually appear on your chosen
+  platform(s), and prioritize this template's application toward those
+  observed issues rather than theoretical ones.
+- Keep negative-prompt-field lists platform-appropriate in length — some
+  platforms perform worse with excessively long negative prompt lists;
+  check current platform guidance before maximalist list-building.
+- Pair this template's output directly with Template 19 (Quality &
+  Consistency Checker) — negative prompting is preventive, quality
+  checking is diagnostic; use both together rather than relying on either
+  alone.
+- When a specific exclusion proves difficult to enforce through prompting
+  alone, consider whether the fix belongs in a different template instead
+  (e.g., an inconsistent creature may need a stronger Template 04 lock
+  token rather than a longer negative prompt).
+
+────────────────────────────────────────────────────────────────────────────
+9. HORROR CINEMATIC TECHNIQUES
+────────────────────────────────────────────────────────────────────────────
+- EXCLUSION AS RESTRAINT ENFORCEMENT: use negative prompting specifically
+  to enforce the genre's need for restraint — explicitly excluding
+  "melodrama," "overacting," and "exaggerated expression" helps counter
+  most models' default toward visually legible, amplified emotional
+  performance.
+- REVEAL-PROTECTION EXCLUSION: for any scene using Template 04's staged
+  reveal architecture, always include explicit exclusion language against
+  "fully visible creature," "clear unobstructed view," or similar at
+  early reveal stages, since models frequently default toward maximum
+  legibility.
+- NATURALISM-PROTECTION EXCLUSION: explicitly exclude "movie lighting,"
+  "studio lighting," or "even illumination" when Template 09's motivated-
+  practical-light approach is required, since even lighting is a common
+  unrequested default.
+- CONSISTENCY-PROTECTION EXCLUSION: explicitly exclude "different
+  appearance," "changed features," or "inconsistent design" alongside
+  every locked token reference, functioning as a drift-resistance backup
+  to the token itself.
+
+────────────────────────────────────────────────────────────────────────────
+10. CAMERA & LIGHTING GUIDE
+────────────────────────────────────────────────────────────────────────────
+- Pair camera-related exclusions (e.g., "no static default when movement
+  was specified," "no wide shot when close-up was specified") directly
+  with Template 07's specific technical requirements for the scene.
+- Pair lighting-related exclusions ("no even fill light," "no unmotivated
+  rim light") directly with Template 09's specific shadow architecture
+  requirements.
+- When a platform consistently defaults away from a requested camera or
+  lighting choice despite exclusion language, consider whether the
+  positive instruction needs restructuring (moving it earlier in the
+  prompt, making it more specific) rather than adding more negative terms.
+
+────────────────────────────────────────────────────────────────────────────
+11. SOUND & ATMOSPHERE GUIDE
+────────────────────────────────────────────────────────────────────────────
+- For platforms/tools with audio generation capability, apply the same
+  positive-over-negative principle to sound: explicitly request "silence"
+  or "minimal sparse ambient sound" rather than only excluding "loud
+  music" or "generic horror stinger."
+- Exclude generic stock horror audio defaults explicitly when Template 13
+  specifies a distinctive custom sound design approach, since audio
+  generation tools often default toward recognizable genre-stock sounds.
+
+────────────────────────────────────────────────────────────────────────────
+12. EXAMPLE INPUT
+────────────────────────────────────────────────────────────────────────────
+SCENE/PROJECT_CONTEXT: The lake-memory creature's "hint" reveal stage
+  (Template 04 example) — must NOT show the full creature, only ripples
+  with no visible source
+RELEVANT_EXCLUSION_CATEGORIES: Genre cliché defaults (early full reveal),
+  visual quality defaults (inconsistent water texture)
+TARGET_PLATFORM: A platform with dedicated negative-prompt field support
+PRIORITY_LEVEL_NEEDED: Critical — early reveal would break the entire
+  reveal architecture established in Template 04
+
+────────────────────────────────────────────────────────────────────────────
+13. EXAMPLE OUTPUT (Condensed)
+────────────────────────────────────────────────────────────────────────────
+EXCLUSION SET SUMMARY: This hint-stage prompt requires critical protection
+against the model defaulting toward showing a clear creature form, since
+most video models favor legible subject matter over pure environmental
+ambiguity.
+
+NEGATIVE-PROMPT-FIELD VERSION: "visible creature, humanoid figure, clear
+subject, monster, character presence, face, body, silhouette, figure in
+water, anything emerging from water"
+
+POSITIVE-PHRASING INTEGRATION: Add to main prompt: "The water's surface
+shows only natural-looking concentric ripples with no visible cause. The
+shoreline and surrounding area are completely empty in every direction.
+Nothing emerges from or is visible in the water at any point in this
+shot."
+
+PRIORITY-RANKED CHECKLIST:
+CRITICAL: Exclude any visible creature/figure/silhouette (breaks reveal
+  architecture if violated)
+CRITICAL: Exclude anything emerging from the water's surface
+MINOR: Exclude overly stylized/unrealistic water rendering (polish issue,
+  not a story-breaking issue)
+
+────────────────────────────────────────────────────────────────────────────
+14. ADVANCED VERSION
+────────────────────────────────────────────────────────────────────────────
+Add for full-production exclusion management at scale:
+
+{PROJECT_WIDE_EXCLUSION_LIBRARY} — a master list of every locked token's
+  associated "drift exclusions," maintained and reused across every scene
+  featuring that character/creature/location
+{PLATFORM_SPECIFIC_FAILURE_LOG} — a running record of which exclusions
+  have proven necessary vs. unnecessary on each specific platform used in
+  production, refined over time
+{REVEAL_STAGE_EXCLUSION_LADDER} — a formal, stage-matched exclusion set
+  for every entry in Template 04's REVEAL_FRAGMENT_MAP, ensuring each
+  stage's exclusions correctly prevent leakage from later stages
+{AUTOMATED_RE_GENERATION_TRIGGER_LIST} — criteria for when a generation
+  result should be automatically flagged for regeneration based on
+  detected exclusion violations
+
+ADVANCED OUTPUT ADDITION: Request an "EXCLUSION EFFECTIVENESS REVIEW" — a
+periodic audit comparing which exclusions in the project-wide library have
+actually prevented observed failures versus which have never been
+triggered, streamlining the exclusion set for efficiency as production
+data accumulates.
+
+================================================================================
+              END OF TEMPLATE 18 — HORROR NEGATIVE PROMPT MASTER
+              Part of: The Ultimate Horror Movie AI Prompt Library
+================================================================================
