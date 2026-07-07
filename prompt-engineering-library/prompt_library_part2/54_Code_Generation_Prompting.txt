@@ -1,0 +1,321 @@
+=====================================================================
+54. CODE GENERATION PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Coding)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Code Generation Prompting — Producing Correct, Production-Ready Code
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Code Generation prompting is a technique focused specifically on 
+instructing an LLM to write NEW, working code from a description of 
+desired functionality — covering everything needed to get 
+production-quality output: language/framework specification, 
+functional requirements, edge case handling, style conventions, 
+performance considerations, and testing expectations. This is distinct 
+from Debugging Prompting (file 55, fixing existing broken code), Code 
+Review Prompting (file 56, evaluating existing code), and Refactoring 
+Prompting (file 57, restructuring existing code without changing 
+behavior) — Code Generation is specifically about creating NEW code 
+from a functional specification.
+
+Think of it like the difference between briefing a contractor to build 
+a new structure from architectural plans (Code Generation) versus 
+asking them to fix a leak in an existing building (Debugging) or 
+inspect a building for code violations (Code Review) — related skills, 
+but genuinely different tasks requiring different information to do 
+well.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Code Generation prompting exists to:
+- Produce genuinely WORKING, CORRECT code on the first attempt as 
+  often as possible, minimizing the back-and-forth debugging cycle.
+- Ensure generated code follows appropriate STYLE CONVENTIONS and 
+  best practices for the target language/framework/project.
+- Handle EDGE CASES and error conditions proactively, rather than only 
+  covering the "happy path."
+- Support rapid development and prototyping by turning clear functional 
+  descriptions into working implementations quickly.
+- Serve as the foundation that AI-assisted coding tools (Claude Code, 
+  Cursor, Copilot) and agentic development workflows are built upon.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Writing new functions, classes, modules, or entire small programs 
+  from a functional specification.
+- Prototyping new features or proof-of-concept implementations.
+- Generating boilerplate/scaffolding code to accelerate development.
+- Implementing well-understood algorithms or data structures where the 
+  approach is known and just needs correct implementation.
+
+WHEN NOT TO USE:
+- Fixing existing broken code (use Debugging Prompting instead).
+- Evaluating existing code quality without changing it (use Code 
+  Review Prompting instead).
+- Restructuring existing working code without changing its external 
+  behavior (use Refactoring Prompting instead).
+- Extremely novel, cutting-edge algorithmic problems with no established 
+  approach, where the model's suggestions should be treated as a 
+  starting hypothesis requiring careful independent verification, not a 
+  reliable final answer.
+
+BEST MODELS FOR CODE GENERATION:
+- Claude (especially Opus/Sonnet, and via Claude Code) — widely 
+  regarded as excellent for code generation with strong adherence to 
+  best practices, good edge-case awareness, and reliable working code 
+  on first attempts for most tasks.
+- GPT-4o/4.1/5-class (and via Cursor/Copilot) — very strong, widely-
+  used code generation capability across many languages/frameworks.
+- Gemini Pro/Ultra — strong code generation, particularly well-
+  integrated with Google Cloud/Android development ecosystems.
+- DeepSeek-Coder / Qwen-Coder — specialized coding models often 
+  matching or exceeding general-purpose models specifically on coding 
+  benchmarks, frequently excellent cost-to-performance ratio for 
+  coding-focused work.
+- Mistral (Codestral) — a coding-specialized variant with strong 
+  performance for code generation tasks.
+- For AGENTIC coding (multi-file projects, running/testing code 
+  automatically): Claude Code, Cursor, GitHub Copilot Workspace, and 
+  similar tools that combine a capable model with actual execution/
+  file-system access.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [LANGUAGE/FRAMEWORK] + [FUNCTIONAL REQUIREMENT] + [INPUT/OUTPUT 
+    SPECIFICATION] + [EDGE CASES TO HANDLE] + [STYLE/CONVENTIONS] + 
+    [TESTING EXPECTATION]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Language/Framework/Version — be specific (Python 3.11, React 
+       18 with hooks, not just "JavaScript").
+    2. Functional Requirement — precisely what the code should do.
+    3. Input/Output Specification — exact expected inputs and their 
+       types, and exact expected outputs/return values.
+    4. Edge Cases — what unusual/boundary inputs need explicit handling 
+       (empty inputs, None/null, very large values, invalid types).
+    5. Style/Convention Requirements — naming conventions, documentation 
+       style (docstrings), type hints, adherence to a specific style 
+       guide (PEP 8).
+    6. Dependencies/Constraints — what libraries are allowed/preferred, 
+       or explicitly disallowed (e.g., "standard library only").
+    7. Testing Expectation — whether to include test cases, and what 
+       they should cover.
+
+Example skeleton:
+    "Write a [LANGUAGE] [function/class] that [FUNCTIONAL 
+    REQUIREMENT]. 
+    
+    Input: [TYPE AND DESCRIPTION] 
+    Output: [TYPE AND DESCRIPTION] 
+    
+    Handle these edge cases: [LIST] 
+    
+    Requirements: 
+    - [STYLE CONVENTION, e.g., PEP 8, type hints, docstring] 
+    - [DEPENDENCY CONSTRAINT, e.g., standard library only] 
+    
+    Include [N] test cases covering normal use and edge cases."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Specify the EXACT language version and relevant framework versions — 
+  behavior, available syntax, and best practices can differ 
+  meaningfully between versions (e.g., Python 2 vs 3, React with vs. 
+  without hooks).
+- Define INPUT/OUTPUT TYPES precisely, including what should happen 
+  for invalid or unexpected input types, not just the happy path.
+- Explicitly list EDGE CASES you want handled (empty collections, 
+  None/null values, zero, negative numbers, very large inputs, 
+  duplicate values) since models otherwise often only cover the most 
+  obvious primary use case.
+- Specify STYLE requirements explicitly (type hints, docstring format, 
+  naming conventions, adherence to a specific style guide) rather than 
+  assuming the model will match your project's specific conventions by 
+  default.
+- State DEPENDENCY constraints clearly (standard library only vs. 
+  specific approved libraries) to avoid generated code that introduces 
+  unwanted or unavailable dependencies.
+- Request TEST CASES alongside the implementation whenever correctness 
+  matters — tests both verify the code AND serve as executable 
+  documentation of expected behavior.
+- For non-trivial functions, ask for a brief explanation of the 
+  approach/algorithm alongside the code, which helps you verify the 
+  logic matches your actual intent before integrating it.
+- ALWAYS actually run/test generated code before relying on it in 
+  production, regardless of how confident the model's output appears — 
+  treat AI-generated code the same way you'd treat a capable but 
+  fallible junior developer's first draft.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Not specifying the exact language version/framework, 
+  resulting in code using outdated syntax or incompatible patterns.
+  FIX: Always specify exact versions.
+
+- MISTAKE: Only describing the primary use case, resulting in code that 
+  breaks on edge cases (empty input, None, zero) that weren't explicitly 
+  mentioned.
+  FIX: Explicitly list the edge cases that need handling.
+
+- MISTAKE: Not specifying style/documentation conventions, resulting in 
+  code that doesn't match your project's existing standards.
+  FIX: Explicitly state style requirements (type hints, docstring 
+  format, naming conventions).
+
+- MISTAKE: Trusting generated code as correct without actually running 
+  or testing it, especially for non-trivial logic.
+  FIX: Always test generated code, ideally with the test cases you 
+  requested alongside it.
+
+- MISTAKE: Not specifying dependency constraints, resulting in code that 
+  imports libraries you don't want to use or don't have available.
+  FIX: Explicitly state what dependencies are allowed/preferred.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Write a Python 3.11 function called `is_palindrome` that checks if a 
+given string is a palindrome, ignoring case and non-alphanumeric 
+characters. 
+
+Input: a string 
+Output: a boolean 
+
+Handle these edge cases: empty string, string with only spaces/
+punctuation, single character. 
+
+Requirements: include type hints and a docstring. 
+Include 4 test cases."
+
+Expected Output:
+A correctly implemented `is_palindrome` function using type hints and 
+a clear docstring, correctly normalizing case and stripping non-
+alphanumeric characters before comparison, correctly handling all 
+specified edge cases (an empty string or punctuation-only string 
+should logically be treated as a palindrome by the stated rules), 
+accompanied by 4 test cases covering normal palindromes, non-
+palindromes, and the specified edge cases.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Write a Python 3.11 class called `RateLimiter` that implements a 
+simple sliding-window rate limiter. 
+
+Functional requirement: allow up to N requests within a T-second 
+window per unique client_id; reject (return False) requests exceeding 
+this limit within the window. 
+
+Input: client_id (string), and a method `allow_request(client_id: str) 
+-> bool` 
+Constructor: `RateLimiter(max_requests: int, window_seconds: int)` 
+
+Handle these edge cases: first request from a new client_id, requests 
+exactly at the limit boundary, requests after the window has fully 
+elapsed (should reset). 
+
+Requirements: use only the Python standard library (no external 
+dependencies), include type hints and docstrings, thread-safety is NOT 
+required for this version. 
+
+Include 5 test cases covering normal use and the specified edge cases."
+
+Expected Output:
+A correctly implemented `RateLimiter` class using standard library 
+tools (e.g., `collections.deque` and `time.time()`) to track request 
+timestamps per client within a sliding window, properly handling new 
+clients, boundary conditions (exactly at the limit), and window 
+expiration/reset, with full type hints, docstrings, and 5 test cases 
+verifying each specified behavior.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Write a Python 3.11 module implementing a simple semantic query cache 
+for a RAG pipeline (similar in purpose to a component of a larger 
+hybrid dense/sparse retrieval system). 
+
+Functional requirement: 
+- A class `SemanticCache` that stores query embeddings (as NumPy 
+arrays) alongside their associated retrieval results 
+- A method `get(query_embedding: np.ndarray, threshold: float = 0.95) 
+-> Optional[Any]` that returns the cached result if a sufficiently 
+similar (cosine similarity >= threshold) cached query exists, else 
+None 
+- A method `set(query_embedding: np.ndarray, result: Any) -> None` to 
+store a new entry 
+- A method `clear_expired(ttl_seconds: int) -> int` that removes 
+entries older than the given TTL and returns the count removed 
+
+Input/Output: as specified above; assume query_embedding is always a 
+1D NumPy array of consistent dimensionality within a single cache 
+instance. 
+
+Handle these edge cases: empty cache (get should return None cleanly), 
+very large cache sizes (mention Big-O complexity of get() in the 
+docstring), duplicate embeddings stored multiple times. 
+
+Requirements: 
+- Use NumPy for similarity computation 
+- Full type hints and Google-style docstrings 
+- Standard library + NumPy only (no other external dependencies) 
+- Include a brief note in the module docstring about the current O(n) 
+linear-scan limitation of get() at scale, and one sentence suggesting 
+a future optimization (e.g., approximate nearest neighbor indexing) 
+without implementing it 
+
+Include 6 test cases covering normal cache hits/misses, the threshold 
+boundary, empty cache, and TTL expiration."
+
+Expected Output:
+A correctly implemented `SemanticCache` class using NumPy for cosine 
+similarity computation, properly handling the empty-cache case, 
+correctly implementing threshold-based matching, storing timestamps 
+for TTL-based expiration, with full Google-style docstrings including 
+the requested complexity note and future-optimization suggestion in 
+the module docstring, and 6 well-designed test cases covering the 
+specified scenarios — demonstrating handling of a genuinely complex, 
+multi-method class specification with explicit architectural self-
+awareness (acknowledging current limitations) built into the 
+documentation as requested.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Write a [LANGUAGE + VERSION] [function/class/module] that 
+    [FUNCTIONAL REQUIREMENT].
+    
+    Input: [TYPE AND DESCRIPTION]
+    Output: [TYPE AND DESCRIPTION]
+    
+    Handle these edge cases:
+    - [EDGE CASE 1]
+    - [EDGE CASE 2]
+    
+    Requirements:
+    - [STYLE CONVENTION: type hints, docstring format, style guide]
+    - [DEPENDENCY CONSTRAINT: e.g., standard library only]
+    - [PERFORMANCE CONSIDERATION, if applicable]
+    
+    Include [N] test cases covering normal use and the specified edge 
+    cases.
+
+=====================================================================
+END OF FILE 54 — Code Generation Prompting
+=====================================================================

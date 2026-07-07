@@ -1,0 +1,297 @@
+=====================================================================
+56. CODE REVIEW PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Coding)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Code Review Prompting — Systematically Evaluating Code Quality
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Code Review prompting is a technique for instructing an LLM to 
+evaluate EXISTING, WORKING code against defined quality dimensions — 
+correctness, security, performance, readability, maintainability, test 
+coverage, adherence to best practices — producing structured, 
+actionable feedback similar to a professional peer code review. Unlike 
+Debugging Prompting (file 55, which starts from a known bug/error), 
+Code Review Prompting evaluates code that RUNS CORRECTLY but may still 
+have quality issues, security vulnerabilities, or improvement 
+opportunities that wouldn't necessarily manifest as an immediate crash 
+or wrong output.
+
+Think of it like the difference between a mechanic called in because a 
+car has broken down (Debugging) versus a mechanic performing a 
+thorough inspection of a car that's currently running fine, checking 
+for wear, potential future problems, and whether it meets safety 
+standards (Code Review) — the car works, but a review looks deeper 
+than "does it currently run."
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Code Review prompting exists to:
+- Catch quality, security, and maintainability issues BEFORE they 
+  become production problems, even in code that currently works 
+  correctly.
+- Provide STRUCTURED, actionable feedback organized by specific quality 
+  dimensions, similar to professional peer review standards.
+- Support LEARNING and skill development by explaining not just WHAT 
+  issues exist but WHY they matter and how to fix them.
+- Enable consistent quality gates in development workflows, especially 
+  valuable for solo developers who don't have a human peer reviewer 
+  readily available.
+- Serve as a scalable complement to (not full replacement for) human 
+  code review, catching common issues quickly before human review time 
+  is spent.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Reviewing your own or others' code before merging/deploying, even 
+  when it currently works correctly.
+- Auditing existing code for security vulnerabilities, performance 
+  issues, or maintainability concerns.
+- Learning contexts where understanding WHY certain patterns are 
+  problematic builds genuine skill.
+- Solo development workflows lacking a readily available human peer 
+  reviewer.
+
+WHEN NOT TO USE:
+- Code that has a known bug/error (use Debugging Prompting instead).
+- Situations where you specifically want new code written (use Code 
+  Generation Prompting instead).
+- When you specifically want restructuring done, not just evaluation 
+  (use Refactoring Prompting instead, though a review often precedes 
+  and informs refactoring decisions).
+
+BEST MODELS FOR CODE REVIEW PROMPTING:
+- Claude — excellent at thorough, well-organized code review with good 
+  security awareness and genuinely substantive (not superficial) 
+  feedback.
+- GPT-4o/4.1/5-class — strong code review capability across many 
+  languages and quality dimensions.
+- Gemini Pro/Ultra — capable code review, particularly strong when 
+  full project context can be provided.
+- DeepSeek-Coder / Qwen-Coder — strong specialized code review, 
+  particularly reliable for language-specific idioms and best 
+  practices.
+- Dedicated code review tools/platforms (GitHub Copilot's PR review 
+  features, various AI code review services like Qodo) — purpose-built 
+  for integrating review feedback directly into development workflows 
+  (pull requests, CI/CD pipelines).
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [CODE] + "Review this code for: [QUALITY DIMENSIONS]. For each 
+    issue found, specify severity and a concrete fix."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Code to Review — the complete relevant code, with enough context 
+       to understand its purpose and how it's used.
+    2. Review Dimensions — explicit list of what to evaluate 
+       (correctness, security, performance, readability, test coverage, 
+       error handling).
+    3. Severity Scale — how issues should be prioritized (Critical/
+       High/Medium/Low, or similar).
+    4. Scope Boundaries — what's in/out of scope (e.g., "don't comment 
+       on formatting/style, focus only on logic and security").
+    5. Output Format — how feedback should be structured for easy 
+       action (grouped by severity, grouped by dimension, with specific 
+       line references).
+
+Example skeleton:
+    "Review this [LANGUAGE] code for [DIMENSIONS: e.g., security, 
+    performance, error handling]: 
+    
+    [CODE] 
+    
+    For each issue found: 
+    - Rate severity (Critical/High/Medium/Low) 
+    - Explain why it matters 
+    - Provide a specific fix 
+    
+    [OPTIONAL: Do not comment on [OUT OF SCOPE AREA].]"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Specify which QUALITY DIMENSIONS matter for this particular review — 
+  a security-focused review and a performance-focused review will 
+  surface very different issues, so be explicit about what you're 
+  asking for.
+- Request a SEVERITY RATING for each issue found, which helps prioritize 
+  what to actually fix first versus what's a minor, optional 
+  improvement.
+- Define SCOPE BOUNDARIES explicitly when relevant (e.g., "don't 
+  comment on code style, we have a separate linter for that") to keep 
+  feedback focused on what you actually need right now.
+- Ask for SPECIFIC, ACTIONABLE fixes alongside each identified issue, 
+  not just a description of the problem — actionable feedback is far 
+  more useful than a list of complaints.
+- Provide sufficient CONTEXT about the code's purpose and how it's used 
+  elsewhere, since some issues (like whether input validation is truly 
+  necessary) depend on understanding the broader system.
+- For large codebases, consider reviewing in FOCUSED CHUNKS (one module/
+  file at a time with relevant context) rather than attempting an 
+  entire codebase review in one pass.
+- Combine with Critic Prompting (file 29) principles for maximum 
+  objectivity — framing the review as coming from an independent, 
+  skeptical reviewer role tends to surface more substantive feedback.
+- Treat AI code review as a valuable FIRST PASS/complement to, not full 
+  replacement for, human review on genuinely critical or complex 
+  systems.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Not specifying which quality dimensions to focus on, 
+  resulting in unfocused feedback that might miss what actually matters 
+  for this specific review.
+  FIX: Explicitly state which dimensions (security, performance, 
+  readability) are the priority.
+
+- MISTAKE: Not requesting severity ratings, making it hard to prioritize 
+  which of many identified issues to address first.
+  FIX: Always ask for a severity scale per issue.
+
+- MISTAKE: Getting feedback that describes problems without concrete, 
+  actionable fixes.
+  FIX: Explicitly request a specific fix alongside each identified 
+  issue.
+
+- MISTAKE: Not providing enough context about the code's actual usage/
+  purpose, leading to review feedback that misses system-level 
+  considerations.
+  FIX: Provide relevant context about how the code is used within the 
+  broader system.
+
+- MISTAKE: Treating AI code review as fully equivalent to and a 
+  complete replacement for human review on critical systems.
+  FIX: Use AI review as a valuable complement/first pass, especially 
+  for critical or complex code.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Review this Python function for error handling and edge cases: 
+
+def divide_list_items(items, divisor):
+    return [item / divisor for item in items]
+
+For each issue found, rate severity (High/Medium/Low) and provide a 
+specific fix."
+
+Expected Output:
+An identified High-severity issue (no handling for divisor=0, which 
+would raise ZeroDivisionError) with a specific fix (adding a check and 
+raising a clear, informative error or returning a sensible default), 
+and potentially a Medium-severity note about handling non-numeric 
+items in the list, with a corresponding fix suggestion.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Review this Python Flask route handler for security and error 
+handling (do not comment on code style/formatting): 
+
+@app.route('/user/<user_id>')
+def get_user(user_id):
+    query = f\"SELECT * FROM users WHERE id = {user_id}\"
+    result = db.execute(query)
+    return jsonify(result)
+
+For each issue: rate severity (Critical/High/Medium/Low), explain why 
+it matters, and provide a specific fix."
+
+Expected Output:
+A Critical-severity finding for SQL injection vulnerability (direct 
+string interpolation of user_id into the query), with an explanation 
+of the risk and a specific fix using parameterized queries; likely a 
+High-severity finding for lack of error handling if the user isn't 
+found or the database call fails; and possibly a Medium finding about 
+not validating that user_id is actually a valid ID format before 
+querying — each with clear reasoning and concrete fixes, correctly 
+scoped away from style/formatting commentary per the stated 
+boundary.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Review this Python module (part of a multi-agent memory system) for 
+correctness, performance, and thread-safety specifically. This module 
+is called concurrently by up to 50 agent threads in production. 
+
+class AgentMemoryStore:
+    def __init__(self):
+        self.memories = []
+    
+    def add_memory(self, agent_id, memory):
+        self.memories.append({'agent_id': agent_id, 'memory': memory, 
+'timestamp': time.time()})
+    
+    def get_recent_memories(self, agent_id, limit=10):
+        agent_memories = [m for m in self.memories if m['agent_id'] == 
+agent_id]
+        return sorted(agent_memories, key=lambda x: x['timestamp'], 
+reverse=True)[:limit]
+
+Context: called by up to 50 concurrent agent threads; the memories 
+list could grow to tens of thousands of entries over a long-running 
+session. 
+
+For each issue: rate severity (Critical/High/Medium/Low), explain why 
+it matters given the stated 50-thread concurrent context, and provide 
+a specific fix."
+
+Expected Output:
+A Critical-severity thread-safety finding (list.append() is generally 
+considered thread-safe in CPython due to the GIL for simple appends, 
+but the overall pattern lacks any explicit synchronization and could 
+have issues with more complex future modifications; more importantly, 
+there's no locking around what should likely be atomic operations if 
+the class evolves) combined with a High-severity PERFORMANCE finding: 
+`get_recent_memories` performs an O(n) linear scan and O(n log n) sort 
+across the ENTIRE memories list (which could be tens of thousands of 
+entries) EVERY time it's called, for EVERY agent, which will become a 
+severe bottleneck with 50 concurrent threads all calling this 
+frequently — with a specific fix suggesting restructuring to use a 
+dictionary keyed by agent_id mapping to a per-agent deque or sorted 
+structure, so lookups become O(1) dictionary access plus a much smaller 
+per-agent sort/slice, dramatically improving performance at the stated 
+scale — demonstrating review feedback that correctly weighs severity 
+based on the SPECIFIC production context provided (50 concurrent 
+threads, potentially large memory count) rather than generic, context-
+free commentary.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Review this [LANGUAGE] code for [SPECIFIC DIMENSIONS: e.g., 
+    security, performance, error handling, correctness]:
+    
+    [PASTE CODE]
+    
+    Context: [RELEVANT INFORMATION ABOUT HOW/WHERE THIS CODE IS USED, 
+    e.g., scale, concurrency, criticality]
+    
+    For each issue found:
+    - Rate severity (Critical/High/Medium/Low)
+    - Explain why it matters given the stated context
+    - Provide a specific, actionable fix
+    
+    [OPTIONAL: Do not comment on [OUT-OF-SCOPE AREA, e.g., code style/
+    formatting].]
+
+=====================================================================
+END OF FILE 56 — Code Review Prompting
+=====================================================================

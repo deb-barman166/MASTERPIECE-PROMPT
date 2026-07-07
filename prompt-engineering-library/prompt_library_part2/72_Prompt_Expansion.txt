@@ -1,0 +1,295 @@
+=====================================================================
+72. PROMPT EXPANSION
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Meta/
+Optimization)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Prompt Expansion — Adding Detail and Context to Underspecified Prompts
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Prompt Expansion is the technique of taking a brief, underspecified, or 
+vague prompt and systematically ADDING the detail, context, 
+constraints, and structure needed to make it genuinely effective — the 
+direct inverse of Prompt Compression (file 71). Where compression 
+removes unnecessary verbosity from an already-working prompt, expansion 
+ADDS necessary specificity to a prompt that's currently too sparse to 
+reliably produce good results, often because the original author (human 
+or even another AI generating a draft prompt) omitted details they 
+assumed would be "obvious" but which actually matter for consistent, 
+high-quality output.
+
+Think of it like the difference between a one-line text message asking 
+a friend to "grab some stuff for the party" (technically communicates 
+something, but leaves out crucial details like what stuff, how much, 
+by when) versus a properly detailed request specifying exactly what's 
+needed, in what quantities, and by what time — expansion is the process 
+of transforming the former into the latter.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Prompt Expansion exists to:
+- Transform VAGUE, underspecified prompts into ones detailed enough to 
+  reliably produce the desired output, addressing the common root cause 
+  of disappointing AI results (insufficient prompt specificity).
+- Surface IMPLICIT ASSUMPTIONS the original prompt writer held but 
+  didn't actually state, making them explicit so the model doesn't have 
+  to guess.
+- Support BEGINNERS in prompt engineering by taking their natural, 
+  often under-specified first attempts and systematically improving 
+  them with the missing structural elements covered throughout this 
+  library.
+- Convert SIMPLE creative briefs or one-line requests into properly 
+  scaffolded prompts (incorporating relevant techniques like Role, 
+  Context, Constraint Prompting) without requiring the requester to 
+  already know prompt engineering best practices.
+- Serve as the complementary counterpart to Prompt Compression — 
+  together, these two techniques represent the "make it exactly the 
+  right length and detail level" optimization goal from opposite 
+  starting points.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Your initial prompt attempt is producing inconsistent, generic, or 
+  disappointing results, and you suspect insufficient detail is the 
+  cause.
+- You have a rough, one-line idea for a task and want help developing 
+  it into a properly structured, effective prompt.
+- Teaching/learning contexts where seeing a vague prompt expanded into 
+  a detailed one illustrates concrete prompt engineering principles in 
+  action.
+- Converting a casual verbal request or brief into a formal, reusable 
+  prompt template (connecting to Template Prompting, file 43).
+
+WHEN NOT TO USE:
+- When brevity and openness are actually desirable — some tasks 
+  genuinely benefit from minimal constraint to allow creative freedom, 
+  and over-expanding can inappropriately narrow this.
+- When the existing brief prompt is already producing satisfactory 
+  results — don't add complexity/length where it isn't actually needed.
+- As a substitute for actually understanding your own requirements — 
+  expansion works best when you can review and confirm the added 
+  assumptions/details actually match your real intent, not blindly 
+  accept whatever gets added.
+
+BEST MODELS FOR PROMPT EXPANSION:
+- Claude — excellent at identifying what's missing from an 
+  underspecified prompt and asking clarifying questions or making 
+  sensible default assumptions where detail is genuinely absent.
+- GPT-4o/4.1/5-class — strong prompt expansion capability, well-versed 
+  in the structural elements (role, context, constraints, format) that 
+  typically improve vague prompts.
+- Gemini Pro/Ultra — capable prompt expansion, particularly useful when 
+  expanding prompts for multimodal or research-heavy tasks.
+- ANY capable model can serve as a prompt expansion assistant, since 
+  this is fundamentally about applying general prompt-engineering 
+  knowledge (much of which this very library documents) to a specific 
+  under-specified starting point.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [BRIEF/VAGUE ORIGINAL PROMPT] → "Expand this into a detailed, 
+    effective prompt by adding relevant role, context, constraints, and 
+    format specification. Ask me clarifying questions if key details 
+    are genuinely ambiguous, rather than guessing."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Original Brief Prompt — the vague or underspecified starting 
+       point.
+    2. Expansion Instruction — explicit request to add missing 
+       structural elements (role, context, constraints, format, 
+       examples where helpful).
+    3. Clarification Permission — explicit instruction that the model 
+       should ASK about genuinely ambiguous key details rather than 
+       silently guessing and potentially expanding in the wrong 
+       direction.
+    4. Reasoning Request — ask for explanation of what was added and 
+       why, both to verify the additions make sense and to build the 
+       requester's own prompt engineering understanding.
+
+Example skeleton:
+    "Here's my rough prompt idea: 
+    '[BRIEF/VAGUE PROMPT]' 
+    
+    Expand this into a detailed, effective prompt by adding relevant 
+    role framing, necessary context, specific constraints, and clear 
+    output format. If any key detail is genuinely ambiguous or 
+    important to get right, ask me a clarifying question rather than 
+    guessing. Explain what you added and why."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Explicitly grant PERMISSION to ask clarifying questions for genuinely 
+  ambiguous key details, rather than having the model silently guess 
+  and potentially expand in a direction that doesn't match your actual 
+  intent (this connects to the general proactivity/clarification 
+  principle of picking a sensible default only when a clarifying 
+  question would genuinely not be worth the friction).
+- Review EVERY added assumption/detail carefully — expansion 
+  necessarily involves the model filling in gaps with reasonable 
+  defaults, and you need to confirm those defaults actually match what 
+  you wanted, not just accept them uncritically.
+- Ask for the REASONING behind additions, which helps you verify 
+  correctness and builds your own understanding of what makes prompts 
+  effective (similar to the educational value noted in Meta Prompting).
+- Use expansion ITERATIVELY for genuinely complex needs — a first 
+  expansion pass might surface additional clarifying questions, which, 
+  once answered, could inform a further refined expansion.
+- Consider whether the expanded prompt should become a reusable 
+  TEMPLATE (file 43) if this is a task type you'll perform repeatedly, 
+  rather than a one-off expansion.
+- Don't over-expand tasks that genuinely benefit from creative openness 
+  — verify that added constraints/specificity actually serve your goal 
+  rather than inappropriately narrowing a task that benefited from 
+  flexibility.
+- Test the EXPANDED prompt against real use to confirm it actually 
+  produces better results than the original brief version — expansion, 
+  like any prompt engineering technique, should be validated through 
+  actual outcomes, not assumed effective just because it's more 
+  detailed.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Not granting permission for clarifying questions, resulting 
+  in the model silently guessing at ambiguous details and potentially 
+  expanding in a direction that doesn't match actual intent.
+  FIX: Explicitly invite clarifying questions for genuinely ambiguous 
+  key details.
+
+- MISTAKE: Accepting all added assumptions/details uncritically without 
+  reviewing whether they actually match your real intent.
+  FIX: Carefully review every addition, confirming it reflects what you 
+  actually wanted.
+
+- MISTAKE: Over-expanding tasks that genuinely benefited from creative 
+  openness/flexibility, inappropriately narrowing them with excessive 
+  constraint.
+  FIX: Consider whether the task actually needs more specificity, or 
+  whether some openness was intentional and valuable.
+
+- MISTAKE: Not testing the expanded prompt against real use, assuming 
+  more detail automatically means better results without verification.
+  FIX: Validate the expanded prompt through actual testing before 
+  relying on it.
+
+- MISTAKE: Treating a one-off expansion as disposable when it's 
+  actually a task type performed repeatedly, missing the opportunity to 
+  formalize it as a reusable template.
+  FIX: Consider converting a successful expansion into a Template 
+  Prompting (file 43) asset for recurring use.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Original Brief Prompt:
+"Write something about dogs."
+
+Expansion Request:
+"Expand this into a detailed, effective prompt: 'Write something about 
+dogs.' Add relevant context, constraints, and format. Ask clarifying 
+questions if needed."
+
+Expected Output:
+A clarifying question surfacing key ambiguities (e.g., "What's the 
+purpose — informational, entertaining, persuasive? What length and 
+format? Any specific angle, like a particular breed or dog care topic? 
+Who's the audience?"), OR (if instructed to proceed with reasonable 
+defaults instead) an expanded prompt such as "Write a 200-word 
+informative paragraph about why regular exercise is important for dog 
+health, suitable for a general pet-owner audience, in a warm, 
+approachable tone" — with an explanation of the assumptions made.
+
+--- INTERMEDIATE EXAMPLE ---
+Original Brief Prompt:
+"Make a function that processes user data."
+
+Expansion Request:
+"Expand this into a detailed, effective code generation prompt: 'Make 
+a function that processes user data.' Add relevant language 
+specification, input/output details, edge case handling, and 
+constraints, following good Code Generation Prompting practice. Ask me 
+clarifying questions about anything genuinely ambiguous rather than 
+guessing at critical details like what 'process' actually means here."
+
+Expected Output:
+Clarifying questions on the genuinely critical ambiguities (e.g., 
+"What does 'process' mean specifically — validation, transformation, 
+filtering, aggregation? What does 'user data' look like — a dict, a 
+database record, a list of objects? What language/framework?"), 
+demonstrating appropriate recognition that this brief prompt is far too 
+vague to respond to with sensible default assumptions alone, since 
+"process" and "user data" could mean drastically different things.
+
+--- ADVANCED EXAMPLE ---
+Original Brief Prompt:
+"Create a system that helps my agents remember things."
+
+Expansion Request:
+"Expand this into a detailed, effective prompt for designing an AI 
+agent memory architecture: 'Create a system that helps my agents 
+remember things.' 
+
+Context I can provide if helpful: this is for a multi-agent Python 
+system using Google ADK and Gemini 2.0 Flash, with potentially 50+ 
+specialized agents. 
+
+Add relevant role framing, necessary technical context, specific design 
+constraints, and clear expected output format, following good Context 
+Prompting and Goal-Oriented Prompting practice. Ask me clarifying 
+questions about anything critical that's still genuinely ambiguous 
+even with the context I've provided, rather than making assumptions 
+that could send the design in the wrong direction."
+
+Expected Output:
+An expansion that incorporates the provided context (Google ADK, 
+Gemini 2.0 Flash, 50+ agents) while still surfacing genuinely critical 
+remaining ambiguities that even this context doesn't resolve (e.g., 
+"What TYPES of things need to be remembered — factual knowledge, past 
+conversation history, learned skills/procedures, or all of these? Do 
+agents need to share memory with each other, or is memory agent-
+specific? What's the expected session duration — single conversations, 
+or persistent memory across days/weeks?"), demonstrating that even with 
+substantial context provided, genuinely important architectural 
+decisions (memory type, sharing scope, persistence duration) remain 
+critically ambiguous and warrant explicit clarification rather than 
+assumption, given how significantly different answers would lead to 
+fundamentally different architectural recommendations.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Here's my rough prompt idea:
+    '[YOUR BRIEF/VAGUE ORIGINAL PROMPT]'
+    
+    [OPTIONAL: Additional context I can provide: [ANY RELEVANT 
+    BACKGROUND]]
+    
+    Expand this into a detailed, effective prompt by adding relevant 
+    role framing, necessary context, specific constraints, and clear 
+    output format specification.
+    
+    If any key detail is genuinely ambiguous or important to get right, 
+    ask me a clarifying question rather than guessing.
+    
+    Explain what you added/assumed and why, so I can verify it matches 
+    my actual intent.
+
+=====================================================================
+END OF FILE 72 — Prompt Expansion
+=====================================================================

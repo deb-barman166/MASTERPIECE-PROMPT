@@ -1,0 +1,302 @@
+=====================================================================
+47. SCREENPLAY PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Creative)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Screenplay Prompting — Generating Properly Formatted Script Content
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Screenplay prompting is a specialized technique for generating content 
+in proper SCREENPLAY/SCRIPT FORMAT — the specific industry-standard 
+conventions for scene headings (INT./EXT.), action lines, character 
+cues, dialogue blocks, and parentheticals — used for film, television, 
+or stage writing. This differs from general Story Prompting (file 46) 
+in that it requires strict adherence to a specific FORMATTING 
+CONVENTION alongside narrative content, since screenplay format itself 
+carries functional meaning (it tells a production crew when a scene 
+changes, who's speaking, and how something should be performed) — 
+directly relevant to filmmaking-focused prompt work like Deb Barman's 
+Ultimate Hollywood AI Filmmaking Prompt Library.
+
+Think of it like the difference between writing a short story about a 
+conversation (prose, free-flowing) versus writing that same 
+conversation as it would appear in an actual shooting script — with 
+proper scene headings, character names in caps above their dialogue, 
+and action lines describing only what's visually observable (not 
+internal thoughts, since a camera can't see those).
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Screenplay prompting exists to:
+- Produce genuinely INDUSTRY-FORMATTED script content usable in real 
+  pre-production/development contexts, not just narrative prose 
+  loosely resembling a script.
+- Enforce the discipline of "SHOW, DON'T TELL" that screenwriting 
+  fundamentally requires — action lines can only describe what a 
+  camera/audience can observe, not internal character thoughts or 
+  feelings.
+- Support specific FILM/TV/STAGE pre-production workflows: outlining 
+  scenes, drafting dialogue, developing specific beats for later 
+  human refinement.
+- Enable CONSISTENT formatting across a longer script or multiple 
+  scenes, critical for actual production use.
+- Serve creative pipelines combining screenplay generation with visual 
+  content creation (storyboarding, AI video generation prompts derived 
+  from scripted scenes).
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Drafting scenes, sequences, or full scripts for film, television, or 
+  stage projects.
+- Developing dialogue-heavy content that specifically needs proper 
+  script formatting for later production use.
+- Pre-visualization workflows where a scripted scene will later inform 
+  storyboards, shot lists, or AI-generated video content.
+- Screenwriting practice, competition submissions, or portfolio 
+  development requiring professional format standards.
+
+WHEN NOT TO USE:
+- General narrative fiction not intended for screen/stage production 
+  (use Story Prompting instead).
+- Casual dialogue exchanges that don't require formal script 
+  conventions (use Dialogue Prompting, file 52, for more general 
+  conversational writing).
+- Very short content where the formatting overhead isn't warranted 
+  (a single joke exchange doesn't need scene headings).
+
+BEST MODELS FOR SCREENPLAY PROMPTING:
+- Claude — strong at maintaining consistent screenplay formatting 
+  across longer scenes, with good instinct for "camera-observable" 
+  action lines rather than prose-style internal narration.
+- GPT-4o/4.1/5-class — capable, widely-used for screenplay drafting, 
+  generally reliable format adherence.
+- Gemini Pro/Ultra — capable screenplay generation, particularly 
+  useful in multimodal pipelines feeding into visual/video generation 
+  tools.
+- Grok — capable of punchy, dialogue-driven scenes given its 
+  conversational strengths.
+- Mistral / Llama — capable of basic screenplay format when explicitly 
+  shown the convention; may need a concrete formatting example to 
+  reliably maintain proper structure, especially in longer outputs.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [SCENE CONTEXT] + "Write in proper screenplay format: INT./EXT. 
+    [LOCATION] - [TIME]. Action lines describing only observable 
+    action. CHARACTER NAME in caps above dialogue." + [SPECIFIC SCENE 
+    GOAL/CONTENT]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Scene Context — what's happening, who's involved, where/when.
+    2. Format Instruction — explicit reminder of screenplay 
+       conventions (scene heading format, action line rules, dialogue 
+       formatting, parenthetical usage).
+    3. Character/Tone Guidance — relevant character voice notes if 
+       established elsewhere (see Character Prompting, file 48).
+    4. Scene Goal — what needs to happen/be revealed/accomplished in 
+       this specific scene.
+    5. Length/Scope — roughly how long the scene should be (page count 
+       is the industry standard measure, roughly 1 page ≈ 1 minute of 
+       screen time).
+
+Example skeleton:
+    "Write a screenplay scene in proper industry format. 
+    
+    Scene context: [WHO, WHERE, WHEN, WHAT'S HAPPENING] 
+    
+    Format requirements: 
+    - Scene heading: INT./EXT. LOCATION - TIME 
+    - Action lines: describe only what's visually/aurally observable, 
+      present tense 
+    - Character names in ALL CAPS above their dialogue 
+    - Use parentheticals sparingly, only when genuinely needed for 
+      clarity 
+    
+    Scene goal: [WHAT THIS SCENE NEEDS TO ACCOMPLISH] 
+    Approximate length: [X pages/minutes]"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Explicitly enforce the "camera can't see thoughts" rule — action 
+  lines should describe OBSERVABLE behavior/expression, not internal 
+  states (e.g., "She grips the steering wheel, knuckles white" rather 
+  than "She feels anxious").
+- Specify PRESENT TENSE for action lines, which is the standard 
+  screenplay convention (scripts describe what's happening NOW on 
+  screen, not what happened).
+- Use parentheticals (brief actor direction under a character's name, 
+  before their line) SPARINGLY — overuse is considered poor 
+  screenwriting practice; only include when genuinely necessary for 
+  clarity that dialogue alone wouldn't convey.
+- Keep ACTION LINES CONCISE — professional screenplay convention 
+  favors short, punchy action description over dense paragraphs, since 
+  page count roughly correlates to screen time.
+- For DIALOGUE specifically, remind the model that screen dialogue is 
+  typically more clipped/naturalistic than prose dialogue — people 
+  interrupt, trail off, and don't speak in complete grammatical 
+  paragraphs.
+- If you have ESTABLISHED characters (from prior Character Prompting 
+  work), provide their voice/personality notes so dialogue stays 
+  consistent with who they are.
+- For longer scripts, consider scene-by-scene generation with review 
+  in between, similar to Plan-and-Solve Prompting (file 24) applied to 
+  screenwriting.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Action lines describing internal thoughts/feelings that a 
+  camera couldn't actually capture ("He feels a deep sense of dread").
+  FIX: Explicitly instruct that action lines must describe only 
+  observable behavior, and rewrite internal-state descriptions as 
+  physical behavior/expression.
+
+- MISTAKE: Overusing parentheticals under every line of dialogue, 
+  which professional screenwriting convention considers poor practice.
+  FIX: Reserve parentheticals for genuinely necessary clarification 
+  only.
+
+- MISTAKE: Writing dialogue that reads like formal written prose 
+  rather than naturalistic spoken language (complete, grammatically 
+  perfect sentences with no interruption or trailing off).
+  FIX: Explicitly request more naturalistic, clipped dialogue patterns 
+  typical of screen writing.
+
+- MISTAKE: Inconsistent scene heading format across multiple scenes 
+  (sometimes INT./EXT., sometimes just a location name).
+  FIX: Explicitly specify and reinforce the exact scene heading 
+  convention throughout.
+
+- MISTAKE: Overly dense, paragraph-style action description instead of 
+  the concise, punchy style professional screenplays favor.
+  FIX: Explicitly request concise action lines, and note that page 
+  length roughly correlates to screen time.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Write a short screenplay scene (about half a page) in proper format. 
+Scene: Two coworkers meet by the office coffee machine. One just found 
+out she got promoted; the other is her close friend who was up for the 
+same role and didn't get it. Keep dialogue naturalistic and let the 
+tension show through action, not exposition."
+
+Expected Output:
+A properly formatted scene with an INT. OFFICE - DAY (or similar) 
+heading, concise action lines showing observable tension (hesitation, 
+a forced smile, avoided eye contact) rather than stated emotion, and 
+naturalistic, clipped dialogue that lets the awkwardness emerge through 
+subtext rather than characters directly stating their feelings.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Write a 1-page screenplay scene in proper format. 
+
+Scene context: A cyberpunk thriller. Detective Vasquez interrogates a 
+hacker suspect in a dimly lit precinct room. The hacker knows more 
+than they're letting on but is trying to appear cooperative. 
+
+Format requirements: 
+- INT./EXT. scene heading 
+- Concise, observable action lines only 
+- Naturalistic, clipped dialogue with subtext (the hacker should imply 
+things without directly stating them) 
+- Use parentheticals only if truly necessary 
+
+Scene goal: By the end, Vasquez should suspect the hacker is lying 
+about something specific, without it being stated outright."
+
+Expected Output:
+A properly formatted interrogation scene with appropriate noir/
+cyberpunk atmospheric action lines (lighting, physical tells), 
+naturalistic dialogue where the hacker's evasions create subtext-
+driven tension, and an ending beat that plants suspicion through 
+implication (a caught detail, a too-quick answer, a physical tell) 
+rather than an on-the-nose statement like "I think he's lying."
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Write a 2-page screenplay scene in proper industry format for a 
+sci-fi drama. 
+
+Established characters: 
+- DR. AMARA CHEN: xenobiologist, controlled and precise in speech, 
+rarely shows emotion outwardly but has a habit of adjusting her glasses 
+when stressed. 
+- COMMANDER REYES: station commander, blunt, pragmatic, has a history 
+of prioritizing crew safety over discovery, creating friction with 
+Amara. 
+
+Scene context: Amara has just detected what might be an alien signal, 
+but confirming it requires disabling a safety protocol that Reyes 
+would never approve. She's trying to convince him without revealing 
+her actual plan to bypass his authority if he refuses. 
+
+Format requirements: 
+- Proper INT. scene heading 
+- Present-tense, observable-only action lines 
+- Dialogue should carry significant subtext — Amara is not being 
+fully honest, and sharp-eyed audience members should sense this without 
+it being stated 
+- Reflect each character's established voice/mannerisms (Amara's 
+glasses habit should appear at least once, tied to a moment of 
+internal conflict) 
+
+Scene goal: Reyes refuses her request, and the scene should end with a 
+clear sense that Amara has NOT abandoned her plan, without her saying 
+so directly."
+
+Expected Output:
+A properly formatted 2-page scene consistent with both characters' 
+established voices — Amara speaking with controlled precision while 
+her glasses-adjusting habit surfaces at a moment of internal tension 
+(likely right before or after a moment of dishonesty/omission), Reyes 
+responding with blunt pragmatism reflecting his safety-first history — 
+building genuine subtext throughout their exchange, ending with Reyes's 
+refusal and a final beat (a look, a small action, a slightly-too-quick 
+agreement) that signals to the audience Amara isn't actually done, 
+without any dialogue stating this outright — demonstrating sophisticated 
+integration of character consistency, subtext, and proper format 
+discipline simultaneously.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Write a screenplay scene in proper industry format.
+    
+    Scene context: [WHO IS INVOLVED, WHERE, WHEN, WHAT'S HAPPENING]
+    
+    [OPTIONAL: Established character voices/mannerisms: [NOTES]]
+    
+    Format requirements:
+    - Scene heading: INT./EXT. LOCATION - TIME
+    - Action lines: present tense, describing only what's 
+    visually/aurally observable — no internal thoughts or feelings 
+    stated directly
+    - CHARACTER NAMES in all caps above dialogue
+    - Parentheticals used sparingly, only when truly necessary
+    - Naturalistic, clipped dialogue with subtext where appropriate
+    
+    Scene goal: [WHAT THIS SCENE NEEDS TO ACCOMPLISH DRAMATICALLY]
+    Approximate length: [X pages]
+
+=====================================================================
+END OF FILE 47 — Screenplay Prompting
+=====================================================================

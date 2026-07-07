@@ -1,0 +1,288 @@
+=====================================================================
+46. STORY PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Creative)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Story Prompting — Structuring Prompts for Narrative Fiction
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Story prompting is a technique specifically designed for generating 
+NARRATIVE FICTION — short stories, longer fiction, plot outlines — by 
+providing the model with the specific narrative elements a compelling 
+story requires: genre, setting, characters, central conflict, tone, 
+narrative arc/structure, and point of view. Unlike generic creative 
+writing requests ("write a story about a dragon"), effective Story 
+Prompting supplies the SCAFFOLDING that professional fiction relies on 
+— giving the model enough narrative architecture to produce something 
+with genuine dramatic shape rather than a flat, meandering sequence of 
+events.
+
+Think of it like the difference between telling someone "write a 
+story" (leaving every narrative decision to chance) versus giving a 
+screenwriter a proper story brief: genre, the protagonist's want and 
+the obstacle in their way, the setting, the tone, and how it should 
+resolve — the SAME creative freedom remains within that structure, but 
+the structure itself dramatically improves the odds of a genuinely 
+satisfying narrative.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Story prompting exists to:
+- Provide the NARRATIVE SCAFFOLDING (conflict, arc, stakes) that 
+  separates a genuinely compelling story from a flat sequence of 
+  events with no dramatic shape.
+- Give the model enough SPECIFIC creative constraints to produce 
+  distinctive, non-generic fiction rather than defaulting to the most 
+  cliché version of a genre.
+- Support ITERATIVE STORY DEVELOPMENT — outlining first, then 
+  expanding specific sections, rather than generating an entire story 
+  in one unstructured pass.
+- Enable CONSISTENT tone, voice, and stakes throughout a longer piece 
+  by establishing these elements clearly upfront.
+- Serve as the foundation that more specialized creative techniques 
+  (Character Prompting, World-Building Prompting, Dialogue Prompting) 
+  build upon for more focused narrative sub-tasks.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Writing short stories, flash fiction, or longer narrative fiction.
+- Developing plot outlines or story structures before full drafting.
+- Creative writing exercises, worldbuilding-adjacent fiction, or 
+  narrative content for games/interactive media.
+- Any task where the GOAL is genuine dramatic engagement (tension, 
+  stakes, emotional arc), not just a description of events.
+
+WHEN NOT TO USE:
+- Purely informational or technical writing with no narrative element.
+- Extremely short creative snippets (a single joke, a one-line 
+  caption) where full narrative scaffolding is unnecessary overhead.
+- When the person wants pure, unguided creative exploration without 
+  any structural constraints (in this case, a very open prompt may be 
+  more appropriate than heavy scaffolding).
+
+BEST MODELS FOR STORY PROMPTING:
+- Claude — widely regarded as excellent for nuanced, emotionally 
+  resonant, well-paced fiction with a strong sense of voice and 
+  restraint from overly purple prose.
+- GPT-4o/4.1/5-class — strong narrative capability, versatile across 
+  genres and tones.
+- Gemini Pro/Ultra — capable storytelling, particularly strong when 
+  combined with multimodal elements (illustrated stories, 
+  screenplay-to-visual pipelines).
+- Grok — capable of more irreverent, unconventional narrative styles 
+  given its design philosophy.
+- Mistral / Llama — capable of genre fiction, especially larger 
+  variants; may lean more heavily on genre tropes/clichés without 
+  strong, specific prompting to push toward more distinctive choices.
+- DeepSeek / Qwen — functional for narrative tasks but generally less 
+  specialized/refined for creative fiction compared to models with 
+  more literary-focused training emphasis.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [GENRE] + [SETTING] + [PROTAGONIST + WANT] + [CENTRAL CONFLICT/
+    OBSTACLE] + [TONE] + [LENGTH] + [POV] + [DESIRED RESOLUTION TYPE]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Genre/Tone — the overall style and emotional register (dark 
+       comedy, literary fiction, hard sci-fi, cozy mystery).
+    2. Setting — where and when the story takes place.
+    3. Protagonist and Want — who the story follows and what they 
+       need/desire.
+    4. Central Conflict/Obstacle — what stands between the protagonist 
+       and their want, creating the story's tension.
+    5. Point of View — first person, third person limited, omniscient, 
+       etc.
+    6. Length/Format — short story, flash fiction (under 1000 words), 
+       chapter, outline only.
+    7. Resolution Guidance (optional) — hint at desired ending type 
+       (bittersweet, twist, open-ended) without necessarily dictating 
+       every plot beat.
+
+Example skeleton:
+    "Write a [GENRE] [FORMAT/LENGTH] set in [SETTING]. 
+    Protagonist: [NAME/DESCRIPTION], who wants [GOAL]. 
+    Central conflict: [OBSTACLE/ANTAGONIST/TENSION]. 
+    Tone: [TONE DESCRIPTION]. 
+    POV: [PERSPECTIVE]. 
+    [OPTIONAL: resolution guidance]"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Give the protagonist a SPECIFIC, CONCRETE want, not just a vague 
+  trait — "wants to reconcile with her estranged father before he 
+  dies" drives a story; "is complicated" does not.
+- Specify the CENTRAL CONFLICT explicitly — a story needs genuine 
+  friction/stakes to have dramatic shape; without this, even good 
+  prose reads as a flat sequence of events.
+- Provide enough SPECIFICITY in setting/genre to avoid the model 
+  defaulting to the most generic, cliché version of that genre (e.g., 
+  "cyberpunk story" vs. "cyberpunk story set in a flooded, half-
+  abandoned coastal megacity where analog technology has become a 
+  status symbol among the ultra-rich").
+- For longer pieces, consider requesting an OUTLINE first (major plot 
+  beats), reviewing it, then requesting full prose expansion — this 
+  mirrors Plan-and-Solve Prompting (file 24) applied to fiction.
+- State the desired TONE explicitly and precisely — "darkly comic," 
+  "quietly devastating," "wry and understated" each produce very 
+  different prose even for an identical plot.
+- Avoid over-specifying EVERY plot beat if you want genuine creative 
+  surprise — provide the scaffolding (conflict, stakes, tone) and 
+  leave room for the model's own narrative choices within that frame.
+- For genre fiction specifically, consider naming what CLICHÉS to 
+  avoid, which often produces more distinctive results than positive 
+  instructions alone.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Vague, trait-only protagonist description with no concrete 
+  want, producing a story with no clear dramatic engine.
+  FIX: Give the protagonist a specific, concrete goal or need driving 
+  the narrative.
+
+- MISTAKE: No explicit central conflict/obstacle, resulting in a flat 
+  sequence of events rather than a story with genuine tension.
+  FIX: Always specify what stands in the protagonist's way.
+
+- MISTAKE: Overly generic genre/setting specification, leading to the 
+  most cliché possible version of that genre.
+  FIX: Add specific, distinctive details to setting and premise.
+
+- MISTAKE: Attempting a full, long narrative in one single generation 
+  pass without any outlining step, risking pacing and structural 
+  issues in longer pieces.
+  FIX: For longer fiction, outline first, then expand section by 
+  section.
+
+- MISTAKE: Over-specifying every single plot beat, leaving no room for 
+  the model's own creative narrative choices within the given 
+  scaffolding.
+  FIX: Provide the essential structural elements (conflict, stakes, 
+  tone) while leaving specific narrative execution open.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Write a short flash fiction story (under 500 words). Genre: quiet, 
+literary. Setting: a small coastal town in autumn. Protagonist: an 
+elderly fisherman who wants to pass down a family recipe before his 
+memory fades further. Central conflict: he keeps forgetting a key 
+ingredient each time he tries to write it down. Tone: gently 
+melancholic but ultimately warm. POV: third person limited."
+
+Expected Output:
+A complete flash fiction piece under 500 words with genuine narrative 
+shape — the fisherman's repeated, frustrated attempts to record the 
+recipe, building gentle melancholy, likely resolving with some form of 
+warmth or acceptance (perhaps someone else stepping in to help, or 
+finding peace with imperfect memory) — written in close third person 
+with restrained, literary prose matching the specified tone.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Write a short sci-fi story outline (bullet-point plot beats, not full 
+prose yet) for a story with this premise: 
+
+Genre: hard sci-fi with a personal, intimate focus (not epic space 
+opera). 
+Setting: a solitary research station on Europa, near-future. 
+Protagonist: Dr. Amara Chen, a xenobiologist who has just detected a 
+signal that could be evidence of alien life — but confirming it 
+requires her to sabotage the station's safety protocols in a way that 
+endangers her own crew. 
+Central conflict: scientific ambition and the desire for a 
+world-changing discovery vs. genuine risk to people she cares about. 
+Tone: tense, morally ambiguous, restrained (not melodramatic). 
+POV: first person. 
+
+Provide 6-8 major plot beats as an outline, without writing full 
+prose."
+
+Expected Output:
+A structured outline of 6-8 plot beats tracing Amara's escalating 
+internal conflict — likely including the initial signal detection, an 
+early smaller risk she takes and its cost, escalating pressure/
+temptation, a genuine moment of crew endangerment, a moral reckoning, 
+and an ending that doesn't resolve too neatly (matching the specified 
+"morally ambiguous, restrained" tone) — providing scaffolding for 
+later full-prose expansion rather than complete narrative text.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"I want to write a literary short story exploring themes of memory 
+and inherited trauma, avoiding common clichés in this space (avoid: a 
+literal magical artifact representing memory, an overly neat 
+therapy-session revelation scene, a dead relative's ghost literally 
+appearing). 
+
+Genre: literary fiction with subtle magical realism. 
+Setting: contemporary Kolkata, during Durga Puja. 
+Protagonist: Ronit, a young man visiting his grandmother's ancestral 
+home for the first time since her death, who begins noticing that 
+certain rooms in the house seem to shift subtly each time he 
+re-enters them — not fantastical or explained, just quietly, 
+unsettlingly different. 
+Central conflict: Ronit's need to understand his grandmother 
+(who he barely knew) and a family silence around her own mother's 
+disappearance decades earlier, mirrored by the house's own instability. 
+Tone: quiet, atmospheric, unresolved in a way that feels intentional 
+rather than incomplete. 
+POV: close third person. 
+Length: 1200-1500 words. 
+
+First provide a brief outline (4-5 beats), then, if the outline looks 
+right, I'll ask you to expand it into full prose."
+
+Expected Output:
+A thoughtful outline avoiding all three specified clichés, using the 
+shifting-rooms motif as a genuinely subtle, ambiguous magical-realist 
+device (rather than an explained supernatural mechanism) that 
+externalizes the family's unspoken history, tracing Ronit's growing 
+unease and partial, incomplete understanding — building toward an 
+ending that deliberately resists tidy resolution, appropriate to the 
+specified tone — demonstrating sophisticated genre awareness and 
+active avoidance of the named clichés rather than falling back on them 
+by default.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Write a [GENRE/TONE] [FORMAT: short story/flash fiction/outline] 
+    of approximately [LENGTH].
+    
+    Setting: [WHERE AND WHEN]
+    
+    Protagonist: [NAME/DESCRIPTION], who wants [SPECIFIC GOAL/NEED]
+    
+    Central conflict: [WHAT STANDS IN THEIR WAY / THE SOURCE OF 
+    TENSION]
+    
+    Tone: [SPECIFIC TONE DESCRIPTORS]
+    
+    POV: [FIRST PERSON / THIRD PERSON LIMITED / OMNISCIENT]
+    
+    [OPTIONAL: Avoid these clichés: [LIST]]
+    [OPTIONAL: Resolution guidance: [e.g., bittersweet, open-ended, 
+    twist]]
+
+=====================================================================
+END OF FILE 46 — Story Prompting
+=====================================================================

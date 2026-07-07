@@ -1,0 +1,257 @@
+=====================================================================
+48. IMAGE PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Creative)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Image Prompting — Crafting Effective Prompts for AI Image Generation
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Image prompting is the technique of writing text prompts specifically 
+optimized for TEXT-TO-IMAGE generation models (Midjourney, DALL-E, 
+Stable Diffusion, Google Imagen, Adobe Firefly) — a distinct discipline 
+from prompting text-generating LLMs, since image models respond to 
+different structural conventions: specific visual/stylistic vocabulary, 
+subject-medium-style-lighting-composition layering, aspect ratio and 
+technical parameters, and often benefit from an entirely different 
+"grammar" than natural conversational instruction. This directly 
+supports AI-assisted creative and photo/video editing workflows.
+
+Think of it like the difference between describing a photo to a person 
+who will paint it from your description (conversational, contextual 
+detail matters) versus giving a photographer extremely specific 
+technical direction: subject, lens choice, lighting setup, composition, 
+color grade, and reference style — image generation models respond 
+much more reliably to this dense, keyword-and-phrase-driven technical 
+specification than to flowing conversational prose.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Image prompting exists to:
+- Reliably communicate VISUAL INTENT to image generation models, which 
+  parse prompts fundamentally differently than conversational LLMs.
+- Control specific visual attributes: subject, style/medium, 
+  composition, lighting, color palette, mood, and technical camera-like 
+  parameters (lens, depth of field, angle).
+- Achieve CONSISTENT results across multiple generations by using 
+  precise, reproducible descriptive vocabulary rather than vague, 
+  interpretable language.
+- Support iterative refinement — understanding which specific prompt 
+  elements to adjust to change specific visual outcomes (changing 
+  "lighting: soft golden hour" to fix an overly harsh result, for 
+  example).
+- Bridge creative vision with the specific technical vocabulary that 
+  different image models respond best to, since different tools 
+  (Midjourney vs. Stable Diffusion vs. DALL-E) have somewhat different 
+  optimal prompting conventions.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Generating any AI image — illustrations, concept art, photo-style 
+  images, product mockups, character designs.
+- Photo editing/enhancement workflows where AI generation supplements 
+  or extends existing images.
+- Building visual assets for creative projects, presentations, 
+  storyboards, or design mockups.
+- Iterating on a visual concept where precise control over specific 
+  attributes (lighting, style, composition) matters.
+
+WHEN NOT TO USE:
+- When you need EXACT, literal reproduction of a real, specific, 
+  identifiable place, object, or (especially) real person — image 
+  models are for creative generation, not precise photographic 
+  documentation, and generating images of real identifiable people 
+  raises its own ethical/policy considerations.
+- Extremely simple, single-word image needs where minimal prompting 
+  is genuinely sufficient.
+- Tasks requiring text generation, not image generation (obviously 
+  use standard LLM prompting instead).
+
+BEST MODELS/TOOLS FOR IMAGE PROMPTING:
+- Midjourney — known for strong aesthetic/artistic output, responds 
+  well to concise, evocative keyword-and-phrase prompts with specific 
+  parameter flags (--ar for aspect ratio, --style, --stylize).
+- DALL-E 3 (via ChatGPT/API) — benefits from more natural-language, 
+  descriptive prompting compared to Midjourney's keyword-dense style, 
+  and can leverage an LLM to help EXPAND a simple idea into a detailed 
+  prompt automatically.
+- Stable Diffusion (and variants like SDXL) — highly configurable, 
+  often benefits from detailed positive AND negative prompts (what to 
+  avoid), with strong community-developed prompting conventions.
+- Google Imagen / Adobe Firefly — capable of both keyword-style and 
+  natural-language prompting depending on the specific interface; 
+  Firefly is particularly integrated with photo-editing-adjacent 
+  workflows.
+- General LLMs (Claude, GPT, Gemini) are often used AS a prompt-
+  writing assistant — describing a visual idea in plain language and 
+  asking the LLM to help expand/refine it into an optimized image-
+  generation prompt for a specific target tool.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [SUBJECT] + [ACTION/POSE] + [SETTING/BACKGROUND] + [STYLE/MEDIUM] 
+    + [LIGHTING] + [COLOR PALETTE] + [COMPOSITION/CAMERA ANGLE] + 
+    [MOOD] + [TECHNICAL PARAMETERS]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Subject — the main focal point (a person, object, creature, 
+       scene).
+    2. Action/Pose/State — what the subject is doing or how it's 
+       positioned.
+    3. Setting/Environment — the background/location context.
+    4. Style/Medium — photorealistic, oil painting, 3D render, anime, 
+       watercolor, cyberpunk digital art, etc.
+    5. Lighting — golden hour, dramatic side-lighting, soft diffused 
+       light, neon-lit.
+    6. Color Palette — dominant colors or overall color mood.
+    7. Composition/Angle — close-up, wide shot, bird's-eye view, rule 
+       of thirds.
+    8. Mood/Atmosphere — the emotional tone the image should evoke.
+    9. Technical Parameters (tool-specific) — aspect ratio, quality 
+       settings, negative prompts (what to avoid).
+
+Example skeleton:
+    "[SUBJECT] [ACTION], [SETTING], [STYLE/MEDIUM], [LIGHTING], 
+    [COLOR PALETTE], [COMPOSITION], [MOOD] --ar [ASPECT RATIO] 
+    [OTHER TOOL-SPECIFIC PARAMETERS]"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- LAYER your descriptive elements in a logical order (subject → 
+  setting → style → lighting → mood → technical params) — most image 
+  models weight earlier terms somewhat more heavily, so put your most 
+  important elements first.
+- Use SPECIFIC, evocative descriptive vocabulary rather than vague 
+  terms — "moody, cinematic lighting with deep shadows" produces more 
+  reliable results than just "nice lighting."
+- Reference ARTISTIC STYLES, mediums, or even specific artists/
+  photographers (where appropriate and not infringing on living 
+  artists' specific style in commercial contexts) to anchor the 
+  aesthetic direction precisely.
+- For tools supporting NEGATIVE PROMPTS (Stable Diffusion especially), 
+  explicitly list what to avoid (e.g., "blurry, distorted hands, extra 
+  fingers, watermark") since this meaningfully improves output quality.
+- Learn your SPECIFIC TOOL's conventions — Midjourney favors dense 
+  keyword phrases with parameter flags; DALL-E often works well with 
+  more natural descriptive sentences; research your specific target 
+  tool's community-documented best practices.
+- ITERATE systematically — when a result is close but not quite right, 
+  change ONE element at a time (just the lighting, or just the 
+  composition) to understand which specific prompt element controls 
+  which specific visual outcome.
+- For CONSISTENCY across multiple related images (e.g., a character 
+  across several scenes), keep the character/style description 
+  elements identical across prompts, varying only the scene-specific 
+  elements.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Writing image prompts in the same conversational style used 
+  for LLM text prompts, missing the keyword-and-phrase density that 
+  many image models respond better to.
+  FIX: Learn and adopt the layered, descriptive-phrase structure 
+  specific to image generation prompting.
+
+- MISTAKE: Using vague style/mood descriptors ("nice," "cool," "good 
+  quality") that don't give the model specific visual direction.
+  FIX: Use specific, evocative, and technically descriptive vocabulary.
+
+- MISTAKE: Not using negative prompts on tools that support them, 
+  missing an easy way to avoid common generation artifacts.
+  FIX: Explicitly list unwanted elements via negative prompts where 
+  supported.
+
+- MISTAKE: Changing multiple prompt elements simultaneously between 
+  iterations, making it hard to learn which specific change caused 
+  which specific visual result.
+  FIX: Iterate systematically, changing one element at a time.
+
+- MISTAKE: Assuming the exact same prompt style/conventions work 
+  identically across different image generation tools without 
+  adapting to each tool's specific documented best practices.
+  FIX: Research and adapt to your specific target tool's conventions.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"A red fox sitting in a snowy forest, photorealistic, soft morning 
+light, cool blue-white color palette, close-up shot, peaceful mood"
+
+Expected Output:
+An AI-generated image depicting a photorealistic red fox in a snowy 
+forest setting, with soft, diffused morning lighting, a cool color 
+palette dominated by blues and whites, framed as a close-up, conveying 
+a calm, peaceful atmosphere.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Cyberpunk street food vendor, elderly woman cooking noodles at a 
+steam-filled night market stall, neon-lit alley in the background, 
+digital art style reminiscent of Blade Runner concept art, dramatic 
+rim lighting from neon signs, teal and magenta color palette, 
+medium shot with shallow depth of field, atmospheric and slightly 
+melancholic mood --ar 16:9"
+
+Expected Output:
+A richly detailed cyberpunk-style digital artwork depicting an elderly 
+food vendor at a night market stall, neon-lit background creating 
+teal/magenta rim lighting on her figure, steam rising from her 
+cooking, shallow depth of field blurring the busy alley behind her, 
+composed in a widescreen 16:9 aspect ratio, evoking the specified 
+atmospheric, slightly melancholic Blade Runner-adjacent aesthetic.
+
+--- ADVANCED EXAMPLE ---
+Prompt (for Stable Diffusion, with positive and negative prompts):
+Positive: "Portrait of a young astronaut removing her helmet on an 
+alien planet surface, bioluminescent alien flora glowing softly in 
+the background, awe-struck expression, golden hour lighting mixing 
+with cool blue bioluminescent glow, hyper-detailed digital painting, 
+dramatic low-angle composition, sense of wonder and discovery, 
+trending on artstation, 8k, highly detailed"
+
+Negative: "blurry, low quality, distorted face, extra fingers, 
+malformed hands, watermark, text, oversaturated, cartoon, anime 
+style, disfigured"
+
+Expected Output:
+A highly detailed, painterly digital artwork of an astronaut in a 
+low-angle heroic composition, her expression conveying genuine awe, 
+lit by a striking combination of warm golden-hour sunlight and cool 
+bioluminescent glow from alien plants, with the negative prompt 
+successfully steering the generation away from common AI-art artifacts 
+(malformed hands, extra fingers, blurriness, unwanted text/watermarks) 
+that might otherwise appear — demonstrating the value of explicit 
+negative prompting for quality control in tools that support it.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    [SUBJECT] [ACTION/POSE], [SETTING/ENVIRONMENT], [STYLE/MEDIUM], 
+    [LIGHTING DESCRIPTION], [COLOR PALETTE], [COMPOSITION/CAMERA 
+    ANGLE], [MOOD/ATMOSPHERE] [TECHNICAL PARAMETERS: --ar 
+    ASPECT_RATIO, quality settings]
+    
+    [FOR TOOLS SUPPORTING NEGATIVE PROMPTS:]
+    Negative prompt: [ELEMENTS TO AVOID — e.g., blurry, distorted, 
+    extra limbs, watermark, low quality]
+
+=====================================================================
+END OF FILE 48 — Image Prompting
+=====================================================================

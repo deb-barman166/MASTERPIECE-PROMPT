@@ -1,0 +1,290 @@
+=====================================================================
+68. PROMPT CHAINING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Meta/
+Optimization)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Prompt Chaining — Connecting Sequential Prompts Into a Pipeline
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Prompt chaining is a technique where a complex task is broken into 
+MULTIPLE SEQUENTIAL PROMPTS, with each prompt's OUTPUT feeding directly 
+into the NEXT prompt's input, forming a connected pipeline rather than 
+attempting the entire task in a single, monolithic prompt. This is 
+distinct from Plan-and-Solve Prompting (file 24, which is typically ONE 
+model handling both planning and execution within a continuous 
+context) and from the Planner/Executor multi-agent pattern (files 25-
+26, which involves distinct AGENT ROLES) — Prompt Chaining is 
+specifically about the SEQUENTIAL, LINEAR ARCHITECTURE of connected 
+prompts/calls, which can be implemented with a single model, multiple 
+models, or as the underlying mechanical pattern beneath more complex 
+multi-agent systems.
+
+Think of it like an assembly line: rather than one worker trying to 
+build an entire car from raw materials to finished product alone in 
+one continuous effort, the work is broken into sequential stations — 
+each station's completed output becomes the next station's starting 
+input — with the key characteristic being the LINEAR, SEQUENTIAL flow 
+of work product from one stage to the next.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Prompt chaining exists to:
+- Break COMPLEX, multi-stage tasks into manageable, independently 
+  verifiable steps, rather than attempting everything in one massive 
+  prompt where errors are harder to isolate.
+- Allow INTERMEDIATE VERIFICATION/CORRECTION — you (or an automated 
+  check) can inspect and potentially fix the output of an intermediate 
+  step before it propagates into subsequent stages.
+- Support DIFFERENT PROMPTING TECHNIQUES or even different MODELS at 
+  each stage, optimizing each step for its specific sub-task rather 
+  than forcing one prompt/model to handle everything.
+- Manage CONTEXT WINDOW limitations — breaking work into chained steps 
+  means each individual prompt only needs to hold the context relevant 
+  to that specific stage, not the entire task's full history.
+- Provide the underlying mechanical pattern for building more 
+  sophisticated pipelines and agentic workflows (directly connects to 
+  Workflow Prompting, file 32, and Agentic Workflow Prompting covered 
+  later in this section).
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Complex tasks that naturally decompose into distinct sequential 
+  stages (research → outline → draft → edit; extract data → validate → 
+  transform → format).
+- Tasks where intermediate output verification/correction adds real 
+  value before proceeding to the next stage.
+- Tasks that would exceed a reasonable single-prompt context or 
+  complexity budget if attempted all at once.
+- Building programmatic pipelines (via code orchestrating multiple API 
+  calls) where each stage benefits from a differently-optimized prompt 
+  or even a different model.
+
+WHEN NOT TO USE:
+- Simple tasks that a single well-crafted prompt handles perfectly well 
+  — unnecessary chaining adds latency, cost, and complexity without 
+  benefit.
+- When stages are so tightly interdependent that artificial separation 
+  would lose important context/nuance that flows naturally when kept 
+  together.
+- Extremely time-sensitive tasks where the added latency of multiple 
+  sequential calls is a genuine problem.
+
+BEST MODELS FOR PROMPT CHAINING:
+- ANY capable model works for prompt chaining, since this is 
+  fundamentally an ARCHITECTURAL/orchestration pattern (how you 
+  structure your calls) rather than a special model capability — 
+  Claude, GPT-4o/4.1/5-class, Gemini, and others all support chaining 
+  equally well when implemented via code/API calls.
+- MIXED-MODEL CHAINS are common and often effective: using a cheaper/
+  faster model for simpler stages (initial data extraction) and a more 
+  capable model for stages requiring deeper reasoning (final synthesis/
+  analysis).
+- Orchestration frameworks (LangChain, LangGraph — directly relevant to 
+  hybrid RAG pipeline projects) provide infrastructure specifically 
+  designed to manage prompt chains, handle intermediate state, and 
+  incorporate conditional logic between stages.
+- For chains requiring conditional branching between stages (not just 
+  strict linear sequence), combine with Workflow Prompting (file 32) 
+  principles at each decision point.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [PROMPT 1: TASK A] → [OUTPUT 1] → 
+    [PROMPT 2: TASK B, using OUTPUT 1 as input] → [OUTPUT 2] → 
+    [PROMPT 3: TASK C, using OUTPUT 2 as input] → [FINAL OUTPUT]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Stage Decomposition — break the overall task into distinct 
+       sequential stages, each with a clear, well-defined sub-goal.
+    2. Stage 1 Prompt — the first prompt in the chain, producing an 
+       output that will feed into Stage 2.
+    3. Output-to-Input Transition — how Stage 1's output is formatted/
+       passed as Stage 2's input (may need light reformatting/
+       extraction between stages).
+    4. Stage 2+ Prompts — each subsequent prompt explicitly 
+       incorporating the previous stage's output as context/input.
+    5. Verification Points (optional) — checkpoints where intermediate 
+       output can be reviewed/corrected before proceeding.
+    6. Final Stage — the last prompt in the chain producing the 
+       ultimate desired output.
+
+Example skeleton:
+    "STAGE 1: [FIRST SUB-TASK]. 
+    [Produces Output 1] 
+    
+    STAGE 2: Using this input: [OUTPUT 1], [SECOND SUB-TASK building 
+    on it]. 
+    [Produces Output 2] 
+    
+    STAGE 3: Using this input: [OUTPUT 2], [FINAL SUB-TASK]. 
+    [Produces Final Output]"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Design each STAGE with a clear, singular sub-goal — avoid cramming 
+  multiple distinct objectives into one stage, which defeats the 
+  purpose of breaking the task down.
+- Consider VERIFICATION CHECKPOINTS between stages for important 
+  pipelines — catching an error at Stage 2 is far cheaper than 
+  discovering it only after Stage 5 has already built on the flawed 
+  output.
+- Match PROMPTING TECHNIQUE to each stage's specific needs — a 
+  research stage might use Search-Augmented Prompting, a synthesis 
+  stage might use Chain-of-Thought, a formatting stage might use 
+  Structured/JSON Prompting.
+- Consider using DIFFERENT MODELS for different stages based on cost/
+  capability trade-offs — reserve your most capable (and expensive) 
+  model for stages genuinely requiring deep reasoning, using faster/
+  cheaper models for simpler stages.
+- Handle STAGE FAILURES explicitly — what happens if an intermediate 
+  stage produces unusable output? Build in retry logic or fallback 
+  behavior rather than assuming every stage always succeeds cleanly.
+- Keep INTERMEDIATE OUTPUTS in a clean, well-defined format (often 
+  structured/JSON) so the transition between stages is reliable and 
+  parseable, especially for programmatically orchestrated chains.
+- For chains implemented in code, LOG intermediate outputs at each 
+  stage — this dramatically improves debuggability when the final 
+  output isn't as expected, since you can identify exactly which stage 
+  introduced the problem.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Cramming multiple distinct objectives into a single stage, 
+  defeating the purpose of breaking the task into manageable, focused 
+  steps.
+  FIX: Keep each stage focused on one clear sub-goal.
+
+- MISTAKE: No verification/checkpoint between stages, allowing errors 
+  introduced early in the chain to silently propagate and compound 
+  through all subsequent stages.
+  FIX: Build in verification checkpoints for important chains, 
+  especially before costly or hard-to-reverse later stages.
+
+- MISTAKE: Using the same model/technique uniformly across all stages 
+  regardless of each stage's actual requirements, missing optimization 
+  opportunities.
+  FIX: Match model choice and prompting technique to each stage's 
+  specific needs.
+
+- MISTAKE: Not handling the case where an intermediate stage fails or 
+  produces unusable output, causing the entire chain to fail 
+  ungracefully.
+  FIX: Build in explicit failure handling/retry logic for intermediate 
+  stages.
+
+- MISTAKE: Not logging intermediate outputs, making it very difficult 
+  to debug when the final chain output isn't as expected.
+  FIX: Log/preserve intermediate outputs at each stage for 
+  debuggability.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Chain:
+"STAGE 1: Extract the key facts (who, what, when, where) from this news 
+article: [article text]. Output as a simple bulleted list. 
+
+STAGE 2: Using this list of key facts: [OUTPUT FROM STAGE 1], write a 
+2-sentence summary suitable for a news alert notification."
+
+Expected Output:
+Stage 1 produces a clean bulleted list of extracted facts; Stage 2, 
+using ONLY that extracted list (not needing to re-process the full 
+original article), produces a concise 2-sentence summary — 
+demonstrating how breaking extraction and summarization into separate 
+stages can simplify each individual step.
+
+--- INTERMEDIATE EXAMPLE ---
+Chain:
+"STAGE 1: Given this customer complaint email: [email text], classify 
+it into one of: Billing, Technical, Shipping, Other, and extract the 
+customer's specific stated issue in one sentence. Output as JSON: 
+{\"category\": \"...\", \"issue_summary\": \"...\"}. 
+
+STAGE 2: Using this classification and issue summary: [OUTPUT FROM 
+STAGE 1], and knowing this is a '[CATEGORY]' issue, draft an 
+appropriate response following our '[CATEGORY]-specific' response 
+template: [relevant template for that category]."
+
+Expected Output:
+Stage 1 produces structured classification + issue extraction; Stage 2 
+uses that structured output to select and apply the CORRECT category-
+specific response template — demonstrating how chaining allows Stage 2 
+to be genuinely simpler/more targeted (since it already knows the 
+category and doesn't need to re-classify) than attempting classification 
+and response drafting in one single complex prompt.
+
+--- ADVANCED EXAMPLE ---
+Chain (for an automated technical blog content pipeline):
+"STAGE 1 (Research): Research current best practices for [TECHNICAL 
+TOPIC], using search, covering: [specific sub-angles]. Output a 
+structured research summary with citations. 
+
+STAGE 2 (Outline): Using this research: [OUTPUT FROM STAGE 1], create 
+a detailed outline for a technical blog post targeting [AUDIENCE], 
+structured as: Introduction, 3-4 main sections with sub-points, 
+Conclusion. Output as a numbered outline. 
+
+[CHECKPOINT: Human reviews outline before proceeding, and may edit it] 
+
+STAGE 3 (Draft): Using this approved outline: [OUTPUT FROM STAGE 2, 
+possibly human-edited] and the original research: [OUTPUT FROM STAGE 
+1], write the full blog post draft, maintaining the citations from the 
+research stage where relevant claims are made. 
+
+STAGE 4 (Edit): Review this draft: [OUTPUT FROM STAGE 3] for clarity, 
+flow, and appropriate tone for [AUDIENCE]. Provide a final, polished 
+version. 
+
+STAGE 5 (Format): Convert this final draft: [OUTPUT FROM STAGE 4] into 
+properly formatted Markdown with appropriate headers matching the 
+approved outline structure, ready for publishing."
+
+Expected Output:
+A complete 5-stage pipeline where each stage has a clear, focused 
+responsibility (research, outlining, drafting, editing, formatting), 
+with an explicit human checkpoint between outlining and drafting 
+(catching structural issues before the more expensive full-draft stage), 
+each stage building on verified prior output rather than attempting 
+research-through-formatting in one single overwhelming prompt — 
+demonstrating a realistic, production-style content pipeline 
+architecture using prompt chaining as its backbone.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    STAGE 1: [FIRST SUB-TASK, clearly scoped]
+    → Produces: [OUTPUT 1, in a clean, well-defined format]
+    
+    STAGE 2: Using this input: [OUTPUT 1], [SECOND SUB-TASK building 
+    directly on it]
+    → Produces: [OUTPUT 2]
+    
+    [OPTIONAL CHECKPOINT: Review/verify OUTPUT 2 before proceeding]
+    
+    STAGE 3: Using this input: [OUTPUT 2], [FINAL SUB-TASK]
+    → Produces: [FINAL OUTPUT]
+    
+    [Add additional stages as needed for your specific pipeline]
+
+=====================================================================
+END OF FILE 68 — Prompt Chaining
+=====================================================================

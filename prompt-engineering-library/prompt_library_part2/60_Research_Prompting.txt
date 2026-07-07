@@ -1,0 +1,301 @@
+=====================================================================
+60. RESEARCH PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Analytical)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Research Prompting — Conducting Thorough, Multi-Source Investigation
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Research prompting is a technique for instructing an LLM to conduct a 
+THOROUGH, MULTI-FACETED investigation into a topic or question — 
+typically involving multiple searches/sources (via Search-Augmented 
+Prompting or provided documents via RAG), systematic coverage of 
+different angles or sub-questions, and synthesis into a comprehensive, 
+well-organized answer. This differs from a simple factual question in 
+scope and depth: Research Prompting is for genuinely open-ended, multi-
+part, or nuanced topics where a single quick lookup wouldn't produce a 
+sufficiently complete picture.
+
+Think of it like the difference between asking a librarian "what year 
+was X founded" (a quick factual lookup) versus commissioning an actual 
+research report on a topic — requiring the librarian to consult 
+multiple sources, cross-reference conflicting information, organize 
+findings by sub-topic, and synthesize everything into a coherent, 
+comprehensive overview rather than a single fact.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Research prompting exists to:
+- Provide COMPREHENSIVE coverage of complex, multi-faceted topics that 
+  a single quick answer couldn't adequately address.
+- Systematically explore DIFFERENT ANGLES or sub-questions within a 
+  broader topic, ensuring balanced and thorough coverage rather than an 
+  accidentally narrow focus.
+- Synthesize information across MULTIPLE SOURCES, identifying 
+  agreement, disagreement, and gaps in available information.
+- Support informed DECISION-MAKING on complex questions by providing 
+  the depth of understanding needed, rather than a superficial summary.
+- Combine naturally with Search-Augmented Prompting (for current 
+  information) and RAG Prompting (for provided document corpora) as the 
+  underlying information-gathering mechanisms.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Open-ended questions requiring investigation across multiple sources 
+  or sub-topics (market research, technology comparisons, background 
+  investigation before a decision).
+- Topics with genuine complexity or nuance that a single search/answer 
+  wouldn't adequately capture.
+- Preparing for significant decisions (career choices, technical 
+  architecture decisions, purchasing decisions) that benefit from 
+  thorough investigation.
+- Academic or professional contexts requiring demonstrated, well-
+  sourced understanding of a topic.
+
+WHEN NOT TO USE:
+- Simple, single-fact questions with a quick, direct answer (use 
+  standard Instruction Prompting or Search-Augmented Prompting for a 
+  single search instead).
+- Topics you already have sufficient understanding of, where additional 
+  research would be redundant effort.
+- Time-sensitive situations where a "good enough" quick answer is more 
+  valuable than comprehensive depth.
+
+BEST MODELS FOR RESEARCH PROMPTING:
+- Claude (with web search and extended thinking, or dedicated Research/
+  deep research features) — excellent for thorough, well-organized 
+  multi-source research with good synthesis and honest handling of 
+  conflicting information.
+- GPT-4o/4.1/5-class (with browsing/Deep Research features) — strong 
+  research capability, particularly with dedicated deep-research 
+  product features designed for exactly this extended investigation use 
+  case.
+- Gemini Pro/Ultra (with Search grounding and Deep Research features) — 
+  strong research capability, well-integrated with Google's search 
+  infrastructure.
+- Perplexity — purpose-built specifically around thorough, cited, 
+  multi-source research as its core product function.
+- For VERY extensive research (30+ searches/sources), dedicated 
+  "Deep Research" style product features (available across most major 
+  providers) are specifically designed for this use case and generally 
+  outperform manually orchestrating dozens of individual search calls 
+  yourself.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [RESEARCH QUESTION/TOPIC] + [SPECIFIC SUB-QUESTIONS/ANGLES TO 
+    COVER] + "Research this thoroughly across multiple sources, note 
+    any conflicting information, and synthesize a comprehensive, well-
+    organized answer with citations."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Research Question/Topic — the overall subject requiring 
+       investigation.
+    2. Sub-Questions/Angles — specific facets that need to be covered 
+       for a complete picture (breaking a broad topic into concrete 
+       components).
+    3. Source Requirements — how many/what kind of sources should 
+       inform the research (recency requirements, source type 
+       preferences).
+    4. Synthesis Instruction — explicit request to organize findings 
+       coherently, not just list raw facts.
+    5. Conflict Handling — instruction to note when sources disagree 
+       rather than silently picking one.
+    6. Citation Requirement — proper attribution per Citation Prompting 
+       (file 37) principles.
+
+Example skeleton:
+    "Research [TOPIC] thoroughly. 
+    
+    Cover these specific angles: 
+    - [SUB-QUESTION 1] 
+    - [SUB-QUESTION 2] 
+    - [SUB-QUESTION 3] 
+    
+    Use multiple sources, prioritizing [RECENCY/AUTHORITY 
+    REQUIREMENTS]. Note any conflicting information found across 
+    sources. Synthesize your findings into a well-organized, 
+    comprehensive answer with citations."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Break the broad TOPIC into SPECIFIC SUB-QUESTIONS upfront — this 
+  ensures systematic, balanced coverage rather than the research 
+  accidentally focusing heavily on whatever angle happens to dominate 
+  initial search results.
+- Specify SOURCE QUALITY/RECENCY requirements explicitly when relevant 
+  (e.g., "prioritize sources from the last 12 months" for fast-
+  changing topics, or "prioritize peer-reviewed sources" for scientific 
+  topics).
+- Explicitly request that CONFLICTING information be noted rather than 
+  silently resolved — genuine research often surfaces disagreement, and 
+  papering over this reduces the value/honesty of the research.
+- Request SYNTHESIS, not just a list of found facts — the value of 
+  research prompting comes from organizing and connecting information 
+  into genuine understanding, not just aggregating search snippets.
+- For genuinely extensive research needs (many distinct sub-questions, 
+  broad scope), consider using a dedicated "Deep Research" product 
+  feature rather than manually requesting dozens of searches in a 
+  standard conversation.
+- Request CITATIONS throughout, following Citation Prompting (file 37) 
+  principles, so findings remain verifiable.
+- For decision-support research, explicitly ask for the research to 
+  conclude with a clear SUMMARY of key takeaways relevant to the 
+  decision at hand, not just raw information.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Providing only a broad topic with no specific sub-questions, 
+  resulting in research that covers whatever angle happens to be most 
+  prominent in initial results rather than systematic coverage.
+  FIX: Break the topic into specific sub-questions/angles to cover.
+
+- MISTAKE: Not specifying source recency/quality requirements for 
+  topics where this matters significantly.
+  FIX: Explicitly state recency or source-type requirements when 
+  relevant.
+
+- MISTAKE: Silently resolving conflicting information found across 
+  sources rather than transparently noting the disagreement.
+  FIX: Explicitly request that conflicts be flagged, not silently 
+  resolved.
+
+- MISTAKE: Receiving a list of raw facts without genuine synthesis/
+  organization into coherent understanding.
+  FIX: Explicitly request synthesis, not just information gathering.
+
+- MISTAKE: Manually attempting dozens of individual search requests in 
+  a standard conversation when a dedicated deep-research feature would 
+  be more effective for very extensive research needs.
+  FIX: Use dedicated Research/Deep Research product features for large-
+  scale research tasks.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Research the current landscape of open-source vector database options 
+for RAG applications (ChromaDB, FAISS, Weaviate, Qdrant, Milvus). 
+
+Cover: 
+- Key differentiating features of each 
+- Typical use case fit for each 
+- Any notable recent (last 6-12 months) developments 
+
+Use multiple sources, note the publication date of information where 
+recency matters, and synthesize a comparative overview with 
+citations."
+
+Expected Output:
+A well-organized comparative overview covering all 5 named vector 
+databases across the requested dimensions, with citations for specific 
+claims and appropriate flagging of recency for any time-sensitive 
+information (e.g., recent version releases or benchmark results).
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Research the trade-offs between different approaches to building AI 
+agent memory systems for long-running multi-agent applications. 
+
+Cover these specific angles: 
+- Vector-database-based semantic memory approaches 
+- Graph-based memory/knowledge representation approaches 
+- Hybrid approaches combining multiple memory types 
+- Known challenges/limitations reported by practitioners for each 
+approach 
+- Any notable open-source frameworks or reference implementations 
+
+Use multiple sources including technical blogs, documentation, and 
+research discussions. Note any significant disagreements or trade-off 
+debates you find across sources. Synthesize into a well-organized 
+comparison, concluding with a brief summary of what factors would 
+determine which approach fits different use cases."
+
+Expected Output:
+A comprehensive, well-organized research synthesis covering all 5 
+specified angles, citing multiple sources, honestly noting where 
+practitioner opinions/approaches diverge (e.g., debates about vector-
+only vs. hybrid approaches), referencing relevant open-source 
+frameworks, and concluding with practical decision-relevant guidance 
+about which approach might suit different use case profiles.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"I'm deciding on a long-term technical direction for a personal AI 
+project portfolio, considering whether to specialize deeply in agentic 
+multi-agent systems versus building broader full-stack AI product 
+skills. Research the current job market and skill-demand landscape to 
+inform this decision. 
+
+Cover these specific angles: 
+- Current demand signals for specialized 'AI agent engineering' roles 
+vs. broader 'AI/ML engineer' or 'full-stack AI developer' roles 
+- How major AI companies and AI-focused startups are structuring 
+relevant engineering teams/roles currently 
+- Any notable recent (last 6 months) shifts in what skills are being 
+prioritized in AI hiring, given how fast this field moves 
+- Perspectives from practitioners/industry voices on which specialization 
+path offers better long-term career resilience, acknowledging this is 
+a genuinely debated question without a single settled answer 
+
+Use multiple current sources. Explicitly note where you find genuinely 
+conflicting expert opinions rather than presenting one view as 
+settled consensus, since this appears to be a contested question. 
+Synthesize into a well-organized overview, concluding with the key 
+factors that would help someone weigh this decision for their own 
+specific situation, rather than a one-size-fits-all recommendation."
+
+Expected Output:
+A thorough, current, multi-source research synthesis covering all 4 
+angles, appropriately treating the specialization-vs-breadth question 
+as genuinely contested among practitioners (explicitly presenting 
+different expert viewpoints rather than false consensus), grounded in 
+recent hiring/market signals rather than outdated general assumptions, 
+and concluding with a decision framework (e.g., factors like current 
+skill gaps, personal interest sustainability, local vs. remote job 
+market considerations) rather than a single prescriptive answer — 
+appropriately calibrated to present balanced, evenhanded treatment of 
+a genuinely debated career question rather than the model's own 
+singular opinion.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Research [YOUR TOPIC/QUESTION] thoroughly.
+    
+    Cover these specific angles:
+    - [SUB-QUESTION/ANGLE 1]
+    - [SUB-QUESTION/ANGLE 2]
+    - [SUB-QUESTION/ANGLE 3]
+    
+    Source requirements: [RECENCY, AUTHORITY, OR SOURCE-TYPE 
+    PREFERENCES]
+    
+    Note any conflicting information or genuinely contested viewpoints 
+    found across sources, rather than presenting one view as settled 
+    consensus if it isn't.
+    
+    Synthesize your findings into a well-organized, comprehensive 
+    answer with citations, concluding with [KEY TAKEAWAYS / DECISION-
+    RELEVANT SUMMARY, if applicable].
+
+=====================================================================
+END OF FILE 60 — Research Prompting
+=====================================================================

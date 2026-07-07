@@ -1,0 +1,342 @@
+=====================================================================
+74. DYNAMIC PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Meta/
+Optimization)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Dynamic Prompting — Automatically Assembling Prompts From Live Context
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Dynamic prompting is a technique where a prompt's actual CONTENT is 
+automatically ASSEMBLED at runtime from variable, real-time data 
+sources — user profile information, current session state, retrieved 
+documents, application context, time/date, or other live inputs — 
+rather than being a fixed, static piece of text. This extends Template 
+Prompting's (file 43) variable-filling concept into a fully 
+PROGRAMMATIC, RUNTIME-DRIVEN process, where the SPECIFIC content 
+inserted depends on data that's only known at the moment the prompt is 
+actually constructed and sent, rather than pre-determined variable 
+values chosen manually.
+
+Think of it like the difference between a form letter with blanks you 
+manually fill in each time (Template Prompting) versus an automated 
+system that pulls a customer's actual account history, current date, 
+recent support interactions, and stated preferences directly from live 
+databases to automatically construct a genuinely personalized message 
+without any human manually deciding what specific values to insert — 
+the assembly process itself is automated and driven by real-time data.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Dynamic prompting exists to:
+- Enable genuine PERSONALIZATION at scale — automatically incorporating 
+  each specific user's actual context/history/preferences without 
+  manual intervention for every single interaction.
+- Support APPLICATIONS where the relevant context changes constantly 
+  (current system state, live data, session history) and can't be 
+  hardcoded into a static template.
+- Power PRODUCTION AI features that feel contextually aware — a 
+  customer service bot that references the actual user's specific order 
+  history, a coding assistant that incorporates the actual current file/
+  project context.
+- Combine naturally with Memory Prompting (file 34), RAG Prompting 
+  (file 33), and Context Prompting (file 08) as the RUNTIME MECHANISM 
+  that assembles those systems' relevant information into an actual 
+  prompt sent to the model.
+- Reduce MANUAL EFFORT — once the dynamic assembly system is built, it 
+  scales automatically to any number of users/sessions/contexts without 
+  per-instance manual customization.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Building production applications requiring genuine per-user or per-
+  session personalization at scale.
+- Any system where relevant context (user data, current state, 
+  retrieved information) is only known at runtime, not in advance.
+- Chatbots, assistants, or agents that need to incorporate live session 
+  state, user history, or current application context into their 
+  responses.
+- Systems combining multiple dynamic data sources (user profile + 
+  retrieved documents + current date/time + session history) into a 
+  single coherent prompt.
+
+WHEN NOT TO USE:
+- Simple, one-off tasks where a static prompt (or basic manually-filled 
+  Template Prompting) is entirely sufficient.
+- Situations without actual runtime data infrastructure to pull from — 
+  dynamic prompting requires genuine systems integration (databases, 
+  APIs, session state), not just clever prompt wording.
+- Prototyping/exploration phases where you're still determining what 
+  context actually matters, before building the automated assembly 
+  infrastructure around it.
+
+BEST MODELS FOR DYNAMIC PROMPTING:
+- ANY capable model works with dynamically-assembled prompts, since 
+  (like Prompt Chaining and Adaptive Prompting) this is fundamentally 
+  an APPLICATION ARCHITECTURE pattern rather than a special model 
+  capability — the model simply receives whatever prompt was 
+  dynamically assembled and processes it normally.
+- Models with LARGER CONTEXT WINDOWS (Claude 200K+, Gemini 1.5/2.x Pro) 
+  provide more headroom for including substantial dynamically-retrieved 
+  context (user history, multiple retrieved documents) without hitting 
+  limits.
+- This technique fundamentally requires PROGRAMMATIC implementation — 
+  actual application code that pulls live data and assembles it into a 
+  final prompt string before sending it to the model's API — rather 
+  than being achievable through prompt wording alone in a single chat 
+  conversation.
+- Frameworks like LangChain, LangGraph, and various application backend 
+  systems typically provide the templating/assembly infrastructure that 
+  supports dynamic prompting in practice.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [STATIC INSTRUCTION TEMPLATE] + {DYNAMICALLY_PULLED_USER_DATA} + 
+    {DYNAMICALLY_RETRIEVED_CONTEXT} + {CURRENT_SESSION_STATE} + 
+    {RUNTIME_METADATA e.g., current_date}
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Static Instruction Core — the parts of the prompt that remain 
+       constant across all instances (role, general task framing, 
+       constraints).
+    2. Dynamic Data Insertion Points — clearly defined locations where 
+       runtime-pulled data gets inserted (user profile fields, 
+       retrieved document content, session history).
+    3. Data Source Mapping — the underlying system logic (typically in 
+       application code, not the prompt itself) defining WHERE each 
+       piece of dynamic data actually comes from (a database query, an 
+       API call, session memory).
+    4. Assembly Logic — the runtime process that pulls all relevant 
+       dynamic data and inserts it into the static template's insertion 
+       points to produce the final, ready-to-send prompt.
+    5. Fallback Handling — what happens if expected dynamic data is 
+       missing/unavailable at runtime (use a sensible default, omit that 
+       section gracefully, or flag an error).
+
+Example skeleton (conceptual, showing the assembled result):
+    "You are a customer support assistant for [COMPANY_NAME, pulled 
+    from app config]. 
+    
+    Current user: {user_name, pulled from user database} 
+    Account status: {account_tier, pulled from user database} 
+    Recent order history: {last_3_orders, pulled from orders database} 
+    Current date: {today's date, pulled from system clock} 
+    
+    User's current message: {live incoming message} 
+    
+    Respond helpfully, referencing their actual account context where 
+    relevant."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Clearly separate the STATIC template structure (which you design and 
+  test carefully) from the DYNAMIC data insertion logic (which pulls 
+  live values) in your actual application architecture, for 
+  maintainability.
+- ALWAYS handle MISSING/unavailable dynamic data gracefully — define 
+  sensible fallback behavior (a default value, an omitted section, or 
+  an explicit "information unavailable" note) rather than allowing a 
+  missing data source to break the entire prompt assembly.
+- VALIDATE and SANITIZE dynamically-inserted data, especially if any of 
+  it originates from user-controllable input, to guard against prompt 
+  injection or unexpected formatting issues disrupting your carefully-
+  designed static template structure.
+- Monitor the TOTAL SIZE of dynamically-assembled prompts, since 
+  combining multiple live data sources (user history + retrieved 
+  documents + session state) can sometimes produce unexpectedly large 
+  prompts approaching context limits.
+- Log the ACTUAL ASSEMBLED PROMPTS (or at least which dynamic data 
+  sources contributed what) in production systems, since debugging 
+  issues in a dynamically-assembled prompt requires visibility into 
+  exactly what data was actually inserted for that specific instance.
+- Test your dynamic assembly logic against EDGE CASES in the underlying 
+  data (a brand-new user with no history, a user with an unusually long 
+  history, missing profile fields) to confirm graceful handling across 
+  the realistic range of runtime scenarios.
+- Consider PRIVACY implications carefully when dynamically including 
+  personal user data in prompts, especially regarding what data is 
+  actually necessary to include versus what could be omitted while 
+  still achieving the personalization goal.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: No fallback handling for missing dynamic data, causing 
+  prompt assembly to fail or produce broken/nonsensical prompts when 
+  expected data isn't available.
+  FIX: Always define graceful fallback behavior for missing data 
+  sources.
+
+- MISTAKE: Not validating/sanitizing dynamically-inserted data, 
+  especially data influenced by user input, creating potential prompt 
+  injection vulnerabilities.
+  FIX: Validate and sanitize all dynamically-inserted data before 
+  assembly.
+
+- MISTAKE: Not monitoring total assembled prompt size, risking 
+  unexpectedly hitting context limits when multiple dynamic data 
+  sources combine into a larger-than-anticipated final prompt.
+  FIX: Monitor and account for the cumulative size of all dynamic data 
+  sources being combined.
+
+- MISTAKE: Insufficient logging of actual assembled prompts, making 
+  production debugging very difficult when something goes wrong for a 
+  specific user/session.
+  FIX: Log enough detail about dynamic data sources and assembly to 
+  debug issues effectively.
+
+- MISTAKE: Not testing against realistic edge cases in the underlying 
+  data (new users, missing fields, unusual data volumes).
+  FIX: Deliberately test dynamic assembly against the full realistic 
+  range of data scenarios.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Static Template + Dynamic Assembly:
+"You are a helpful assistant for {app_name}. 
+
+Today's date: {current_date, pulled from system clock} 
+User's name: {user_name, pulled from user profile, fallback: 'there' if 
+unavailable} 
+
+Greet the user by name and mention today's date naturally in your 
+greeting."
+
+Assembled Example (for a specific runtime instance):
+"You are a helpful assistant for QuickTask. 
+Today's date: July 6, 2026. 
+User's name: Priya. 
+Greet the user by name and mention today's date naturally in your 
+greeting."
+
+Expected Output:
+A natural greeting incorporating both the actual pulled user name 
+("Priya") and the actual current date, demonstrating how the same 
+static template produces a genuinely personalized result depending on 
+which specific runtime values were dynamically inserted for that 
+particular user/moment.
+
+--- INTERMEDIATE EXAMPLE ---
+Static Template + Dynamic Assembly:
+"You are a customer support assistant. 
+
+User's account tier: {account_tier, from user database} 
+User's last 3 support tickets: {recent_tickets, from support database, 
+fallback: 'No recent tickets' if none exist} 
+Current message: {incoming_message} 
+
+If the user's account tier is 'Premium', prioritize offering expedited 
+resolution options. Reference relevant patterns from their recent 
+ticket history if applicable to their current message, without being 
+intrusive about it."
+
+Assembled Example (for a specific runtime instance):
+"You are a customer support assistant. 
+User's account tier: Premium. 
+User's last 3 support tickets: (1) Shipping delay - resolved, (2) 
+Billing question - resolved, (3) Product defect - open. 
+Current message: 'My package still hasn't arrived and it's been a 
+week.' 
+
+If the user's account tier is 'Premium', prioritize offering expedited 
+resolution options. Reference relevant patterns from their recent 
+ticket history if applicable to their current message, without being 
+intrusive about it."
+
+Expected Output:
+A response appropriately prioritizing expedited resolution given the 
+dynamically-inserted "Premium" tier status, and appropriately noting 
+(without being intrusive) that this appears related to their prior 
+resolved shipping delay ticket, demonstrating genuine personalization 
+driven by real, dynamically-pulled account and history data specific to 
+this particular user.
+
+--- ADVANCED EXAMPLE ---
+Static Template + Dynamic Assembly (for a coding assistant with 
+project-aware context):
+"You are a coding assistant helping with {project_name, from active 
+project config}. 
+
+Current file being edited: {active_file_path} 
+Relevant imports/dependencies detected in this file: 
+{detected_imports, from static analysis of the current file} 
+Related files recently opened in this session: 
+{recent_session_files, from session state, fallback: 'None' if this is 
+the first file opened} 
+Project's coding style conventions: {style_config, from project's 
+linter/style configuration file, fallback: 'Standard PEP 8' if no 
+custom config detected} 
+
+User's current request: {live_user_message} 
+
+Provide code suggestions consistent with the detected style 
+conventions and existing import patterns in this project."
+
+Assembled Example (for a specific runtime instance):
+"You are a coding assistant helping with RAG_Master. 
+Current file being edited: rag_master/retrieval/hybrid_search.py 
+Relevant imports/dependencies detected in this file: numpy, 
+langgraph, chromadb 
+Related files recently opened in this session: embeddings.py, 
+config.py 
+Project's coding style conventions: Google-style docstrings, type 
+hints required, max line length 100 
+User's current request: 'Add a function to normalize BM25 and vector 
+similarity scores before combining them.' 
+
+Provide code suggestions consistent with the detected style 
+conventions and existing import patterns in this project."
+
+Expected Output:
+A code suggestion that correctly uses the already-detected `numpy` 
+import (rather than introducing a redundant new import), follows the 
+dynamically-detected Google-style docstring and type-hint conventions, 
+respects the 100-character line length, and is contextually aware that 
+this fits into a hybrid dense/sparse retrieval system (given the file 
+path and session context) — demonstrating genuinely project-aware, 
+personalized code assistance driven entirely by dynamically-assembled 
+runtime context rather than generic, context-free suggestions.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE (as a dynamic assembly design)
+-----------------------------
+    Static instruction core: [ROLE, GENERAL TASK FRAMING, CONSTRAINTS 
+    — designed and tested once]
+    
+    Dynamic insertion points:
+    - {DATA_POINT_1}: sourced from [DATA SOURCE], fallback if 
+    unavailable: [DEFAULT]
+    - {DATA_POINT_2}: sourced from [DATA SOURCE], fallback if 
+    unavailable: [DEFAULT]
+    - {DATA_POINT_3}: sourced from [DATA SOURCE], fallback if 
+    unavailable: [DEFAULT]
+    
+    [User's live input/message]
+    
+    [Instruction for how the model should use the dynamically-inserted 
+    context to personalize/inform its response]
+    
+    [Implement the actual pulling and insertion of dynamic data in 
+    application code, with validation, sanitization, and size 
+    monitoring as described in best practices.]
+
+=====================================================================
+END OF FILE 74 — Dynamic Prompting
+=====================================================================

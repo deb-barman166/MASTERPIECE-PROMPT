@@ -1,0 +1,266 @@
+=====================================================================
+63. CLASSIFICATION PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Analytical)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Classification Prompting — Sorting Content Into Defined Categories
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Classification prompting is a technique for instructing an LLM to sort 
+input content into ONE OR MORE PREDEFINED CATEGORIES from a fixed, 
+explicitly stated set of options — such as sentiment (positive/
+negative/neutral), intent (billing/technical/general), priority 
+(urgent/normal/low), or any other categorical scheme relevant to a 
+specific application. This differs from Extraction Prompting (file 64, 
+pulling out specific pieces of information) in that Classification is 
+about ASSIGNING A LABEL from a closed set of options, and connects 
+directly to the classification examples used throughout Few-Shot and 
+Multi-Shot Prompting (files 03-04) as a very common practical 
+application of those foundational techniques.
+
+Think of it like the difference between a mail sorter who reads each 
+piece of mail and puts it into one of several predefined bins (Local, 
+Domestic, International, Return-to-Sender) versus someone who reads 
+each letter and extracts specific details like the sender's address — 
+classification is fundamentally about BINNING into predetermined 
+categories, not extracting arbitrary information.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Classification prompting exists to:
+- Enable AUTOMATED TRIAGE and routing of content at scale (support 
+  tickets, emails, user feedback) into appropriate categories for 
+  handling.
+- Support CONSISTENT categorization across large volumes of content, 
+  where manual classification would be time-prohibitive.
+- Provide STRUCTURED, machine-actionable output (a specific label) 
+  rather than free-form text, enabling direct integration with 
+  downstream automated systems (connecting to JSON Prompting, file 40, 
+  and Function Calling, file 31).
+- Build the foundational classification layer that many larger AI 
+  systems depend on (a chatbot's intent classifier, a content 
+  moderation system's category tagger, a support system's priority 
+  router).
+- Serve as one of the most common, well-established practical LLM 
+  applications, given how naturally suited language models are to this 
+  kind of categorical judgment task.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Sorting support tickets, emails, or user messages into handling 
+  categories.
+- Sentiment analysis, content moderation categorization, or priority 
+  triage systems.
+- Any task with a FIXED, KNOWN set of valid output categories that 
+  content needs to be sorted into.
+- Building automated routing/triage layers for larger systems.
+
+WHEN NOT TO USE:
+- When you need to extract SPECIFIC INFORMATION rather than assign a 
+  category label (use Extraction Prompting instead).
+- Open-ended categorization where the valid categories aren't actually 
+  known/fixed in advance — in this case, consider first doing 
+  exploratory analysis to discover natural categories before building a 
+  formal classifier.
+- Extremely nuanced judgments that don't cleanly fit into discrete bins 
+  — forcing a false binary/categorical choice on a genuinely continuous 
+  or multi-dimensional judgment can lose important information.
+
+BEST MODELS FOR CLASSIFICATION PROMPTING:
+- Claude Haiku / GPT-4o-mini / Gemini Flash (smaller, faster models) — 
+  classification is often a good candidate for smaller, faster, 
+  cheaper models, since the task complexity (choosing from a defined 
+  set) is generally lower than open-ended generation, making this a 
+  strong cost-optimization opportunity.
+- Claude / GPT-4o/4.1/5-class / Gemini Pro (larger models) — 
+  appropriate when classification requires more nuanced judgment (e.g., 
+  distinguishing subtly different intent categories, or when 
+  classification accuracy is especially critical).
+- DeepSeek / Qwen — capable, cost-effective classification performance.
+- For VERY HIGH VOLUME classification (thousands+ of items), consider 
+  whether a traditional fine-tuned classifier or embedding-based 
+  approach might be more cost-effective than per-item LLM API calls, 
+  depending on your specific accuracy/cost/latency requirements.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [INPUT CONTENT] + "Classify this into exactly one of: [CATEGORY 
+    LIST]. Respond with only the category label."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Category Definitions — the complete, explicit list of valid 
+       categories, ideally with brief definitions/examples for any 
+       category whose boundaries might be ambiguous.
+    2. Input Content — the specific content to be classified.
+    3. Classification Instruction — explicit instruction to choose 
+       exactly one (or, if applicable, potentially multiple) category 
+       from the defined set.
+    4. Output Format — typically just the category label itself, or a 
+       structured format including confidence (see Schema Prompting, 
+       file 44) for production use.
+    5. Ambiguity Handling — instruction for what to do when content 
+       doesn't cleanly fit any category, or fits multiple (e.g., an 
+       "Other" catch-all category, or explicit multi-label support).
+
+Example skeleton:
+    "Classify the following [CONTENT TYPE] into exactly one of these 
+    categories: 
+    - [CATEGORY 1]: [brief definition if needed] 
+    - [CATEGORY 2]: [brief definition if needed] 
+    - [CATEGORY 3]: [brief definition if needed] 
+    - Other (if none clearly apply) 
+    
+    Respond with only the category label. 
+    
+    Content: [INPUT]"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Provide the COMPLETE, EXPLICIT list of valid categories — never let 
+  the model infer or invent categories not in your defined set, since 
+  this breaks downstream systems expecting a fixed set of labels.
+- Include BRIEF DEFINITIONS for any category whose boundaries might be 
+  genuinely ambiguous (e.g., distinguishing "Technical Issue" from 
+  "Bug Report" if both exist as separate categories in your scheme).
+- Always include an "OTHER" or catch-all category for content that 
+  genuinely doesn't fit your defined categories, rather than forcing an 
+  inappropriate fit.
+- Use FEW-SHOT or MULTI-SHOT examples (files 03-04) for categories with 
+  subtle distinctions, since a handful of labeled examples often 
+  dramatically improves classification consistency and accuracy 
+  compared to category names/definitions alone.
+- Specify OUTPUT FORMAT precisely — for programmatic use, request just 
+  the label (or a structured JSON with label + confidence per Schema 
+  Prompting) with explicit instruction against additional explanatory 
+  text that would break automated parsing.
+- Consider whether your task genuinely needs SINGLE-LABEL or MULTI-
+  LABEL classification (can content belong to more than one category 
+  simultaneously?) and specify this explicitly, since the two require 
+  different handling.
+- For classification systems feeding into automated decisions, monitor 
+  and periodically SPOT-CHECK accuracy against human judgment, 
+  especially for categories with real consequences (e.g., 
+  urgent/priority routing).
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Not providing a complete, explicit category list, allowing 
+  the model to invent categories that don't match your defined scheme, 
+  breaking downstream systems.
+  FIX: Always provide the complete, fixed list of valid categories.
+
+- MISTAKE: No "Other"/catch-all category, forcing content into an 
+  ill-fitting category when it genuinely doesn't match any defined 
+  option.
+  FIX: Always include a fallback category for genuinely non-matching 
+  content.
+
+- MISTAKE: Ambiguous category boundaries with no clarifying 
+  definitions, leading to inconsistent classification of genuinely 
+  borderline cases.
+  FIX: Provide brief definitions for categories with unclear boundaries.
+
+- MISTAKE: Requesting free-form explanatory text alongside the 
+  classification when only the label is needed for downstream 
+  processing, complicating automated parsing.
+  FIX: Explicitly request only the label for programmatic use cases.
+
+- MISTAKE: Not specifying whether multi-label classification is 
+  appropriate, when content genuinely could belong to multiple 
+  categories simultaneously.
+  FIX: Explicitly clarify single-label vs. multi-label requirements.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Classify the sentiment of this review into exactly one of: Positive, 
+Negative, Neutral. Respond with only the label. 
+
+Review: 'The product works as described, nothing special but no 
+complaints either.'"
+
+Expected Output:
+"Neutral"
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Classify this customer support message into exactly one of these 
+categories: 
+- Billing: payment, subscription, or invoice issues 
+- Technical: app crashes, bugs, or features not working as expected 
+- Feature Request: suggestions for new functionality 
+- Account: login, password, or account access issues 
+- Other: anything not clearly fitting the above 
+
+Respond with only the category label. 
+
+Message: 'I tried logging in three times and it keeps saying my 
+password is wrong, but I know it's correct.'"
+
+Expected Output:
+"Account"
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Classify this GitHub issue into ALL applicable categories from this 
+list (multi-label — an issue can match more than one): 
+- Bug: describes unexpected/incorrect behavior 
+- Documentation: relates to missing or unclear documentation 
+- Enhancement: requests new functionality or improvement to existing 
+functionality 
+- Security: involves a potential security vulnerability 
+- Question: primarily asking for clarification/help, not reporting a 
+problem 
+
+Respond in this exact format: {\"categories\": [\"label1\", 
+\"label2\"], \"confidence\": \"high/medium/low\"} 
+
+Issue text: 'The README doesn't mention that the API key needs to be 
+set as an environment variable, and I noticed the current example code 
+also just hardcodes the key directly in the script — seems like a bad 
+practice we might want to fix in the docs.'"
+
+Expected Output:
+{"categories": ["Documentation", "Security"], "confidence": "medium"}
+(Correctly identifying this as a multi-label case — it's fundamentally 
+a documentation gap complaint, but the mention of hardcoded API keys 
+also touches on a security best-practice concern, demonstrating the 
+value of multi-label classification over a forced single-category 
+choice for content that genuinely spans multiple categories.)
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Classify the following [CONTENT TYPE] into [exactly one of / all 
+    applicable categories from] this list:
+    - [CATEGORY 1]: [brief definition if boundaries are ambiguous]
+    - [CATEGORY 2]: [brief definition if boundaries are ambiguous]
+    - [CATEGORY 3]: [brief definition if boundaries are ambiguous]
+    - Other: anything not clearly fitting the above
+    
+    Respond with only the category label(s) [in this format: 
+    FORMAT_SPECIFICATION, if structured output is needed].
+    
+    Content: [PASTE INPUT CONTENT]
+
+=====================================================================
+END OF FILE 63 — Classification Prompting
+=====================================================================

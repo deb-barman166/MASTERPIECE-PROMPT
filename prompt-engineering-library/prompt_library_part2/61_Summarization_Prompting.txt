@@ -1,0 +1,271 @@
+=====================================================================
+61. SUMMARIZATION PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Analytical)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Summarization Prompting — Condensing Content While Preserving Meaning
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Summarization prompting is a technique for instructing an LLM to 
+condense longer content into a SHORTER form that preserves the most 
+important information, while explicitly controlling the summary's 
+LENGTH, FOCUS (what to prioritize), and STYLE (bullet points vs. 
+prose, executive summary vs. detailed abstract). Effective 
+summarization requires more specification than "make this shorter" — 
+different use cases need dramatically different summary types (a one-
+line takeaway vs. a detailed abstract vs. a bulleted key-points list), 
+and without guidance the model must guess at your actual needs.
+
+Think of it like the difference between asking someone to "tell me 
+about this book" and getting a wildly variable response depending on 
+their guess about what you want, versus specifically requesting "give 
+me the 3 main plot points in one sentence each, suitable for someone 
+deciding whether to read it" — the SAME source material, but 
+dramatically different, purpose-fit outputs depending on exactly what 
+kind of summary is actually useful for your situation.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Summarization prompting exists to:
+- Save TIME by extracting the essential content from lengthy material 
+  without requiring the reader to process the full original.
+- Support different DOWNSTREAM USES of the same source material — an 
+  executive needs different summary depth/focus than someone doing 
+  detailed technical follow-up.
+- Preserve ACCURACY while reducing length — a good summary doesn't just 
+  shorten text, it correctly identifies and retains what's genuinely 
+  most important while cutting what's genuinely less essential.
+- Enable QUICK TRIAGE across large volumes of content (many documents, 
+  long meeting transcripts, extensive reports) to identify what deserves 
+  deeper attention.
+- Respect copyright and fair-use principles by producing genuinely 
+  transformed, condensed content rather than a lightly-reworded near-
+  copy of the original (directly connecting to proper summarization 
+  practice as distinct from disguised reproduction).
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Condensing long documents, articles, reports, transcripts, or 
+  research papers into a more digestible form.
+- Creating executive summaries, abstracts, or key-takeaway lists for 
+  different audiences.
+- Triaging large volumes of content to identify what deserves deeper 
+  attention.
+- Extracting the essential content from meeting notes, long email 
+  threads, or extended discussions.
+
+WHEN NOT TO USE:
+- Content that's already appropriately concise — summarizing a 
+  paragraph into a sentence rarely adds value.
+- When you actually need the FULL detail and a summary would cause you 
+  to miss important nuance for your specific purpose.
+- Creative writing content where "summarizing" would strip away exactly 
+  what makes it valuable (voice, specific imagery, emotional 
+  experience) — plot summaries of fiction serve a different purpose 
+  than the fiction itself.
+
+BEST MODELS FOR SUMMARIZATION PROMPTING:
+- Claude (especially with large context windows) — excellent at 
+  accurate, well-calibrated summarization that correctly identifies 
+  genuinely important content rather than just extracting the first/
+  last parts of a document.
+- GPT-4o/4.1/5-class — strong summarization capability across many 
+  content types and requested formats.
+- Gemini Pro/Ultra (especially with 1M-2M token context) — exceptional 
+  for summarizing extremely long documents, entire books, or large 
+  document collections in a single pass.
+- DeepSeek / Qwen — capable general summarization, particularly 
+  reliable for technical/structured content.
+- Mistral / Llama — capable of summarization tasks; for very long 
+  source material approaching context limits, verify the model can 
+  actually process the full length without truncation issues.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [SOURCE CONTENT] + "Summarize this in [LENGTH/FORMAT], focusing on 
+    [SPECIFIC PRIORITY]. Audience: [WHO WILL READ THIS SUMMARY]."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Source Content — the material to be summarized.
+    2. Length Specification — a specific target (one sentence, 3 
+       bullet points, 200 words, a single paragraph) rather than a 
+       vague "shorter."
+    3. Format — prose paragraph, bulleted list, executive summary 
+       structure, key-takeaways format.
+    4. Focus/Priority — what specifically matters most for this summary 
+       (financial implications, action items, main arguments, 
+       technical findings) since different priorities lead to genuinely 
+       different valid summaries of the same source.
+    5. Audience — who will read the summary, affecting appropriate 
+       vocabulary and depth.
+
+Example skeleton:
+    "Summarize the following [CONTENT TYPE] in [SPECIFIC LENGTH/
+    FORMAT]. 
+    
+    Focus specifically on: [PRIORITY — e.g., action items, financial 
+    implications, main arguments]. 
+    
+    Audience: [WHO WILL READ THIS]. 
+    
+    Content: 
+    [SOURCE CONTENT]"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Specify an EXACT LENGTH TARGET (word count, sentence count, bullet 
+  point count) rather than a vague "make it shorter" — this removes 
+  ambiguity about how aggressively to condense.
+- Define the FOCUS/PRIORITY explicitly — the same source document 
+  summarized for "financial implications" vs. "technical risks" vs. 
+  "action items" should genuinely produce different, appropriately 
+  focused summaries, not the same generic overview each time.
+- Specify the AUDIENCE so vocabulary and depth are appropriately 
+  calibrated (executives typically want different depth than technical 
+  peers reviewing the same material).
+- Request a specific FORMAT (bullets vs. prose, structured sections vs. 
+  single paragraph) matching how the summary will actually be used or 
+  read.
+- For genuinely important summaries, ask the model to flag anything 
+  significant it had to OMIT due to length constraints, so you're aware 
+  of what's being left out.
+- Remember copyright/fair-use principles when summarizing copyrighted 
+  material (per Citation Prompting and copyright-compliance practices) 
+  — genuine summarization means substantial transformation and 
+  condensation, not a lightly-reworded near-copy of the original text.
+- For VERY long source material, verify it actually fits within the 
+  model's context window; for content exceeding this, consider chunked 
+  summarization (summarize sections, then summarize the summaries) or 
+  RAG-based approaches.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Requesting a vague "shorter version" without specifying an 
+  actual length target, leading to inconsistent or inappropriately-
+  sized results.
+  FIX: Always specify a concrete length target.
+
+- MISTAKE: Not specifying focus/priority, resulting in a generic 
+  overview that may not emphasize what actually matters for your 
+  specific purpose.
+  FIX: Explicitly state what the summary should prioritize.
+
+- MISTAKE: Not specifying the target audience, leading to inappropriate 
+  vocabulary/depth calibration.
+  FIX: Explicitly define who will read the summary.
+
+- MISTAKE: Treating a summary as capturing everything important without 
+  asking what had to be omitted, potentially missing awareness of 
+  significant excluded content.
+  FIX: For important summaries, ask what significant content was 
+  necessarily left out.
+
+- MISTAKE: Producing a summary that's really just a lightly reworded, 
+  still-substantial near-copy of the original rather than genuine 
+  condensation — a copyright and quality concern.
+  FIX: Request genuine synthesis/condensation, not paraphrased 
+  reproduction of similar length.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Summarize this article in exactly 3 bullet points, focusing on the 
+main findings. Audience: someone deciding whether to read the full 
+article. 
+
+Article: [pasted article text]"
+
+Expected Output:
+Exactly 3 bullet points capturing the article's main findings, concise 
+enough to help a reader quickly assess relevance without reading the 
+full piece.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Summarize this 45-minute meeting transcript in a structured executive 
+summary format (under 250 words total), with these sections: Key 
+Decisions Made, Action Items (with owners if mentioned), and Open 
+Questions. Focus specifically on decisions and next steps, not the 
+full discussion detail. Audience: team members who couldn't attend the 
+meeting and need to know what they missed for their own work. 
+
+Transcript: [pasted transcript]"
+
+Expected Output:
+A structured, under-250-word executive summary with the three specified 
+sections, correctly extracting actual decisions made (not just topics 
+discussed), action items with owners where the transcript specifies 
+them, and genuinely open/unresolved questions — appropriately focused 
+on what absent team members actually need to know for their own 
+follow-up work.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Summarize this technical research paper on retrieval-augmented 
+generation techniques in two DIFFERENT formats for two different 
+audiences: 
+
+Format 1: A 2-sentence summary suitable for a non-technical stakeholder 
+deciding whether this research is relevant to our product roadmap — 
+focus purely on practical implications, avoid technical jargon entirely.
+
+Format 2: A 200-word technical abstract suitable for a fellow ML 
+engineer, focusing on the specific methodology, key results/metrics, 
+and how this compares to standard RAG approaches — technical vocabulary 
+is appropriate and expected here.
+
+Flag anything significant that had to be omitted from Format 1 due to 
+its extreme brevity, so I'm aware of what's being simplified away for 
+that audience. 
+
+Paper: [pasted paper text]"
+
+Expected Output:
+Two genuinely distinct summaries appropriately calibrated to their 
+stated audiences: Format 1 in plain, jargon-free language focusing 
+purely on practical product relevance in just 2 sentences; Format 2 
+using appropriate technical vocabulary, specific methodology details, 
+and quantitative results suitable for an ML engineer peer — followed by 
+an explicit note on what technical nuance/methodology detail was 
+necessarily sacrificed in the ultra-brief Format 1 version, giving the 
+requester awareness of that trade-off.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Summarize the following [CONTENT TYPE] in [SPECIFIC LENGTH: e.g., 
+    3 bullet points / 200 words / one paragraph], in [FORMAT: prose/
+    bullets/structured sections].
+    
+    Focus specifically on: [PRIORITY — e.g., action items, financial 
+    implications, main arguments, technical findings]
+    
+    Audience: [WHO WILL READ THIS SUMMARY AND THEIR BACKGROUND]
+    
+    [OPTIONAL: Flag anything significant that had to be omitted due to 
+    length constraints.]
+    
+    Content:
+    [PASTE SOURCE CONTENT]
+
+=====================================================================
+END OF FILE 61 — Summarization Prompting
+=====================================================================

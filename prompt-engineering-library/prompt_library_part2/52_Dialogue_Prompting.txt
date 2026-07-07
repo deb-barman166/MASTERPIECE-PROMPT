@@ -1,0 +1,308 @@
+=====================================================================
+52. DIALOGUE PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Creative)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Dialogue Prompting — Writing Authentic, Purposeful Character 
+Conversation
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Dialogue prompting is a technique focused specifically on generating 
+CONVERSATIONAL EXCHANGES between characters that feel authentic and 
+naturalistic while also doing genuine dramatic WORK within a narrative 
+— revealing character, advancing plot, creating tension, or conveying 
+information — rather than dialogue that's purely functional/expository 
+("As you know, Bob...") or generically pleasant with no real purpose. 
+This applies across prose fiction, screenplays, game narrative, and 
+any other format where characters need to speak to each other 
+convincingly, building on the character foundations established via 
+Character Prompting (file 50).
+
+Think of it like the difference between two people at a party making 
+pure small talk with no subtext or purpose (technically realistic but 
+dramatically inert) versus a scripted conversation where every line 
+does double duty — sounding natural while also revealing something 
+about who's speaking, escalating tension, or moving the story forward 
+— professional dialogue writing is fundamentally about this kind of 
+efficient, purposeful naturalism.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Dialogue prompting exists to:
+- Produce conversation that sounds AUTHENTICALLY human/naturalistic — 
+  with interruptions, subtext, imperfect grammar, and the specific 
+  cadences of real speech — rather than overly formal, complete-sentence 
+  prose dialogue.
+- Ensure dialogue does genuine DRAMATIC WORK (revealing character, 
+  building tension, conveying necessary information) rather than being 
+  purely decorative or filler.
+- Support SUBTEXT — the gap between what characters say and what they 
+  actually mean/want, which is often what makes dialogue feel 
+  sophisticated rather than on-the-nose.
+- Maintain DISTINCT VOICES for different characters speaking in the 
+  same scene, so dialogue is identifiable even without speaker tags.
+- Avoid common dialogue pitfalls: exposition dumps disguised as 
+  conversation, characters who all sound identical, and dialogue that 
+  simply states emotions rather than revealing them through what's 
+  said and left unsaid.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Writing conversational scenes in fiction, screenplays, or game 
+  narrative.
+- Developing dialogue-heavy content where character voice 
+  differentiation and subtext matter.
+- Revising existing dialogue that feels flat, expository, or overly 
+  formal to make it more naturalistic.
+- Practice/exercise writing focused specifically on dialogue craft.
+
+WHEN NOT TO USE:
+- Non-conversational narrative content (pure description, internal 
+  monologue without spoken exchange).
+- Purely functional/transactional exchanges with no dramatic purpose 
+  (a character ordering coffee with zero subtext or character 
+  revelation needed) — not every line of dialogue needs heavy 
+  dramatic weight, so don't force it where genuinely unnecessary.
+- Technical/instructional content that happens to be in Q&A format but 
+  isn't actually character dialogue.
+
+BEST MODELS FOR DIALOGUE PROMPTING:
+- Claude — particularly strong at naturalistic dialogue with genuine 
+  subtext, generally avoiding overly expository or on-the-nose 
+  emotional statements in favor of more sophisticated, implication-
+  driven exchanges.
+- GPT-4o/4.1/5-class — strong dialogue generation, versatile across 
+  tones and genres.
+- Gemini Pro/Ultra — capable dialogue writing, solid general 
+  performance.
+- Grok — capable of punchy, distinctive, often more irreverent 
+  dialogue styles.
+- Mistral / Llama — capable of basic naturalistic dialogue; may need 
+  more explicit prompting toward subtext and away from on-the-nose 
+  emotional statements, especially in smaller model variants.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [SCENE CONTEXT] + [CHARACTERS INVOLVED + THEIR ESTABLISHED VOICES] 
+    + [WHAT EACH CHARACTER WANTS FROM THIS CONVERSATION] + [WHAT'S NOT 
+    BEING SAID DIRECTLY/SUBTEXT] + [DRAMATIC PURPOSE OF THE SCENE]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Scene Context — where/when this conversation happens and what 
+       immediately precedes it.
+    2. Characters and Voices — who's speaking, with reference to their 
+       established distinct speech patterns (see Character Prompting).
+    3. Individual Wants — what each character is trying to get out of 
+       THIS specific conversation (these can conflict, creating 
+       tension).
+    4. Subtext Guidance — what's true beneath the surface that 
+       characters aren't directly stating.
+    5. Dramatic Purpose — what this dialogue needs to accomplish for 
+       the larger narrative (reveal a secret, escalate conflict, show 
+       a relationship shift).
+    6. Naturalism Reminders — explicit instruction toward realistic 
+       speech patterns (interruptions, incomplete sentences, avoiding 
+       stated emotions) if needed.
+
+Example skeleton:
+    "Write a dialogue scene between [CHARACTER A] and [CHARACTER B]. 
+    Context: [WHAT'S HAPPENING/PRECEDING THIS MOMENT]. 
+    [CHARACTER A] wants: [GOAL FOR THIS CONVERSATION]. 
+    [CHARACTER B] wants: [GOAL, IDEALLY IN SOME TENSION WITH A'S]. 
+    Subtext: [WHAT'S TRUE BENEATH THE SURFACE THAT ISN'T STATED 
+    DIRECTLY]. 
+    This scene should accomplish: [DRAMATIC PURPOSE]. 
+    Keep dialogue naturalistic — avoid characters directly stating 
+    their emotions; reveal feeling through word choice, what's avoided, 
+    and subtext instead."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Give each character in the scene a distinct, CONFLICTING or at least 
+  DIFFERENT want for the conversation — dialogue between two characters 
+  who want the same thing in the same way tends to lack tension.
+- Explicitly request SUBTEXT — what's true but not directly stated — 
+  since this is often what separates sophisticated dialogue from flat, 
+  on-the-nose writing.
+- Explicitly discourage characters STATING THEIR EMOTIONS directly 
+  ("I'm really angry right now") in favor of revealing emotion through 
+  word choice, what's avoided, interruptions, or behavior alongside 
+  dialogue.
+- Allow for NATURALISTIC IMPERFECTION — real speech includes 
+  interruptions, trailing off, filler words, and grammatically 
+  incomplete sentences; overly polished dialogue often reads as 
+  unnatural.
+- Reference each character's ESTABLISHED VOICE (from Character 
+  Prompting work) explicitly so dialogue stays consistent with who 
+  they are, not generic.
+- State the scene's DRAMATIC PURPOSE clearly — dialogue should be doing 
+  narrative work (revealing something, shifting a relationship, raising 
+  stakes), not just filling space with pleasant or realistic-but-inert 
+  chat.
+- When REVISING flat or expository dialogue, specifically ask the 
+  model to identify which lines are pure exposition and rework them to 
+  emerge more naturally from character wants and conflict.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Both characters wanting the same thing from the conversation 
+  with no real tension, resulting in flat, low-stakes dialogue.
+  FIX: Give characters distinct, ideally conflicting wants for the 
+  scene.
+
+- MISTAKE: Characters directly stating their emotions ("I feel so 
+  betrayed") rather than revealing feeling through word choice, 
+  subtext, or behavior.
+  FIX: Explicitly discourage direct emotional statements in favor of 
+  implication.
+
+- MISTAKE: Dialogue that reads as an information dump disguised as 
+  conversation ("As you know, we've been working on this project for 
+  three years...").
+  FIX: Identify expository content and find ways to convey necessary 
+  information through conflict/subtext rather than direct statement.
+
+- MISTAKE: All characters sounding identical, with no distinguishing 
+  vocabulary, sentence length, or verbal patterns.
+  FIX: Explicitly reference each character's distinct established 
+  voice.
+
+- MISTAKE: Overly polished, grammatically perfect dialogue that doesn't 
+  reflect how people actually speak (with interruptions, incomplete 
+  thoughts, natural imperfection).
+  FIX: Explicitly request naturalistic speech patterns including 
+  appropriate imperfection.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Write a short dialogue scene between two friends, where one is trying 
+to convince the other to go to a party they don't want to attend. 
+Friend A wants: to not go alone. Friend B wants: to stay home without 
+seeming antisocial. Keep it naturalistic — avoid either character 
+directly stating how they feel; let it come through in what they say 
+and avoid."
+
+Expected Output:
+A short, naturalistic exchange where Friend A's persistence and 
+Friend B's deflections/excuses reveal their respective positions 
+without either explicitly announcing "I don't want to go alone" or "I 
+don't want to seem antisocial" — the underlying wants emerging through 
+the pattern of the conversation itself.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Write a dialogue scene between a manager and an employee. Context: 
+The employee has been underperforming, and the manager needs to address 
+it, but the manager also privately knows the employee is going through 
+a difficult personal situation (a fact the employee hasn't officially 
+disclosed at work). 
+
+Manager wants: to address the performance issue professionally without 
+overstepping into personal territory the employee hasn't opened up 
+about. 
+Employee wants: to avoid admitting the personal struggle while also 
+not seeming like they don't care about their work. 
+Subtext: both people are aware something personal is going on, but 
+neither directly names it. 
+
+This scene should reveal the manager's genuine care beneath 
+professional formality, and the employee's exhaustion/pride, without 
+either being stated directly."
+
+Expected Output:
+A scene where the manager's careful, slightly-too-gentle phrasing of 
+performance concerns hints at awareness beyond the professional 
+surface, and the employee's slightly defensive, deflecting responses 
+suggest exhaustion and pride without either party naming the actual 
+personal situation — demonstrating dialogue carrying significant 
+unstated meaning beneath a professionally appropriate surface 
+conversation.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Write a dialogue scene between the two established characters from 
+earlier development: MAYA (52, controlling but seeking genuine 
+reconciliation) and DANIEL (48, resentful, withholds forgiveness even 
+when offered) — siblings meeting for the first time in 15 years due to 
+their mother's declining health. 
+
+Context: This is their first private conversation since arriving, 
+before they've discussed their mother's condition at all — the 
+estrangement itself is the immediate, unavoidable elephant in the room.
+
+Maya wants: to reestablish connection, but on her own terms — she'll 
+apologize, but only in a way that also justifies her original decision 
+to leave. 
+Daniel wants: an apology that doesn't come with justification, but 
+also, beneath his resentment, some flicker of genuine relief that 
+she's here. 
+Subtext: both actually want reconciliation, but their specific flaws 
+(Maya's need for control/justification, Daniel's need to withhold 
+forgiveness) are actively preventing them from simply saying so 
+plainly. 
+
+This scene should NOT resolve their conflict — it should show the 
+attempt failing due to their established flaws, setting up further 
+tension for later in the story. Maintain their distinct established 
+voices: Maya more controlled/measured, Daniel more clipped and 
+defensive."
+
+Expected Output:
+A dialogue scene where Maya's attempted apology becomes entangled with 
+self-justification ("I know I hurt you, but you have to understand 
+why I—"), triggering Daniel's defensive withholding response before 
+she can even finish, with a brief, almost-visible crack in his 
+resentment (a pause, a half-step toward softening) that he then 
+suppresses — demonstrating both characters' established flaws actively 
+sabotaging a reconciliation that some part of both of them genuinely 
+wants, ending in continued impasse rather than resolution, consistent 
+with the specified dramatic purpose of setting up further tension 
+rather than resolving the conflict prematurely.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Write a dialogue scene between [CHARACTER A] and [CHARACTER B].
+    
+    Context: [WHERE/WHEN THIS HAPPENS, WHAT PRECEDES IT]
+    
+    [CHARACTER A]'s established voice: [SPEECH PATTERN NOTES]
+    [CHARACTER A] wants (from this conversation): [SPECIFIC GOAL]
+    
+    [CHARACTER B]'s established voice: [SPEECH PATTERN NOTES]
+    [CHARACTER B] wants (from this conversation): [SPECIFIC GOAL, 
+    ideally in tension with A's]
+    
+    Subtext: [WHAT'S TRUE BENEATH THE SURFACE THAT ISN'T STATED 
+    DIRECTLY]
+    
+    Dramatic purpose: [WHAT THIS SCENE NEEDS TO ACCOMPLISH — reveal, 
+    escalate, shift a relationship]
+    
+    Keep dialogue naturalistic: avoid characters directly stating 
+    their emotions; reveal feeling through word choice, subtext, and 
+    what's left unsaid. Include natural speech imperfections 
+    (interruptions, incomplete thoughts) where appropriate.
+
+=====================================================================
+END OF FILE 52 — Dialogue Prompting
+=====================================================================

@@ -1,0 +1,306 @@
+=====================================================================
+69. RECURSIVE PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Meta/
+Optimization)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Recursive Prompting — Applying the Same Process Repeatedly Until 
+Complete
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Recursive prompting is a technique where a prompt is designed to apply 
+the SAME PROCESS repeatedly to progressively smaller or transformed 
+versions of a problem, until a base/termination condition is reached — 
+directly mirroring the computer science concept of recursion, where a 
+function calls itself on a smaller sub-problem until reaching a simple 
+base case. This differs from Prompt Chaining (file 68, a sequence of 
+DIFFERENT stages) and Self-Refine (file 21, repeated improvement 
+cycles on the SAME artifact) in that Recursive Prompting specifically 
+applies an IDENTICAL process to DECOMPOSED sub-parts of the ORIGINAL 
+problem, most naturally suited to problems with a genuinely recursive/
+hierarchical structure.
+
+Think of it like organizing a massive pile of documents: rather than 
+trying to sort the entire pile at once, you might split it in half, 
+apply the exact same "split and sort" process to each half, then to 
+each quarter, and so on — the SAME simple process applied repeatedly to 
+progressively smaller chunks — until you reach small, easily-sortable 
+piles, at which point you stop recursing and just sort directly (the 
+base case).
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Recursive prompting exists to:
+- Handle problems with a naturally HIERARCHICAL or SELF-SIMILAR 
+  structure, where the same solving approach genuinely applies at 
+  multiple scales (summarizing a large document by recursively 
+  summarizing its sections, then summarizing those summaries).
+- Process content EXCEEDING a single context window by recursively 
+  breaking it into processable chunks, handling each with the same 
+  technique, then combining results — a common practical pattern for 
+  very long document summarization.
+- Solve DIVIDE-AND-CONQUER style problems where breaking a large problem 
+  into identical smaller sub-problems is a genuinely effective solving 
+  strategy (similar to how recursive algorithms work in traditional 
+  programming).
+- Support HIERARCHICAL SYNTHESIS — combining many small results into 
+  intermediate summaries, then combining those intermediate summaries 
+  into a final result, rather than trying to process everything in one 
+  flat pass.
+- Provide a systematic pattern for tasks that genuinely benefit from 
+  self-similar decomposition rather than the more general sequential 
+  decomposition of Prompt Chaining.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Summarizing extremely long documents that exceed context windows, by 
+  recursively summarizing chunks and then summarizing the summaries.
+- Problems with genuinely hierarchical/nested structure (organizing 
+  large hierarchical outlines, processing deeply nested data 
+  structures).
+- Divide-and-conquer style analytical tasks where breaking into 
+  identical smaller sub-problems is a natural, effective strategy.
+- Any task where you find yourself wanting to apply "the same prompt" 
+  to progressively smaller pieces of an original problem.
+
+WHEN NOT TO USE:
+- Tasks that don't have a genuinely recursive/self-similar structure — 
+  forcing an artificial recursive framing onto a task that's better 
+  served by simple sequential chaining wastes effort.
+- Simple problems that fit comfortably within a single prompt/context 
+  window without needing decomposition at all.
+- Tasks where the recursive decomposition would lose important cross-
+  cutting context that only makes sense when considering the whole 
+  problem together (some information genuinely doesn't decompose well).
+
+BEST MODELS FOR RECURSIVE PROMPTING:
+- ANY capable model works for recursive prompting patterns, since (like 
+  Prompt Chaining) this is fundamentally an ORCHESTRATION pattern rather 
+  than a special model capability.
+- Models with LARGER CONTEXT WINDOWS (Gemini 1.5/2.x Pro, Claude 200K+) 
+  reduce how deep the recursion needs to go, since each recursive call 
+  can handle a larger chunk before needing further decomposition.
+- Consistent use of the SAME MODEL across recursive calls is generally 
+  preferable for consistency of style/approach across the hierarchy, 
+  though mixing models by depth level (a faster model for many leaf-
+  level calls, a more capable model for the final synthesis) is a 
+  reasonable cost-optimization strategy.
+- For PROGRAMMATIC implementation (which most genuine recursive 
+  prompting requires, similar to Prompt Chaining), any model accessible 
+  via API works, with the orchestration logic (recursion depth, base 
+  case detection) implemented in your own code.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    "If [PROBLEM SIZE] is small enough to handle directly, do 
+    [BASE_CASE_ACTION]. Otherwise, split into [SUB-PROBLEMS], apply 
+    this same process to each, then combine results via 
+    [COMBINATION_METHOD]."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Base Case Definition — the condition under which the problem is 
+       "small enough" to solve directly without further decomposition, 
+       and what that direct solving process looks like.
+    2. Decomposition Rule — how to split a too-large problem into 
+       smaller, genuinely similar sub-problems.
+    3. Recursive Application — explicit instruction that the SAME 
+       process applies to each sub-problem (this is what makes it 
+       recursive rather than just a one-off split).
+    4. Combination/Synthesis Step — how results from multiple sub-
+       problems get combined into a result for the level above.
+    5. Termination Guarantee — ensuring the decomposition actually 
+       makes progress toward the base case (sub-problems must be 
+       genuinely SMALLER, or recursion never terminates).
+
+Example skeleton:
+    "Base case: if [CONTENT] is under [SIZE THRESHOLD], directly 
+    [PROCESS] it and return the result. 
+    
+    Recursive case: if [CONTENT] exceeds [SIZE THRESHOLD], split it 
+    into [N] roughly equal parts. Apply this SAME process to each part 
+    independently. Then combine the resulting [N] outputs via 
+    [COMBINATION METHOD] to produce the result for this level."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Clearly define the BASE CASE (when to stop recursing and just solve 
+  directly) — without a clear, reachable base case, recursive processes 
+  can fail to terminate or become inefficient.
+- Ensure the DECOMPOSITION genuinely makes progress — each recursive 
+  step should work on a MEANINGFULLY SMALLER piece of the problem, or 
+  the recursion provides no actual benefit.
+- Design the COMBINATION/synthesis step carefully — how you merge 
+  results from sub-problems significantly affects final quality (e.g., 
+  naively concatenating summaries of document sections may lose the 
+  overall narrative arc that a more thoughtful synthesis step would 
+  preserve).
+- For DOCUMENT SUMMARIZATION specifically (a very common recursive 
+  prompting use case), consider whether a single pass with a large-
+  context-window model might actually be simpler/better than recursive 
+  chunking, if the document fits within available context.
+- IMPLEMENT recursive prompting programmatically for anything beyond 
+  trivial depth — manually managing recursive prompt chains in a single 
+  chat conversation becomes unwieldy quickly; use actual code to manage 
+  the recursion logic, base case detection, and result combination.
+- Watch for CONTEXT LOSS across recursion levels — information that 
+  would be obviously relevant when considering the whole problem 
+  together can be lost when pieces are processed in isolation; consider 
+  whether some minimal shared context needs to be passed to every 
+  recursive call.
+- Test with PROGRESSIVELY LARGER inputs to confirm your recursive 
+  approach actually scales as intended, rather than only testing with 
+  inputs small enough to never actually trigger genuine recursion.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: No clear, well-defined base case, risking recursion that 
+  never terminates or becomes inefficient.
+  FIX: Explicitly define the condition under which direct solving 
+  (rather than further decomposition) applies.
+
+- MISTAKE: Decomposition that doesn't genuinely reduce problem size 
+  (e.g., splitting into sub-problems nearly as large as the original), 
+  providing no real benefit and wasting effort.
+  FIX: Ensure each recursive step works on meaningfully smaller pieces.
+
+- MISTAKE: A naive combination step (simple concatenation) that loses 
+  important cross-cutting context or narrative coherence that only 
+  exists when considering the whole problem together.
+  FIX: Design a thoughtful synthesis step for combining sub-problem 
+  results, not just simple concatenation.
+
+- MISTAKE: Attempting to manage genuinely deep recursive prompting 
+  manually within a single chat conversation, becoming unwieldy and 
+  error-prone.
+  FIX: Implement recursive prompting programmatically for anything 
+  beyond trivial depth.
+
+- MISTAKE: Applying recursive framing to problems that don't actually 
+  have a genuinely recursive/self-similar structure, adding unnecessary 
+  complexity.
+  FIX: Reserve recursive prompting for problems with genuine 
+  hierarchical/self-similar structure; use simpler chaining or direct 
+  prompting otherwise.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt (conceptual recursive process for summarizing a long document):
+"Base case: if this text chunk is under 2000 words, summarize it 
+directly in 3-5 sentences. 
+
+Recursive case: if the text exceeds 2000 words, split it into 2 
+roughly equal halves. Apply this exact same summarization process to 
+each half independently. Then combine the 2 resulting summaries into a 
+single coherent 3-5 sentence summary that captures the key points from 
+both halves without simply concatenating them."
+
+Expected Output (conceptual):
+For a 6000-word document, the process would recursively split into 
+2x3000-word halves, each still exceeding 2000, split again into 
+4x1500-word quarters (now under threshold), each quarter directly 
+summarized, then pairs of quarter-summaries combined into 2 half-
+summaries, then those 2 combined into 1 final coherent summary — 
+demonstrating the base case, recursive splitting, and combination steps 
+working together on a real-scale example.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt (conceptual, for organizing a large flat list of research 
+notes into a hierarchical outline):
+"I have 200 individual research notes on AI safety topics that need to 
+be organized into a coherent hierarchical outline. 
+
+Base case: if a group of notes is 10 or fewer, directly organize them 
+into a simple flat list under one outline heading. 
+
+Recursive case: if a group exceeds 10 notes, first identify 2-4 natural 
+thematic sub-groups within it, apply this same organizing process to 
+each sub-group independently (each becoming a sub-heading with its own 
+organized content), then combine these organized sub-groups under a 
+single parent heading that captures their shared theme."
+
+Expected Output (conceptual):
+Applied to 200 notes, this would first identify major top-level themes 
+(e.g., "Technical Alignment," "Governance & Policy," "Interpretability"), 
+recursively organizing notes within each theme into further sub-themes 
+if any single theme still has more than 10 notes, continuing until 
+every group is small enough for direct flat-list organization — 
+producing a genuinely hierarchical, multi-level outline rather than one 
+flat, unwieldy 200-item list.
+
+--- ADVANCED EXAMPLE ---
+Prompt (conceptual, for a recursive code documentation generation 
+pipeline across a large codebase):
+"I need to generate documentation for a large Python codebase with a 
+deeply nested package structure (packages containing sub-packages 
+containing modules containing classes/functions). 
+
+Base case: for a single function or class (a 'leaf' in the codebase 
+structure), generate a direct docstring-style summary of its purpose 
+and usage. 
+
+Recursive case: for a module (containing multiple functions/classes), 
+apply the base case to each function/class within it, then synthesize 
+these into a module-level summary describing the module's overall 
+purpose and how its components relate to each other — not just a list 
+of individual summaries. 
+
+Further recursive case: for a package (containing multiple modules or 
+sub-packages), apply this same process to each contained module/sub-
+package, then synthesize THEIR summaries into a package-level overview 
+describing the package's role in the overall system architecture. 
+
+Apply this recursively up through the full package hierarchy, 
+ultimately producing a top-level architecture overview synthesized from 
+all the package-level summaries below it."
+
+Expected Output (conceptual):
+A genuinely multi-level documentation hierarchy: individual function/
+class docstrings at the base level, coherent module-level summaries 
+synthesizing (not just listing) their components' purposes and 
+relationships, package-level overviews synthesizing their constituent 
+modules' roles, culminating in a top-level system architecture overview 
+— demonstrating how the SAME "summarize and synthesize relationships" 
+process applied recursively at each level of a naturally hierarchical 
+codebase structure produces genuinely coherent documentation at every 
+level of granularity, rather than either an overwhelming flat list of 
+every function or an overly shallow single system-wide summary that 
+misses important structural detail.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Base case: if [CONTENT/PROBLEM] is [SMALL ENOUGH CONDITION — e.g., 
+    under a size threshold], directly [BASE PROCESSING ACTION] and 
+    return the result.
+    
+    Recursive case: if [CONTENT/PROBLEM] exceeds this threshold:
+    1. Split it into [N] genuinely smaller, similar sub-parts
+    2. Apply this EXACT SAME process to each sub-part independently
+    3. Combine the resulting [N] outputs via [THOUGHTFUL SYNTHESIS 
+    METHOD, not just concatenation] to produce the result for this 
+    level
+    
+    [Implement this logic programmatically for genuine recursion depth 
+    beyond 1-2 levels.]
+
+=====================================================================
+END OF FILE 69 — Recursive Prompting
+=====================================================================

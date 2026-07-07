@@ -1,0 +1,286 @@
+=====================================================================
+71. PROMPT COMPRESSION
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Meta/
+Optimization)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Prompt Compression — Reducing Token Usage Without Losing Effectiveness
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Prompt Compression is the technique of reducing a prompt's LENGTH 
+(token count) while preserving its essential instructional content and 
+effectiveness — removing redundancy, unnecessary verbosity, and 
+filler language, or using more token-efficient phrasing/structure, 
+without sacrificing the clarity or completeness that makes the prompt 
+actually work. This matters because tokens directly translate to COST 
+(API pricing is typically per-token) and can affect LATENCY, making 
+compression a genuinely practical optimization concern, especially for 
+high-volume production systems or prompts operating near context-window 
+limits.
+
+Think of it like the difference between a verbose legal contract full 
+of redundant boilerplate phrasing ("the party of the first part, 
+hereinafter referred to as...") versus a modern, plain-language 
+contract that conveys the exact same binding terms and legal 
+protections using dramatically fewer words — compression aims for that 
+same "same meaning, fewer words" outcome applied specifically to 
+prompts.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Prompt Compression exists to:
+- Reduce API COSTS at scale, since token usage directly drives pricing 
+  on most LLM platforms — meaningful compression across a high-volume 
+  production system can produce substantial real savings.
+- Improve LATENCY, since shorter prompts generally process faster than 
+  longer ones (though this effect varies by model/infrastructure).
+- Fit MORE CONTENT within limited context windows — compression frees 
+  up space for other essential content (retrieved documents, 
+  conversation history, examples) when working near context limits.
+- Improve prompt CLARITY as a side effect — removing genuine filler and 
+  redundancy often makes a prompt not just shorter but also clearer and 
+  easier to maintain.
+- Support high-volume, cost-sensitive production applications where 
+  per-query token savings compound significantly across large user 
+  bases or high query frequencies.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- High-volume production prompts where token costs compound 
+  significantly across scale.
+- Prompts operating near context window limits, where freed-up space 
+  for other essential content has real value.
+- Reviewing/cleaning up prompts that have accumulated redundancy or 
+  unnecessary verbosity over iterative development.
+- Any situation where cost/latency genuinely matters enough to justify 
+  the compression effort.
+
+WHEN NOT TO USE:
+- Low-volume, one-off prompts where token savings are negligible in 
+  absolute terms.
+- When compression would genuinely sacrifice clarity, necessary 
+  context, or effectiveness — compression should never come at the 
+  cost of the prompt actually working correctly; a slightly longer 
+  prompt that reliably works is always better than a shorter one that 
+  doesn't.
+- Prompts specifically requiring Few-Shot/Multi-Shot examples (files 
+  03-04) for effectiveness — these examples are often essential 
+  content, not removable verbosity, even though they add length.
+
+BEST MODELS FOR PROMPT COMPRESSION:
+- The compression PROCESS itself can be applied to prompts intended for 
+  any model — Claude, GPT-4o/4.1/5-class, Gemini, and others all 
+  benefit from removing genuine redundancy, though the specific 
+  optimal phrasing/structure may vary somewhat by model.
+- LLMs THEMSELVES can be used as compression assistants — asking a 
+  capable model to identify and remove redundancy from an existing 
+  prompt while preserving its exact instructional meaning is itself a 
+  practical application of this technique (a form of Meta Prompting, 
+  file 67, specifically focused on compression).
+- Specialized prompt compression research/tools (e.g., LLMLingua and 
+  similar academic/open-source approaches) exist specifically for 
+  automated, algorithmic prompt compression, particularly relevant for 
+  compressing long CONTEXT (like RAG-retrieved passages) rather than 
+  just instructional prompt text.
+- For compressing long CONTEXT specifically (as opposed to instructions), 
+  Summarization Prompting (file 61) applied to the context itself before 
+  including it is often the most practical approach.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [ORIGINAL VERBOSE PROMPT] → "Compress this to use significantly 
+    fewer tokens while preserving all essential instructions and 
+    functionality exactly. Do not remove anything that affects the 
+    output's correctness or completeness."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Original Prompt — the existing prompt to be compressed.
+    2. Compression Goal — a specific target if known (reduce by X%, fit 
+       within Y tokens) or a general "significantly reduce" instruction.
+    3. Preservation Requirements — explicit instruction about what must 
+       NOT be lost (core instructions, essential examples, critical 
+       constraints) even as filler/redundancy is removed.
+    4. Verification Request — ask for confirmation/explanation of what 
+       was removed and why it was deemed safe to remove, so you can 
+       verify nothing essential was accidentally cut.
+
+Example skeleton:
+    "Here is my current prompt: 
+    [ORIGINAL PROMPT] 
+    
+    Compress this to use meaningfully fewer tokens, while preserving 
+    every essential instruction, constraint, and example exactly. Only 
+    remove genuine redundancy, filler language, or unnecessarily 
+    verbose phrasing — do not remove anything that would change the 
+    output's correctness or completeness. 
+    
+    After compressing, briefly note what specifically was removed and 
+    why it was safe to cut."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- ALWAYS verify compressed prompts still WORK correctly through actual 
+  testing — compression that accidentally removes something essential 
+  is a false economy, since a broken prompt costs far more (in wasted 
+  API calls, incorrect outputs, debugging time) than any token savings.
+- Look for genuine REDUNDANCY first (saying the same thing multiple 
+  ways, restating instructions unnecessarily) as the safest, highest-
+  value compression target before touching anything that might carry 
+  real informational content.
+- Be CAUTIOUS about removing Few-Shot/Multi-Shot examples purely for 
+  length — these often carry essential pattern-demonstration value that 
+  isn't truly "verbose filler," even though they add token count.
+- Consider whether COMPRESSING RETRIEVED CONTEXT (via Summarization 
+  Prompting applied before inclusion) rather than compressing your core 
+  instructions is a better target, especially in RAG systems where 
+  context often dwarfs the instructional prompt in size.
+- For PRODUCTION systems, measure ACTUAL token savings and cost impact 
+  before and after compression to confirm the effort was genuinely 
+  worthwhile at your specific scale.
+- Don't over-optimize for compression at the expense of CLARITY for 
+  future human maintainers — a prompt that's technically token-
+  efficient but cryptic and hard to understand/modify later carries its 
+  own long-term cost.
+- Recognize that for LOW-VOLUME use cases, the engineering time spent 
+  on compression may exceed the actual dollar savings — apply this 
+  technique where the scale genuinely justifies the effort.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Compressing a prompt without testing whether it still works 
+  correctly, risking a broken prompt that costs far more than any token 
+  savings.
+  FIX: Always verify compressed prompts through actual testing before 
+  deploying them.
+
+- MISTAKE: Removing Few-Shot examples purely to save tokens, when those 
+  examples were carrying essential pattern-demonstration value, not 
+  genuine filler.
+  FIX: Distinguish genuine redundancy from essential content like 
+  examples before removing anything.
+
+- MISTAKE: Focusing compression effort on instructional prompt text 
+  when the actual bulk of tokens (and savings opportunity) is in 
+  retrieved/provided context that could be compressed via summarization 
+  instead.
+  FIX: Identify where the actual token bulk lies before deciding what 
+  to compress.
+
+- MISTAKE: Over-compressing to the point of cryptic, hard-to-maintain 
+  prompts that create long-term maintenance costs.
+  FIX: Balance token efficiency against ongoing clarity/maintainability.
+
+- MISTAKE: Investing significant effort in compression for very low-
+  volume use cases where the actual cost savings are negligible.
+  FIX: Reserve intensive compression effort for genuinely high-volume, 
+  cost-sensitive applications.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Original Prompt:
+"I would like you to please take a look at the following text and, if 
+it's not too much trouble, provide me with a summary of it. The summary 
+should ideally be around 3 sentences long, and I would appreciate it 
+if you could focus specifically on the main points rather than 
+including minor details."
+
+Compressed Prompt:
+"Summarize this text in 3 sentences, focusing on the main points, not 
+minor details."
+
+Expected Output:
+The compressed version conveys the exact same instructional content 
+(summary length, focus on main points) in a small fraction of the 
+tokens, removing purely social/hedging language ("if it's not too much 
+trouble," "I would appreciate it") that carries no actual instructional 
+value.
+
+--- INTERMEDIATE EXAMPLE ---
+Original Prompt:
+"You are an assistant whose job is to help with customer support 
+tickets. When you receive a customer support ticket, I need you to 
+carefully read through it and think about what category it belongs to. 
+The possible categories that you should consider are Billing, which 
+covers anything related to payments or subscriptions, Technical, which 
+covers anything related to bugs, crashes, or things not working 
+correctly, and General, which covers anything else that doesn't fit 
+into those first two categories. Once you've determined the category, 
+please respond with just that single category name and nothing else."
+
+Compressed Prompt:
+"Classify this support ticket into exactly one category: Billing 
+(payments/subscriptions), Technical (bugs/crashes), or General 
+(anything else). Respond with only the category name."
+
+Expected Output:
+The compressed version preserves every essential instruction (category 
+definitions, single-category constraint, output-format requirement) in 
+roughly a quarter of the original tokens, removing conversational 
+framing and redundant restatement without losing any functional 
+content.
+
+--- ADVANCED EXAMPLE ---
+Original Prompt (for a RAG system, showing context compression rather 
+than instruction compression):
+"[500-word retrieved passage about a company's shipping policy, 
+containing significant boilerplate legal language, repeated contact 
+information, and only 2-3 sentences of information actually relevant 
+to answering the user's specific question about international shipping 
+times]"
+
+Compression approach: 
+"Before including this retrieved passage in the final prompt, first 
+summarize it down to only the information relevant to: international 
+shipping times and any related fees. Compress the 500-word passage into 
+2-3 sentences capturing just this relevant information, discarding 
+boilerplate legal language and repeated contact details that don't 
+answer the specific question."
+
+Expected Output:
+A compressed 2-3 sentence extract containing only the internationally-
+relevant shipping time and fee information, reducing the context 
+injected into the final answering prompt from 500 words to perhaps 30-
+40 words — demonstrating that in RAG-style systems, compressing the 
+CONTEXT (via targeted summarization before inclusion) is often a far 
+higher-leverage compression target than trying to shorten the 
+comparatively small instructional prompt wrapped around it, since 
+context frequently dominates total token usage in such systems.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Here is my current prompt:
+    [ORIGINAL PROMPT]
+    
+    Compress this to use meaningfully fewer tokens, while preserving 
+    every essential instruction, constraint, and example exactly as 
+    functionally necessary. Only remove genuine redundancy, filler 
+    language, or unnecessarily verbose phrasing — do not remove 
+    anything that would change the output's correctness, completeness, 
+    or reliability.
+    
+    After compressing, briefly note what was removed and confirm it 
+    doesn't affect functionality. [I will test the compressed version 
+    against real inputs before adopting it.]
+
+=====================================================================
+END OF FILE 71 — Prompt Compression
+=====================================================================

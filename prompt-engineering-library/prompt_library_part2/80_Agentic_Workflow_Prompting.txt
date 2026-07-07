@@ -1,0 +1,433 @@
+=====================================================================
+80. AGENTIC WORKFLOW PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Meta/
+Optimization — Capstone)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Agentic Workflow Prompting — Orchestrating Autonomous, Multi-Step, 
+Tool-Using Systems
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Agentic Workflow Prompting is the CAPSTONE, INTEGRATIVE technique of 
+designing complete, autonomous or semi-autonomous AI systems that 
+combine PLANNING, TOOL USE, MEMORY, MULTI-STEP REASONING, and 
+CONDITIONAL WORKFLOW LOGIC to accomplish complex, real-world goals with 
+minimal per-step human intervention — synthesizing ReAct Prompting 
+(file 23), Planner/Executor patterns (files 25-26), Tool-Use and 
+Function Calling (files 30-31), Memory Prompting (file 34), Workflow 
+Prompting (file 32), and Prompt Chaining (file 68) into a single, 
+coherent, production-grade AGENTIC SYSTEM ARCHITECTURE. This represents 
+the highest level of integration in this entire library — where an 
+"agent" doesn't just answer a single question, but autonomously 
+pursues a GOAL across many steps, adapting its plan as it learns new 
+information, using tools to interact with the real world, and 
+maintaining memory across the entire process.
+
+Think of it like the difference between hiring a consultant for a 
+single piece of advice (a single prompt/response) versus hiring an 
+autonomous project manager who is handed an overall GOAL ("launch this 
+product successfully"), who then independently plans the necessary 
+steps, delegates and executes tasks, uses whatever tools/resources are 
+needed (calling vendors, checking budgets, coordinating schedules), 
+remembers what's been done and learned throughout the process, adapts 
+the plan as circumstances change, and only checks in with you at 
+meaningful decision points or upon completion — this is the full, 
+integrated agentic system that Agentic Workflow Prompting is designed 
+to architect.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Agentic Workflow Prompting exists to:
+- Enable AUTONOMOUS pursuit of complex, multi-step, real-world goals 
+  that would require dozens or hundreds of individual human-supervised 
+  prompts if handled one step at a time.
+- INTEGRATE the full range of individual techniques covered throughout 
+  this library (reasoning, tool use, memory, planning, multi-agent 
+  coordination) into a single coherent, production-capable system, 
+  rather than treating them as isolated, disconnected patterns.
+- Support REAL-WORLD AUTOMATION of genuinely complex workflows — coding 
+  agents that plan, write, test, and debug entire features; research 
+  agents that investigate, synthesize, and report; operations agents 
+  that monitor, diagnose, and remediate — directly relevant to building 
+  sophisticated production systems like large-scale multi-agent 
+  frameworks.
+- Provide the ARCHITECTURAL PATTERN underlying essentially all modern, 
+  sophisticated AI agent products (coding agents, research agents, 
+  autonomous customer service systems, complex automation platforms).
+- Serve as the natural CULMINATION of this entire prompt engineering 
+  library — demonstrating how the 79 individual techniques covered 
+  previously combine into genuinely powerful, integrated, real-world 
+  systems rather than remaining isolated tricks.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Building genuinely autonomous or semi-autonomous systems that pursue 
+  multi-step goals with tool use, memory, and adaptive planning 
+  (coding agents, research agents, complex automation pipelines).
+- Tasks too complex, too long, or too variable for a fixed Prompt Chain 
+  (file 68) or Workflow (file 32) to handle, requiring genuine dynamic 
+  planning and adaptation as new information emerges.
+- Production systems requiring the FULL integration of planning, 
+  execution, tool use, and persistent memory across potentially long-
+  running, multi-session tasks.
+- Advanced personal or professional projects (directly relevant to 
+  large-scale multi-agent swarm systems, comprehensive CLI agent tools, 
+  or sophisticated automation platforms) where the goal genuinely 
+  requires autonomous, adaptive, tool-using behavior rather than a 
+  single question-answer exchange.
+
+WHEN NOT TO USE:
+- Simple, single-step, or narrowly-scoped tasks where any individual 
+  technique from earlier in this library (a well-crafted single prompt, 
+  a simple prompt chain) is entirely sufficient — agentic architecture 
+  adds substantial complexity that should be reserved for genuinely 
+  complex, multi-step, adaptive needs.
+- Situations without genuine tool/execution infrastructure — true 
+  agentic behavior requires actual capability to take real actions 
+  (run code, call APIs, access files), not just reasoning about what 
+  actions would theoretically be taken.
+- High-stakes autonomous action without appropriate human oversight/
+  approval checkpoints — genuinely autonomous systems taking consequential 
+  real-world actions warrant careful consideration of appropriate human-
+  in-the-loop safeguards, especially for actions that are costly, risky, 
+  or hard to reverse.
+
+BEST MODELS/PLATFORMS FOR AGENTIC WORKFLOWS:
+- Claude (via Claude Code, and Claude's native agentic/tool-use 
+  capabilities) — widely regarded as excellent for genuinely 
+  sophisticated agentic coding and automation tasks, with strong 
+  planning, tool-use reliability, and extended autonomous operation 
+  capability.
+- GPT-4o/4.1/5-class (via function calling, Assistants API, and various 
+  agent frameworks) — strong, widely-adopted agentic capability across 
+  many application domains.
+- Gemini Pro/Ultra (via function calling and Google's agent-building 
+  tools, including Google ADK) — strong agentic capability, particularly 
+  well-integrated for building large-scale, sophisticated multi-agent 
+  systems (directly relevant to substantial swarm-architecture 
+  projects).
+- Specialized agentic frameworks — LangGraph (for stateful, graph-based 
+  agent workflows), Google ADK (Agent Development Kit, purpose-built for 
+  multi-agent orchestration), AutoGen, CrewAI — provide the essential 
+  ORCHESTRATION INFRASTRUCTURE (state management, tool registries, agent 
+  communication protocols) that genuine agentic workflows require beyond 
+  what a single model call alone can provide.
+- REASONING-NATIVE models (extended thinking Claude, o-series, DeepSeek-
+  R1) are particularly valuable for the PLANNING and DECISION-MAKING 
+  components within an agentic workflow, where careful multi-step 
+  reasoning about what to do next is critical.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [OVERALL GOAL] + [AVAILABLE TOOLS] + [MEMORY/STATE MANAGEMENT] + 
+    "Plan → Act → Observe → Reflect → Adapt Plan → Repeat until goal 
+    achieved or human input needed" + [HUMAN CHECKPOINT CONDITIONS]
+
+-----------------------------
+6. PROMPT STRUCTURE (as a complete agentic system architecture)
+-----------------------------
+    1. Goal Definition — the overall, often complex and multi-step 
+       objective the agent is pursuing (connects to Goal-Oriented 
+       Prompting, file 10).
+    2. Available Tools/Capabilities — the full set of actions the agent 
+       can take (code execution, web search, file access, API calls — 
+       connects to Tool-Use and Function Calling, files 30-31).
+    3. Memory Architecture — how the agent tracks progress, learnings, 
+       and state across potentially many steps or sessions (connects to 
+       Memory Prompting, file 34).
+    4. Planning Mechanism — how the agent breaks the goal into sub-
+       tasks and sequences them, with the ability to REVISE the plan as 
+       new information emerges (connects to Plan-and-Solve, file 24, 
+       and Planner/Executor patterns, files 25-26).
+    5. Reasoning-Action-Observation Loop — the core operational cycle: 
+       reason about what to do next, take an action via available 
+       tools, observe the result, reflect on what was learned, and 
+       adapt the plan accordingly (connects to ReAct, file 23, and 
+       Reflection Prompting, file 19).
+    6. Conditional Workflow Logic — handling different situations 
+       encountered along the way with appropriate different responses 
+       (connects to Workflow Prompting, file 32).
+    7. Human Checkpoint Conditions — explicit definition of when the 
+       agent should pause and seek human input/approval, rather than 
+       proceeding fully autonomously (critical for high-stakes, costly, 
+       or hard-to-reverse actions).
+    8. Termination Conditions — how the agent recognizes the goal has 
+       been achieved (or that it's genuinely stuck and needs to stop/
+       escalate) rather than looping indefinitely.
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Define the GOAL clearly but allow genuine FLEXIBILITY in HOW it's 
+  achieved — over-specifying every step defeats the purpose of genuine 
+  agentic planning; under-specifying the actual goal leaves the agent 
+  without clear direction (balance connects to Goal-Oriented Prompting, 
+  file 10).
+- Set EXPLICIT human checkpoint conditions for consequential actions — 
+  genuinely autonomous systems should have clearly defined moments 
+  where they pause for human approval, especially for costly, risky, 
+  or hard-to-reverse actions (sending money, deleting data, publishing 
+  content publicly).
+- Build in ROBUST MEMORY management appropriate to the task's actual 
+  duration/complexity — a short single-session agent needs simpler 
+  memory than one operating across days or weeks (see Memory Prompting, 
+  file 34, for detailed guidance).
+- Design for GRACEFUL FAILURE HANDLING at every level — what happens 
+  when a tool call fails, when the plan proves flawed, when the agent 
+  gets stuck in a loop — rather than assuming every component always 
+  works perfectly (connects to failure-handling principles throughout 
+  Multi-Agent Prompting, file 27, and Adaptive Prompting, file 73).
+- Implement clear TERMINATION conditions — both success conditions 
+  (how the agent knows the goal is achieved) and failure/escalation 
+  conditions (how the agent recognizes it's stuck and should stop or 
+  seek help, rather than looping indefinitely or taking increasingly 
+  questionable actions to force progress).
+- LOG the agent's full reasoning-action-observation trace for 
+  debugging, auditability, and building trust — this transparency is 
+  essential for understanding and improving agentic system behavior 
+  over time.
+- Start SIMPLE and add sophistication incrementally — validate that 
+  basic planning and tool use work correctly before adding complex 
+  multi-agent coordination, extensive memory architecture, or highly 
+  autonomous long-running operation.
+- Test extensively against EDGE CASES and adversarial conditions — 
+  agentic systems operating with real tool access and real-world 
+  consequences warrant significantly more rigorous testing than simple 
+  question-answering prompts, given the potential for compounding 
+  errors across many autonomous steps.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Insufficient human checkpoints for consequential, costly, or 
+  hard-to-reverse actions, risking autonomous systems taking problematic 
+  real-world actions without appropriate oversight.
+  FIX: Explicitly define clear human-approval checkpoints for high-
+  stakes actions.
+
+- MISTAKE: No graceful failure handling, causing the entire agentic 
+  system to break or behave unpredictably when any single tool call or 
+  planning step encounters an issue.
+  FIX: Design explicit failure handling and recovery logic at every 
+  level of the system.
+
+- MISTAKE: No clear termination conditions, risking agents that loop 
+  indefinitely or take increasingly questionable actions trying to force 
+  progress toward an ill-defined goal.
+  FIX: Define both explicit success conditions and failure/escalation 
+  conditions.
+
+- MISTAKE: Attempting to build maximum sophistication (full multi-agent 
+  coordination, extensive memory, long-running autonomy) immediately, 
+  without first validating simpler component behaviors work correctly.
+  FIX: Start with simpler agentic patterns and add sophistication 
+  incrementally, validating each addition.
+
+- MISTAKE: Insufficient logging/observability into the agent's actual 
+  reasoning and actions, making debugging and trust-building very 
+  difficult when the system doesn't behave as expected.
+  FIX: Maintain comprehensive logs of the full reasoning-action-
+  observation trace.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Agentic Workflow Design:
+"Goal: Research and summarize the current best practices for a 
+specified technical topic, producing a well-organized markdown report. 
+
+Available tools: web_search, web_fetch 
+
+Workflow: 
+1. Plan: break the topic into 3-5 sub-questions covering key angles. 
+2. For each sub-question: search, fetch relevant sources, extract key 
+findings (connects to Research Prompting, file 60). 
+3. Reflect: after all sub-questions are researched, review whether the 
+research adequately covers the topic, or if a gap suggests an 
+additional search is needed. 
+4. Synthesize: combine all findings into a well-organized markdown 
+report with citations. 
+
+Termination: complete when the report is produced; no human checkpoint 
+needed mid-process since this is a low-stakes, reversible research task 
+(worst case, the report can simply be regenerated if unsatisfactory)."
+
+Expected Output:
+A complete agentic research workflow that autonomously plans sub-
+questions, executes searches, reflects on coverage adequacy, and 
+produces a final synthesized report — demonstrating a genuinely 
+integrated (if relatively simple) agentic system requiring no human 
+checkpoints given the task's low-stakes, easily-reversible nature.
+
+--- INTERMEDIATE EXAMPLE ---
+Agentic Workflow Design:
+"Goal: Given a bug report, autonomously diagnose the issue, implement a 
+fix, and verify the fix resolves the problem — for a personal coding 
+project. 
+
+Available tools: read_file, write_file, run_tests, run_command 
+
+Memory: maintain a running log of what's been tried and learned during 
+this debugging session (connects to Memory Prompting, file 34, and 
+ReAct Prompting, file 23). 
+
+Workflow: 
+1. Plan: read relevant files, understand the bug report, form initial 
+hypotheses about the root cause. 
+2. Act-Observe loop: investigate hypotheses (reading more code, running 
+diagnostic commands), updating the memory log with findings. 
+3. Once root cause is identified: implement a fix. 
+4. Verify: run the existing test suite plus a new regression test 
+covering this specific bug, confirming the fix works and nothing else 
+broke. 
+5. Reflect: if verification fails, return to Step 2 with updated 
+understanding (adapting the plan based on what was learned) rather than 
+blindly retrying the same fix. 
+
+Human checkpoint: before Step 3 (implementing the fix), if the 
+diagnosed root cause suggests a fix touching more than 3 files or any 
+security-sensitive code, pause and present the diagnosis + proposed fix 
+plan for human approval before proceeding, rather than autonomously 
+modifying security-sensitive code without review. 
+
+Termination: success when tests pass and the fix is verified; escalate 
+to human review if 3 fix attempts don't resolve the issue, rather than 
+continuing indefinitely."
+
+Expected Output:
+A genuinely integrated agentic debugging workflow combining ReAct-style 
+investigation, memory tracking across the session, an explicit human 
+checkpoint for higher-risk changes, and clear termination/escalation 
+conditions — demonstrating appropriate balance between autonomous 
+efficiency (handling straightforward bugs independently) and human 
+oversight (pausing for review when the fix scope or risk profile 
+warrants it).
+
+--- ADVANCED EXAMPLE ---
+Agentic Workflow Design:
+"Goal: Autonomously monitor a production multi-agent system's health 
+(conceptually relevant to a large-scale swarm architecture), diagnose 
+anomalies, and either auto-remediate known issue patterns or escalate 
+novel issues to human on-call engineers. 
+
+Available tools: query_metrics, read_logs, restart_service, 
+scale_resources, send_alert, query_knowledge_base (a repository of 
+known issue patterns and their remediation) 
+
+Memory: 
+- Short-term: current incident investigation state, hypotheses tested 
+- Long-term: historical incident patterns and their resolutions, 
+continuously updated as new incidents are resolved (connects to Memory 
+Prompting's layered memory concepts, file 34) 
+
+Workflow: 
+1. Continuous monitoring: periodically query_metrics; if anomaly 
+detected, begin incident workflow. 
+2. Plan: query_knowledge_base for similar historical patterns; form 
+initial hypothesis about likely cause. 
+3. Act-Observe loop: read_logs and query_metrics further to test the 
+hypothesis, updating short-term memory with findings. 
+4. Decision branch (connects to Workflow Prompting, file 32): 
+   - IF the pattern matches a KNOWN issue with a well-established, 
+   low-risk remediation (per knowledge base) AND confidence is high, 
+   THEN autonomously execute the known remediation (e.g., restart_
+   service) and monitor for resolution. 
+   - ELSE IF the pattern is known but the remediation carries 
+   meaningful risk (e.g., requires scale_resources with real cost 
+   implications), THEN send_alert to on-call human with the diagnosis 
+   and proposed remediation, awaiting approval before executing. 
+   - ELSE (novel pattern not matching known cases), THEN send_alert 
+   immediately with full diagnostic findings, explicitly flagging this 
+   as a novel issue requiring human investigation, rather than 
+   attempting an uncertain autonomous remediation. 
+5. Post-resolution: update long-term memory (knowledge base) with the 
+new incident pattern and its resolution, whether the fix was autonomous 
+or human-guided, to improve future autonomous handling of similar 
+issues. 
+
+Termination/escalation: any autonomous remediation attempt that doesn't 
+resolve the issue within a defined time window automatically escalates 
+to human on-call rather than continuing autonomous attempts 
+indefinitely on a production system."
+
+Expected Output:
+A sophisticated, fully-integrated agentic operations system combining 
+continuous autonomous monitoring, ReAct-style diagnostic investigation, 
+layered short/long-term memory, explicit risk-based conditional workflow 
+logic determining when autonomous action vs. human approval is 
+appropriate, continuous learning (updating the knowledge base from each 
+incident), and clear escalation/termination conditions preventing 
+indefinite autonomous action on a production system — demonstrating the 
+full integration of essentially every major technique category covered 
+throughout this entire prompt engineering library (reasoning, tool use, 
+memory, planning, conditional workflows, multi-agent-adjacent 
+coordination with human operators) into a single, coherent, genuinely 
+production-appropriate agentic architecture, appropriately calibrated 
+with human oversight scaled to the actual risk level of each situation 
+encountered.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE (as a complete agentic system design 
+outline)
+-----------------------------
+    Goal: [OVERALL, POTENTIALLY COMPLEX MULTI-STEP OBJECTIVE]
+    
+    Available tools: [FULL LIST OF ACTIONS THE AGENT CAN TAKE]
+    
+    Memory architecture:
+    - Short-term/session state: [WHAT'S TRACKED DURING ACTIVE WORK]
+    - Long-term/persistent memory: [WHAT PERSISTS ACROSS SESSIONS, IF 
+    APPLICABLE]
+    
+    Workflow:
+    1. Plan: [HOW THE AGENT BREAKS THE GOAL INTO AN INITIAL SUB-TASK 
+    SEQUENCE]
+    2. Act-Observe loop: [THE CORE REASONING → ACTION → OBSERVATION 
+    CYCLE, referencing available tools]
+    3. Reflect: [HOW THE AGENT EVALUATES PROGRESS AND ADAPTS THE PLAN 
+    BASED ON WHAT'S LEARNED]
+    4. Conditional logic: IF [CONDITION], THEN [ACTION]. ELSE IF 
+    [CONDITION], THEN [DIFFERENT ACTION]. [Additional branches as 
+    needed]
+    
+    Human checkpoint conditions: [EXPLICIT CRITERIA FOR WHEN THE AGENT 
+    MUST PAUSE FOR HUMAN APPROVAL — e.g., cost thresholds, risk levels, 
+    irreversible actions]
+    
+    Termination conditions:
+    - Success: [HOW THE AGENT RECOGNIZES THE GOAL IS ACHIEVED]
+    - Escalation/failure: [HOW THE AGENT RECOGNIZES IT'S STUCK AND 
+    SHOULD STOP/ESCALATE RATHER THAN CONTINUING INDEFINITELY]
+
+=====================================================================
+END OF FILE 80 — Agentic Workflow Prompting
+=====================================================================
+
+=====================================================================
+🎉 ULTIMATE PROMPT ENGINEERING LIBRARY — PART 2 COMPLETE (41–80) 🎉
+=====================================================================
+All 39 requested prompt types have been generated (files 41-80), 
+covering:
+- Formatting (41-45): XML through Format-Constrained Prompting
+- Creative (46-53): Story through Brainstorming Prompting
+- Coding (54-59): Code Generation through Documentation Prompting
+- Analytical (60-66): Research through Fact-Checking Prompting
+- Meta/Optimization (67-80): Meta Prompting through Agentic Workflow 
+Prompting (capstone)
+
+Combined with Part 1 (files 01-40), the Ultimate Prompt Engineering 
+Library now spans 80 comprehensive prompt engineering technique guides.
+=====================================================================

@@ -1,0 +1,321 @@
+=====================================================================
+55. DEBUGGING PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Coding)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Debugging Prompting — Systematically Diagnosing and Fixing Broken Code
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Debugging prompting is a technique for instructing an LLM to 
+systematically DIAGNOSE the root cause of a bug in EXISTING code and 
+propose a correct FIX — providing the error message/symptom, the 
+relevant code, and enough context (expected vs. actual behavior) for 
+genuine diagnosis rather than guessing. This is distinct from Code 
+Generation Prompting (file 54, writing new code) in that Debugging 
+starts from something that ALREADY EXISTS and ALREADY DOESN'T WORK 
+correctly — the task is fundamentally diagnostic before it's 
+corrective, closely related to the ReAct pattern (file 23) of 
+investigating before concluding.
+
+Think of it like the difference between an architect designing a new 
+building from scratch (Code Generation) versus a building inspector 
+called in specifically because something is broken — a leak, a crack, 
+a structural issue — who needs to investigate symptoms, trace them to 
+a root cause, and only then recommend a specific fix, rather than 
+guessing at repairs without understanding what's actually wrong.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Debugging prompting exists to:
+- Accurately identify the ROOT CAUSE of a bug rather than just 
+  patching a symptom, which prevents the same underlying issue from 
+  resurfacing elsewhere.
+- Leverage systematic, step-by-step REASONING (closely related to 
+  Chain-of-Thought and ReAct patterns) to trace through code logic and 
+  actual execution behavior rather than pattern-matching to a 
+  superficially similar-looking bug.
+- Reduce debugging TIME by quickly narrowing down likely causes based 
+  on symptoms, error messages, and code structure.
+- Support LEARNING — a good debugging explanation helps the developer 
+  understand WHY the bug occurred, not just what to change, building 
+  genuine skill over time.
+- Provide a structured process for situations where the bug's cause 
+  isn't immediately obvious from a quick glance at the code.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Code is producing an error, crash, or exception you need to 
+  understand and fix.
+- Code runs without crashing but produces incorrect/unexpected output.
+- Intermittent or hard-to-reproduce bugs where systematic reasoning 
+  about possible causes is valuable.
+- Performance issues where the code "works" but is unexpectedly slow, 
+  requiring diagnostic investigation.
+
+WHEN NOT TO USE:
+- Writing new code from scratch (use Code Generation Prompting 
+  instead).
+- Evaluating working code for quality/improvement opportunities with 
+  no actual bug present (use Code Review Prompting instead).
+- Restructuring working code without any bug involved (use Refactoring 
+  Prompting instead).
+
+BEST MODELS FOR DEBUGGING PROMPTING:
+- Claude (especially with extended thinking, and via Claude Code) — 
+  excellent systematic debugging capability, strong at tracing through 
+  logic carefully rather than jumping to a superficial pattern-matched 
+  fix.
+- GPT-4o/4.1/5-class (especially o-series reasoning models) — very 
+  strong debugging, particularly for complex logic errors requiring 
+  careful step-by-step tracing.
+- Gemini Pro/Ultra — capable debugging, especially strong when the 
+  full codebase/context can be provided given large context windows.
+- DeepSeek-Coder / Qwen-Coder — strong specialized debugging 
+  performance, often excellent value for coding-focused diagnostic 
+  work.
+- For AGENTIC debugging (actually running code, reproducing the bug, 
+  testing fixes): Claude Code, Cursor, and similar tools that combine 
+  reasoning with actual code execution provide significantly more 
+  reliable debugging than reasoning about code purely from reading it, 
+  since they can verify hypotheses empirically.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [CODE] + [ERROR MESSAGE/SYMPTOM] + [EXPECTED VS. ACTUAL BEHAVIOR] 
+    + "Diagnose the root cause step by step, then provide a fix."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. The Code — the relevant code exhibiting the bug (enough 
+       surrounding context to understand it, not necessarily the 
+       entire codebase unless needed).
+    2. Error Message/Symptom — the exact error text, stack trace, or 
+       description of incorrect behavior observed.
+    3. Expected vs. Actual Behavior — what SHOULD happen vs. what 
+       ACTUALLY happens.
+    4. Reproduction Context — relevant input values or conditions that 
+       trigger the bug, if known.
+    5. Diagnostic Instruction — explicitly request step-by-step 
+       reasoning to trace the root cause before jumping to a fix.
+    6. Fix Request — once diagnosed, request a specific, correct fix.
+
+Example skeleton:
+    "This code is producing [ERROR/UNEXPECTED BEHAVIOR]: 
+    
+    [CODE] 
+    
+    Error message/symptom: [EXACT ERROR OR DESCRIPTION] 
+    Expected behavior: [WHAT SHOULD HAPPEN] 
+    Actual behavior: [WHAT ACTUALLY HAPPENS] 
+    Triggered by: [INPUT/CONDITIONS THAT CAUSE THIS, if known] 
+    
+    Diagnose the root cause step by step, tracing through the code's 
+    actual execution logic, before proposing a fix. Then provide the 
+    corrected code."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Provide the EXACT error message/stack trace, not a paraphrase — exact 
+  wording and line numbers often contain crucial diagnostic 
+  information.
+- Clearly distinguish EXPECTED vs. ACTUAL behavior — this framing 
+  forces clarity about what's actually wrong, rather than a vague "this 
+  isn't working."
+- Include REPRODUCTION CONTEXT (specific inputs that trigger the bug) 
+  whenever known, since many bugs are conditional and won't be 
+  apparent without knowing what triggers them.
+- Explicitly request STEP-BY-STEP DIAGNOSTIC REASONING before the fix — 
+  this reduces the risk of the model pattern-matching to a superficially 
+  similar bug and proposing an incorrect fix that doesn't address the 
+  actual root cause.
+- Provide enough SURROUNDING CONTEXT (relevant imports, how the buggy 
+  function is called, relevant class definitions) — bugs are often 
+  caused by interactions between pieces of code, not just the specific 
+  line where an error surfaces.
+- When possible, use an actual CODE EXECUTION environment so 
+  hypotheses can be tested empirically rather than reasoned about 
+  purely theoretically — this dramatically improves debugging 
+  reliability for non-trivial bugs.
+- After receiving a proposed fix, always VERIFY it actually resolves 
+  the issue (by running it) rather than assuming the explanation's 
+  plausibility guarantees correctness.
+- For DIFFICULT or non-reproducible bugs, ask the model to list several 
+  possible hypotheses ranked by likelihood, rather than committing 
+  immediately to a single theory.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Paraphrasing the error message instead of providing the 
+  exact text/stack trace, losing potentially crucial diagnostic detail.
+  FIX: Always provide the exact, complete error message or stack trace.
+
+- MISTAKE: Not providing enough surrounding code context, leaving the 
+  model unable to see interactions between the buggy code and other 
+  parts of the system that might be the actual root cause.
+  FIX: Include relevant surrounding context, not just the single line 
+  where the error surfaces.
+
+- MISTAKE: Jumping straight to "fix this" without requesting diagnostic 
+  reasoning first, increasing the risk of a superficial, pattern-
+  matched fix that doesn't address the actual root cause.
+  FIX: Always explicitly request step-by-step diagnosis before the fix.
+
+- MISTAKE: Not providing reproduction context (what specific input 
+  triggers the bug), especially for conditional/intermittent bugs.
+  FIX: Include known triggering conditions/inputs whenever available.
+
+- MISTAKE: Trusting a proposed fix without actually verifying it 
+  resolves the issue.
+  FIX: Always test/run the proposed fix before considering the bug 
+  resolved.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"This code is producing an error: 
+
+def get_average(numbers):
+    return sum(numbers) / len(numbers)
+
+print(get_average([]))
+
+Error message: 'ZeroDivisionError: division by zero' 
+Expected behavior: should handle an empty list gracefully (e.g., 
+return 0 or None) 
+Actual behavior: crashes with ZeroDivisionError 
+
+Diagnose the root cause step by step, then provide a fix."
+
+Expected Output:
+A clear diagnosis identifying that `len(numbers)` is 0 for an empty 
+list, causing division by zero in the `sum(numbers) / len(numbers)` 
+line, followed by a corrected implementation that explicitly checks 
+for an empty list and returns an appropriate default (0, None, or 
+raises a more informative custom error, depending on desired behavior) 
+before attempting the division.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"This code is producing unexpected output: 
+
+def process_items(items):
+    results = []
+    for item in items:
+        if item.get('active'):
+            results.append(item)
+        results.sort(key=lambda x: x['priority'])
+    return results
+
+Error message/symptom: no crash, but the sorting seems inconsistent 
+and inefficient when called with large lists 
+Expected behavior: return only active items, sorted by priority, 
+efficiently 
+Actual behavior: works but seems to run much slower than expected on 
+large inputs, and I suspect there's a subtle bug beyond just 
+performance 
+
+Diagnose the root cause step by step, tracing through the actual 
+execution logic, before proposing a fix."
+
+Expected Output:
+A diagnosis correctly identifying that `results.sort()` is called 
+INSIDE the for loop (due to indentation), meaning the list is being 
+re-sorted after every single item is added rather than once at the 
+end — this explains both the performance issue (O(n² log n) instead 
+of O(n log n)) and is a genuine logic bug, not just an efficiency 
+concern — followed by a corrected version that first filters active 
+items via a list comprehension, then sorts ONCE after the loop 
+completes.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"This code in my multi-agent system is producing intermittent, hard-
+to-reproduce failures: 
+
+import threading
+
+class SharedMemory:
+    def __init__(self):
+        self.data = {}
+    
+    def update(self, key, value):
+        current = self.data.get(key, 0)
+        self.data[key] = current + value
+
+# Called concurrently by multiple agent threads:
+memory = SharedMemory()
+threads = [threading.Thread(target=memory.update, args=('counter', 1)) 
+for _ in range(1000)]
+for t in threads:
+    t.start()
+for t in threads:
+    t.join()
+print(memory.data['counter'])
+
+Error message/symptom: no crash, but `memory.data['counter']` 
+sometimes prints 1000 as expected, but other times prints a lower 
+number like 987 or 994 — inconsistent across runs. 
+Expected behavior: should reliably print exactly 1000. 
+Actual behavior: inconsistent, usually somewhat less than 1000. 
+
+This is intermittent and hard to reproduce reliably — please list 
+possible hypotheses ranked by likelihood, reasoning through why each 
+could cause this specific symptom pattern (inconsistent, usually 
+lower-than-expected count, no crash), before proposing a fix for the 
+most likely cause."
+
+Expected Output:
+A diagnosis correctly identifying this as a classic RACE CONDITION / 
+thread-safety issue: the `update` method's read-modify-write sequence 
+(`current = self.data.get(key, 0)` then `self.data[key] = current + 
+value`) is not atomic, so when multiple threads execute this 
+concurrently, some updates can be "lost" when two threads read the 
+same current value before either has written back their update — 
+correctly explaining why this produces the SPECIFIC observed symptom 
+pattern (a count somewhat lower than expected, inconsistent across 
+runs, no actual crash) rather than some other kind of bug — followed 
+by a proposed fix using a threading.Lock to make the update operation 
+atomic (or suggesting `threading.Lock()` around the critical section, 
+or using an atomic-safe alternative), correctly identifying this as 
+the most likely root cause given the exact symptom pattern described, 
+rather than jumping to a less-fitting hypothesis.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    This code is producing [an error / unexpected behavior]:
+    
+    [PASTE THE RELEVANT CODE, WITH SUFFICIENT SURROUNDING CONTEXT]
+    
+    Error message/symptom: [EXACT ERROR TEXT OR DESCRIPTION OF 
+    INCORRECT BEHAVIOR]
+    Expected behavior: [WHAT SHOULD HAPPEN]
+    Actual behavior: [WHAT ACTUALLY HAPPENS]
+    Triggered by: [SPECIFIC INPUT/CONDITIONS THAT CAUSE THIS, if 
+    known]
+    
+    Diagnose the root cause step by step, tracing through the actual 
+    execution logic (list multiple ranked hypotheses if the cause 
+    isn't immediately clear). Then provide a corrected version of the 
+    code.
+
+=====================================================================
+END OF FILE 55 — Debugging Prompting
+=====================================================================

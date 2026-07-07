@@ -1,0 +1,310 @@
+=====================================================================
+50. CHARACTER PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Creative)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Character Prompting — Developing Deep, Consistent Fictional Characters
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Character prompting is a technique focused specifically on developing 
+and maintaining a fictional CHARACTER'S full identity for creative 
+writing purposes — their backstory, personality, motivations, speech 
+patterns, physical description, relationships, and internal 
+contradictions — with enough depth and specificity that the character 
+behaves CONSISTENTLY and believably across multiple scenes, stories, 
+or an entire narrative project. This differs from Persona Prompting 
+(covered earlier in this library for having the MODEL itself adopt a 
+character voice for conversation) in that Character Prompting is about 
+DEVELOPING a fictional character AS A CREATIVE WRITING SUBJECT — 
+someone the model writes ABOUT within a story, not someone the model 
+becomes.
+
+Think of it like the difference between an actor being asked to 
+improvise IN CHARACTER for an audience (Persona Prompting) versus a 
+novelist's detailed character bible/notes that inform how that 
+character is written across an entire book — the character exists as a 
+subject of the narrative, with depth that serves the STORY rather than 
+a direct conversational interaction.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Character prompting exists to:
+- Create characters with genuine PSYCHOLOGICAL DEPTH and internal 
+  consistency, avoiding flat, one-dimensional figures who only exist to 
+  serve plot mechanics.
+- Maintain CONSISTENCY across a longer narrative project (a novel, a 
+  series, multiple related stories) so a character's voice, values, and 
+  behavior patterns don't drift or contradict themselves between 
+  scenes.
+- Support ENSEMBLE casts where multiple distinct characters need 
+  clearly differentiated voices, motivations, and relationships to one 
+  another.
+- Provide the CHARACTER FOUNDATION that Story Prompting (file 46), 
+  Screenplay Prompting (file 47), and Dialogue Prompting (file 52) all 
+  depend on for producing believable character-driven content.
+- Enable deliberate CHARACTER ARCS — meaningful change over the course 
+  of a narrative — by establishing a clear starting point that can be 
+  tracked as it evolves.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Developing protagonists, antagonists, or significant supporting 
+  characters for any narrative project (fiction, screenplay, game 
+  narrative).
+- Building ENSEMBLE casts where distinct, differentiated character 
+  voices matter.
+- Long-form or serialized projects requiring consistency across many 
+  scenes/chapters/episodes.
+- Any creative project where character believability and depth are a 
+  primary quality concern.
+
+WHEN NOT TO USE:
+- Very minor, functional characters who appear briefly with no 
+  meaningful depth requirement (a background waiter with one line 
+  doesn't need a full character profile).
+- When you want the MODEL itself to adopt a character's voice for 
+  direct conversation (use Persona Prompting instead).
+- Extremely short creative pieces where full character development is 
+  disproportionate to the piece's scope.
+
+BEST MODELS FOR CHARACTER PROMPTING:
+- Claude — particularly strong at maintaining nuanced, psychologically 
+  consistent characters across long creative writing sessions, with 
+  good instinct for avoiding one-dimensional or contradictory character 
+  behavior.
+- GPT-4o/4.1/5-class — strong character development capability, 
+  versatile across genres and character archetypes.
+- Gemini Pro/Ultra — capable character work, particularly useful when 
+  combined with visual character design (character art generation 
+  alongside written profiles).
+- Grok — capable of distinctive, often more irreverent character voices.
+- Mistral / Llama — capable character development, especially larger 
+  variants; may need more explicit reinforcement of established 
+  character details in very long projects to avoid gradual drift.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [NAME] + [CORE IDENTITY/ROLE IN STORY] + [BACKSTORY] + 
+    [PERSONALITY TRAITS + CONTRADICTIONS] + [MOTIVATION/WANT] + [FEAR/
+    FLAW] + [SPEECH PATTERN] + [PHYSICAL DESCRIPTION] + [KEY 
+    RELATIONSHIPS]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Name and Role — who they are and their function in the 
+       narrative (protagonist, mentor, antagonist).
+    2. Backstory — relevant history that shapes who they are now 
+       (only what's actually relevant, not an exhaustive life history).
+    3. Personality — core traits, INCLUDING internal contradictions or 
+       tensions (genuinely interesting characters aren't simply 
+       "kind" or "ruthless" — they contain some friction).
+    4. Motivation/Want — what they're actively pursuing in the current 
+       story.
+    5. Fear/Flaw — their central weakness or blind spot, often what 
+       will be tested by the story's conflict.
+    6. Speech Pattern — how they talk, distinct from other characters.
+    7. Physical Description — relevant visual details (only what 
+       matters for the story, not an exhaustive physical inventory).
+    8. Key Relationships — how they relate to other significant 
+       characters in the story.
+
+Example skeleton:
+    "Character: [NAME], [ROLE IN STORY]. 
+    Backstory: [RELEVANT HISTORY]. 
+    Personality: [TRAITS], but also [CONTRADICTION/TENSION]. 
+    Wants: [ACTIVE GOAL]. 
+    Fear/Flaw: [CENTRAL WEAKNESS]. 
+    Speech pattern: [HOW THEY TALK]. 
+    Physical description: [RELEVANT DETAILS]. 
+    Relationships: [KEY CONNECTIONS TO OTHER CHARACTERS]."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Give every significant character a genuine INTERNAL CONTRADICTION or 
+  tension — "confident but secretly terrified of failure," "generous 
+  with strangers but cold with family" — flat, single-trait characters 
+  read as less believable than ones with some internal friction.
+- Distinguish characters' SPEECH PATTERNS clearly from one another in 
+  ensemble casts — vocabulary level, sentence length, verbal tics, 
+  what topics they gravitate toward or avoid.
+- Focus backstory and physical description on what's actually RELEVANT 
+  to the story being told, not an exhaustive biography — over-detailing 
+  irrelevant history wastes effort and can dilute focus on what 
+  actually matters dramatically.
+- Establish the character's WANT (external, active goal) clearly, 
+  since this is what drives their behavior and choices throughout the 
+  narrative.
+- For longer projects, maintain a CHARACTER REFERENCE that can be re-
+  provided/reinforced in later prompts to prevent gradual drift in 
+  voice or established facts across many separate writing sessions.
+- When developing an ENSEMBLE, explicitly define each character's 
+  RELATIONSHIP to the others — characters don't exist in isolation, and 
+  their dynamics with each other often reveal character better than 
+  solo description.
+- Consider what the character's FLAW specifically sets up for testing 
+  by the story's central conflict — a well-designed flaw connects 
+  directly to what the narrative will challenge.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Creating a character with only positive traits and no 
+  internal contradiction or flaw, resulting in a flat, less believable 
+  figure.
+  FIX: Always include genuine internal tension or a meaningful flaw.
+
+- MISTAKE: Giving multiple ensemble characters similar speech patterns/
+  vocabulary, making them hard to distinguish in dialogue.
+  FIX: Deliberately differentiate speech patterns across characters.
+
+- MISTAKE: Over-detailing irrelevant backstory/physical description 
+  that doesn't actually serve the story being told.
+  FIX: Focus character details on what's genuinely relevant to the 
+  narrative.
+
+- MISTAKE: Not establishing a clear active want/goal, leaving the 
+  character reactive rather than driving their own story.
+  FIX: Always define what the character actively wants/pursues.
+
+- MISTAKE: Character voice/details gradually drifting across a long 
+  project without any reference document to check consistency against.
+  FIX: Maintain and periodically re-provide a character reference 
+  summary for long-form projects.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Develop a supporting character for a fantasy adventure story: a 
+gruff blacksmith who secretly writes poetry. Personality: outwardly 
+short-tempered and no-nonsense, but privately sentimental. Wants: to 
+be taken seriously as an artist, not just a tradesman. Speech pattern: 
+short, clipped sentences in conversation, but his internal 
+monologue/poetry is lyrical and expressive — a deliberate contrast."
+
+Expected Output:
+A developed character profile for the blacksmith capturing the 
+described gruff-exterior/sentimental-interior contradiction, with 
+concrete details about how this tension might manifest in scenes 
+(e.g., gruffly dismissing a compliment while secretly treasuring it), 
+and guidance on maintaining the clipped-speech/lyrical-inner-voice 
+contrast consistently.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Develop the antagonist for a corporate thriller. Name: Victor Ashford, 
+CEO of a tech company. 
+
+Backstory: Built his company from nothing after a difficult childhood 
+marked by financial instability; this history drives an obsessive need 
+for control and security. 
+
+Personality: Charismatic and genuinely inspiring in public, but 
+privately paranoid and willing to cross ethical lines he'd publicly 
+condemn. The contradiction: he genuinely believes he's protecting his 
+employees by any means necessary, which is how he rationalizes his 
+worst actions to himself. 
+
+Wants: To close a merger that would secure the company's future — and 
+his own legacy — permanently. 
+
+Fear/Flaw: Terrified of losing control/security again like he did in 
+childhood; this fear, not simple greed, is what drives his willingness 
+to cross lines. 
+
+Speech pattern: Polished, persuasive, uses inclusive 'we' language 
+publicly; more clipped and transactional in private. 
+
+Relationship to protagonist: Was once a mentor figure to her before 
+their ethical conflict began, making the confrontation more personally 
+painful for both."
+
+Expected Output:
+A rich antagonist profile that avoids simple villainy by grounding 
+Victor's actions in genuine psychological motivation (childhood 
+instability → control-seeking) rather than cartoonish greed, with clear 
+guidance for how his public/private personality contrast should 
+manifest in different scene types, and an emphasis on the mentor-
+turned-antagonist relationship dynamic that adds emotional complexity 
+beyond a simple good-vs-evil framing.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Develop a 3-character ensemble for a psychological drama exploring a 
+family reunion after 15 years of estrangement. Each character needs a 
+distinct voice, a want that conflicts with at least one other 
+character's want, and a flaw connected to why the estrangement 
+originally happened. 
+
+Character 1 — MAYA (52): The eldest sibling who initiated the 
+estrangement. 
+Character 2 — DANIEL (48): The middle sibling who has spent 15 years 
+resenting Maya for the family's fracture. 
+Character 3 — THEIR MOTHER, ROSE (78): Whose declining health is the 
+reason for this reunion, and who has her own undisclosed reasons for 
+originally supporting Maya's decision to leave. 
+
+For each: provide backstory relevant to the estrangement, personality 
+with genuine contradiction, active want in THIS reunion, central flaw, 
+distinct speech pattern, and how their want creates direct friction 
+with at least one other character's want."
+
+Expected Output:
+Three distinct, interconnected character profiles: Maya perhaps wanting 
+genuine reconciliation but through a controlling, terms-dictating 
+approach that echoes the same behavior that caused the original rift 
+(contradiction: seeking connection while repeating the pattern that 
+severed it); Daniel wanting acknowledgment/apology before any 
+reconciliation, whose resentment has calcified into a flaw of 
+withholding forgiveness even when it's offered (creating direct 
+friction with Maya's approach); Rose wanting the family whole again 
+before she dies, but harboring an undisclosed reason for originally 
+supporting Maya's departure that, if revealed, would complicate both 
+her children's narratives about what happened — each with genuinely 
+distinct speech patterns (perhaps Maya's controlled/measured language, 
+Daniel's more clipped and defensive, Rose's more indirect and 
+diplomatically evasive) — demonstrating an ensemble where individual 
+character depth and INTER-character friction are developed together, 
+since the dramatic tension emerges specifically from how these three 
+wants and flaws interact.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Character: [NAME], [ROLE IN STORY — protagonist/antagonist/
+    supporting]
+    
+    Backstory: [RELEVANT HISTORY THAT SHAPES WHO THEY ARE NOW]
+    
+    Personality: [CORE TRAITS], but also [GENUINE INTERNAL 
+    CONTRADICTION OR TENSION]
+    
+    Wants (active goal): [WHAT THEY'RE PURSUING IN THIS STORY]
+    
+    Fear/Flaw: [CENTRAL WEAKNESS, CONNECTED TO THE STORY'S CONFLICT]
+    
+    Speech pattern: [HOW THEY TALK — DISTINCT FROM OTHER CHARACTERS]
+    
+    Physical description: [RELEVANT VISUAL DETAILS]
+    
+    Key relationships: [HOW THEY RELATE TO OTHER SIGNIFICANT 
+    CHARACTERS, INCLUDING ANY WANT-CONFLICTS]
+
+=====================================================================
+END OF FILE 50 — Character Prompting
+=====================================================================

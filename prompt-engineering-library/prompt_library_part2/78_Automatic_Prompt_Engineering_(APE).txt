@@ -1,0 +1,338 @@
+=====================================================================
+78. AUTOMATIC PROMPT ENGINEERING (APE)
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Meta/
+Optimization)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Automatic Prompt Engineering (APE) — Using LLMs to Algorithmically 
+Generate and Select Optimal Prompts
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Automatic Prompt Engineering (APE) is a formalized, research-grounded 
+technique (introduced in academic literature) where an LLM is used to 
+AUTOMATICALLY GENERATE a large set of candidate prompt/instruction 
+variations for a given task (often by inferring likely instructions 
+from example input-output pairs), automatically EVALUATE each 
+candidate's performance against a scoring function, and automatically 
+SELECT the best-performing instruction — all with minimal human 
+involvement in the loop. This differs from Meta Prompting (file 67, a 
+single, largely manual request for prompt help) and Prompt Optimization 
+(file 70, a more general, often manually-driven systematic testing 
+discipline) by being a more SPECIFIC, FORMALIZED, LARGELY AUTOMATED 
+pipeline — essentially "using an LLM to write the prompt for another 
+LLM call, then automatically scoring the results to pick a winner," 
+with the entire generate-evaluate-select loop run programmatically.
+
+Think of it like the difference between a human writer manually 
+brainstorming and testing headline options (Prompt Optimization as a 
+manual discipline) versus an automated system that generates hundreds 
+of headline candidates algorithmically, runs each through an automated 
+click-through-rate prediction model, and selects the highest-scoring 
+option — with the entire pipeline running with minimal human 
+intervention once set up.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+APE exists to:
+- AUTOMATE the instruction-generation step itself, using an LLM's own 
+  capability to infer what instruction likely produced a given set of 
+  example input-output pairs, rather than requiring a human to manually 
+  write and test candidate prompts.
+- Scale prompt DISCOVERY beyond what a human could feasibly generate 
+  and test manually, since an LLM can generate dozens or hundreds of 
+  candidate instruction phrasings quickly.
+- Reduce the MANUAL EFFORT and specialized expertise traditionally 
+  required for effective prompt engineering, making systematic 
+  optimization more accessible.
+- Provide a formalized, REPRODUCIBLE methodology (grounded in published 
+  research) for generating effective instructions, particularly useful 
+  when you have example data (input-output pairs) but aren't sure of 
+  the best way to phrase the instruction that produces that mapping.
+- Serve as a specific, well-documented technique within the broader 
+  family of automated prompt optimization approaches, related to but 
+  more narrowly-scoped than the fuller Prompt Optimization discipline 
+  (file 70) or Evolutionary Prompting's (file 76) genetic-algorithm 
+  approach.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- You have example input-output pairs demonstrating a desired task 
+  mapping, but aren't sure of the best natural-language instruction to 
+  reliably produce that mapping.
+- Situations where generating and testing many candidate instruction 
+  phrasings algorithmically would be more efficient than manual 
+  brainstorming.
+- Building a systematic, semi-automated prompt engineering pipeline 
+  for a task type you'll need instructions for repeatedly or at scale.
+- Research or production contexts specifically interested in applying 
+  this formalized, published methodology.
+
+WHEN NOT TO USE:
+- Simple tasks where a straightforward, manually-written prompt already 
+  works well — the additional automation infrastructure isn't justified 
+  for tasks that don't need it.
+- Situations without a clear, automatable scoring function to evaluate 
+  candidate instructions' performance.
+- When you don't have representative example input-output pairs to seed 
+  the instruction-generation process (APE typically works FROM examples 
+  toward an instruction, the reverse of typical prompting).
+
+BEST MODELS FOR APE:
+- The APE process can use ANY capable model for BOTH the instruction-
+  generation step (inferring likely instructions from examples) and the 
+  execution/evaluation step (testing each candidate instruction) — 
+  Claude, GPT-4o/4.1/5-class, and Gemini are all capable of both roles.
+- Often a MORE CAPABLE model is used for the instruction-GENERATION 
+  step (since inferring a good, general instruction from examples is a 
+  fairly demanding meta-task), while a range of models (potentially 
+  including cheaper ones) can be used for the EVALUATION step across 
+  many candidates.
+- This technique fundamentally requires PROGRAMMATIC implementation — 
+  actual code to manage generating candidates, running each against a 
+  test set, scoring results, and selecting the winner — similar to 
+  Prompt Optimization and Evolutionary Prompting's implementation 
+  requirements.
+- Original APE research and various open-source implementations provide 
+  reference methodologies for structuring this specific generate-
+  evaluate-select pipeline.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    "Given these example input-output pairs: [EXAMPLES], generate [N] 
+    candidate instructions that could plausibly produce this mapping. 
+    Test each candidate against [SCORING FUNCTION/TEST SET]. Select the 
+    highest-scoring instruction."
+
+-----------------------------
+6. PROMPT STRUCTURE (as an algorithmic process)
+-----------------------------
+    1. Example Input-Output Pairs — a representative set demonstrating 
+       the desired task behavior (this is APE's starting point, 
+       distinguishing it from prompting techniques that start from an 
+       instruction).
+    2. Instruction Generation Step — prompting an LLM to infer/propose 
+       multiple plausible natural-language instructions that could 
+       produce the demonstrated input-output mapping.
+    3. Scoring Function Definition — a specific, automatable way to 
+       measure how well a given candidate instruction performs (e.g., 
+       accuracy when applied to a held-out set of additional examples).
+    4. Candidate Evaluation — running each generated candidate 
+       instruction against the scoring function/test set.
+    5. Selection — choosing the highest-scoring candidate instruction 
+       as the final result.
+    6. (Optional) Iterative Refinement — using the best candidates as 
+       seeds for generating further refined candidates, similar in 
+       spirit to Evolutionary Prompting's iterative generations.
+
+Example skeleton:
+    "Here are example input-output pairs demonstrating a task: 
+    Input: [example 1 input] → Output: [example 1 output] 
+    Input: [example 2 input] → Output: [example 2 output] 
+    [additional examples] 
+    
+    Generate [N] different candidate instructions that could plausibly 
+    have produced this input-output mapping. 
+    
+    [Then, programmatically:] Test each candidate instruction against a 
+    held-out set of additional examples, scoring by [METRIC]. Select 
+    the highest-scoring instruction as the final result."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Provide a SUFFICIENT, REPRESENTATIVE set of example input-output 
+  pairs for the instruction-generation step — too few examples may not 
+  give the model enough signal to infer a genuinely general, well-
+  formed instruction.
+- Generate a MEANINGFUL NUMBER of candidate instructions (not just 1-2) 
+  to give the subsequent evaluation/selection step genuine options to 
+  choose from — similar to the diversity principle in Brainstorming 
+  Prompting (file 53) and Evolutionary Prompting.
+- Use a SEPARATE HELD-OUT test set (distinct from the examples used to 
+  generate the candidate instructions) for the evaluation/scoring step, 
+  to confirm the selected instruction genuinely generalizes rather than 
+  simply fitting the specific examples it was derived from.
+- Define your SCORING FUNCTION carefully — like Evolutionary Prompting, 
+  the entire process only optimizes toward whatever you're actually 
+  measuring, so a flawed metric produces a flawed "winning" instruction.
+- Consider ITERATING — using the current best-performing instruction(s) 
+  to seed a further round of candidate generation, potentially refining 
+  further, similar to how Evolutionary Prompting iterates across 
+  generations.
+- Validate the FINAL selected instruction with real, practical use 
+  beyond just the automated scoring, especially for subjective or 
+  qualitative tasks where a pure automated metric might miss important 
+  nuances a human would catch.
+- Recognize this technique's SPECIFIC NICHE — APE is particularly well-
+  suited to the specific "I have examples but need an instruction" 
+  situation, rather than being a universal replacement for other 
+  optimization approaches when you're starting from a different 
+  position (e.g., already having a reasonable instruction that just 
+  needs tuning, which is more Prompt Optimization's territory).
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Providing too few example input-output pairs, giving 
+  insufficient signal for genuinely good instruction inference.
+  FIX: Provide a sufficient, representative set of examples 
+  demonstrating the desired task behavior.
+
+- MISTAKE: Generating only 1-2 candidate instructions instead of a 
+  meaningful diverse set, limiting the selection process's ability to 
+  find a genuinely strong option.
+  FIX: Generate a meaningful number of diverse candidates.
+
+- MISTAKE: Evaluating candidates only against the same examples used to 
+  generate them, risking selection of an instruction that overfits to 
+  those specific examples rather than genuinely generalizing.
+  FIX: Always use a separate held-out test set for evaluation.
+
+- MISTAKE: Using a flawed or overly narrow scoring function, causing 
+  the process to select an instruction that performs well on the metric 
+  but poorly on genuine real-world task quality.
+  FIX: Invest care in defining a robust, representative scoring 
+  function.
+
+- MISTAKE: Treating the automatically-selected instruction as final 
+  without any practical validation, especially for subjective tasks 
+  where automated metrics might miss important qualitative 
+  considerations.
+  FIX: Validate the selected instruction through real, practical use 
+  beyond automated scoring alone.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE (conceptual illustration) ---
+Setup:
+"Example input-output pairs: 
+Input: 'I love this!' → Output: Positive 
+Input: 'This is terrible.' → Output: Negative 
+Input: 'It's okay, nothing special.' → Output: Neutral 
+Input: 'Absolutely amazing experience!' → Output: Positive 
+Input: 'Waste of money.' → Output: Negative 
+
+Generate 5 different candidate instructions that could plausibly have 
+produced this input-output mapping (i.e., 5 different ways to phrase a 
+sentiment classification instruction). Then test each against a held-
+out set of 20 additional labeled examples, scoring by classification 
+accuracy. Select the highest-scoring instruction."
+
+Expected Output (conceptual):
+5 candidate instructions might range from simple ("Classify the 
+sentiment as Positive, Negative, or Neutral") to more detailed 
+("Determine whether this text expresses a positive, negative, or 
+neutral opinion/emotion") — with the evaluation step revealing which 
+specific phrasing achieves the highest accuracy on the held-out 20-
+example set, and that instruction being selected as the final result.
+
+--- INTERMEDIATE EXAMPLE (conceptual illustration) ---
+Setup:
+"Example input-output pairs demonstrating a specific data extraction 
+task: 
+Input: 'Meeting scheduled for next Monday at 2pm with the marketing 
+team.' → Output: {\"date\": \"next Monday\", \"time\": \"2pm\", 
+\"attendees\": \"marketing team\"} 
+Input: 'Quick sync tomorrow morning with Sarah and the dev team.' → 
+Output: {\"date\": \"tomorrow\", \"time\": \"morning\", \"attendees\": 
+\"Sarah and dev team\"} 
+[3 more similar examples] 
+
+Generate 8 different candidate instructions for this extraction task 
+(varying how explicitly they define the expected fields/format). Test 
+each against a held-out set of 15 additional examples, scoring by 
+field-level extraction accuracy (checking if date, time, and attendees 
+are each correctly extracted). Select the highest-scoring instruction."
+
+Expected Output (conceptual):
+8 candidates likely ranging from vague ('extract the meeting details') 
+to highly explicit ('extract date, time, and attendees as a JSON 
+object with these exact field names'), with evaluation likely revealing 
+that more explicit, schema-defining instructions achieve meaningfully 
+higher field-level accuracy on the held-out set, leading to selection 
+of one of the more explicit variants as the final instruction.
+
+--- ADVANCED EXAMPLE (conceptual illustration) ---
+Setup:
+"I want to develop an optimal instruction for classifying GitHub issues 
+into categories, but I'm not sure of the best phrasing, and I have a 
+substantial labeled dataset from my project history to work with. 
+
+Example input-output pairs (30 examples drawn from real historical 
+GitHub issues in my repository, each with the category a human 
+maintainer actually assigned): 
+[30 examples spanning Bug, Documentation, Enhancement, Security, 
+Question categories] 
+
+Generate 12 different candidate instructions for this classification 
+task, varying: (a) whether category definitions are included, (b) 
+whether 1-2 examples are embedded directly in the instruction (a hybrid 
+zero-shot/few-shot approach), and (c) the specificity of the requested 
+output format. 
+
+Test each of the 12 candidates against a held-out set of 40 additional 
+historically-labeled issues (not used in generating the candidates), 
+scoring by exact-match classification accuracy. 
+
+Select the highest-scoring instruction, then run one additional 
+refinement round: take the top 3 performers, generate 6 new candidate 
+variations that combine/refine elements from these top performers 
+(similar to a single generation of evolutionary crossover), and 
+re-evaluate against the same 40-example held-out set to see if further 
+improvement is achieved."
+
+Expected Output (conceptual):
+An initial round of 12 candidates evaluated against 40 held-out real 
+examples, revealing which specific combination of elements (category 
+definitions, embedded examples, output format specificity) produces 
+the highest classification accuracy; followed by a refinement round 
+combining the strongest elements from the top 3 initial performers, 
+potentially achieving further improvement — demonstrating a rigorous, 
+data-driven, largely automated approach to discovering a genuinely 
+optimized classification instruction grounded in real historical 
+labeling data, going beyond what manual intuition-based prompt writing 
+would likely have converged on as efficiently.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE (as an algorithmic process design)
+-----------------------------
+    Example input-output pairs (demonstrating the desired task 
+    mapping):
+    Input: [example 1] → Output: [example 1 output]
+    Input: [example 2] → Output: [example 2 output]
+    [additional representative examples]
+    
+    Step 1 — Generate candidates: Generate [N] different candidate 
+    instructions that could plausibly have produced this input-output 
+    mapping, varying [RELEVANT DIMENSIONS — e.g., specificity, format, 
+    whether examples are embedded].
+    
+    Step 2 — Evaluate: Test each candidate against a SEPARATE held-out 
+    set of [M] additional examples, scoring by [SPECIFIC METRIC — 
+    accuracy, field-level correctness].
+    
+    Step 3 — Select: Choose the highest-scoring candidate instruction.
+    
+    Step 4 (optional refinement): Generate new candidates combining/
+    refining elements from the top performers, re-evaluate, and select 
+    again if further improvement is achieved.
+    
+    [Implement this process programmatically for genuine automation 
+    beyond a single manual pass.]
+
+=====================================================================
+END OF FILE 78 — Automatic Prompt Engineering (APE)
+=====================================================================

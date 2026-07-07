@@ -1,0 +1,276 @@
+=====================================================================
+49. VIDEO PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Creative)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Video Prompting — Crafting Effective Prompts for AI Video Generation
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Video prompting is the technique of writing text prompts specifically 
+optimized for TEXT-TO-VIDEO and IMAGE-TO-VIDEO generation models (Sora, 
+Runway Gen-3/Gen-4, Kling, Luma Dream Machine, Google Veo, Pika) — 
+extending Image Prompting (file 48) with the additional dimension of 
+TIME: camera movement, subject motion, scene duration, pacing, and 
+temporal consistency across frames. Video generation models need to be 
+told not just what a scene LOOKS like, but how it MOVES and CHANGES 
+over the clip's duration, which introduces an entirely new set of 
+prompting considerations beyond static image description.
+
+Think of it like the difference between briefing a photographer 
+(single frozen moment — Image Prompting) versus briefing a cinema-
+tographer and director together (an entire shot: what the camera does, 
+what the subject does, how the moment evolves from first frame to 
+last) — video prompting requires specifying that temporal, 
+directorial dimension explicitly.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Video prompting exists to:
+- Communicate both VISUAL and TEMPORAL/MOTION intent to video 
+  generation models, which is fundamentally more complex than static 
+  image description.
+- Control CAMERA MOVEMENT (pan, tilt, zoom, dolly, static) and SUBJECT 
+  MOTION independently, since these interact to create the final 
+  perceived shot.
+- Achieve appropriate PACING and duration for the intended use case 
+  (a quick social media clip vs. a slower, more contemplative shot).
+- Support emerging AI FILMMAKING workflows where generated video clips 
+  need to match a specific creative vision closely enough to be usable 
+  in a larger edited piece — directly relevant to AI filmmaking 
+  pipelines and prompt libraries for cinematic content generation.
+- Bridge traditional film/cinematography vocabulary (shot types, 
+  camera moves, lighting) with the specific technical response 
+  patterns of current video generation models.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Generating short AI video clips for creative projects, social media 
+  content, previsualization, or experimental filmmaking.
+- Extending a still image into motion (image-to-video workflows).
+- Storyboarding or pre-visualizing a scene before committing to full 
+  production resources.
+- Any content where MOTION itself (not just a static composition) is 
+  the point — a product rotating, a character walking, weather 
+  effects, camera reveals.
+
+WHEN NOT TO USE:
+- When a static image would fully serve the creative need (use Image 
+  Prompting instead — video generation is more computationally 
+  expensive and technically limited).
+- Precise, long-form narrative video requiring exact continuity across 
+  many minutes — current video generation models excel at short clips 
+  (seconds) and struggle with long-duration consistency.
+- Content requiring exact, literal reproduction of real, specific, 
+  identifiable people or copyrighted characters.
+
+BEST MODELS/TOOLS FOR VIDEO PROMPTING:
+- Runway Gen-3/Gen-4 — strong general-purpose text-to-video and 
+  image-to-video, with good camera motion control vocabulary support.
+- Google Veo — strong cinematic quality and physics realism, 
+  particularly good at complex camera movements and longer, more 
+  coherent clips.
+- Kling — strong for realistic human motion and longer clip durations 
+  compared to some competitors.
+- Luma Dream Machine — accessible, good general quality, useful for 
+  quick iterative concept generation.
+- Pika — known for stylistic flexibility and specific creative effects 
+  (like Pikaffects for object transformations).
+- OpenAI Sora — strong for complex multi-subject scenes and longer 
+  coherent narrative sequences, when available.
+- General LLMs (Claude, GPT, Gemini) are frequently used as prompt-
+  writing assistants to help expand a simple creative idea into a 
+  detailed, well-structured video generation prompt optimized for a 
+  specific target tool.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [SUBJECT] + [SUBJECT MOTION/ACTION] + [SETTING] + [CAMERA 
+    MOVEMENT] + [SHOT TYPE] + [STYLE] + [LIGHTING] + [PACING/DURATION 
+    CUE] + [MOOD]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Subject — the main focal point of the video.
+    2. Subject Motion — what the subject does across the clip's 
+       duration (walks forward, turns to look, transforms, grows).
+    3. Setting/Environment — the background/location context.
+    4. Camera Movement — static, slow pan, dolly-in, aerial tracking 
+       shot, handheld shake, orbit.
+    5. Shot Type — wide shot, close-up, medium shot, extreme close-up.
+    6. Style/Medium — cinematic, photorealistic, anime, stop-motion 
+       aesthetic.
+    7. Lighting — consistent with Image Prompting conventions but 
+       consider how it might shift/move during the clip.
+    8. Pacing Cue — slow and contemplative, fast and energetic, 
+       building tension.
+    9. Mood/Atmosphere — the emotional tone.
+
+Example skeleton:
+    "[SHOT TYPE] of [SUBJECT] [SUBJECT MOTION], [SETTING]. Camera: 
+    [CAMERA MOVEMENT]. Style: [STYLE/MEDIUM]. Lighting: [LIGHTING]. 
+    [PACING/MOOD DESCRIPTION]."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Describe MOTION explicitly and specifically for BOTH the subject and 
+  the camera — these are two independent variables, and conflating 
+  them (only describing one) leaves the other to chance.
+- Use established CINEMATOGRAPHY vocabulary (dolly-in, tracking shot, 
+  Dutch angle, rack focus) since these terms carry precise, well-
+  understood meaning that video models are often specifically trained 
+  to recognize.
+- Keep individual clip prompts FOCUSED on a single continuous action/
+  movement — current video generation excels at short (a few seconds 
+  to ~10-20 seconds depending on tool), coherent movements rather than 
+  complex multi-beat sequences within one generation.
+- Specify PACING explicitly ("slow, deliberate movement" vs. "quick, 
+  energetic motion") since this significantly affects the felt quality 
+  of the generated clip beyond just the visual content.
+- For IMAGE-TO-VIDEO workflows, ensure your starting image already has 
+  good composition/lighting, since the video model will animate FROM 
+  that starting point — a flawed starting image constrains the 
+  possible output quality.
+- Understand your TOOL's specific duration/technical limitations 
+  (maximum clip length, resolution, aspect ratio support) before 
+  designing your creative shot list around assumptions that might not 
+  hold.
+- For MULTI-SHOT sequences building toward a larger edited piece, plan 
+  each shot's prompt with awareness of how it will cut together with 
+  adjacent shots (consistent style/lighting/color direction across the 
+  sequence).
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Describing only the subject's visual appearance without 
+  specifying either subject motion or camera movement, leaving the 
+  temporal dimension entirely to chance.
+  FIX: Always explicitly describe both what the subject does and what 
+  the camera does across the clip's duration.
+
+- MISTAKE: Attempting to pack a complex, multi-beat narrative sequence 
+  into a single short video generation, when current tools handle 
+  focused, single continuous actions far more reliably.
+  FIX: Break complex sequences into multiple shorter clips, each with 
+  a focused single action/movement.
+
+- MISTAKE: Not using precise cinematography vocabulary, instead using 
+  vague descriptions ("camera moves around") that don't give the model 
+  clear direction.
+  FIX: Use specific, established camera movement terminology.
+
+- MISTAKE: Starting an image-to-video generation from a poorly 
+  composed or low-quality source image and expecting the video model 
+  to compensate.
+  FIX: Ensure the starting image already has strong composition and 
+  quality before animating it.
+
+- MISTAKE: Not planning for visual/stylistic consistency across a 
+  multi-shot sequence intended to be edited together, resulting in 
+  clips that don't cut together cohesively.
+  FIX: Maintain consistent style, lighting, and color direction 
+  language across all prompts in a planned sequence.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Wide shot of a hot air balloon slowly rising above a misty mountain 
+valley at dawn. Camera: static, held steady. Style: photorealistic, 
+cinematic. Lighting: soft golden dawn light breaking through mist. 
+Pacing: slow, peaceful, contemplative."
+
+Expected Output:
+A short AI-generated video clip showing a hot air balloon gently 
+ascending through misty mountain scenery, filmed from a fixed, steady 
+camera position, with warm dawn lighting filtering through atmospheric 
+mist, moving at an unhurried, serene pace matching the specified mood.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Medium tracking shot following a cyberpunk courier riding a hover-
+bike through a rain-slicked neon-lit alley at night. Subject motion: 
+weaving smoothly between obstacles, jacket flapping in the wind. 
+Camera: smooth tracking shot moving alongside the subject at 
+consistent speed, slight motion blur on background elements. Style: 
+cinematic digital art, Blade Runner-inspired. Lighting: neon reflections 
+on wet pavement, magenta and cyan color grade. Pacing: fast, energetic, 
+building momentum."
+
+Expected Output:
+A dynamic clip depicting the courier's hoverbike moving through the 
+alley with the camera smoothly tracking alongside at matching speed, 
+appropriate motion blur suggesting velocity on background elements, 
+consistent neon-reflective wet-pavement aesthetic with the specified 
+magenta/cyan color grade, and an energetic pace matching the 
+described fast, momentum-building feel.
+
+--- ADVANCED EXAMPLE ---
+Prompt (as part of a planned 3-shot sequence for a short AI film, 
+maintaining visual consistency):
+"Shot 2 of 3 in sequence — maintain consistent teal/orange cinematic 
+color grade and overcast lighting conditions established in Shot 1 
+(a wide establishing shot of an abandoned space station exterior). 
+
+Close-up shot: an astronaut's gloved hand reaching toward a 
+flickering control panel inside the station's dim interior. Subject 
+motion: hand moves slowly, deliberately, hesitating slightly before 
+making contact with a specific button, which sparks briefly on 
+contact. Camera: slow push-in (dolly-in) toward the hand, rack focus 
+shifting from the background control panel lights to sharp focus on 
+the hand as it gets closer. Style: photorealistic, matching Shot 1's 
+grounded sci-fi aesthetic (not stylized/animated). Lighting: dim, 
+flickering emergency lighting, consistent teal-orange color grade 
+established in the sequence. Pacing: slow, tense, deliberate — 
+building anticipation for a cut to Shot 3."
+
+Expected Output:
+A close-up clip showing an astronaut's gloved hand slowly, hesitantly 
+reaching toward a control panel, the camera performing a smooth dolly-
+in with a rack focus shift from background to the hand, a small spark 
+effect when contact is made, all rendered in a photorealistic style 
+matching the described teal-orange color grade and dim emergency 
+lighting established as consistent with a prior shot in the sequence, 
+paced slowly to build tension — demonstrating the kind of sequence-
+aware, continuity-conscious prompting needed for multi-shot AI 
+filmmaking projects where individual clips must cut together cohesively 
+into a larger edited piece.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    [SHOT TYPE] of [SUBJECT] [SUBJECT MOTION/ACTION ACROSS THE CLIP].
+    
+    Setting: [ENVIRONMENT/BACKGROUND]
+    
+    Camera: [CAMERA MOVEMENT — static/pan/dolly-in/tracking/orbit/
+    handheld]
+    
+    Style: [VISUAL STYLE/MEDIUM]
+    
+    Lighting: [LIGHTING DESCRIPTION, noting any changes across the 
+    clip]
+    
+    Pacing: [SLOW/FAST, MOOD-APPROPRIATE MOTION SPEED]
+    
+    [IF PART OF A SEQUENCE: Maintain consistency with [PRIOR SHOT'S 
+    color grade/lighting/style] established in [Shot X].]
+
+=====================================================================
+END OF FILE 49 — Video Prompting
+=====================================================================

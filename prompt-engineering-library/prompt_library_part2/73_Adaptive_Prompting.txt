@@ -1,0 +1,311 @@
+=====================================================================
+73. ADAPTIVE PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Meta/
+Optimization)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Adaptive Prompting — Adjusting Approach Based on Response Quality
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Adaptive prompting is a technique where the prompting STRATEGY itself 
+changes based on feedback about how well the CURRENT approach is 
+working — monitoring response quality/accuracy and automatically (or 
+manually) switching to a different technique, adding more scaffolding, 
+or adjusting parameters when the current approach proves insufficient. 
+This differs from Self-Refine (file 21, iterating on the SAME artifact 
+through repeated cycles) and Dynamic Prompting (file 74, adjusting 
+CONTENT based on context/user) in that Adaptive Prompting is 
+specifically about changing the PROMPTING TECHNIQUE OR STRATEGY itself 
+in response to observed performance, similar to how a human tutor might 
+switch from one teaching method to another entirely different one when 
+the first isn't working for a particular student.
+
+Think of it like a customer service system that starts with simple, 
+direct responses, but automatically escalates to more detailed, 
+step-by-step guidance (or hands off to a human) when it detects the 
+customer is still confused after the initial attempt — the underlying 
+STRATEGY adapts based on observed effectiveness, rather than blindly 
+repeating the same approach regardless of how well it's working.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Adaptive prompting exists to:
+- Automatically ESCALATE to more powerful techniques (Chain-of-
+  Thought, Few-Shot examples, a more capable model) only when simpler 
+  approaches prove insufficient, balancing cost/efficiency against 
+  reliability.
+- Respond to VARYING TASK DIFFICULTY within a single application — some 
+  queries are simple and need minimal scaffolding, while others 
+  genuinely require more sophisticated handling, and a one-size-fits-
+  all approach wastes resources on simple cases or under-serves complex 
+  ones.
+- Support PRODUCTION SYSTEMS that need to handle a wide range of input 
+  complexity gracefully, rather than either over-engineering every 
+  request or under-serving difficult ones.
+- Build in RESILIENCE — if an initial prompting approach fails or 
+  produces low-confidence/low-quality output, an adaptive system can 
+  automatically try an alternative approach rather than simply 
+  returning a poor result.
+- Serve as a practical bridge between simple, static prompting and more 
+  sophisticated agentic systems that genuinely reason about their own 
+  strategy.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Production systems handling a wide range of query difficulty, where a 
+  tiered/escalating approach improves both efficiency and reliability.
+- Situations where you can measure or estimate response quality/
+  confidence, enabling meaningful escalation decisions.
+- Cost-sensitive applications where using expensive techniques 
+  (extensive Chain-of-Thought, larger models) only when actually needed 
+  provides genuine savings compared to always using maximum scaffolding.
+- Any system where a simple, low-effort attempt SHOULD be tried first, 
+  with more sophisticated approaches reserved as fallbacks.
+
+WHEN NOT TO USE:
+- Simple, single-purpose applications where task difficulty is 
+  genuinely consistent and doesn't benefit from adaptive strategy 
+  switching.
+- Situations without a practical way to measure/estimate response 
+  quality to trigger appropriate escalation decisions.
+- Extremely latency-sensitive applications where the overhead of a 
+  potential multi-attempt escalation process is genuinely problematic.
+
+BEST MODELS FOR ADAPTIVE PROMPTING:
+- Any capable model can serve within an adaptive system, since (similar 
+  to Prompt Chaining) this is fundamentally an ORCHESTRATION pattern — 
+  you might use a smaller/faster model for the initial simple attempt, 
+  escalating to a more capable model (Claude Opus, GPT-5-class) only 
+  when needed.
+- MODEL ROUTING systems (increasingly built into some platforms, or 
+  implementable via your own orchestration code) can automatically 
+  select between models of different capability/cost based on estimated 
+  task difficulty, which is a direct practical application of adaptive 
+  prompting principles.
+- Reasoning-native models (Claude with extended thinking, o-series, 
+  DeepSeek-R1) are natural "escalation targets" for cases where simpler, 
+  faster models prove insufficient.
+- Implementing genuine adaptive prompting typically requires custom 
+  orchestration CODE (evaluating response quality, triggering fallback 
+  logic) rather than being achievable within a single static prompt or 
+  conversation.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    "Attempt [TASK] using [SIMPLE APPROACH]. If [QUALITY CHECK] fails 
+    or confidence is low, retry using [MORE SOPHISTICATED APPROACH — 
+    e.g., add Chain-of-Thought, add examples, escalate to a more 
+    capable model]."
+
+-----------------------------
+6. PROMPT STRUCTURE (as an adaptive process)
+-----------------------------
+    1. Initial Attempt Strategy — the simplest/cheapest reasonable 
+       approach to try first.
+    2. Quality/Confidence Check — a defined method for evaluating 
+       whether the initial attempt succeeded adequately (self-reported 
+       confidence, format compliance check, comparison against expected 
+       characteristics, or human/downstream feedback).
+    3. Escalation Trigger — the specific condition that triggers moving 
+       to a more sophisticated approach (confidence below a threshold, 
+       failed validation, explicit "I'm not sure" language in the 
+       response).
+    4. Escalated Strategy — the more sophisticated fallback approach 
+       (add Chain-of-Thought reasoning, add Few-Shot examples, switch to 
+       a more capable model, add Self-Consistency voting).
+    5. Final Fallback (optional) — what happens if even the escalated 
+       approach doesn't succeed (human handoff, explicit uncertainty 
+       acknowledgment to the end user).
+
+Example workflow (conceptual, typically implemented in code):
+    "Step 1: Attempt with simple direct prompt. 
+    Step 2: Check if response meets quality bar [SPECIFIC CRITERIA]. 
+    Step 3: If yes, return result. If no, retry with Chain-of-Thought 
+    prompting added. 
+    Step 4: Check quality again. If still insufficient, escalate to a 
+    more capable model with full scaffolding (CoT + Few-Shot examples). 
+    Step 5: If still insufficient, flag for human review rather than 
+    returning a low-confidence result."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Start with the SIMPLEST reasonable approach and escalate only when 
+  needed — this balances cost-efficiency (most queries likely don't 
+  need maximum scaffolding) with reliability (harder queries get the 
+  additional support they actually require).
+- Define CONCRETE, MEASURABLE escalation triggers rather than vague 
+  "if it doesn't seem right" — use specific signals like confidence 
+  scores, format validation failures, or explicit uncertainty language 
+  in the response.
+- Design escalation as a PROGRESSIVE LADDER (simple → moderate 
+  scaffolding → maximum scaffolding → human handoff) rather than a 
+  single binary "try again" fallback, allowing graceful handling of 
+  varying difficulty levels.
+- Consider ESCALATING BOTH the technique AND the model — sometimes 
+  adding Chain-of-Thought to the same model is sufficient; other times, 
+  switching to a genuinely more capable model is what's actually needed.
+- Set a reasonable MAXIMUM escalation depth with an appropriate final 
+  fallback (human review, honest uncertainty acknowledgment) rather 
+  than escalating indefinitely on a query that may simply be beyond any 
+  automated approach's current capability.
+- LOG which escalation LEVEL was actually needed for different query 
+  types over time — this data helps you understand your system's actual 
+  difficulty distribution and potentially adjust your initial (non-
+  escalated) approach if you notice most queries need escalation 
+  anyway.
+- Test the FULL escalation ladder with genuinely difficult inputs 
+  specifically designed to trigger each level, not just typical/easy 
+  inputs that never reach your more sophisticated fallback tiers.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Vague, subjective escalation triggers ("if it doesn't seem 
+  right") that can't be consistently or automatically evaluated.
+  FIX: Define concrete, measurable escalation criteria.
+
+- MISTAKE: A single binary fallback rather than a progressive ladder, 
+  missing the opportunity for more nuanced difficulty-appropriate 
+  handling.
+  FIX: Design multiple escalation levels appropriate to varying 
+  difficulty.
+
+- MISTAKE: No maximum escalation depth or final fallback, risking 
+  infinite retry loops on genuinely difficult inputs.
+  FIX: Set a reasonable maximum escalation level with an appropriate 
+  final fallback (human review, honest uncertainty).
+
+- MISTAKE: Always starting with maximum scaffolding "just in case," 
+  missing the cost-efficiency benefits that adaptive prompting is 
+  specifically designed to provide.
+  FIX: Start with the simplest reasonable approach, escalating only 
+  when actually needed.
+
+- MISTAKE: Not testing the escalation ladder with genuinely difficult 
+  inputs, leaving higher escalation tiers effectively unverified.
+  FIX: Deliberately test with inputs designed to trigger each 
+  escalation level.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Process:
+"Step 1: Ask a math question directly: 'What is 15% of 240?' 
+Step 2: Check if the response is a clean, confident numeric answer. 
+Step 3: If yes, done. If the response shows hesitation or an obviously 
+wrong format, retry with: 'What is 15% of 240? Let's think step by 
+step.' (adding Zero-Shot Chain-of-Thought)"
+
+Expected Output:
+For this simple case, Step 1 likely succeeds directly (36) without 
+needing escalation — demonstrating that adaptive prompting correctly 
+avoids unnecessary overhead (Chain-of-Thought reasoning) for a query 
+simple enough not to need it.
+
+--- INTERMEDIATE EXAMPLE ---
+Process:
+"Step 1: Classify a customer support ticket using a simple direct 
+classification prompt with a faster/cheaper model. 
+Step 2: Check the model's self-reported confidence (requested as part 
+of the output). 
+Step 3: If confidence is 'high,' accept the classification. If 
+confidence is 'medium' or 'low,' escalate: retry the SAME ticket using a 
+more capable model with Few-Shot examples added for the specific 
+categories the ticket seems to be ambiguously between. 
+Step 4: If the escalated attempt still shows low confidence, flag the 
+ticket for human review rather than accepting an uncertain automated 
+classification."
+
+Expected Output:
+Most straightforward tickets are handled efficiently and cheaply at 
+Step 1; genuinely ambiguous tickets (e.g., one that could plausibly be 
+either "Billing" or "Technical") trigger escalation to a more 
+capable, example-supported classification attempt; and any tickets 
+still uncertain even after escalation are appropriately routed to human 
+review rather than forcing an unreliable automated decision — 
+demonstrating a practical, cost-efficient tiered system.
+
+--- ADVANCED EXAMPLE ---
+Process:
+"Adaptive system for answering technical questions in a RAG-based 
+documentation assistant: 
+
+Tier 1 (fast path): Retrieve relevant documentation, answer directly 
+with a fast/cheap model using simple RAG prompting (see file 33). 
+
+Quality check: Does the response include an explicit 'insufficient 
+information' acknowledgment (suggesting the fast path failed to find a 
+good answer), OR does automated fact-checking against the retrieved 
+context flag a potential inconsistency between the answer and the 
+source material? 
+
+Tier 2 (escalation): If Tier 1 fails the quality check, retry with: 
+(a) an expanded retrieval (pulling more/different documents), and (b) 
+switch to a more capable model with explicit Chain-of-Thought reasoning 
+requested, asking it to reason step-by-step about what the retrieved 
+context actually supports before answering. 
+
+Quality check 2: Does the Tier 2 response now adequately address the 
+question with good support from retrieved context? 
+
+Tier 3 (final fallback): If Tier 2 STILL fails the quality check, 
+respond to the user with an honest acknowledgment that the available 
+documentation doesn't appear to contain a clear answer to this specific 
+question, and offer to escalate to a human support agent, rather than 
+forcing a potentially unreliable answer through further automated 
+attempts."
+
+Expected Output:
+A three-tier adaptive system where straightforward, well-documented 
+questions are answered quickly and cheaply at Tier 1; genuinely 
+difficult questions (where initial retrieval didn't find great context, 
+or the fast model struggled to reason through what it found) get 
+escalated to a more thorough Tier 2 attempt with expanded retrieval and 
+explicit reasoning; and questions that remain genuinely unanswerable 
+from available documentation even after Tier 2 receive an honest 
+"I don't have a clear answer" acknowledgment with human escalation, 
+rather than the system ever confidently hallucinating an answer it 
+can't actually support — demonstrating adaptive prompting's value in 
+balancing efficiency (most questions resolved cheaply at Tier 1) with 
+reliability (genuinely hard questions get appropriate additional 
+resources or honest limitation acknowledgment, rather than a uniform 
+one-size-fits-all approach).
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE (as an adaptive process design)
+-----------------------------
+    Tier 1 (initial attempt): [SIMPLEST REASONABLE APPROACH] for 
+    [TASK].
+    
+    Quality check: [SPECIFIC, MEASURABLE CRITERIA for judging whether 
+    Tier 1 succeeded — confidence score, format validation, explicit 
+    uncertainty language].
+    
+    Tier 2 (escalation, if Tier 1 fails quality check): Retry using 
+    [MORE SOPHISTICATED APPROACH — e.g., add Chain-of-Thought, add 
+    Few-Shot examples, switch to a more capable model, expand 
+    retrieval].
+    
+    Quality check 2: [SAME OR ADJUSTED CRITERIA].
+    
+    Tier 3 (final fallback, if Tier 2 also fails): [APPROPRIATE FINAL 
+    ACTION — human handoff, honest uncertainty acknowledgment to the 
+    user, rather than forcing an unreliable automated answer].
+
+=====================================================================
+END OF FILE 73 — Adaptive Prompting
+=====================================================================

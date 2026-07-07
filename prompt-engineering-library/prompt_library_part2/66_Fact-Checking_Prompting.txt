@@ -1,0 +1,303 @@
+=====================================================================
+66. FACT-CHECKING PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Analytical)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Fact-Checking Prompting — Verifying Claims Against Reliable Sources
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Fact-Checking prompting is a technique for instructing an LLM to 
+systematically VERIFY specific factual claims — checking them against 
+reliable sources (typically via Search-Augmented Prompting for current 
+verification, or provided documents via RAG), distinguishing verified 
+truth from falsehood from genuinely uncertain/unverifiable claims, and 
+citing the evidence for each determination. This is closely related to 
+Knowledge-Grounded Prompting (file 35) but more NARROWLY and 
+SYSTEMATICALLY focused specifically on evaluating the truth value of 
+DISCRETE, STATED CLAIMS, similar to how a professional fact-checker at 
+a publication verifies specific assertions in an article before 
+publication.
+
+Think of it like the difference between a journalist writing generally 
+careful, well-sourced content (Knowledge-Grounded Prompting as an 
+ongoing writing discipline) versus a dedicated fact-checking department 
+that receives a finished article and specifically goes through it 
+claim-by-claim, verifying each discrete factual assertion against 
+primary sources before the piece is allowed to publish — a more 
+targeted, systematic verification pass on specific claims.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Fact-Checking prompting exists to:
+- Systematically VERIFY specific factual claims rather than accepting 
+  them at face value, catching misinformation, outdated information, or 
+  genuine errors.
+- Distinguish between VERIFIED TRUE claims, VERIFIED FALSE claims, and 
+  UNVERIFIABLE/UNCERTAIN claims — treating these as genuinely distinct 
+  categories rather than forcing a binary true/false judgment on 
+  everything.
+- Support responsible content creation, journalism, or research where 
+  claim accuracy has real consequences for readers/decisions.
+- Provide an additional layer of scrutiny before potentially 
+  inaccurate information is shared, published, or acted upon.
+- Combat the spread of misinformation by providing a structured, source-
+  backed verification process rather than relying on unverified 
+  assumptions.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Verifying specific factual claims before publishing content, making a 
+  decision, or sharing information.
+- Reviewing content (your own or others') that contains specific, 
+  checkable factual assertions.
+- Investigating claims you've encountered that seem potentially 
+  dubious, outdated, or worth independent verification.
+- Journalism, research, or any content-creation context where factual 
+  accuracy carries real stakes.
+
+WHEN NOT TO USE:
+- Purely subjective claims, opinions, or predictions that aren't 
+  actually factually verifiable (fact-checking doesn't apply to "this 
+  is the best pizza place in town").
+- Extremely well-established, uncontroversial facts where formal 
+  verification would be disproportionate effort (though verification 
+  costs little, so this is more about efficient effort allocation than 
+  a hard rule).
+- Situations without access to a search tool or reliable reference 
+  material — attempting fact-checking purely from an LLM's static 
+  training knowledge (without live verification) provides much weaker 
+  guarantees than genuine source-checking.
+
+BEST MODELS FOR FACT-CHECKING PROMPTING:
+- Claude (with web search) — strong fact-checking capability with good 
+  epistemic honesty about genuine uncertainty rather than false 
+  confidence.
+- GPT-4o/4.1/5-class (with browsing) — strong fact-checking, 
+  particularly effective when combined with search tool access for 
+  live verification.
+- Gemini Pro/Ultra (with Search grounding) — strong fact-checking 
+  capability given deep search integration.
+- Perplexity — well-suited given its purpose-built design around cited, 
+  source-backed answers.
+- CRITICAL REQUIREMENT: genuine fact-checking fundamentally requires 
+  actual SEARCH/VERIFICATION TOOL ACCESS — without this, an LLM is 
+  essentially fact-checking against its own (potentially outdated or 
+  imperfect) training data, which provides meaningfully weaker 
+  verification than checking against live, current, authoritative 
+  sources.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [CLAIM(S) TO CHECK] + "Verify each claim against reliable sources. 
+    Classify each as Verified True / Verified False / Uncertain-
+    Unverifiable, with supporting evidence and citations."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Claims to Check — the specific, discrete factual assertions to 
+       be verified (breaking a longer piece of content into individual 
+       checkable claims if needed).
+    2. Verification Instruction — explicit instruction to check against 
+       reliable/current sources, not just rely on internal knowledge.
+    3. Classification Scheme — the specific categories for verification 
+       outcomes (True/False/Uncertain, or a more granular scale like 
+       "Mostly True," "Misleading," "False").
+    4. Evidence Requirement — request for the specific supporting 
+       evidence/source behind each determination.
+    5. Uncertainty Handling — explicit permission and expectation to use 
+       an "uncertain/unverifiable" category honestly, rather than 
+       forcing every claim into a confident true/false bucket.
+
+Example skeleton:
+    "Fact-check the following claim(s), verifying against current, 
+    reliable sources: 
+    
+    Claim 1: [CLAIM] 
+    Claim 2: [CLAIM] 
+    
+    For each claim, classify as: Verified True / Verified False / 
+    Uncertain-Unverifiable. Provide the specific supporting evidence 
+    and cite your sources. If genuinely uncertain, say so rather than 
+    guessing."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Break longer content into DISCRETE, INDIVIDUALLY CHECKABLE claims — 
+  fact-checking works best on specific, falsifiable assertions rather 
+  than vague or compound statements.
+- ALWAYS use actual SEARCH/verification tools for genuine fact-checking 
+  — relying purely on the model's static training knowledge provides 
+  meaningfully weaker verification, especially for anything time-
+  sensitive.
+- Use a THREE-CATEGORY (or more granular) classification scheme rather 
+  than forcing binary true/false — genuine uncertainty is common and 
+  important to represent honestly rather than papering over.
+- Request SPECIFIC EVIDENCE and citations for every determination, 
+  following Citation Prompting (file 37) principles, so verification 
+  claims themselves remain checkable.
+- For CONTESTED or politically sensitive claims, be aware of and 
+  actively guard against the model's own potential biases; prioritize 
+  claims that are genuinely, objectively factually checkable 
+  (verifiable dates, statistics, quotes) over matters of ongoing 
+  political dispute or interpretation.
+- When a claim is found to be FALSE or MISLEADING, request that the 
+  fact-check explain not just "this is false" but WHAT the accurate 
+  information actually is.
+- For claims involving RAPIDLY CHANGING information, note the 
+  verification date/timeframe explicitly, since a "verified true" 
+  determination today might not hold indefinitely for fast-changing 
+  facts.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Attempting fact-checking without actual search/verification 
+  tool access, relying purely on the model's static training knowledge.
+  FIX: Always use genuine search/verification tools for real fact-
+  checking, not just internal model knowledge.
+
+- MISTAKE: Forcing every claim into a binary true/false classification 
+  when genuine uncertainty exists, producing false confidence.
+  FIX: Use a classification scheme that explicitly allows for honest 
+  "uncertain/unverifiable" outcomes.
+
+- MISTAKE: Not requesting specific evidence/citations, making the fact-
+  check itself unverifiable and less trustworthy.
+  FIX: Always require supporting evidence and citations for each 
+  determination.
+
+- MISTAKE: Attempting to fact-check vague, compound, or inherently 
+  subjective statements that aren't actually structured as checkable 
+  factual claims.
+  FIX: Break content into discrete, specific, genuinely falsifiable 
+  claims before fact-checking.
+
+- MISTAKE: Not accounting for the model's potential biases on 
+  politically contested topics, treating genuinely disputed 
+  interpretations as simple fact-check targets.
+  FIX: Focus fact-checking on objectively verifiable facts (dates, 
+  statistics, direct quotes) and handle genuinely contested/
+  interpretive claims with appropriate nuance rather than forced 
+  verdicts.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Fact-check this claim using current, reliable sources: 'The Eiffel 
+Tower is taller than the Statue of Liberty.' 
+
+Classify as Verified True / Verified False / Uncertain. Provide 
+supporting evidence and cite sources."
+
+Expected Output:
+"Verified True" with supporting evidence citing the actual heights of 
+both structures (the Eiffel Tower at approximately 330 meters including 
+antennas vs. the Statue of Liberty at approximately 93 meters including 
+its pedestal), with sources cited for the specific figures.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Fact-check these claims from a draft blog post, using current search 
+to verify each: 
+
+Claim 1: 'Python is currently the most popular programming language 
+according to the TIOBE index.' 
+Claim 2: 'ChromaDB was the first vector database ever created.' 
+Claim 3: 'FastAPI has better raw request-handling performance than 
+Flask in most benchmarks.' 
+
+For each, classify as Verified True / Verified False / Uncertain-
+Unverifiable, with evidence and citations. If a claim is False or 
+Misleading, explain what the accurate information actually is."
+
+Expected Output:
+Claim 1: likely Verified True or noted as accurate as of a specific 
+recent check date (TIOBE rankings shift periodically, so the 
+verification should reflect current standing with a citation); Claim 
+2: likely Verified False, since vector databases and similarity search 
+techniques predate ChromaDB by years (with correction noting ChromaDB 
+is a more recent, popular open-source option but not the first vector 
+database), cited appropriately; Claim 3: likely Verified True with 
+appropriate nuance, since this is commonly documented in benchmarks 
+citing FastAPI's async-first design, with citations to relevant 
+benchmark sources and appropriate hedging language reflecting that 
+benchmark results can vary by specific test conditions.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Fact-check these claims from a technical article draft about AI 
+export control policy, using current search. This is a sensitive, 
+evolving policy topic, so please distinguish clearly between 
+objectively verifiable facts (what a specific regulation states, when 
+it was enacted) versus claims that involve interpretation or 
+prediction (which should be flagged as such rather than forced into a 
+true/false verdict): 
+
+Claim 1: 'The U.S. Department of Commerce has authority to restrict 
+export of advanced AI models to certain countries.' 
+Claim 2: 'These export controls have definitively prevented all 
+meaningful AI development in restricted countries.' 
+Claim 3: 'Major AI companies have publicly commented on how export 
+control policies affect their operations.' 
+
+For each: classify as Verified True / Verified False / Uncertain-
+Unverifiable / Not a factual claim (interpretation or prediction), with 
+evidence and citations for factual claims. Be politically neutral in 
+your fact-checking — focus on what's objectively documented, not 
+policy opinions."
+
+Expected Output:
+Claim 1: likely Verified True with citations to the actual regulatory 
+authority/framework governing U.S. export controls on technology; 
+Claim 2: likely flagged as "Not a factual claim (interpretation/
+overstated prediction)" or "Verified False" as stated, since 
+"definitively prevented ALL meaningful AI development" is an extremely 
+strong, likely unverifiable/overstated causal claim that goes well 
+beyond what any source could objectively confirm, with an explanation 
+that the actual, defensible claim would be something more measured 
+(e.g., export controls aim to restrict access to certain advanced 
+capabilities, with genuinely debated and hard-to-measure real-world 
+effectiveness) rather than the absolute claim as stated; Claim 3: 
+likely Verified True with specific citations to actual public statements 
+by named companies — demonstrating appropriate epistemic care in 
+distinguishing objectively checkable facts from overstated or 
+interpretive claims on a genuinely sensitive, contested policy topic, 
+while maintaining political neutrality throughout.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Fact-check the following claim(s), verifying against current, 
+    reliable sources:
+    
+    Claim 1: [SPECIFIC, DISCRETE FACTUAL CLAIM]
+    Claim 2: [SPECIFIC, DISCRETE FACTUAL CLAIM]
+    
+    For each claim, classify as: Verified True / Verified False / 
+    Uncertain-Unverifiable / Not a factual claim (opinion/prediction/
+    interpretation).
+    
+    Provide specific supporting evidence and cite your sources for 
+    each determination. If a claim is False or misleading, explain 
+    what the accurate information actually is. If genuinely uncertain, 
+    say so honestly rather than forcing a confident verdict.
+
+=====================================================================
+END OF FILE 66 — Fact-Checking Prompting
+=====================================================================

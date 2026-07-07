@@ -1,0 +1,266 @@
+=====================================================================
+45. FORMAT-CONSTRAINED PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Formatting)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Format-Constrained Prompting — Enforcing Precise Output Shape and Style
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Format-Constrained prompting is a technique focused specifically on 
+controlling the VISUAL/STRUCTURAL SHAPE of a response — line count, 
+paragraph structure, table layout, specific punctuation rules, 
+capitalization conventions, or presentation style — as distinct from 
+Constraint Prompting's broader content rules (file 09) or Schema 
+Prompting's data-type rigor (file 44). Where Schema Prompting cares 
+about DATA TYPES and field validity, Format-Constrained Prompting 
+cares about the literal PRESENTATION FORMAT: is it a table or a list? 
+Single paragraph or multiple? Title case or sentence case? One line or 
+five?
+
+Think of it like the difference between telling a chef WHAT 
+ingredients must be in a dish (Constraint Prompting) versus telling 
+them exactly how the FINAL PLATE must be arranged — three items on the 
+left, garnish on the right, sauce drizzled in a specific pattern. The 
+ingredients might be identical, but the precise visual/structural 
+presentation is a distinct concern requiring its own explicit 
+instructions.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Format-Constrained prompting exists to:
+- Guarantee output fits a specific PRESENTATION requirement dictated 
+  by where it will be used (a table for a spreadsheet import, a single 
+  paragraph for a form field, a specific line count for a UI element).
+- Ensure VISUAL CONSISTENCY across many generated pieces of content 
+  that will be displayed together (e.g., a list of product cards that 
+  all need identically-shaped descriptions).
+- Support integration with systems that expect a specific literal 
+  layout (Markdown tables for documentation, specific line-break 
+  patterns for terminal output, exact capitalization for a style 
+  guide).
+- Separate FORMAT concerns from CONTENT concerns, allowing you to 
+  precisely control presentation independent of what's being 
+  communicated.
+- Enable direct, reliable copy-paste usability of generated content 
+  into its final destination without manual reformatting.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Content that must fit a specific visual container (a fixed-width UI 
+  element, a table cell, a specific number of lines in a design mockup).
+- Generating multiple pieces of content that must all share IDENTICAL 
+  structural shape for visual consistency (product listings, FAQ 
+  entries, card-based UI content).
+- Any output destined for direct insertion into another system with 
+  strict formatting expectations (Markdown tables for docs, CSV rows, 
+  specific citation styles).
+- Style-guide compliance tasks (specific capitalization rules, 
+  punctuation conventions, terminology formatting).
+
+WHEN NOT TO USE:
+- Free-flowing creative or conversational content where imposing rigid 
+  structural rules would feel unnatural and reduce quality.
+- Simple content with no downstream formatting requirement — don't 
+  over-specify format for a casual chat response.
+- When content requirements are primarily about DATA VALIDITY rather 
+  than visual shape (use Schema Prompting instead) or about semantic 
+  RULES rather than presentation (use Constraint Prompting instead).
+
+BEST MODELS FOR FORMAT-CONSTRAINED PROMPTING:
+- GPT-4o/4.1/5-class — very reliable at following precise formatting 
+  instructions (exact line counts, table structures, specific 
+  punctuation rules).
+- Claude — excellent at maintaining consistent format across long 
+  outputs or many generated items without format drift partway 
+  through.
+- Gemini Pro — strong format adherence, particularly for structured 
+  outputs like tables and lists.
+- DeepSeek / Qwen — capable format-following, especially reliable for 
+  code-adjacent formatting (consistent indentation, comment styles).
+- Mistral / Llama — capable of format constraints; for VERY long 
+  outputs requiring many repeated identically-formatted items, larger 
+  models maintain consistency better than smaller ones, which may 
+  drift format partway through a long generation.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [CONTENT TASK] + "Format your response exactly as: [PRECISE SHAPE 
+    SPECIFICATION — line count, structure type, style rules]"
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Content Task — what information/content needs to be generated.
+    2. Format Specification — the exact structural shape required 
+       (table with N columns, exactly N lines, specific heading style, 
+       bullet vs. numbered, capitalization rules).
+    3. Format Example (highly recommended) — a literal example showing 
+       the exact shape expected, since precise visual formats are 
+       often communicated more reliably through example than 
+       description alone.
+    4. Consistency Instruction (for multi-item output) — explicit 
+       instruction to maintain identical format across every item 
+       when generating multiple pieces of content.
+
+Example skeleton:
+    "[CONTENT TASK]. 
+    
+    Format your response exactly as follows: 
+    [LITERAL FORMAT EXAMPLE/TEMPLATE SHOWING THE EXACT SHAPE] 
+    
+    Maintain this exact format/structure throughout your entire 
+    response, with no deviation."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Provide a literal FORMAT EXAMPLE whenever the shape is at all 
+  complex — showing is often more reliable than describing for precise 
+  visual/structural requirements.
+- Be EXPLICIT about things that are easy to leave ambiguous: exact 
+  line count, whether blank lines separate sections, bullet style 
+  (-, *, or numbered), capitalization convention (Title Case, sentence 
+  case, ALL CAPS for headers).
+- For MULTI-ITEM generation (many products, many FAQ entries), 
+  explicitly demand format consistency across every single item, and 
+  consider showing 2 examples (not just 1) if there's any risk of the 
+  model over-generalizing from a single example's incidental details.
+- When targeting a specific DOWNSTREAM SYSTEM (Markdown table for 
+  GitHub, CSV for a spreadsheet import), specify that system's exact 
+  syntax requirements (proper Markdown table pipe/dash syntax, correct 
+  CSV escaping for commas within fields).
+- Combine with Constraint Prompting (file 09) when you need BOTH 
+  format shape AND content rules (e.g., "exactly 3 bullet points" is 
+  format; "each must mention a specific feature" is content 
+  constraint) — these two concerns often appear together.
+- Test format-constrained prompts by actually checking output against 
+  the SPECIFIED shape (right number of lines/columns/items), not just 
+  reading it for general quality.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Describing a complex format only in words without providing 
+  a literal example, leading to output that's roughly-but-not-exactly 
+  the intended shape.
+  FIX: Provide a literal format example/template whenever the desired 
+  shape is at all intricate.
+
+- MISTAKE: Leaving ambiguous details unspecified (bullet style, 
+  capitalization, blank-line spacing), leading to inconsistent output 
+  across multiple runs.
+  FIX: Be explicit about every formatting detail that actually matters 
+  for your use case.
+
+- MISTAKE: Not demanding format consistency across multiple generated 
+  items, resulting in format drift partway through a long, multi-item 
+  response.
+  FIX: Explicitly instruct that identical format must be maintained 
+  across every item.
+
+- MISTAKE: Requesting a format incompatible with the actual downstream 
+  system's syntax requirements (e.g., malformed Markdown table syntax 
+  that won't actually render correctly).
+  FIX: Verify your format specification matches the real syntax 
+  requirements of wherever the output will be used.
+
+- MISTAKE: Conflating format requirements with content requirements in 
+  a way that makes the prompt confusing, rather than clearly separating 
+  "what shape" from "what content."
+  FIX: Clearly distinguish format specifications from content 
+  constraints, even when both appear in the same prompt.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"List 3 benefits of daily journaling. Format exactly as: 
+- [Benefit]: [one-sentence explanation] 
+
+with no additional text before or after the list."
+
+Expected Output:
+"- Stress reduction: Writing down worries helps process emotions and 
+reduces mental clutter. 
+- Improved memory: Recording daily events strengthens recall and 
+reflection. 
+- Self-awareness: Regular journaling reveals patterns in thoughts and 
+behavior over time."
+(Exactly 3 items, each following the "- [Benefit]: [explanation]" 
+shape, no extra preamble/postamble.)
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Create a comparison of 3 Python web frameworks (FastAPI, Django, 
+Flask). Format exactly as a Markdown table with these exact columns: 
+Framework | Best For | Learning Curve 
+
+Use this exact structure: 
+| Framework | Best For | Learning Curve | 
+|-----------|----------|----------------| 
+| [name] | [use case] | [Low/Medium/High] |"
+
+Expected Output:
+A correctly formatted Markdown table with proper pipe/dash syntax, 
+exactly 3 data rows (one per framework), each cell filled 
+appropriately, maintaining the exact column structure and formatting 
+shown in the example — directly usable in any Markdown-rendering 
+context without manual reformatting.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Generate 5 FAQ entries for a SaaS product's help page. Format each 
+entry EXACTLY as follows, with a blank line between entries and no 
+other text: 
+
+**Q: [Question in sentence case, ending with a question mark]**
+A: [Answer, 1-2 sentences, starting with a capital letter]
+
+Maintain this EXACT format (bold question with 'Q:' prefix, plain 'A:' 
+prefix, blank line separator) identically across all 5 entries — do 
+not vary the structure, add numbering, or include any introductory or 
+closing text."
+
+Expected Output:
+Exactly 5 FAQ entries, each strictly following the "**Q: [question]**" 
+/ "A: [answer]" pattern with correct bold formatting on questions only, 
+consistent sentence-case questions ending in question marks, 1-2 
+sentence answers, and a blank line separating each entry — with zero 
+format drift across all 5 (e.g., entry 3 doesn't suddenly add 
+numbering or entry 5 doesn't drop the bold formatting), and no 
+extraneous introductory text like "Here are 5 FAQ entries:" before the 
+first entry.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    [YOUR CONTENT TASK]
+    
+    Format your response EXACTLY as follows:
+    [LITERAL EXAMPLE/TEMPLATE SHOWING THE PRECISE SHAPE — line 
+    structure, table format, bullet style, capitalization, spacing]
+    
+    Requirements:
+    - [SPECIFIC FORMAT DETAIL 1, e.g., exact number of items/lines]
+    - [SPECIFIC FORMAT DETAIL 2, e.g., capitalization/punctuation 
+    rule]
+    - Maintain this exact format consistently across the entire 
+    response with no deviation
+    - No additional text before or after the formatted content
+
+=====================================================================
+END OF FILE 45 — Format-Constrained Prompting
+=====================================================================

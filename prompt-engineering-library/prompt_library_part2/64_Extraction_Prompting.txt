@@ -1,0 +1,294 @@
+=====================================================================
+64. EXTRACTION PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Analytical)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Extraction Prompting — Pulling Specific Information From Unstructured 
+Text
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Extraction prompting is a technique for instructing an LLM to identify 
+and pull out SPECIFIC PIECES OF INFORMATION from unstructured or semi-
+structured text — names, dates, amounts, entities, key facts — and 
+return them in a clean, structured format, without adding, 
+interpreting, or summarizing beyond what's actually present in the 
+source. This differs from Classification Prompting (file 63, assigning 
+a category label) in that Extraction is about IDENTIFYING AND PULLING 
+OUT specific data points that exist within the text, and connects 
+directly to Schema Prompting (file 44) and JSON Prompting (file 40) as 
+the typical output format for extracted structured data.
+
+Think of it like the difference between a mail sorter putting a letter 
+into a category bin (Classification) versus someone reading that same 
+letter and pulling out specific data points onto a form: sender name, 
+date, key amount mentioned, requested action — Extraction is about 
+identifying and capturing SPECIFIC EXISTING FACTS from within the 
+content, not judging what category it belongs to.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Extraction prompting exists to:
+- Convert UNSTRUCTURED text (emails, documents, transcripts, reviews) 
+  into STRUCTURED data usable by databases, spreadsheets, or other 
+  automated systems.
+- Automate DATA ENTRY tasks that would otherwise require manual reading 
+  and transcription (processing invoices, resumes, contracts, forms).
+- Support DOWNSTREAM ANALYTICS by pulling consistent, structured data 
+  points from large volumes of varied-format source text.
+- Enable INFORMATION RETRIEVAL at scale — quickly pulling specific facts 
+  from many documents without manually reading each one in full.
+- Serve as a foundational capability for RAG systems (file 33) and 
+  document processing pipelines (file 36) where specific facts need to 
+  be identified within retrieved/processed content.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Converting unstructured documents (emails, contracts, resumes, 
+  reviews) into structured data fields.
+- Pulling specific facts (dates, amounts, names, key terms) from large 
+  volumes of text.
+- Automating data entry from scanned/OCR'd or free-text sources into 
+  structured databases.
+- Any task where the goal is capturing EXISTING information accurately, 
+  not generating new content or judgments.
+
+WHEN NOT TO USE:
+- When you need a category/label assignment rather than specific data 
+  points (use Classification Prompting instead).
+- When the information you need genuinely isn't present in the source 
+  text — extraction should never fabricate/infer information not 
+  actually stated (this is a critical distinction from tasks that 
+  legitimately involve inference or analysis).
+- Highly interpretive tasks requiring judgment/synthesis rather than 
+  factual pulling (use Summarization or Research Prompting instead).
+
+BEST MODELS FOR EXTRACTION PROMPTING:
+- Claude — excellent extraction accuracy with strong discipline about 
+  not fabricating information that isn't actually present in the source 
+  text.
+- GPT-4o/4.1/5-class (especially with Structured Outputs/JSON mode) — 
+  very strong extraction capability, particularly reliable when 
+  combined with schema-constrained output features.
+- Gemini Pro/Ultra — strong extraction, particularly good with 
+  documents/images (extracting data from scanned documents, forms, 
+  receipts via multimodal input).
+- DeepSeek / Qwen — capable extraction performance, cost-effective for 
+  high-volume extraction tasks.
+- Smaller/faster models (Haiku, GPT-4o-mini, Flash variants) are often 
+  well-suited to straightforward extraction tasks, similar to the cost-
+  optimization opportunity noted in Classification Prompting, since 
+  extraction from clear, well-structured source text is often less 
+  demanding than open-ended generation.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [SOURCE TEXT] + "Extract the following fields: [FIELD LIST]. Use 
+    null for any field not present in the text. Do not infer or add 
+    information not explicitly stated."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Source Text — the unstructured content to extract information 
+       from.
+    2. Fields to Extract — the explicit, complete list of specific data 
+       points needed.
+    3. Format Specification — typically JSON or another structured 
+       format (see Schema Prompting, file 44) defining exact field 
+       names and types.
+    4. Missing Data Handling — explicit instruction for fields not 
+       present in the source (use null, don't guess or fabricate).
+    5. Fabrication Guard — explicit instruction against inferring or 
+       adding information not actually stated in the source text, 
+       distinguishing extraction from interpretation/inference.
+
+Example skeleton:
+    "Extract the following information from this text: 
+    - [FIELD 1] 
+    - [FIELD 2] 
+    - [FIELD 3] 
+    
+    Respond in this format: {\"field_1\": \"...\", \"field_2\": 
+    \"...\"} 
+    
+    Use null for any field not explicitly present in the text. Do NOT 
+    infer, guess, or add any information that isn't directly stated. 
+    
+    Text: [SOURCE CONTENT]"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- List the EXACT FIELDS needed explicitly and completely — don't rely 
+  on the model guessing what information matters to you from a vague 
+  "extract the important stuff" instruction.
+- Explicitly prohibit FABRICATION/INFERENCE — extraction should capture 
+  only what's actually stated; if information isn't present, the 
+  correct output is `null`, not a plausible-sounding guess.
+- Combine with Schema Prompting (file 44) or JSON Prompting (file 40) 
+  for precise, consistent output structure, especially for programmatic 
+  downstream use.
+- For fields with a specific expected FORMAT (dates, phone numbers, 
+  currency amounts), specify the desired output format explicitly (e.g., 
+  "dates in YYYY-MM-DD format") to ensure consistency across many 
+  extractions.
+- When extracting from documents/images rather than plain text, 
+  leverage multimodal-capable models that can process the actual 
+  visual document rather than relying on separately OCR'd text, which 
+  can introduce transcription errors.
+- For high-volume extraction pipelines, periodically SPOT-CHECK a sample 
+  of extractions against the original source text to catch systematic 
+  errors or edge cases the model handles inconsistently.
+- Be especially careful with extraction tasks involving PERSONAL or 
+  SENSITIVE data (names, financial details, health information) — 
+  ensure appropriate data handling/privacy practices govern the entire 
+  pipeline, not just the extraction step itself.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Vague extraction instructions ("pull out the important 
+  info") without an explicit field list, leading to inconsistent or 
+  incomplete extraction across different source documents.
+  FIX: Always specify the exact, complete list of fields to extract.
+
+- MISTAKE: Not explicitly prohibiting fabrication, risking the model 
+  filling in plausible-but-incorrect values for fields not actually 
+  present in the source.
+  FIX: Explicitly instruct that missing information should be 
+  represented as null, never guessed or inferred.
+
+- MISTAKE: Not specifying desired formats for fields like dates or 
+  currency, leading to inconsistent formatting across many extractions 
+  (some as "Jan 5, 2026," others as "01/05/2026").
+  FIX: Explicitly specify the desired format for any field with 
+  variable natural representations.
+
+- MISTAKE: Relying on separately OCR'd text (with potential transcription 
+  errors) instead of using multimodal models that can process the 
+  original document/image directly.
+  FIX: Use multimodal-capable models for document/image extraction 
+  when available.
+
+- MISTAKE: Not spot-checking extraction accuracy in high-volume 
+  pipelines, allowing systematic errors to go unnoticed.
+  FIX: Periodically sample and verify extraction accuracy against 
+  original source text.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Extract the following from this email: sender_name, meeting_date, 
+meeting_time. Respond as JSON. Use null for anything not present. Do 
+not infer or guess. 
+
+Email: 'Hi, this is Rajesh from the marketing team. Can we meet next 
+Tuesday at 3pm to discuss the campaign?'"
+
+Expected Output:
+{"sender_name": "Rajesh", "meeting_date": "next Tuesday", 
+"meeting_time": "3pm"}
+(Correctly extracting exactly what's stated, without inferring an 
+actual calendar date since "next Tuesday" is relative and the actual 
+date isn't specified in the text.)
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Extract the following fields from this job posting: job_title, 
+company_name, salary_range (if mentioned), required_years_experience, 
+remote_option (true/false/null if not mentioned). Respond as JSON, 
+dates/numbers in their stated format, use null for anything not 
+explicitly present. Do not infer or guess values not stated. 
+
+Posting: 'TechCorp is hiring a Senior Backend Engineer. Must have at 
+least 5 years of experience with distributed systems. This is a fully 
+remote position. Competitive compensation based on experience.'"
+
+Expected Output:
+{"job_title": "Senior Backend Engineer", "company_name": "TechCorp", 
+"salary_range": null, "required_years_experience": 5, "remote_option": 
+true}
+(Correctly extracting the stated facts, correctly returning null for 
+salary_range since only vague "competitive compensation" language is 
+given with no actual range stated, rather than fabricating a plausible-
+sounding number.)
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Extract structured information from this contract clause excerpt for 
+a legal document processing pipeline. 
+
+Fields to extract: 
+- party_a_name 
+- party_b_name 
+- effective_date (format: YYYY-MM-DD if a specific date is given, 
+otherwise describe the triggering condition as a string) 
+- termination_notice_days (integer, or null) 
+- auto_renewal (true/false/null if not mentioned) 
+- governing_law_jurisdiction (or null if not specified in this excerpt) 
+
+Respond as JSON. Use null for any field not explicitly addressed in 
+THIS excerpt (note: this may be one clause from a larger document, so 
+it's expected and correct that some fields legitimately won't be 
+covered here — do not infer information that might appear elsewhere in 
+a hypothetical full document you don't have access to). Do not guess 
+or infer values not explicitly stated in the provided text. 
+
+Excerpt: 'This Agreement is entered into between Acme Robotics Inc. 
+(\"Provider\") and Nexus Manufacturing LLC (\"Client\"), effective upon 
+Client's first payment under this Agreement. Either party may terminate 
+with 60 days written notice. This Agreement shall automatically renew 
+for successive one-year terms unless terminated as provided herein.'"
+
+Expected Output:
+{"party_a_name": "Acme Robotics Inc.", "party_b_name": "Nexus 
+Manufacturing LLC", "effective_date": "upon Client's first payment 
+under this Agreement", "termination_notice_days": 60, "auto_renewal": 
+true, "governing_law_jurisdiction": null}
+(Correctly extracting all explicitly stated facts, correctly 
+representing the non-specific-date effective_date condition as a 
+descriptive string rather than fabricating a calendar date, correctly 
+extracting the 60-day notice period as an integer, correctly 
+identifying auto-renewal as true based on the explicit "shall 
+automatically renew" language, and correctly returning null for 
+governing_law_jurisdiction since this excerpt doesn't address it — 
+appropriately NOT assuming this information might be covered 
+elsewhere in a document it doesn't have access to.)
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Extract the following fields from this [CONTENT TYPE]:
+    - [FIELD 1]
+    - [FIELD 2]
+    - [FIELD 3]
+    
+    Respond as JSON: {"field_1": "...", "field_2": "...", "field_3": 
+    "..."}
+    
+    Rules:
+    - Use `null` for any field not explicitly present in the text
+    - Do NOT infer, guess, or fabricate any information not directly 
+    stated
+    - [FORMAT REQUIREMENTS for specific fields, e.g., dates as 
+    YYYY-MM-DD]
+    
+    Text: [PASTE SOURCE CONTENT]
+
+=====================================================================
+END OF FILE 64 — Extraction Prompting
+=====================================================================

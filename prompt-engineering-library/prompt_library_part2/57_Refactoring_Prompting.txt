@@ -1,0 +1,341 @@
+=====================================================================
+57. REFACTORING PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Coding)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Refactoring Prompting — Restructuring Code Without Changing Behavior
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Refactoring prompting is a technique for instructing an LLM to 
+IMPROVE the internal structure, readability, or organization of 
+EXISTING, WORKING code — WITHOUT changing its external behavior or 
+functionality. This is a precise, disciplined distinction: refactoring 
+is not fixing bugs (Debugging Prompting, file 55), not adding new 
+features (Code Generation Prompting, file 54), and not merely 
+identifying problems (Code Review Prompting, file 56) — it is 
+SPECIFICALLY the transformation of code into a better internal form 
+while guaranteeing the same inputs still produce the same outputs.
+
+Think of it like renovating a house's internal structure — moving 
+walls, improving the wiring layout, reorganizing the floor plan for 
+better flow — WITHOUT changing what the house is used for or its 
+external appearance from the street. The house still does everything 
+it did before; it's just better organized internally, which makes 
+future renovations, repairs, or additions easier.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Refactoring prompting exists to:
+- Improve code MAINTAINABILITY and readability for future development, 
+  without the risk of introducing new bugs that a "just rewrite it" 
+  approach might carry.
+- Reduce TECHNICAL DEBT incrementally — addressing accumulated 
+  structural issues (duplication, poor naming, excessive complexity) 
+  in working code before they compound further.
+- Support safe, INCREMENTAL improvement of a codebase, since a true 
+  refactor (by definition) preserves existing behavior, making it 
+  lower-risk than a full rewrite.
+- Prepare code for FUTURE CHANGES — often refactoring is done 
+  specifically to make an upcoming feature addition or bug fix easier, 
+  by first cleaning up the structure that new work will build upon.
+- Apply established software engineering PATTERNS (extracting 
+  functions, reducing duplication, improving naming, simplifying 
+  conditional logic) systematically to real code.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Code works correctly but is hard to read, overly complex, or 
+  contains duplication that should be consolidated.
+- Preparing a codebase for an upcoming feature addition that would be 
+  easier to implement in cleaner code.
+- Addressing technical debt identified during a Code Review 
+  (naturally, Code Review often surfaces issues that Refactoring then 
+  addresses).
+- Modernizing code to use current language idioms/best practices while 
+  preserving exact functionality.
+
+WHEN NOT TO USE:
+- Code has an actual bug that needs fixing (use Debugging Prompting 
+  first — fix behavior issues before refactoring structure).
+- You want new functionality added, not just restructuring (use Code 
+  Generation Prompting instead, or treat as a distinct, separate task 
+  from refactoring).
+- You just want an evaluation of code quality without actually changing 
+  it (use Code Review Prompting instead).
+
+BEST MODELS FOR REFACTORING PROMPTING:
+- Claude (especially via Claude Code) — excellent at careful, 
+  behavior-preserving refactoring with good judgment about what to 
+  change vs. leave alone, and strong test-writing instincts to verify 
+  behavior preservation.
+- GPT-4o/4.1/5-class — strong refactoring capability, generally 
+  reliable at behavior preservation for well-scoped refactoring tasks.
+- Gemini Pro/Ultra — capable refactoring, particularly strong when full 
+  codebase context is available.
+- DeepSeek-Coder / Qwen-Coder — strong specialized refactoring 
+  performance for common patterns and language idioms.
+- For LARGE-SCALE or multi-file refactoring: agentic coding tools 
+  (Claude Code, Cursor) that can actually run existing tests before and 
+  after changes provide much stronger behavior-preservation guarantees 
+  than reasoning about code changes without execution verification.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [CODE] + "Refactor this to improve [SPECIFIC GOAL: readability/
+    reduce duplication/simplify]. Do NOT change external behavior — 
+    the same inputs must produce the same outputs."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Existing Code — the working code to be refactored.
+    2. Refactoring Goal — the SPECIFIC improvement objective (reduce 
+       duplication, improve naming, simplify nested conditionals, 
+       extract reusable functions, modernize syntax).
+    3. Behavior Preservation Instruction — an explicit, firm statement 
+       that external behavior/output must remain identical.
+    4. Verification Request — ask for confirmation of HOW the 
+       refactored code preserves behavior (e.g., "explain why this 
+       produces identical output"), and ideally request tests to prove 
+       it.
+    5. Scope Boundaries — what's in/out of scope for this specific 
+       refactor (e.g., "don't change the public API/function 
+       signature").
+
+Example skeleton:
+    "Refactor this [LANGUAGE] code to [SPECIFIC GOAL]: 
+    
+    [CODE] 
+    
+    Requirements: 
+    - Do NOT change external behavior — identical inputs must produce 
+      identical outputs 
+    - [SCOPE BOUNDARY, e.g., keep the public function signature 
+      unchanged] 
+    
+    After refactoring, explain how you verified/ensured behavior was 
+    preserved. [OPTIONAL: Provide test cases confirming behavior 
+    equivalence between old and new versions.]"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- State a SPECIFIC refactoring goal rather than a vague "make this 
+  better" — "reduce duplication between these two similar functions" 
+  or "simplify this deeply nested conditional logic" gives clear 
+  direction.
+- ALWAYS explicitly state the behavior-preservation requirement — this 
+  is the single most important constraint distinguishing refactoring 
+  from a rewrite, and it's worth stating even though it's implicit in 
+  the definition of "refactoring."
+- Define SCOPE BOUNDARIES clearly — should the public API/function 
+  signature stay identical? Are certain "ugly but load-bearing" parts 
+  of the code off-limits for this particular pass?
+- Request VERIFICATION — ask the model to explain how it confirmed 
+  behavior preservation, and ideally request test cases that verify old 
+  and new versions produce identical results for the same inputs.
+- Whenever possible, run EXISTING TESTS (if you have them) before and 
+  after the refactor to empirically confirm behavior preservation, 
+  rather than relying solely on the model's reasoning-based assurance.
+- For LARGE refactoring tasks, consider breaking into smaller, 
+  independently-verifiable steps (similar to Step-by-Step Prompting) 
+  rather than attempting one massive restructuring in a single pass, 
+  which increases the risk of subtle behavioral changes slipping 
+  through.
+- If NO existing tests exist for the code being refactored, consider 
+  requesting tests be written FIRST (capturing current behavior) before 
+  the refactor, so you have a concrete baseline to verify against.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Vague refactoring goals ("make this better") that don't give 
+  clear direction on what specifically should improve.
+  FIX: State a specific refactoring objective (reduce duplication, 
+  simplify logic, improve naming).
+
+- MISTAKE: Not explicitly stating the behavior-preservation requirement, 
+  risking the model making functional changes disguised as "improvement."
+  FIX: Always explicitly state that external behavior must remain 
+  identical.
+
+- MISTAKE: Not defining scope boundaries (e.g., whether the public API 
+  can change), leading to refactoring that breaks other code depending 
+  on the original interface.
+  FIX: Explicitly state what must remain unchanged (function 
+  signatures, public interfaces).
+
+- MISTAKE: Trusting that refactored code preserves behavior without any 
+  actual verification (running tests, comparing outputs).
+  FIX: Always verify behavior preservation empirically when possible, 
+  not just through the model's stated reasoning.
+
+- MISTAKE: Attempting a massive, all-at-once refactor of a large 
+  codebase section, increasing the risk of subtle behavioral changes 
+  going unnoticed.
+  FIX: Break large refactoring efforts into smaller, independently 
+  verifiable steps.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Refactor this Python code to reduce duplication: 
+
+def get_circle_area(radius):
+    return 3.14159 * radius * radius
+
+def get_circle_circumference(radius):
+    return 2 * 3.14159 * radius
+
+Requirements: do NOT change external behavior — the same radius input 
+must produce the same output values as before. Keep both function 
+signatures unchanged."
+
+Expected Output:
+A refactored version that extracts the repeated `3.14159` magic 
+number into a named constant (e.g., `PI = 3.14159`, or better, using 
+`math.pi` if precision improvement is acceptable within "same 
+behavior" — worth the model noting this distinction), used consistently 
+in both functions, with both original function signatures preserved 
+exactly, and a brief confirmation that both functions still compute 
+identical results for any given radius as before.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Refactor this Python function to simplify its nested conditional 
+logic: 
+
+def get_shipping_cost(weight, distance, is_express):
+    if weight <= 5:
+        if distance <= 100:
+            if is_express:
+                return 15
+            else:
+                return 10
+        else:
+            if is_express:
+                return 25
+            else:
+                return 18
+    else:
+        if distance <= 100:
+            if is_express:
+                return 30
+            else:
+                return 22
+        else:
+            if is_express:
+                return 40
+            else:
+                return 30
+
+Requirements: do NOT change external behavior — every combination of 
+weight/distance/is_express must return the exact same value as the 
+original. Keep the function signature unchanged. 
+
+After refactoring, provide test cases confirming the old and new 
+versions produce identical results for at least 6 different input 
+combinations."
+
+Expected Output:
+A refactored version likely using a lookup table/dictionary approach 
+or early-return guard clauses to flatten the nested conditionals while 
+preserving the exact same return values for every combination of 
+inputs, with the function signature unchanged, accompanied by 6+ test 
+cases explicitly verifying that specific input combinations produce 
+identical outputs to the original implementation.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Refactor this Python module to improve testability and reduce coupling 
+(this is part of a larger multi-agent system, and I want to be able to 
+unit test the core logic without needing a live database connection): 
+
+class OrderProcessor:
+    def process_order(self, order_id):
+        db = DatabaseConnection('production_db')
+        order = db.query(f'SELECT * FROM orders WHERE id = 
+{order_id}')
+        if order['status'] == 'pending':
+            total = sum(item['price'] * item['quantity'] for item in 
+order['items'])
+            if total > 1000:
+                total *= 0.95  # bulk discount
+            db.execute(f'UPDATE orders SET total = {total}, status = 
+\"processed\" WHERE id = {order_id}')
+            return total
+        return None
+
+Goals: 
+1. Extract the pure calculation logic (discount/total calculation) 
+into a separate, independently testable function with no database 
+dependency 
+2. Use dependency injection for the database connection rather than 
+creating it internally, so tests can inject a mock 
+
+Requirements: do NOT change external behavior — process_order(order_id) 
+called against the same database state must produce the exact same 
+side effects (database updates) and return value as before. 
+
+After refactoring, explain specifically how you verified/reasoned 
+through behavior preservation, and note (but do NOT fix in this pass, 
+since it's out of scope for a pure refactor) the pre-existing SQL 
+injection vulnerability in the f-string queries, since that's a 
+security bug fix, not a refactor, and should be handled as a separate 
+task."
+
+Expected Output:
+A refactored version with the order-total calculation logic extracted 
+into a pure function (e.g., `calculate_order_total(items) -> float` 
+with the bulk discount logic), the database connection injected via 
+the constructor (`__init__(self, db_connection)`) rather than created 
+internally, preserving the exact same `process_order` behavior and 
+return values, with a clear explanation of how behavior equivalence 
+was reasoned through (same calculation logic, same conditional flow, 
+same database operations, just reorganized for testability) — and 
+correctly flagging the pre-existing SQL injection vulnerability as a 
+separate, out-of-scope concern rather than silently fixing it 
+(which would technically change behavior/introduce a functional 
+change beyond pure refactoring) or silently ignoring it entirely — 
+demonstrating appropriate scope discipline distinguishing refactoring 
+from bug-fixing even when a real bug is spotted along the way.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Refactor this [LANGUAGE] code to [SPECIFIC GOAL: reduce 
+    duplication / simplify logic / improve naming / extract reusable 
+    functions / improve testability]:
+    
+    [PASTE CODE]
+    
+    Requirements:
+    - Do NOT change external behavior — identical inputs must produce 
+    identical outputs/side effects
+    - [SCOPE BOUNDARY: e.g., keep function signatures/public API 
+    unchanged]
+    
+    After refactoring, explain how you verified/ensured behavior was 
+    preserved. Provide test cases confirming the old and new versions 
+    produce identical results for representative inputs.
+    
+    [If you notice unrelated bugs/issues while refactoring, flag them 
+    separately rather than fixing them as part of this pass.]
+
+=====================================================================
+END OF FILE 57 — Refactoring Prompting
+=====================================================================

@@ -1,0 +1,300 @@
+=====================================================================
+43. TEMPLATE PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Formatting)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Template Prompting — Building Reusable Prompts With Fillable Variables
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Template prompting is a technique where you design a REUSABLE prompt 
+"skeleton" containing clearly marked PLACEHOLDER VARIABLES (e.g., 
+{product_name}, [TOPIC], <<audience>>) that can be swapped out with 
+different actual values each time the template is used — without 
+needing to rewrite the surrounding instruction, constraints, and 
+formatting logic from scratch every time. This is the practice of 
+treating a well-engineered prompt as a piece of reusable INFRASTRUCTURE 
+rather than a one-off, hand-written message, and is foundational to 
+building any prompt library, product feature, or automated pipeline 
+that runs the "same kind" of request repeatedly with different inputs.
+
+Think of it like the difference between writing a brand-new email from 
+scratch every single time you need to follow up with a client versus 
+having a proven email TEMPLATE with blanks for [Client Name], [Project 
+Name], and [Deadline] that you simply fill in each time — the 
+underlying structure, tone, and effectiveness stay consistent, while 
+only the specific details change.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Template prompting exists to:
+- Enable CONSISTENCY across many uses of "the same kind" of prompt, 
+  ensuring quality doesn't degrade or drift when the same task is 
+  performed repeatedly with different inputs.
+- Support SCALABLE, programmatic prompt generation — a template with 
+  variables can be filled in by code, enabling automated pipelines 
+  that generate hundreds or thousands of customized prompts from one 
+  well-engineered base.
+- Save significant TIME AND EFFORT by capturing hard-won prompt-
+  engineering insights (the right role, the right constraints, the 
+  right format) once, rather than re-deriving them from scratch for 
+  every similar task.
+- Serve as the underlying MECHANISM for essentially every "reusable 
+  prompt template" section throughout this entire prompt engineering 
+  library — this file makes that implicit practice explicit and 
+  systematic.
+- Enable easy A/B TESTING and iterative improvement — since the 
+  template's structure is separated from specific instance data, you 
+  can refine the template itself and immediately improve all future 
+  uses.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Any task you expect to perform repeatedly with different specific 
+  inputs (writing many similar product descriptions, generating many 
+  similar code reviews, processing many similar support tickets).
+- Building AI-powered features/products where prompts need to be 
+  generated programmatically based on user input or application data.
+- Creating a personal or team PROMPT LIBRARY (directly relevant to 
+  this entire project) where proven, reusable templates save future 
+  effort.
+- Situations where CONSISTENCY of quality/format across many outputs 
+  matters more than one-off customization.
+
+WHEN NOT TO USE:
+- Genuinely one-off, unique tasks that won't be repeated — building a 
+  formal template for a single-use prompt is unnecessary overhead.
+- Highly exploratory or creative tasks where forcing a fixed template 
+  structure would limit valuable spontaneity/variation.
+- Tasks so varied that no meaningful common template structure could 
+  actually apply across instances.
+
+BEST MODELS FOR TEMPLATE PROMPTING:
+- ALL modern instruction-tuned models work well with template 
+  prompting, since this is fundamentally a PROMPT DESIGN PRACTICE 
+  (how you organize and reuse your prompts) rather than a model-
+  specific capability — GPT-4o/4.1/5-class, Claude, Gemini, Grok, 
+  DeepSeek, Qwen, Mistral, Llama all handle well-filled templates 
+  identically to any other well-constructed prompt.
+- For PROGRAMMATIC template filling (variables inserted via code), any 
+  model accessible via API works — the key infrastructure is your own 
+  code/system for managing and filling templates, not a special model 
+  feature.
+- Combine with Structured Prompting (file 39), XML Prompting (file 
+  41), or Markdown Prompting (file 42) as the underlying formatting 
+  convention for your template's fixed structure.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [FIXED INSTRUCTION STRUCTURE] + {VARIABLE_1} + [FIXED TEXT] + 
+    {VARIABLE_2} + [FIXED CONSTRAINTS/FORMAT]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Fixed Framing — the parts of the prompt that never change 
+       (role, general task type, constraints, output format).
+    2. Placeholder Variables — clearly marked spots where specific 
+       instance data gets inserted, using a consistent, unambiguous 
+       marking convention ({curly_braces}, [square_brackets], 
+       <<double_angle_brackets>>).
+    3. Variable Documentation (for template maintainers) — a clear 
+       note of what each placeholder represents and what kind of value 
+       should go there.
+    4. Fill-In Process — the actual mechanism (manual copy-paste, or 
+       programmatic string substitution) for producing a final, ready-
+       to-use prompt from the template.
+
+Example skeleton:
+    "You are a [ROLE].
+    
+    Task: Write a product description for {product_name}, a 
+    {product_category} priced at {price}.
+    
+    Target audience: {audience}
+    
+    Constraints:
+    - Under {word_limit} words
+    - Tone: {tone}
+    - Must mention: {key_feature}"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Use a CONSISTENT, clearly distinguishable placeholder syntax 
+  throughout your template (always {curly_braces}, or always 
+  [square_brackets]) — never mix conventions within one template.
+- Name variables DESCRIPTIVELY ({product_name} not {var1}) so the 
+  template remains self-documenting and easy to fill correctly, 
+  especially months later or when shared with others.
+- Keep the FIXED portions (role, constraints, format) as the parts 
+  you've most carefully engineered and tested, since these carry over 
+  unchanged across every use.
+- For programmatic use, VALIDATE that all required variables are 
+  actually filled before sending the prompt — an unfilled {placeholder} 
+  accidentally sent to the model will confuse it.
+- Version your templates as you refine them — keep track of what 
+  changed and why, especially for templates used in production systems, 
+  so you can roll back if a "refinement" actually reduces quality.
+- Test your template with several DIFFERENT variable values (not just 
+  one) to confirm it generalizes well across the range of inputs you 
+  expect, not just your original test case.
+- Document any ASSUMPTIONS baked into the template (e.g., "assumes 
+  product_name is a consumer product, not enterprise software") so 
+  future users know its boundaries.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Mixing placeholder conventions within one template 
+  ({variable} in one place, [variable] in another), causing confusion 
+  about what needs to be filled in.
+  FIX: Pick one consistent placeholder syntax and use it throughout.
+
+- MISTAKE: Using vague, non-descriptive variable names ({x}, {var1}) 
+  that don't communicate what value belongs there.
+  FIX: Use clear, descriptive variable names.
+
+- MISTAKE: Sending a prompt to the model with an unfilled placeholder 
+  still literally present (e.g., the model receives "{product_name}" 
+  as literal text because a fill-in step was missed).
+  FIX: Always validate that every placeholder has been properly filled 
+  before sending the final prompt.
+
+- MISTAKE: Building an overly rigid template that doesn't generalize 
+  well across the actual range of inputs it needs to handle.
+  FIX: Test the template with several genuinely different variable 
+  values before relying on it broadly.
+
+- MISTAKE: Never revisiting or improving templates once created, 
+  missing opportunities to refine based on observed output quality 
+  over time.
+  FIX: Periodically review and refine templates based on real usage 
+  results, keeping a simple version history.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Template:
+"Write a birthday message for {recipient_name}, who is turning 
+{age}. Tone: {tone}. Keep it under {word_limit} words."
+
+Filled Instance:
+"Write a birthday message for Priya, who is turning 18. Tone: warm 
+and celebratory. Keep it under 40 words."
+
+Expected Output:
+A warm, celebratory birthday message for Priya's 18th birthday, under 
+40 words — demonstrating the same template producing a correctly 
+customized result when variables are filled with specific values.
+
+--- INTERMEDIATE EXAMPLE ---
+Template:
+"You are a customer support assistant for {company_name}.
+
+A customer has submitted this message: '{customer_message}'
+
+Task: Draft a response that:
+- Acknowledges their {issue_type} concern
+- Maintains a {tone} tone
+- Includes next steps if applicable
+
+Do not make promises about {excluded_topic} without escalation."
+
+Filled Instance:
+"You are a customer support assistant for CloudStore Inc.
+
+A customer has submitted this message: 'My order #4521 hasn't 
+arrived and it's been 2 weeks.'
+
+Task: Draft a response that:
+- Acknowledges their shipping delay concern
+- Maintains a empathetic, professional tone
+- Includes next steps if applicable
+
+Do not make promises about refund amounts without escalation."
+
+Expected Output:
+A properly customized customer support response addressing the 
+specific shipping delay for order #4521, in an empathetic and 
+professional tone, offering appropriate next steps (like checking 
+tracking or escalating), while correctly avoiding making specific 
+refund promises per the filled-in constraint — demonstrating the 
+template's reusability across different companies, issues, and 
+constraints.
+
+--- ADVANCED EXAMPLE ---
+Template (for a code review automation pipeline):
+"You are a {language} code reviewer specializing in {review_focus}.
+
+Code to review:
+```{language}
+{code_snippet}
+```
+
+Context: This code is part of {project_context}.
+
+Task: Identify issues related to {review_focus} specifically. For 
+each issue found:
+- Severity: {severity_scale}
+- Provide a specific fix
+
+Do not comment on issues outside the {review_focus} scope (e.g., if 
+review_focus is 'security', do not comment on code style)."
+
+Filled Instance (variables: language=Python, 
+review_focus=security, code_snippet=[an authentication function], 
+project_context=a multi-agent AI system's auth module, 
+severity_scale=Critical/High/Medium/Low):
+
+Expected Output:
+A security-focused code review of the specific Python authentication 
+function, correctly scoped to ONLY security issues (per the 
+review_focus constraint, explicitly excluding style commentary), 
+using the Critical/High/Medium/Low severity scale, with specific fixes 
+for each identified issue — demonstrating how the same underlying 
+template could be reused for entirely different review focuses 
+(e.g., performance, readability, testing coverage) simply by changing 
+the review_focus and severity_scale variables, without rewriting the 
+surrounding prompt logic.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    [META-TEMPLATE — a template for building your own templates]
+    
+    You are a {role}.
+    
+    Context: {context_description}
+    
+    Task: {specific_task_instruction}
+    
+    Constraints:
+    - {constraint_1}
+    - {constraint_2}
+    
+    Output format: {desired_format}
+    
+    ---
+    Variable documentation:
+    {role} = [what kind of value goes here]
+    {context_description} = [what kind of value goes here]
+    {specific_task_instruction} = [what kind of value goes here]
+    {constraint_1}, {constraint_2} = [what kind of value goes here]
+    {desired_format} = [what kind of value goes here]
+
+=====================================================================
+END OF FILE 43 — Template Prompting
+=====================================================================

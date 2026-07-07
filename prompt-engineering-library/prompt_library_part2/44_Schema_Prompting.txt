@@ -1,0 +1,314 @@
+=====================================================================
+44. SCHEMA PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Formatting)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Schema Prompting — Defining Formal Data Contracts for Model Output
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Schema prompting is a technique where you provide the model with a 
+FORMAL, PRECISE DATA SCHEMA — a definition of exact field names, data 
+types, value constraints (enums, ranges, required vs. optional), and 
+overall structure — that its output must conform to, going beyond a 
+simple example into full FORMAL SPECIFICATION territory. While JSON 
+Prompting (file 40) is the most common practical application, Schema 
+Prompting as a broader technique also covers formats like YAML, 
+Protocol Buffers-style definitions, database table schemas, or even 
+formally specified natural-language rubrics — the defining feature is 
+providing a genuine CONTRACT the output must satisfy, not just a loose 
+example to imitate.
+
+Think of it like the difference between showing a new employee one 
+sample invoice and hoping they copy the pattern (Template/Example-
+based guidance) versus handing them the company's OFFICIAL INVOICE 
+SCHEMA document that formally specifies: invoice_number must be a 
+string matching pattern INV-#####, amount must be a positive decimal 
+with exactly 2 decimal places, status must be one of exactly 3 allowed 
+values — a genuine, enforceable contract rather than an example to 
+approximate.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Schema prompting exists to:
+- Provide RIGOROUS, UNAMBIGUOUS specification of exactly what output 
+  structure is required, reducing the guesswork inherent in learning 
+  from a single example alone.
+- Enable VALIDATION — a formal schema can be used to programmatically 
+  verify the model's output actually conforms (using tools like JSON 
+  Schema validators), not just visually inspecting for rough 
+  similarity to an example.
+- Support COMPLEX CONSTRAINTS that a simple example can't fully convey 
+  — value ranges, required vs. optional fields, enum restrictions, 
+  pattern matching, nested type requirements.
+- Bridge AI-generated content directly with existing SOFTWARE SYSTEMS 
+  that already have formal schemas (database tables, API contracts, 
+  existing data models) that outputs must integrate with cleanly.
+- Serve as the rigorous foundation underlying Function Calling (file 
+  31) and JSON Prompting (file 40), formalizing what those techniques 
+  apply in practice.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Integrating model output directly with an EXISTING system that has 
+  its own formal data schema (a database table, an established API 
+  contract) that output must exactly match.
+- Situations requiring VALIDATION of output correctness — you need to 
+  programmatically confirm the output conforms, not just spot-check it 
+  visually.
+- Complex data structures with many fields, specific type requirements, 
+  or value constraints that a simple example can't fully specify.
+- Any Function Calling (file 31) implementation, since function 
+  parameter schemas ARE Schema Prompting in practice.
+- Building production data pipelines where malformed output could 
+  break downstream systems.
+
+WHEN NOT TO USE:
+- Simple, single-field extractions where a full formal schema is 
+  unnecessary overhead compared to a quick example.
+- Creative or exploratory tasks with no genuine formal data contract 
+  requirement.
+- When a single clear example (One-Shot Prompting, file 02) would 
+  communicate the needed structure just as effectively with less 
+  setup.
+
+BEST MODELS FOR SCHEMA PROMPTING:
+- GPT-4o/4.1/5-class (with OpenAI's Structured Outputs feature, which 
+  can accept actual JSON Schema definitions and GUARANTEE conformance) 
+  — the strongest practical implementation, since this uses 
+  constrained generation rather than just prompt-level instruction.
+- Claude (via Anthropic's tool use with input_schema definitions) — 
+  strong native schema support through its tool-calling 
+  infrastructure, providing similarly strong guarantees.
+- Gemini Pro/Ultra (with Google's response_schema configuration 
+  parameter) — strong native schema-constrained output support.
+- DeepSeek / Qwen — capable of respecting provided schemas through 
+  prompt instruction, though may lack the same hard guarantee 
+  mechanisms as the above dedicated API features.
+- CRITICAL BEST PRACTICE: whenever possible, use your provider's 
+  NATIVE schema-constrained generation feature (not just describing 
+  the schema in plain-text prompt instructions) since these use 
+  underlying grammar/constrained-decoding mechanisms that can 
+  mathematically guarantee schema conformance, which is significantly 
+  more reliable than hoping the model follows a schema described only 
+  in natural language.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [TASK] + "Your output must conform EXACTLY to this schema: 
+    [FORMAL SCHEMA DEFINITION WITH TYPES, CONSTRAINTS, REQUIRED 
+    FIELDS]"
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Task Instruction — what needs to be generated/extracted.
+    2. Formal Schema Definition — precise field names, data types 
+       (string, integer, boolean, array, nested object), constraints 
+       (enum values, min/max, required patterns), and required vs. 
+       optional status for each field.
+    3. Validation Rules — any cross-field constraints or business 
+       logic rules the schema should enforce (e.g., "end_date must be 
+       after start_date").
+    4. Conformance Instruction — explicit statement that the output 
+       must EXACTLY match this schema, not approximate it.
+
+Example skeleton:
+    "[TASK]. 
+    
+    Your output must conform exactly to this schema: 
+    { 
+      "field_1": {"type": "string", "required": true, "pattern": 
+    "[regex if applicable]"}, 
+      "field_2": {"type": "integer", "required": true, "minimum": 0, 
+    "maximum": 100}, 
+      "field_3": {"type": "string", "required": false, "enum": 
+    ["option_a", "option_b", "option_c"]} 
+    } 
+    
+    Every required field must be present; optional fields should use 
+    null if not applicable."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Whenever your provider offers NATIVE schema-constrained output 
+  (OpenAI Structured Outputs, Anthropic tool use schemas, Google 
+  response_schema), USE these dedicated features rather than relying 
+  purely on describing the schema in prompt text — the reliability 
+  difference is substantial.
+- Specify EVERY constraint that actually matters: required vs. 
+  optional, exact data types, enum-restricted values, numeric ranges, 
+  string patterns — don't leave ambiguity that a "close enough" output 
+  might satisfy technically while still breaking downstream use.
+- Clearly define how to represent MISSING data (typically `null` for 
+  optional fields with no available value) to avoid inconsistent 
+  handling.
+- For CROSS-FIELD validation rules (one field's value constrains 
+  another), state these explicitly since basic type schemas often 
+  can't express such relationships natively.
+- Test your schema against EDGE CASES — inputs that might produce 
+  boundary values, missing optional data, or ambiguous categorization 
+  — to confirm the schema handles them as intended.
+- ALWAYS validate output against the schema programmatically on the 
+  receiving end (using an actual JSON Schema validator library or 
+  equivalent), even when using native constrained-generation features, 
+  as a final safety check.
+- Version and document your schemas, especially for schemas used in 
+  production systems, so changes can be tracked and backward 
+  compatibility considered.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Describing a schema only in prompt text when a native 
+  schema-constrained generation feature was actually available, 
+  missing a significant reliability improvement.
+  FIX: Always prefer native structured-output/schema features when 
+  your provider supports them.
+
+- MISTAKE: Leaving constraints vague or unspecified (not defining enum 
+  values, ranges, or required status), allowing technically-compliant 
+  but practically unusable output.
+  FIX: Specify every constraint that actually matters for your use 
+  case.
+
+- MISTAKE: Not defining how to represent missing/optional data 
+  consistently.
+  FIX: Explicitly specify using `null` (or another clear convention) 
+  for missing optional values.
+
+- MISTAKE: Missing cross-field validation rules that a basic type 
+  schema can't express on its own.
+  FIX: State such business-logic constraints explicitly in the prompt 
+  alongside the formal schema.
+
+- MISTAKE: Trusting schema-constrained output without any downstream 
+  programmatic validation, assuming the constraint mechanism is 
+  infallible.
+  FIX: Always validate output against the schema on the receiving 
+  application side as a final check.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Extract product information from this text and conform exactly to 
+this schema: 
+{ 
+  "product_name": {"type": "string", "required": true}, 
+  "price": {"type": "number", "required": true, "minimum": 0}, 
+  "in_stock": {"type": "boolean", "required": true} 
+} 
+
+Text: 'The Wireless Mouse Pro is available now for $29.99.'"
+
+Expected Output:
+{"product_name": "Wireless Mouse Pro", "price": 29.99, "in_stock": 
+true}
+(Correctly typed: price as a number not a string, in_stock inferred 
+as true from "available now.")
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Extract event details from this text and conform exactly to this 
+schema: 
+{ 
+  "event_name": {"type": "string", "required": true}, 
+  "date": {"type": "string", "required": true, "format": 
+"YYYY-MM-DD"}, 
+  "category": {"type": "string", "required": true, "enum": 
+["conference", "workshop", "webinar", "meetup"]}, 
+  "capacity": {"type": "integer", "required": false, "minimum": 1} 
+} 
+Use null for capacity if not mentioned. 
+
+Text: 'Join us for the AI Builders Meetup on August 15th, 2026 — an 
+informal evening of demos and discussion, open to all skill 
+levels.'"
+
+Expected Output:
+{"event_name": "AI Builders Meetup", "date": "2026-08-15", 
+"category": "meetup", "capacity": null}
+(Correctly selecting "meetup" from the constrained enum based on 
+context clues like "informal evening," correctly formatting the date, 
+and correctly using null since capacity wasn't mentioned.)
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"You are processing form submissions for an AI hackathon registration 
+system. Extract and validate the submission, conforming exactly to 
+this schema: 
+{ 
+  "team_name": {"type": "string", "required": true, "maxLength": 50}, 
+  "team_size": {"type": "integer", "required": true, "minimum": 1, 
+"maximum": 5}, 
+  "track": {"type": "string", "required": true, "enum": 
+["computer_vision", "nlp", "agents", "robotics", "other"]}, 
+  "experience_level": {"type": "string", "required": true, "enum": 
+["beginner", "intermediate", "advanced"]}, 
+  "github_url": {"type": "string", "required": false, "pattern": 
+"^https://github\\.com/.+"} 
+} 
+Cross-field rule: if track is 'agents', flag in a separate 
+'validation_notes' field (array of strings, not part of the core 
+schema above) if experience_level is 'beginner', since the agents 
+track has historically been challenging for first-time participants — 
+this should be a note, not a rejection. 
+
+Submission text: 'Team CodeCrafters, 4 members, working on a 
+multi-agent research assistant, this will be our first hackathon ever. 
+Check out our practice repo: github.com/codecrafters-team/practice'"
+
+Expected Output:
+{"team_name": "CodeCrafters", "team_size": 4, "track": "agents", 
+"experience_level": "beginner", "github_url": null, 
+"validation_notes": ["Team selected the 'agents' track while 
+indicating beginner experience level ('first hackathon ever') — this 
+track has historically been challenging for first-time participants; 
+consider offering additional mentorship support."]}
+(Correctly extracting core fields matching the strict schema, 
+correctly setting github_url to null since the provided URL 
+"github.com/codecrafters-team/practice" doesn't match the required 
+"https://github.com/" pattern exactly, and correctly applying the 
+cross-field validation rule to generate an appropriate note given the 
+agents track + beginner experience combination.)
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    [YOUR TASK / EXTRACTION OR GENERATION REQUEST]
+    
+    Your output must conform EXACTLY to this schema:
+    {
+      "[field_name_1]": {"type": "[string/integer/number/boolean/
+    array/object]", "required": [true/false], "[additional 
+    constraints: enum/minimum/maximum/pattern/maxLength as 
+    applicable]"},
+      "[field_name_2]": {"type": "[type]", "required": [true/false]}
+    }
+    
+    Rules:
+    - Every required field must be present and correctly typed
+    - Use `null` for optional fields with no available value
+    - [ANY CROSS-FIELD OR BUSINESS-LOGIC VALIDATION RULES]
+    
+    [If available, use your provider's native schema-constrained 
+    output feature for maximum reliability, rather than relying solely 
+    on this prompt description.]
+
+=====================================================================
+END OF FILE 44 — Schema Prompting
+=====================================================================

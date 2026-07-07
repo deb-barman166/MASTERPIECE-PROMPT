@@ -1,0 +1,321 @@
+=====================================================================
+58. TEST GENERATION PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Coding)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Test Generation Prompting — Creating Comprehensive Automated Test Suites
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Test Generation prompting is a technique for instructing an LLM to 
+write AUTOMATED TESTS (unit tests, integration tests) for existing 
+code — covering normal/expected use cases, boundary conditions, edge 
+cases, and error conditions — using an appropriate testing framework 
+convention (pytest, unittest, Jest, JUnit) with clear, well-organized 
+test structure. This is closely related to but distinct from the 
+"include test cases" instruction that appears within Code Generation 
+Prompting (file 54) — Test Generation as its own dedicated technique 
+focuses specifically and thoroughly on comprehensive test COVERAGE for 
+code that may already exist, potentially written by someone else or at 
+an earlier time, including the specific skill of identifying which 
+cases actually NEED testing.
+
+Think of it like the difference between a builder including a basic 
+final walkthrough as part of constructing a house (tests included 
+alongside generation) versus bringing in a dedicated quality assurance 
+inspector whose entire job is to systematically stress-test every 
+door, window, outlet, and structural element against a comprehensive 
+checklist — genuinely comprehensive test generation is its own 
+specialized, thorough discipline.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Test Generation prompting exists to:
+- Achieve genuinely COMPREHENSIVE test coverage — not just the obvious 
+  happy path, but boundary conditions, edge cases, and error scenarios 
+  that are easy to overlook when writing tests manually under time 
+  pressure.
+- Support REGRESSION PREVENTION — a solid test suite catches when 
+  future changes accidentally break existing functionality, which is 
+  especially valuable before and after Refactoring Prompting (file 57) 
+  work.
+- Accelerate TEST-DRIVEN DEVELOPMENT workflows by quickly generating 
+  test scaffolding from a function's specification, sometimes even 
+  before the implementation exists.
+- Improve overall CODE QUALITY indirectly — code that's hard to test 
+  often reveals design problems (excessive coupling, hidden 
+  dependencies) that a thorough test-writing exercise surfaces.
+- Provide EXECUTABLE DOCUMENTATION — a good test suite demonstrates 
+  exactly how code is meant to be used and what behavior is 
+  guaranteed, which is valuable for future maintainers.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Existing code lacks adequate test coverage and you want to 
+  systematically improve it.
+- Before undertaking a Refactoring Prompting pass, to establish a 
+  behavior baseline that can verify the refactor didn't break anything.
+- After Debugging Prompting fixes a bug, to add a regression test that 
+  specifically covers the scenario that caused the original bug.
+- Test-driven development workflows where tests are written before or 
+  alongside implementation.
+
+WHEN NOT TO USE:
+- Extremely simple, trivial code where formal test infrastructure is 
+  genuinely disproportionate to the risk/complexity involved.
+- When you specifically need the implementation code itself, not tests 
+  (use Code Generation Prompting instead, though requesting tests 
+  alongside generation remains a good practice).
+- Exploratory prototyping code that's explicitly throwaway/temporary.
+
+BEST MODELS FOR TEST GENERATION:
+- Claude (especially via Claude Code) — excellent at identifying non-
+  obvious edge cases and generating well-organized, comprehensive test 
+  suites with good test naming conventions.
+- GPT-4o/4.1/5-class — strong test generation capability across many 
+  languages and testing frameworks.
+- Gemini Pro/Ultra — capable test generation, particularly strong when 
+  the full implementation context is available.
+- DeepSeek-Coder / Qwen-Coder — strong specialized test generation, 
+  reliable framework-specific conventions (pytest fixtures, Jest mocks).
+- For AGENTIC test generation workflows (actually running generated 
+  tests to confirm they pass/fail appropriately): Claude Code, Cursor, 
+  and similar tools provide the critical advantage of verifying 
+  generated tests actually execute correctly, rather than trusting 
+  untested test code.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [CODE TO TEST] + [TESTING FRAMEWORK] + "Generate comprehensive 
+    tests covering: normal cases, boundary conditions, edge cases, and 
+    error conditions."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Code to Test — the function/class/module that needs test 
+       coverage.
+    2. Testing Framework — which specific framework/convention to use 
+       (pytest, unittest, Jest, JUnit, Go's testing package).
+    3. Coverage Requirements — explicit categories of tests needed: 
+       normal/happy-path cases, boundary conditions, edge cases, error/
+       exception handling, and (if relevant) performance characteristics.
+    4. Test Organization — naming conventions, whether to use fixtures/
+       setup-teardown, whether to group related tests into classes.
+    5. Mocking/Isolation Guidance — how to handle external dependencies 
+       (databases, APIs, file systems) that shouldn't be actually 
+       invoked during unit tests.
+
+Example skeleton:
+    "Generate comprehensive [FRAMEWORK] tests for this [LANGUAGE] code: 
+    
+    [CODE] 
+    
+    Cover: 
+    - Normal/expected use cases 
+    - Boundary conditions (e.g., empty inputs, zero, min/max values) 
+    - Edge cases and unusual but valid inputs 
+    - Error conditions (invalid inputs, exceptions) 
+    
+    Use [MOCKING APPROACH] for any external dependencies. Use clear, 
+    descriptive test names following [CONVENTION]."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Specify the exact TESTING FRAMEWORK and any project-specific 
+  conventions (fixture patterns, naming conventions) rather than 
+  assuming a default.
+- Explicitly request all FOUR test categories: normal cases, boundary 
+  conditions, edge cases, and error conditions — without this 
+  explicit breakdown, generated tests often over-focus on the obvious 
+  happy path.
+- For code with EXTERNAL DEPENDENCIES (databases, APIs, file systems), 
+  explicitly specify the mocking/isolation approach so unit tests don't 
+  accidentally require live external services to run.
+- Request DESCRIPTIVE TEST NAMES that clearly communicate what each 
+  test verifies (e.g., `test_returns_zero_for_empty_list` rather than 
+  `test_case_1`) — this makes test failures immediately informative.
+- After generation, ALWAYS actually RUN the generated tests to confirm 
+  they execute correctly and actually test what they claim to (a test 
+  that always passes regardless of the code's correctness is worse than 
+  no test at all, since it creates false confidence).
+- For REGRESSION TESTS specifically (added after fixing a bug), 
+  explicitly reference the original bug scenario so the test clearly 
+  documents what specific failure it's guarding against.
+- Consider asking for an estimate of TEST COVERAGE achieved, or 
+  explicitly ask "what scenarios are NOT covered by these tests?" to 
+  surface any remaining gaps.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Not explicitly requesting boundary/edge/error case coverage, 
+  resulting in tests that only cover the obvious happy path.
+  FIX: Explicitly break down the required test categories in your 
+  prompt.
+
+- MISTAKE: Not specifying how to handle external dependencies, 
+  resulting in "unit tests" that actually require a live database or 
+  network connection to run.
+  FIX: Explicitly specify the mocking/isolation approach for external 
+  dependencies.
+
+- MISTAKE: Trusting generated tests without actually running them, 
+  risking tests that don't actually execute correctly or don't 
+  genuinely test the claimed behavior.
+  FIX: Always run generated tests to verify they work as intended.
+
+- MISTAKE: Vague, non-descriptive test names that don't communicate 
+  what's being verified, making failures hard to interpret quickly.
+  FIX: Explicitly request clear, descriptive test naming.
+
+- MISTAKE: Not asking what scenarios remain uncovered, potentially 
+  leaving significant gaps unaddressed.
+  FIX: Explicitly ask the model to identify any scenarios the generated 
+  tests don't cover.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Generate comprehensive pytest tests for this Python function: 
+
+def calculate_discount(price, discount_percent):
+    if discount_percent < 0 or discount_percent > 100:
+        raise ValueError('Discount must be between 0 and 100')
+    return price * (1 - discount_percent / 100)
+
+Cover: normal cases, boundary conditions (0% and 100% discount), and 
+error conditions (invalid discount values). Use clear, descriptive test 
+names."
+
+Expected Output:
+A pytest test file with clearly named test functions covering normal 
+discount calculations, the 0% boundary (price unchanged) and 100% 
+boundary (price becomes 0) conditions, and error cases using 
+`pytest.raises(ValueError)` for negative and over-100 discount values 
+— each test name clearly describing what it verifies.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Generate comprehensive pytest tests for this Python class: 
+
+class ShoppingCart:
+    def __init__(self):
+        self.items = {}
+    
+    def add_item(self, item_id, quantity=1):
+        self.items[item_id] = self.items.get(item_id, 0) + quantity
+    
+    def remove_item(self, item_id, quantity=1):
+        if item_id not in self.items:
+            raise KeyError(f'Item {item_id} not in cart')
+        self.items[item_id] -= quantity
+        if self.items[item_id] <= 0:
+            del self.items[item_id]
+    
+    def total_items(self):
+        return sum(self.items.values())
+
+Cover: normal add/remove operations, boundary conditions (removing 
+exact quantity to zero out an item, adding zero/negative quantity), 
+edge cases (removing more than available, removing non-existent item), 
+and total_items on empty cart. Use pytest fixtures for cart setup if 
+appropriate, and descriptive test names."
+
+Expected Output:
+A well-organized pytest test suite using a fixture to create a fresh 
+ShoppingCart for each test, with descriptively named tests covering 
+normal add/remove flows, the boundary case of removing exact quantity 
+(item should be fully removed from the dict, not left at zero), edge 
+cases like removing more than available (resulting negative-then-
+deleted behavior, worth verifying this is actually the intended 
+behavior or flagging it as a potential bug), the KeyError case for 
+non-existent items, and total_items() correctly returning 0 for an 
+empty cart.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Generate comprehensive pytest tests for this async Python function 
+that's part of a multi-agent system's tool-calling logic: 
+
+async def call_agent_tool(agent, tool_name, params, timeout=5.0):
+    if tool_name not in agent.available_tools:
+        raise ValueError(f'Tool {tool_name} not available for this 
+agent')
+    try:
+        result = await asyncio.wait_for(
+            agent.available_tools[tool_name](**params), 
+            timeout=timeout
+        )
+        return {'success': True, 'result': result}
+    except asyncio.TimeoutError:
+        return {'success': False, 'error': 'timeout'}
+    except Exception as e:
+        return {'success': False, 'error': str(e)}
+
+Cover: 
+- Normal successful tool call 
+- Tool not available (ValueError case) 
+- Tool call exceeding timeout 
+- Tool call raising an unexpected exception 
+- Boundary: timeout occurring exactly at the boundary (harder to test 
+reliably — note if this is impractical to test deterministically and 
+suggest an alternative approach if so) 
+
+Use pytest-asyncio for async test support, and use mocking 
+(unittest.mock or pytest-mock) for the agent's tools rather than real 
+tool implementations, so tests run quickly and deterministically. Use 
+descriptive test names. After the tests, note any scenarios you think 
+remain uncovered."
+
+Expected Output:
+A pytest-asyncio test suite using AsyncMock (from unittest.mock) to 
+simulate agent tools with controlled behavior (immediate success, 
+raising exceptions, or deliberately sleeping longer than the timeout to 
+trigger asyncio.TimeoutError), correctly testing the ValueError path 
+for unavailable tools, the successful path, the timeout path, and the 
+generic-exception path — with an honest note that testing the "exactly 
+at the timeout boundary" scenario deterministically is impractical 
+given real async timing variability, suggesting instead testing 
+comfortably-under and comfortably-over the timeout as a practical 
+alternative — followed by a closing note identifying any remaining 
+uncovered scenarios (e.g., concurrent calls to the same tool, or very 
+large param dictionaries) for the developer's awareness.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Generate comprehensive [FRAMEWORK, e.g., pytest/Jest/JUnit] tests 
+    for this [LANGUAGE] code:
+    
+    [PASTE CODE]
+    
+    Cover:
+    - Normal/expected use cases
+    - Boundary conditions (empty inputs, zero, min/max values)
+    - Edge cases and unusual but valid inputs
+    - Error conditions (invalid inputs, exceptions)
+    
+    Use [MOCKING APPROACH] for any external dependencies (databases, 
+    APIs, file systems) so tests run in isolation.
+    
+    Use clear, descriptive test names. After the tests, note any 
+    scenarios you believe remain uncovered.
+
+=====================================================================
+END OF FILE 58 — Test Generation Prompting
+=====================================================================

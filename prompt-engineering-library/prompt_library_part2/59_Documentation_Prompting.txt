@@ -1,0 +1,319 @@
+=====================================================================
+59. DOCUMENTATION PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Coding)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Documentation Prompting — Generating Clear Technical Documentation
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Documentation prompting is a technique for instructing an LLM to 
+produce clear, accurate technical documentation FROM existing code or 
+systems — docstrings, README files, API documentation, architecture 
+overviews, usage guides — tailored to a specific AUDIENCE (end users, 
+fellow developers, new team members) and appropriate LEVEL of detail. 
+Unlike Code Generation's inline docstring requirement (a small part of 
+a larger task) or the md-masterpiece-generator-style comprehensive 
+learning guides, Documentation Prompting specifically focuses on 
+documenting WHAT EXISTS — accurately reflecting actual code/system 
+behavior — for the purpose of helping others understand and correctly 
+use it.
+
+Think of it like the difference between an architect's original design 
+sketches (which show intent, made before building) versus the 
+as-built documentation and user manual created for a completed 
+building — explaining to occupants and future maintenance workers 
+exactly how the actual, finished structure works, where the utility 
+shutoffs are, and how to safely operate its systems.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Documentation prompting exists to:
+- Make code/systems USABLE by people other than the original author — 
+  including the author's own future self, who often forgets 
+  implementation details after enough time passes.
+- Reduce ONBOARDING friction for new contributors or team members 
+  joining an existing project.
+- Provide accurate REFERENCE material that stays synchronized with 
+  actual system behavior, preventing the common problem of documentation 
+  drifting out of date from the code it describes.
+- Support different AUDIENCE needs simultaneously across a project — 
+  end-user guides need different content/tone than internal API 
+  references for fellow developers.
+- Serve open-source and portfolio projects (directly relevant to 
+  maintaining public GitHub repositories) where good documentation 
+  significantly affects project adoption, contribution, and perceived 
+  professionalism.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Writing README files, API references, or usage guides for existing 
+  code/projects.
+- Generating docstrings/inline documentation for existing 
+  undocumented code.
+- Creating architecture overviews or onboarding guides for team members 
+  joining a project.
+- Open-source project maintenance where clear documentation affects 
+  adoption and contribution.
+
+WHEN NOT TO USE:
+- Documenting code that's still rapidly changing/unstable — 
+  documentation written too early often becomes immediately outdated; 
+  consider waiting for relative API/behavior stability first.
+- Extremely simple, self-explanatory code where formal documentation 
+  overhead exceeds the actual need.
+- When you need comprehensive EDUCATIONAL/learning content about a 
+  broad topic rather than reference documentation for a specific 
+  existing system (that's closer to Research/Summarization Prompting 
+  territory, or the specialized md-masterpiece-generator-style guide 
+  format).
+
+BEST MODELS FOR DOCUMENTATION PROMPTING:
+- Claude — excellent at clear, well-organized technical writing with 
+  appropriate audience calibration and good judgment about what level 
+  of detail actually serves the reader.
+- GPT-4o/4.1/5-class — strong documentation generation, versatile 
+  across documentation types and audiences.
+- Gemini Pro/Ultra — capable documentation writing, particularly 
+  strong when large amounts of existing code/context can be provided 
+  for accurate reference documentation.
+- DeepSeek-Coder / Qwen-Coder — strong for code-adjacent documentation 
+  (docstrings, API references) with good technical accuracy.
+- Mistral / Llama — capable of basic documentation tasks; for larger 
+  documentation projects, benefit from the same structural/outlining 
+  approach as long-form writing (outline first, then expand sections).
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [CODE/SYSTEM TO DOCUMENT] + [DOCUMENTATION TYPE] + [TARGET 
+    AUDIENCE] + [REQUIRED SECTIONS/CONTENT] + [STYLE/TONE 
+    REQUIREMENTS]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Subject to Document — the code, API, system, or project that 
+       needs documentation, with sufficient context for accuracy.
+    2. Documentation Type — README, API reference, docstrings, 
+       architecture overview, user guide, contribution guidelines.
+    3. Target Audience — who will read this (end users with no coding 
+       background, fellow developers, new team contributors) since 
+       this determines appropriate vocabulary and depth.
+    4. Required Sections — what specific content must be included 
+       (installation, usage examples, API parameters, troubleshooting).
+    5. Style/Format Requirements — tone (formal/casual), format 
+       (Markdown for GitHub, specific docstring convention), length 
+       expectations.
+
+Example skeleton:
+    "Write [DOCUMENTATION TYPE] for this [CODE/SYSTEM]: 
+    
+    [CODE/SYSTEM DESCRIPTION] 
+    
+    Target audience: [WHO WILL READ THIS] 
+    
+    Include these sections: 
+    - [SECTION 1] 
+    - [SECTION 2] 
+    
+    Style: [TONE/FORMAT REQUIREMENTS]"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Clearly define the TARGET AUDIENCE upfront — documentation for end 
+  users needs different vocabulary, examples, and depth than internal 
+  API documentation for experienced fellow developers.
+- Provide ACTUAL, ACCURATE information about the code/system (the real 
+  code, real parameter names, real behavior) rather than asking the 
+  model to guess or generalize — documentation must reflect reality, 
+  not plausible-sounding fiction.
+- Specify REQUIRED SECTIONS explicitly for structured documentation 
+  types (README files commonly need: description, installation, usage, 
+  examples, contributing, license) rather than leaving structure 
+  entirely to the model's judgment.
+- Include CONCRETE, WORKING code examples in usage documentation — 
+  abstract descriptions of functionality are far less useful than 
+  actual runnable examples showing real usage.
+- For DOCSTRINGS specifically, specify the exact convention (Google-
+  style, NumPy-style, reStructuredText) your project/language ecosystem 
+  uses.
+- ALWAYS review generated documentation against the ACTUAL code/system 
+  behavior for accuracy — documentation describing intended-but-not-
+  actual behavior is worse than no documentation, since it actively 
+  misleads readers.
+- For larger documentation projects (full README, architecture guides), 
+  consider outlining structure first, then expanding sections 
+  incrementally, similar to Plan-and-Solve Prompting applied to 
+  documentation writing.
+- Keep documentation UPDATED as code changes — stale documentation that 
+  no longer matches actual behavior is a common and significant source 
+  of confusion; treat documentation updates as part of the definition 
+  of "done" for a code change.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Not specifying the target audience, resulting in 
+  documentation pitched at the wrong technical level (too basic for 
+  developers, or too jargon-heavy for end users).
+  FIX: Explicitly define who the documentation is for.
+
+- MISTAKE: Providing insufficient actual code/system detail, resulting 
+  in generic or inaccurate documentation that doesn't reflect real 
+  behavior.
+  FIX: Provide the actual code/accurate system details, not just a 
+  vague description.
+
+- MISTAKE: Missing required standard sections (installation, usage 
+  examples) that readers expect in common documentation types like 
+  READMEs.
+  FIX: Explicitly list required sections based on the documentation 
+  type's conventions.
+
+- MISTAKE: Abstract descriptions without concrete, runnable code 
+  examples, leaving readers unclear on actual usage.
+  FIX: Always include real, working code examples in usage 
+  documentation.
+
+- MISTAKE: Not reviewing generated documentation against actual code 
+  behavior, risking documentation that describes intended rather than 
+  actual functionality.
+  FIX: Always verify documentation accuracy against the real system.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Write a Google-style docstring for this Python function: 
+
+def convert_temperature(value, from_unit, to_unit):
+    # converts between 'celsius', 'fahrenheit', 'kelvin'
+    ...(implementation)...
+
+Target audience: fellow developers using this as a utility function. 
+Include parameter descriptions, return value, and raised exceptions 
+(assume it raises ValueError for unsupported units)."
+
+Expected Output:
+A properly formatted Google-style docstring with a one-line summary, 
+Args section describing value/from_unit/to_unit with their types and 
+valid values, Returns section, and a Raises section documenting the 
+ValueError case for unsupported units.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Write a README.md for this Python CLI tool. 
+
+Project: A command-line tool called 'quickconvert' that converts 
+between file formats (currently supports: CSV to JSON, JSON to CSV, 
+Markdown to HTML). Installed via `pip install quickconvert`. Basic 
+usage: `quickconvert input.csv output.json`. 
+
+Target audience: developers who found this on GitHub and want to 
+quickly understand if it solves their problem and how to use it. 
+
+Include these sections: 
+- Brief description/tagline 
+- Installation 
+- Usage (with at least 2 concrete examples covering different format 
+conversions) 
+- Supported formats 
+- Contributing (brief, just a pointer to open an issue/PR) 
+- License (assume MIT) 
+
+Style: Clean, scannable Markdown, friendly but professional tone, not 
+overly verbose."
+
+Expected Output:
+A well-structured README.md with all specified sections, a clear 
+tagline, simple pip installation instructions, at least 2 concrete 
+command-line usage examples covering different conversions (e.g., CSV 
+to JSON and Markdown to HTML), a clear list of supported format pairs, 
+a brief contributing pointer, and an MIT license mention — formatted 
+in clean, scannable Markdown appropriate for a GitHub repository.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Write architecture documentation for this multi-agent system, intended 
+for a new developer joining the project who needs to understand the 
+system before making their first contribution. 
+
+System overview: A multi-agent AI framework with 7 distinct memory 
+layers (working, episodic, semantic, procedural, emotional, social, 
+meta-memory), built using Google ADK and Gemini 2.0 Flash, supporting 
+100+ specialized agents with parallel execution via ThreadPoolExecutor, 
+and a 'God Mode pipeline' allowing top-level override of individual 
+agent decisions in critical situations. 
+
+Target audience: an experienced Python developer, but new to this 
+specific project and to Google ADK. 
+
+Include these sections: 
+- System Overview (high-level, what problem this solves) 
+- Core Concepts (explain the 7-layer memory system clearly, since this 
+is the most distinctive/complex part) 
+- Architecture Diagram description (describe in words what a diagram 
+would show, since I'll create the actual visual separately) 
+- Key Components (agents, memory layers, God Mode pipeline) and how 
+they interact 
+- Getting Started for Contributors (what to read/understand first, 
+common pitfalls for newcomers) 
+
+Style: Technical but approachable — assume strong general Python/
+software skills but zero prior knowledge of THIS specific system or 
+Google ADK specifically. Use concrete examples where helpful for 
+clarifying the memory layer concepts specifically, since that's the 
+most novel/complex part for a newcomer."
+
+Expected Output:
+Comprehensive architecture documentation with a clear high-level system 
+overview explaining the multi-agent framework's purpose, a well-
+explained breakdown of the 7 memory layers with concrete examples 
+clarifying what distinguishes each (e.g., contrasting episodic memory 
+storing specific past interaction events versus semantic memory storing 
+general learned facts), a described architecture diagram (since an 
+actual visual will be created separately), clear explanation of how 
+agents, memory layers, and the God Mode pipeline interact during normal 
+operation and during an override scenario, and a practical "Getting 
+Started" section flagging Google ADK-specific concepts a newcomer might 
+not know and common pitfalls when first working with this system — all 
+pitched at an appropriate level for an experienced developer who is 
+new specifically to this project and to Google ADK, not a complete 
+programming beginner.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Write [DOCUMENTATION TYPE: README/API reference/docstrings/
+    architecture guide] for this [CODE/SYSTEM]:
+    
+    [ACTUAL CODE OR ACCURATE SYSTEM DESCRIPTION]
+    
+    Target audience: [WHO WILL READ THIS AND THEIR BACKGROUND/
+    EXPERTISE LEVEL]
+    
+    Include these sections:
+    - [REQUIRED SECTION 1]
+    - [REQUIRED SECTION 2]
+    - [REQUIRED SECTION 3]
+    
+    Style: [TONE, FORMAT, LENGTH EXPECTATIONS]
+    
+    Include concrete, working examples where applicable.
+
+=====================================================================
+END OF FILE 59 — Documentation Prompting
+=====================================================================

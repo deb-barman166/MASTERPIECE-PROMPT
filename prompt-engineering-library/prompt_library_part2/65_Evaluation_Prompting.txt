@@ -1,0 +1,310 @@
+=====================================================================
+65. EVALUATION PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 2: Analytical)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Evaluation Prompting — Scoring Content Against Defined Quality Criteria
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Evaluation prompting is a technique for instructing an LLM to assess 
+the QUALITY of content — an essay, a piece of code, a business plan, 
+another AI's output — against explicit, defined criteria, typically 
+producing a SCORE or RATING alongside justification. This is closely 
+related to but broader than Critic Prompting (file 29, a specific 
+multi-agent architectural role) — Evaluation Prompting is the general 
+technique of using an LLM AS A JUDGE across any domain, including 
+grading, benchmarking, and increasingly, "LLM-as-judge" systems used to 
+automatically evaluate the outputs of OTHER AI systems at scale.
+
+Think of it like the difference between a teacher grading an essay 
+against a defined rubric (Evaluation Prompting generally) versus a 
+specific quality-assurance step in a software pipeline where one AI's 
+output is fed to another AI specifically tasked with judging it before 
+release (a common LLM-as-judge application) — both are the same 
+underlying technique of scoring content against explicit standards, 
+just applied in different contexts.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Evaluation prompting exists to:
+- Provide CONSISTENT, RUBRIC-BASED assessment of content quality, 
+  reducing the subjectivity/variability of ad-hoc judgment.
+- Support AUTOMATED QUALITY GATES in content generation or AI 
+  pipelines, where outputs need to be scored before being accepted, 
+  published, or passed to a next stage (this is the core "LLM-as-judge" 
+  pattern increasingly used to evaluate AI system outputs at scale).
+- Enable BENCHMARKING and comparison of multiple outputs/options against 
+  the same standardized criteria.
+- Support EDUCATIONAL grading/feedback contexts where consistent 
+  application of a rubric matters for fairness.
+- Provide scalable evaluation for situations where human review of 
+  every single output isn't practical (either due to volume or the need 
+  for rapid iteration).
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Grading or scoring written work, code, or creative content against 
+  defined criteria.
+- Building automated quality gates for AI-generated content pipelines 
+  (LLM-as-judge patterns).
+- Benchmarking or comparing multiple pieces of content/multiple AI 
+  system outputs against standardized criteria.
+- Any situation requiring consistent, rubric-based assessment at scale.
+
+WHEN NOT TO USE:
+- Purely subjective creative feedback where a numeric score would feel 
+  reductive or miss the point (though qualitative Evaluation Prompting 
+  without a numeric score remains valuable here).
+- High-stakes evaluations (like actual academic grading with real 
+  consequences, or safety-critical system evaluation) where AI 
+  evaluation should supplement, not fully replace, human judgment.
+- Situations where the evaluation criteria themselves are genuinely 
+  unclear or contested — establish clear criteria first before 
+  attempting evaluation.
+
+BEST MODELS FOR EVALUATION PROMPTING:
+- Claude — well-regarded for thoughtful, well-calibrated evaluation 
+  with genuine engagement with rubric criteria rather than superficial 
+  scoring, commonly used in LLM-as-judge research and production 
+  systems.
+- GPT-4o/4.1/5-class — strong evaluation capability, widely used in 
+  both academic LLM-as-judge research and production quality-gate 
+  systems.
+- Gemini Pro/Ultra — capable evaluation, particularly strong for 
+  technical/code evaluation tasks.
+- DeepSeek / Qwen — capable evaluation performance, cost-effective for 
+  high-volume automated evaluation pipelines.
+- IMPORTANT PRACTICAL NOTE: For genuinely important evaluation use 
+  cases, using a DIFFERENT (often more capable) model as the "judge" 
+  than the model that GENERATED the content being evaluated tends to 
+  reduce potential bias/blind-spot overlap between generator and judge.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [CONTENT TO EVALUATE] + "Evaluate against these criteria: 
+    [RUBRIC]. Score each criterion [SCALE] with justification. Provide 
+    an overall score."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Content to Evaluate — the specific output/work being assessed.
+    2. Evaluation Rubric — explicit, defined criteria with clear 
+       descriptions of what different score levels mean (avoid vague 
+       criteria like "quality" without specifying what that means 
+       concretely).
+    3. Scoring Scale — the specific scale to use (1-10, 1-5, Pass/Fail, 
+       letter grades) applied consistently across criteria.
+    4. Justification Requirement — explicit request for reasoning 
+       behind each score, not just a bare number.
+    5. Overall Score/Verdict — how individual criterion scores combine 
+       into an overall assessment (weighted average, minimum threshold, 
+       holistic judgment).
+
+Example skeleton:
+    "Evaluate the following [CONTENT TYPE] against this rubric: 
+    
+    - [CRITERION 1] (1-10): [what different score levels mean] 
+    - [CRITERION 2] (1-10): [what different score levels mean] 
+    - [CRITERION 3] (1-10): [what different score levels mean] 
+    
+    For each criterion, provide a score and brief justification. Then 
+    provide an overall score/verdict. 
+    
+    Content: [CONTENT TO EVALUATE]"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Define EXPLICIT, CONCRETE criteria rather than vague ones — "clarity" 
+  is vague; "can a reader unfamiliar with the topic understand the main 
+  point within the first two sentences" is concrete and actionable for 
+  consistent scoring.
+- Describe what DIFFERENT SCORE LEVELS actually mean for each criterion 
+  (what distinguishes a 3 from a 7 on a 10-point scale) rather than 
+  just providing a bare numeric range, which improves scoring 
+  consistency.
+- ALWAYS require JUSTIFICATION alongside scores — a bare number provides 
+  little insight or trust; reasoning lets you verify the evaluation 
+  makes sense and understand specifically what drove the score.
+- For LLM-as-judge production systems, consider using a model DIFFERENT 
+  FROM the generator to reduce potential shared blind spots or biases.
+- Test your evaluation rubric/prompt against content with KNOWN quality 
+  levels (something you'd confidently call excellent, and something 
+  you'd confidently call poor) to verify the scoring behaves sensibly 
+  before trusting it for genuinely uncertain cases.
+- For HIGH-STAKES evaluation (real grades, safety-critical assessments), 
+  treat AI evaluation as a valuable input/first-pass, not a full 
+  replacement for human judgment.
+- Consider requesting evaluation from MULTIPLE ANGLES/perspectives for 
+  especially important assessments (similar to the multiple-critique-
+  pass practice in Self-Critique Prompting), rather than relying on a 
+  single evaluation pass for consequential decisions.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Vague, undefined criteria ("rate the quality 1-10") that 
+  don't specify what actually distinguishes different score levels, 
+  leading to inconsistent or unclear scoring.
+  FIX: Define concrete, specific criteria with clear descriptions of 
+  what different score levels represent.
+
+- MISTAKE: Requesting only a bare numeric score without justification, 
+  providing little insight into what actually drove the evaluation.
+  FIX: Always require justification/reasoning alongside every score.
+
+- MISTAKE: Using the same model to both generate AND evaluate content 
+  in high-stakes production systems, risking shared blind spots.
+  FIX: Consider using a different model as evaluator for important use 
+  cases.
+
+- MISTAKE: Never testing the evaluation prompt/rubric against content 
+  with known quality levels before trusting it for genuinely uncertain 
+  cases.
+  FIX: Validate your evaluation approach against clear-cut examples 
+  first.
+
+- MISTAKE: Treating AI evaluation as a complete replacement for human 
+  judgment in genuinely high-stakes contexts (real academic grades, 
+  safety assessments).
+  FIX: Use AI evaluation as a valuable complement/first-pass for high-
+  stakes decisions, not a full replacement.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Evaluate this product tagline against this rubric: 
+
+- Clarity (1-5): 5 = immediately understandable, 1 = confusing 
+- Memorability (1-5): 5 = distinctive and sticky, 1 = generic and 
+forgettable 
+- Brand fit (1-5): 5 = matches an eco-friendly, premium brand voice, 
+1 = mismatched tone 
+
+Score each with brief justification, then give an overall score. 
+
+Tagline: 'Sustainability, redefined for the modern home.'"
+
+Expected Output:
+Individual scores for Clarity, Memorability, and Brand fit (e.g., 
+Clarity: 4, reasonably clear though "redefined" is slightly abstract; 
+Memorability: 3, competent but not especially distinctive; Brand fit: 
+5, strong match for an eco-friendly premium positioning) with brief 
+justification for each, followed by an overall score/summary.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Evaluate this Python function submission for a coding assessment 
+against this rubric: 
+
+- Correctness (1-10): 10 = handles all cases correctly including 
+edge cases, 5 = handles basic cases but misses some edge cases, 1 = 
+fundamentally incorrect 
+- Code quality (1-10): 10 = clean, well-named, appropriately 
+documented, 5 = functional but has readability issues, 1 = very hard 
+to read/maintain 
+- Efficiency (1-10): 10 = optimal time/space complexity for the 
+problem, 5 = works but has clear inefficiencies, 1 = severely 
+inefficient 
+
+For each criterion, score and justify. Then provide an overall score 
+(average) and a one-sentence summary verdict. 
+
+Submission: [pasted function solving a 'find duplicates in array' 
+problem using a nested-loop O(n²) approach with reasonable variable 
+naming but no docstring]"
+
+Expected Output:
+Individual scores with justification (e.g., Correctness: 9, likely 
+correctly handles the core cases though worth checking edge cases 
+like empty arrays; Code quality: 6, reasonable naming but missing 
+documentation; Efficiency: 4, the O(n²) nested-loop approach is 
+notably inefficient compared to an O(n) hash-set-based solution), an 
+overall average score, and a concise one-sentence verdict summarizing 
+the submission's main strength and primary area for improvement.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"You are functioning as an automated LLM-as-judge quality gate for an 
+AI content generation pipeline. Evaluate this AI-generated customer 
+support response against this rubric before it's approved for 
+sending: 
+
+- Accuracy (Pass/Fail): does it correctly address the customer's 
+actual question without any factual errors about our stated policies? 
+- Tone (1-5): 5 = warm and professional, 1 = cold or inappropriately 
+casual 
+- Completeness (Pass/Fail): does it fully resolve the query or provide 
+clear next steps, rather than leaving the customer without a path 
+forward? 
+- Policy compliance (Pass/Fail): does it avoid making any promises 
+outside documented company policy (e.g., unauthorized refund amounts, 
+guarantees not in our terms of service)? 
+
+For each criterion, provide the score/verdict with specific reasoning 
+tied to the actual response content. Then provide an OVERALL VERDICT: 
+APPROVED (all Pass/Fail criteria pass AND tone >= 3) or REJECTED (any 
+Pass/Fail criterion fails OR tone < 3), with a one-sentence explanation 
+if rejected. 
+
+Customer's original question: 'Can I get a refund for my order that 
+arrived damaged?' 
+
+Company policy context: Standard policy allows refunds for damaged 
+items within 30 days, requiring photo evidence, processed by the 
+support team (not automatically guaranteed by first-line responses). 
+
+AI-generated response to evaluate: 'Absolutely, I'll process your full 
+refund right away, no questions asked! So sorry about the damage.'"
+
+Expected Output:
+Accuracy: Fail — the response promises an unconditional refund 
+"right away, no questions asked," but actual policy requires photo 
+evidence and support team processing, not an instant guarantee; Tone: 
+5, warm and empathetic; Completeness: arguably Pass on addressing the 
+immediate emotional concern, though it fails to provide the actually 
+correct next steps (submitting photo evidence); Policy compliance: 
+Fail — explicitly promises something outside documented policy 
+(guaranteed refund without the required photo evidence/review process) 
+— OVERALL VERDICT: REJECTED, with explanation: "Response makes an 
+unauthorized refund guarantee that contradicts documented policy 
+requiring photo evidence and support team review, despite good tone" — 
+demonstrating a properly functioning automated quality gate correctly 
+catching a policy-violation issue that a tone-only evaluation would 
+have missed.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Evaluate the following [CONTENT TYPE] against this rubric:
+    
+    - [CRITERION 1] ([SCALE]): [what different score levels mean]
+    - [CRITERION 2] ([SCALE]): [what different score levels mean]
+    - [CRITERION 3] ([SCALE]): [what different score levels mean]
+    
+    For each criterion, provide a score/verdict with specific 
+    justification tied to the actual content.
+    
+    Then provide an OVERALL SCORE/VERDICT: [how criteria combine — 
+    e.g., average, all-must-pass threshold], with a brief explanation.
+    
+    Content to evaluate: [PASTE CONTENT]
+
+=====================================================================
+END OF FILE 65 — Evaluation Prompting
+=====================================================================
