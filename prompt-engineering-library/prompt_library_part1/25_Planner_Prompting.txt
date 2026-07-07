@@ -1,0 +1,322 @@
+=====================================================================
+25. PLANNER PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Agentic)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Planner Prompting — Assigning a Dedicated Strategic Planning Role
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Planner prompting is a technique, most common in multi-agent systems, 
+where one model (or one distinct role within a prompt) is 
+specifically and ONLY responsible for creating a detailed, actionable 
+PLAN — without executing any part of it. The Planner's sole job is 
+strategic decomposition: analyzing a goal and producing a clear, 
+complete roadmap of sub-tasks, dependencies, and sequencing, which is 
+then handed off to a SEPARATE Executor (see file 26) to actually carry 
+out. This differs from Plan-and-Solve (where ONE model does both 
+phases sequentially) by treating planning as a genuinely SEPARATE, 
+specialized ROLE — often literally a different agent/model instance 
+in production multi-agent systems.
+
+Think of it like a construction project: the ARCHITECT (Planner) 
+designs the complete blueprint — every room, every structural 
+requirement, the full sequence of construction phases — but the 
+architect doesn't pour concrete or install wiring themselves. That's 
+a genuinely different role (the Executor/construction crew) who takes 
+the architect's completed blueprint and builds from it.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Planner prompting exists to:
+- Enable SPECIALIZATION in multi-agent systems — a model optimized/
+  prompted purely for strategic decomposition can focus entirely on 
+  getting the PLAN right, without being distracted by execution 
+  details.
+- Support architectures where planning and execution genuinely 
+  benefit from being handled by different models (e.g., a large, 
+  expensive model for complex planning, paired with smaller, cheaper 
+  models for straightforward execution of each sub-task).
+- Produce a REUSABLE, INSPECTABLE artifact (the plan itself) that can 
+  be reviewed, approved, modified, or even executed by DIFFERENT 
+  executors/systems entirely separate from the planning process.
+- Improve plan quality by having the Planner focus ENTIRELY on 
+  strategy, dependencies, and completeness, rather than getting pulled 
+  into tactical execution thinking partway through.
+- Serve as a core building block in agentic system architectures 
+  (relevant to building systems like Deb Barman's Godfather Agent 
+  swarm or similar multi-agent frameworks) where clear role separation 
+  improves system reliability and debuggability.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Building genuine multi-agent systems where planning and execution 
+  are handled by separate model calls/agents.
+- Complex projects where you want a reviewable plan ARTIFACT before 
+  committing to execution (e.g., getting stakeholder sign-off on a 
+  plan before any work begins).
+- Situations where the SAME plan might need to be executed multiple 
+  times, or by different executors, making a clean, standalone plan 
+  document valuable.
+- Cost-optimization scenarios where using a more capable (and 
+  expensive) model for planning, paired with cheaper models for 
+  straightforward execution, makes economic sense.
+- Any agentic architecture requiring a distinct "coordinator" or 
+  "orchestrator" role — the Planner is essentially the strategic 
+  first stage of that pattern.
+
+WHEN NOT TO USE:
+- Simple tasks where a single model easily handling both planning and 
+  execution (Plan-and-Solve) is sufficient — don't over-engineer 
+  simple problems with unnecessary multi-agent complexity.
+- Situations with no real infrastructure for actually separating and 
+  orchestrating Planner/Executor roles (if you're just chatting in a 
+  single conversation, Plan-and-Solve is likely more practical).
+- Highly exploratory tasks where the "plan" needs to evolve constantly 
+  based on execution feedback in ways that make a clean upfront hand-
+  off impractical.
+
+BEST MODELS FOR PLANNER ROLE:
+- Claude (Opus-tier or Sonnet with extended thinking) — excellent for 
+  the Planner role specifically, given strong structured reasoning and 
+  the ability to think through dependencies and edge cases thoroughly.
+- GPT-4o/4.1/5-class (especially reasoning-focused variants) — strong 
+  strategic planning capability, well-suited to the Planner role in 
+  multi-agent pipelines.
+- Gemini Pro/Ultra — capable planning role performance, particularly 
+  for planning tasks involving large amounts of context/documentation.
+- DeepSeek-R1 — strong for technical/engineering planning tasks 
+  requiring rigorous dependency analysis.
+- COMMON PRACTICAL PATTERN: Use a more capable/expensive model 
+  (Opus, GPT-5-class) for the Planner role, and pair it with a faster/
+  cheaper model (Haiku, GPT-4o-mini, smaller open-source models) for 
+  the Executor role(s) — this is a common cost-optimization strategy 
+  in production multi-agent systems.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    "You are the PLANNER agent. Your ONLY job is to create a detailed, 
+    actionable plan for [GOAL]. Do NOT execute any part of this plan 
+    — that will be handled by a separate Executor. Output your plan 
+    as [STRUCTURED FORMAT]."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Role Declaration — explicitly establish this is the PLANNER 
+       role, with a clear boundary that execution is NOT its job.
+    2. Goal Statement — the overall objective the plan needs to 
+       achieve.
+    3. Context/Constraints — relevant background, resources, and 
+       limitations the plan must account for.
+    4. Output Format Specification — how the plan should be 
+       structured (numbered sub-tasks, dependencies noted, 
+       estimated effort/complexity per task, required inputs/outputs 
+       for each sub-task).
+    5. Explicit Execution Boundary — a clear reminder NOT to perform 
+       any of the actual sub-tasks.
+
+Example skeleton:
+    "You are the PLANNER. Your job is ONLY to create a complete, 
+    detailed plan for achieving: [GOAL]. 
+    Context: [RELEVANT BACKGROUND/CONSTRAINTS]. 
+    
+    Output your plan as a numbered list of sub-tasks. For each sub-
+    task, specify: 
+    - What needs to be done 
+    - Any dependencies on other sub-tasks 
+    - What inputs it needs and what output it should produce 
+    
+    Do NOT execute or perform any of these sub-tasks yourself — your 
+    output is the PLAN ONLY, to be handed to a separate Executor."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Make the ROLE BOUNDARY extremely explicit — repeatedly reinforce 
+  that this agent's job is planning ONLY, since models can drift into 
+  "helpfully" starting to execute if not clearly constrained.
+- Specify a STRUCTURED output format for the plan (numbered sub-tasks 
+  with dependencies, inputs, and outputs clearly labeled) so it can 
+  be reliably parsed and handed to an Executor, whether that's a 
+  human, a script, or another AI agent.
+- Explicitly ask the Planner to identify DEPENDENCIES between sub-
+  tasks (which tasks must happen before others) — this is often the 
+  most valuable output of a dedicated planning phase and is easy to 
+  miss if planning and execution are blended.
+- Include relevant CONSTRAINTS (budget, time, available tools/
+  resources) so the Planner produces a REALISTIC plan, not an 
+  idealized one that ignores practical limitations.
+- For production systems, consider having the Planner also estimate 
+  relative complexity/effort per sub-task, which helps with resource 
+  allocation when handing off to Executors.
+- Have a distinct REVIEW step where the plan is checked for 
+  completeness/feasibility (by a human, or via Self-Critique 
+  prompting) before being handed to an Executor — this is one of the 
+  key advantages of separating these roles.
+- Pair explicitly with Executor Prompting (file 26) to complete the 
+  full pattern — a Planner without a corresponding Executor role is 
+  only half the architecture.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: The "Planner" ends up executing parts of the task anyway, 
+  blurring the role boundary and defeating the purpose of separation.
+  FIX: Explicitly and repeatedly state the Planner's job is planning 
+  ONLY, with no execution.
+
+- MISTAKE: Producing a vague, unstructured plan that's hard for a 
+  separate Executor (human or AI) to actually act on reliably.
+  FIX: Require a structured, numbered format with clear inputs/
+  outputs/dependencies for each sub-task.
+
+- MISTAKE: Not specifying dependencies between sub-tasks, leading an 
+  Executor to potentially perform tasks out of a required order.
+  FIX: Explicitly require the Planner to identify which sub-tasks 
+  depend on completion of others.
+
+- MISTAKE: Ignoring real-world constraints (budget, time, available 
+  tools) when planning, producing an unrealistic plan that can't 
+  actually be executed as designed.
+  FIX: Always provide relevant constraints as context for the 
+  Planner.
+
+- MISTAKE: Using a full Planner/Executor architecture for simple tasks 
+  that a single model could handle end-to-end via Plan-and-Solve, 
+  adding unnecessary complexity and cost.
+  FIX: Reserve genuine Planner/Executor separation for tasks that 
+  actually benefit from it (complex, multi-agent, or cost-sensitive 
+  systems).
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"You are the PLANNER. Your job is ONLY to create a plan for: 
+'Organize a small birthday party for 10 people with a $150 budget.' 
+
+Output your plan as a numbered list of sub-tasks, noting any 
+dependencies. Do NOT execute any part of this plan — just create it."
+
+Expected Output:
+A numbered plan such as: "1. Determine guest list and send 
+invitations (no dependencies). 2. Decide on venue — home vs. rented 
+space (depends on final headcount from Task 1). 3. Plan food/cake 
+within remaining budget (depends on venue cost from Task 2). 4. 
+Arrange decorations (depends on venue from Task 2)." — with no actual 
+execution of any planning item, just the structured breakdown.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"You are the PLANNER for a content creation pipeline. Goal: Produce a 
+comprehensive technical guide on Python's asyncio library, to be 
+executed by a separate Executor agent. 
+
+Context: The guide should be suitable for an intermediate Python 
+developer audience, cover core asyncio concepts through practical 
+patterns, and ultimately be output as a markdown file. 
+
+Output your plan as a numbered list of sub-tasks. For each, specify: 
+what needs to be done, any dependencies on other sub-tasks, and what 
+the expected output of that sub-task is. Do NOT write any of the 
+actual guide content — only produce the plan."
+
+Expected Output:
+A structured plan such as: "1. Research/outline core asyncio concepts 
+to cover (event loop, coroutines, tasks, async/await syntax) — no 
+dependencies — Output: a topic outline. 2. Draft introductory section 
+explaining WHY asyncio exists and when to use it — depends on Task 1 
+— Output: intro section content. 3. Draft core concepts section with 
+code examples for each concept from Task 1's outline — depends on 
+Task 1 — Output: core concepts section content. 4. Draft practical 
+patterns section (common real-world asyncio use cases) — depends on 
+Task 3 — Output: patterns section content. 5. Compile all sections 
+into a final formatted markdown document — depends on Tasks 2, 3, and 
+4 — Output: final .md file." — with the Planner producing only this 
+structure, no actual guide content.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"You are the PLANNER agent in a multi-agent system responsible for 
+architecting and building a new feature: adding a semantic caching 
+layer to an existing RAG pipeline (similar to Deb Barman's RAG_Master 
+project) to reduce redundant embedding computation for similar 
+queries. 
+
+Context: 
+- Existing system: Python, LangGraph-based, using Ollama and Gemini 
+  backends for embeddings 
+- Constraint: Must not break existing retrieval accuracy 
+- Constraint: Solo developer, so plan must be executable by a single 
+  Executor agent working through tasks sequentially (no parallel 
+  execution assumed) 
+- Available Executor capabilities: can write/edit Python code, run 
+  tests, read existing codebase files 
+
+Output your plan as a numbered list of sub-tasks. For each: specify 
+what needs to be done, dependencies on other sub-tasks, required 
+inputs (e.g., which existing files need to be read first), and the 
+expected output/deliverable. Include a final verification/testing 
+sub-task. Do NOT write any code or make any changes yourself — 
+produce ONLY the plan for the Executor to follow."
+
+Expected Output:
+A detailed, dependency-aware plan such as: "1. Read and understand 
+existing embedding/retrieval code in the RAG pipeline — no 
+dependencies — Input: existing pipeline source files — Output: 
+summary of current embedding call sites and data flow. 2. Design the 
+semantic cache schema (what to store: query embedding, normalized 
+query text, cached retrieval results, timestamp) — depends on Task 1 
+— Output: cache schema design document. 3. Implement a similarity-
+check function (cosine similarity against cached query embeddings 
+with a configurable threshold) — depends on Task 2 — Output: 
+similarity_check.py module. 4. Integrate the cache check into the 
+existing retrieval flow, inserting a cache-lookup BEFORE the existing 
+embedding call, with fallback to normal embedding on cache miss — 
+depends on Tasks 1 and 3 — Output: modified retrieval pipeline code. 
+5. Implement cache invalidation logic (TTL-based) — depends on Task 
+2 — Output: cache invalidation module. 6. Write and run tests 
+comparing retrieval accuracy WITH and WITHOUT the cache enabled on a 
+sample query set, verifying no accuracy regression — depends on 
+Tasks 4 and 5 — Output: test results report confirming accuracy 
+parity and measuring latency/compute improvement." — with the Planner 
+explicitly stopping at planning only, handing this structured plan to 
+a separate Executor role.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    You are the PLANNER agent. Your job is ONLY to create a detailed, 
+    actionable plan — you will NOT execute any part of it.
+    
+    Goal: [OVERALL OBJECTIVE]
+    
+    Context/Constraints: [RELEVANT BACKGROUND, RESOURCES, LIMITATIONS]
+    
+    Output your plan as a numbered list of sub-tasks. For each sub-
+    task, specify:
+    - What needs to be done
+    - Dependencies on other sub-tasks (if any)
+    - Required inputs and expected output/deliverable
+    
+    Include a final verification/review sub-task if applicable.
+    
+    Do NOT execute, write, or perform any of the actual sub-tasks — 
+    output ONLY the plan, to be handed to a separate Executor.
+
+=====================================================================
+END OF FILE 25 — Planner Prompting
+=====================================================================

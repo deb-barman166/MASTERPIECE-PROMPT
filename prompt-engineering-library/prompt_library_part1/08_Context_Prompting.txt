@@ -1,0 +1,247 @@
+=====================================================================
+08. CONTEXT PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Foundations)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Context Prompting — Grounding the Model With Relevant Background 
+Information
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Context prompting is a technique where you provide the LLM with 
+relevant BACKGROUND INFORMATION, situational details, or supporting 
+data BEFORE asking it to perform a task. This context grounds the 
+model's response in your specific situation rather than relying on 
+generic assumptions, dramatically improving relevance and accuracy.
+
+Think of it like briefing a consultant before a meeting: instead of 
+walking in cold, you give them your company's background, the 
+current situation, key constraints, and relevant history — so their 
+advice is tailored to YOUR reality, not generic best practices.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Context prompting exists to:
+- Ground responses in the user's specific situation rather than 
+  generic, one-size-fits-all answers.
+- Reduce hallucination by giving the model accurate, relevant facts 
+  to reference instead of guessing.
+- Enable personalized, situation-aware outputs (e.g., advice that 
+  accounts for a specific budget, timeline, or constraint).
+- Provide necessary background that the model couldn't otherwise 
+  know (private company info, recent events, personal 
+  circumstances).
+- Improve response relevance dramatically compared to context-free 
+  prompts, especially for advice, analysis, and decision-making 
+  tasks.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- The task depends on situation-specific facts the model can't know 
+  on its own (your company's data, personal history, current 
+  events after training cutoff).
+- You want personalized advice/analysis rather than generic 
+  responses.
+- The task involves decision-making that depends on specific 
+  constraints (budget, timeline, resources, prior context).
+- Building on a previous conversation or referencing external 
+  documents/data.
+- Working with Retrieval-Augmented Generation (RAG) systems where 
+  context comes from retrieved documents.
+
+WHEN NOT TO USE:
+- The task is purely general knowledge with no situational 
+  dependency (e.g., "What is photosynthesis?").
+- Adding context would introduce irrelevant noise that could distract 
+  from a simple, direct task.
+- Context window space is severely limited, and the context isn't 
+  essential to task success.
+
+BEST MODELS FOR CONTEXT PROMPTING:
+- Gemini 1.5/2.x Pro — best-in-class for LARGE context windows 
+  (1M-2M tokens), ideal for feeding in entire documents, codebases, 
+  or datasets as context.
+- Claude (200K+ context models) — excellent at accurately using and 
+  referencing long context without "losing" information in the 
+  middle (strong long-context recall).
+- GPT-4o/4.1/5-class (128K-1M+ context variants) — strong context 
+  utilization, especially for structured/technical context.
+- DeepSeek / Qwen (long-context variants) — good for technical 
+  document context (code repos, technical specs).
+- Mistral / Llama — verify context window size; smaller-context 
+  variants may truncate or "forget" earlier context in longer 
+  prompts.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [BACKGROUND CONTEXT] + [RELEVANT CONSTRAINTS/DATA] + 
+    [TASK INSTRUCTION BASED ON THAT CONTEXT]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Context Header — a clear signal that background information 
+       follows ("Context:" or "Background:").
+    2. Relevant Facts — the specific information needed 
+       (situation, constraints, history, data).
+    3. Clear Separator — distinguish context from the actual 
+       instruction (e.g., "---" or "Task:").
+    4. Task Instruction — what you want done, explicitly referencing 
+       or building on the context provided.
+
+Example skeleton:
+    "Context: [RELEVANT BACKGROUND INFORMATION]
+    
+    ---
+    
+    Task: [WHAT YOU WANT DONE, USING THE ABOVE CONTEXT]"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Clearly LABEL context sections (e.g., "Background:", "Context:", 
+  "Situation:") to help the model distinguish it from the actual 
+  task.
+- Include ONLY relevant context — irrelevant details add noise and 
+  can dilute the model's focus.
+- Order context logically: most important/relevant information 
+  first, especially in very long contexts (though strong models 
+  handle "lost in the middle" better than older ones).
+- Use structured formatting (bullet points, headers) for complex 
+  context with multiple facts, rather than one dense paragraph.
+- Explicitly instruct the model to USE the provided context (e.g., 
+  "Based on the context above, recommend...") rather than assuming 
+  it will automatically prioritize it over general knowledge.
+- For very long context (documents, codebases), consider summarizing 
+  or chunking if the full content isn't necessary for the task.
+- When context might conflict with the model's general training 
+  knowledge, explicitly state "prioritize the context provided over 
+  your general knowledge" if accuracy to YOUR specific situation 
+  matters most.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Providing so much irrelevant context that the actual task 
+  gets lost or diluted.
+  FIX: Curate context to only what's directly relevant to the task 
+  at hand.
+
+- MISTAKE: Not clearly separating context from the task instruction, 
+  causing confusion about what's background info vs. what to act on.
+  FIX: Use clear labels and separators ("Context:" ... "---" ... 
+  "Task:").
+
+- MISTAKE: Assuming the model will automatically prioritize your 
+  provided context over its general training knowledge when they 
+  conflict.
+  FIX: Explicitly instruct it to prioritize the given context if 
+  accuracy to your specific situation is critical.
+
+- MISTAKE: Providing outdated or inaccurate context, leading to 
+  confidently wrong outputs.
+  FIX: Always verify your context information is accurate and 
+  current before including it.
+
+- MISTAKE: Repeating the same large context block across many 
+  separate prompts inefficiently.
+  FIX: Use conversation memory, system prompts, or RAG retrieval 
+  systems to manage recurring context more efficiently.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Context: I am a complete beginner to cooking and only have access 
+to a microwave and a small stovetop — no oven.
+
+Task: Suggest a simple dinner recipe I can make tonight."
+
+Expected Output:
+A beginner-friendly recipe that specifically avoids oven-based 
+cooking methods, using only stovetop/microwave techniques, with 
+simple step-by-step instructions appropriate for someone with no 
+cooking experience.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Context: I run a small e-commerce business selling handmade candles. 
+My average order value is $35, and my biggest challenge right now is 
+that 68% of customers abandon their cart at the shipping cost step 
+(shipping is a flat $8.99). My profit margin is currently 22%.
+
+Task: Suggest 3 specific strategies to reduce cart abandonment 
+related to shipping costs, and briefly note the trade-off of each 
+strategy given my profit margin."
+
+Expected Output:
+Three concrete, tailored strategies (e.g., free shipping threshold at 
+$40, shipping cost baked into product price, tiered shipping options) 
+each with a brief, honest trade-off analysis specifically referencing 
+the stated 22% margin — demonstrating the response is grounded in 
+the provided business context rather than generic advice.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Context: I am building a multi-agent AI system in Python using 
+Google ADK and Gemini 2.0 Flash. The system currently has 7 memory 
+layers (working, episodic, semantic, procedural, emotional, social, 
+and meta-memory) but I'm experiencing high latency (average 4.2 
+seconds per agent response) because every agent query triggers a 
+full read across all 7 memory layers, even when most queries only 
+need 1-2 layers.
+
+My constraints: 
+- Cannot reduce the number of memory layers (required by system 
+  design)
+- Must maintain full memory layer functionality when actually needed
+- Target latency: under 1.5 seconds per response
+
+Task: Propose an architectural solution to reduce latency while 
+preserving all 7 memory layers, and explain the trade-offs of your 
+proposed solution."
+
+Expected Output:
+A technically grounded architectural recommendation (e.g., 
+implementing a lightweight "memory router" or classifier that 
+predicts which 1-3 memory layers are relevant to a given query 
+before triggering full reads, combined with async/parallel reads 
+only for the relevant layers, plus caching for frequently accessed 
+memory) that directly addresses the stated 4.2s → 1.5s latency goal 
+while respecting the constraint of preserving all 7 layers — showing 
+deep engagement with the specific technical context provided rather 
+than generic advice like "just optimize your database."
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Context: [RELEVANT BACKGROUND INFORMATION — situation, 
+    constraints, history, data, prior decisions]
+    
+    Key constraints:
+    - [CONSTRAINT 1]
+    - [CONSTRAINT 2]
+    
+    ---
+    
+    Task: [WHAT YOU WANT DONE, EXPLICITLY BUILDING ON THE CONTEXT 
+    ABOVE]
+    
+    [OPTIONAL: Prioritize the context above over general assumptions 
+    if there's any conflict.]
+
+=====================================================================
+END OF FILE 08 — Context Prompting
+=====================================================================

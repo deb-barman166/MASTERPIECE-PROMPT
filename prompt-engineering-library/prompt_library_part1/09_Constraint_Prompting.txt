@@ -1,0 +1,253 @@
+=====================================================================
+09. CONSTRAINT PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Foundations)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Constraint Prompting — Controlling Output With Explicit Boundaries
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Constraint prompting is a technique where you explicitly define 
+BOUNDARIES, LIMITATIONS, or RULES that the model's output must 
+follow — such as word count, forbidden words/topics, required 
+structure, tone limits, or format restrictions. Instead of hoping 
+the model infers what you want, you state precisely what is and 
+isn't allowed in the response.
+
+Think of it like giving a writer a strict style guide before they 
+start: "Write under 200 words, no jargon, no first person, must 
+include exactly 3 sources" — removing ambiguity so the output fits 
+your exact requirements every time.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Constraint prompting exists to:
+- Guarantee outputs fit specific technical requirements (character 
+  limits for tweets, word counts for essays, token budgets for 
+  downstream systems).
+- Prevent unwanted content, tone, or structure from appearing in the 
+  output.
+- Increase consistency and predictability across multiple runs of 
+  the same prompt.
+- Force creative or reasoning discipline (e.g., "explain this using 
+  only words a 10-year-old would know" forces genuine simplification).
+- Make outputs compatible with downstream systems that require exact 
+  formats (APIs, forms, character-limited platforms).
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- You need output that fits a strict technical limit (character 
+  count, word count, byte size for a field).
+- You want to exclude specific words, topics, or styles from the 
+  response.
+- You need consistent structure across many generated pieces (e.g., 
+  100 product descriptions, all following the same rules).
+- You want to force better reasoning by restricting shortcuts (e.g., 
+  "do not use any external tools, reason step-by-step only using 
+  what's given").
+- Building for platforms with hard technical limits (Twitter/X 
+  280 characters, SMS 160 characters, meta description 155 
+  characters).
+
+WHEN NOT TO USE:
+- Purely open-ended creative brainstorming where constraints might 
+  stifle useful exploration (better to constrain in a later 
+  refinement pass).
+- The constraint is so strict it becomes physically impossible to 
+  satisfy alongside other requirements (verify feasibility first).
+
+BEST MODELS FOR CONSTRAINT PROMPTING:
+- GPT-4o/4.1/5-class — very reliable at respecting hard numeric 
+  constraints (word/character counts) and format rules.
+- Claude — excellent at following complex, multi-part constraints 
+  simultaneously without dropping any of them.
+- Gemini Pro — strong constraint adherence, particularly for 
+  structured/technical constraints.
+- DeepSeek / Qwen — good for technical constraints (code length, 
+  specific syntax rules).
+- Mistral / Llama — decent constraint-following in larger Instruct 
+  variants; may need explicit reminders/verification steps for very 
+  strict numeric limits (e.g., exact word counts) since smaller 
+  models sometimes miscount.
+- NOTE: For EXACT character/word counts across ALL models, it's best 
+  practice to ask the model to COUNT and VERIFY its own output 
+  before finalizing (a form of self-checking).
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [TASK INSTRUCTION] + [CONSTRAINT 1] + [CONSTRAINT 2] + 
+    [CONSTRAINT 3...] + [FORBIDDEN ELEMENTS]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Task Instruction — what to do.
+    2. Positive Constraints — what MUST be included/followed 
+       (length, format, required elements).
+    3. Negative Constraints — what must be AVOIDED/excluded 
+       (forbidden words, topics, styles).
+    4. (Optional) Verification instruction — ask the model to check 
+       its own output against the constraints before finalizing.
+
+Example skeleton:
+    "[TASK]. 
+    Must include: [REQUIREMENT 1], [REQUIREMENT 2]. 
+    Must NOT include: [FORBIDDEN 1], [FORBIDDEN 2]. 
+    Length: exactly/under/over [X words/characters]. 
+    Before finalizing, verify your response meets all constraints 
+    above."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- State constraints as a clear, scannable LIST rather than burying 
+  them in prose — this reduces the chance the model misses one.
+- Distinguish POSITIVE constraints ("must include X") from NEGATIVE 
+  constraints ("must not include Y") clearly.
+- For hard numeric limits, ask the model to COUNT and VERIFY before 
+  finalizing — this catches most off-by-a-few-words errors.
+- Prioritize constraints if some are more important than others 
+  (e.g., "Length is the most critical constraint; if you must 
+  sacrifice something, sacrifice detail, not length").
+- Avoid contradictory constraints (e.g., "be extremely detailed" AND 
+  "keep it under 20 words" — pick one priority).
+- Test constraint-heavy prompts multiple times, since strict 
+  numeric/formatting constraints can occasionally be violated even 
+  by strong models — build in a verification/regeneration step for 
+  critical use cases.
+- For forbidden words/topics, be SPECIFIC rather than vague ("do not 
+  mention competitors by name: Nike, Adidas, Puma" rather than "no 
+  competitors").
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Giving too many constraints at once without prioritization, 
+  causing the model to satisfy some but drop others.
+  FIX: List constraints by priority, or limit to the 3-5 MOST 
+  important ones.
+
+- MISTAKE: Contradictory constraints (e.g., "formal tone" + "use 
+  casual slang").
+  FIX: Resolve contradictions before sending the prompt.
+
+- MISTAKE: Assuming exact word/character counts will always be 
+  followed perfectly without verification.
+  FIX: Add a self-verification step ("count your words before 
+  finalizing") or programmatically check/truncate the output 
+  afterward.
+
+- MISTAKE: Vague negative constraints ("don't be too salesy") that 
+  are subjective and hard for the model to apply consistently.
+  FIX: Give concrete examples of what "too salesy" means in your 
+  context, or specify exact phrases/words to avoid.
+
+- MISTAKE: Forgetting that constraints on FORMAT (e.g., "respond 
+  only in JSON") need to be repeated/reinforced in longer 
+  conversations, as models can drift back to prose over many turns.
+  FIX: Reinforce critical format constraints periodically in long 
+  conversations.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Write a product tagline for a wireless earbud brand. 
+Constraints: 
+- Maximum 8 words 
+- Must NOT use the words 'best,' 'amazing,' or 'revolutionary' 
+- Must convey a sense of freedom or mobility"
+
+Expected Output:
+A short, punchy tagline (8 words or fewer) that evokes freedom/
+mobility without using any of the three forbidden overused marketing 
+words (e.g., "Sound that moves as freely as you do").
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Write a LinkedIn post announcing a company's new remote work policy. 
+Constraints: 
+- Between 80-120 words 
+- Professional but warm tone — no corporate jargon like 'synergy' 
+  or 'leverage' 
+- Must include exactly one relevant emoji 
+- Must end with a question to encourage engagement 
+- Do NOT mention any specific employee names or exact salary figures 
+
+Before finalizing, count your words and confirm the post is within 
+the 80-120 word range."
+
+Expected Output:
+A LinkedIn post between 80-120 words, warm and professional (no 
+corporate jargon), containing exactly one emoji, ending in an 
+engagement question, with no named employees or salary figures — and 
+the model should show or confirm its word count falls within range.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"You are writing a Python function docstring generator. Given a 
+function signature and purpose, generate a docstring following these 
+STRICT constraints: 
+- Must follow Google-style docstring format exactly 
+- Must NOT exceed 12 lines total 
+- Must include: one-line summary, Args section, Returns section, 
+  Raises section (only if applicable) 
+- Must NOT include an Examples section (this will be added 
+  separately) 
+- Type hints in the Args section must match Python 3.10+ typing 
+  conventions exactly 
+- If any constraint cannot be satisfied simultaneously (e.g., too 
+  many arguments to fit in 12 lines), prioritize staying under 12 
+  lines by condensing argument descriptions rather than omitting 
+  arguments 
+
+Function: 
+def transfer_funds(sender_id: str, receiver_id: str, amount: float, 
+currency: str = 'USD') -> bool: 
+    # Transfers funds between two accounts, returns True if 
+    successful, raises ValueError if amount is negative or accounts 
+    don't exist."
+
+Expected Output:
+A precisely formatted Google-style docstring, 12 lines or fewer, 
+with one-line summary, Args (all 4 parameters with correct Python 
+3.10+ type hints), Returns, and a Raises section for ValueError — no 
+Examples section included, and if space becomes tight, argument 
+descriptions are condensed rather than dropped, demonstrating the 
+model correctly applied the stated PRIORITIZATION rule when 
+constraints came into tension.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Task: [WHAT YOU WANT DONE]
+    
+    Constraints (MUST follow):
+    - [POSITIVE CONSTRAINT 1: e.g., length]
+    - [POSITIVE CONSTRAINT 2: e.g., required elements]
+    - [POSITIVE CONSTRAINT 3: e.g., format]
+    
+    Must NOT include:
+    - [NEGATIVE CONSTRAINT 1: forbidden word/topic/style]
+    - [NEGATIVE CONSTRAINT 2]
+    
+    Priority (if constraints conflict): [WHICH CONSTRAINT WINS]
+    
+    Before finalizing, verify your response satisfies all 
+    constraints above.
+
+=====================================================================
+END OF FILE 09 — Constraint Prompting
+=====================================================================

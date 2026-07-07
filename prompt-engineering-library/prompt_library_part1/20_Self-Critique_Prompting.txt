@@ -1,0 +1,277 @@
+=====================================================================
+20. SELF-CRITIQUE PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Reasoning)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Self-Critique Prompting — Systematically Finding Flaws in One's Own 
+Output
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Self-Critique prompting is a technique where you instruct the model 
+to act as its OWN CRITIC — deliberately searching for weaknesses, 
+errors, logical flaws, or unaddressed counterarguments in a response 
+it just generated, using a structured, adversarial mindset rather 
+than a gentle "review." While Reflection Prompting is a broad "take a 
+second look" step, Self-Critique is more POINTED and SYSTEMATIC: it 
+specifically tasks the model with actively trying to find fault, 
+often using a defined rubric or the perspective of a skeptical expert.
+
+Think of it like the difference between a writer casually rereading 
+their essay (Reflection) versus deliberately handing that same essay 
+to their harshest, most skeptical critic and asking, "Tear this 
+apart — what's wrong with it?" (Self-Critique) — the adversarial 
+framing surfaces issues that a gentler review might miss.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Self-Critique prompting exists to:
+- Surface WEAKNESSES and FLAWS more aggressively than a passive 
+  review would, by adopting a deliberately skeptical/adversarial 
+  stance.
+- Stress-test arguments, plans, or analyses BEFORE they're finalized 
+  or acted upon, catching issues that could be costly if discovered 
+  later.
+- Reduce overconfidence and one-sidedness in the model's initial 
+  output by forcing genuine consideration of counterarguments or edge 
+  cases.
+- Improve the rigor of persuasive writing, business plans, technical 
+  designs, or arguments by identifying the strongest objections BEFORE 
+  an external critic does.
+- Provide a structured, rubric-based approach to quality assurance 
+  that's more systematic than open-ended reflection.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Persuasive writing, arguments, or proposals where you want to 
+  anticipate and address counterarguments before publishing/
+  presenting.
+- Business plans, strategies, or technical designs where finding 
+  flaws NOW is far cheaper than finding them after implementation.
+- Academic or analytical writing where rigor and addressing 
+  counterpoints strengthens credibility.
+- Code review or architecture review where an adversarial "what could 
+  break this?" mindset catches more issues than a friendly pass.
+- Any high-stakes output where you want the model to genuinely 
+  "red-team" its own work.
+
+WHEN NOT TO USE:
+- Simple, low-stakes, or purely factual outputs where fault-finding 
+  adds no real value.
+- Early-stage brainstorming, where excessive self-critique too early 
+  can prematurely kill promising but not-yet-refined ideas (save 
+  critique for AFTER initial ideation).
+- Creative work where the goal is authentic self-expression rather 
+  than airtight argumentation (be selective about applying harsh 
+  critique to personal creative writing).
+
+BEST MODELS FOR SELF-CRITIQUE:
+- Claude — particularly strong at genuine, substantive self-critique, 
+  often identifying real structural or logical weaknesses rather than 
+  superficial nitpicks.
+- GPT-4o/4.1/5-class — strong at adversarial-style critique, 
+  especially for business/strategic and analytical content.
+- Gemini Pro — capable self-critique, especially useful for technical/
+  scientific claims.
+- DeepSeek-R1 / Qwen (reasoning variants) — strong for rigorous 
+  self-critique of mathematical/logical arguments and code.
+- Mistral / Llama — capable when given a specific critique rubric; 
+  benefit from explicit "adopt a skeptical expert persona" framing to 
+  produce more substantive (vs. superficial) critique.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [ORIGINAL RESPONSE/ARGUMENT] + "Now critique this as a skeptical 
+    [EXPERT/CRITIC]. Identify the [N] strongest weaknesses, flaws, or 
+    counterarguments." + [OPTIONAL: "Then address each one."]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Original Content — the response, argument, plan, or work to 
+       be critiqued.
+    2. Adversarial Framing — explicitly instruct the model to adopt a 
+       skeptical, critical stance (often paired with a specific 
+       persona, e.g., "a skeptical investor," "a harsh code reviewer," 
+       "a devil's advocate").
+    3. Structured Critique Request — ask for a specific NUMBER of 
+       distinct weaknesses/flaws (e.g., "identify the 3 strongest 
+       counterarguments") to force real depth rather than one vague 
+       criticism.
+    4. (Optional) Rebuttal/Improvement Step — after identifying flaws, 
+       ask the model to address or fix each one, closing the loop.
+
+Example skeleton:
+    "[ORIGINAL CONTENT]. 
+    Now, acting as a skeptical [EXPERT/ROLE], critique this. 
+    Identify the [N] strongest weaknesses or flaws, being genuinely 
+    critical rather than diplomatic. 
+    For each weakness identified, propose a specific fix or 
+    counterpoint."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Explicitly ask for a SPECIFIC NUMBER of weaknesses/flaws (e.g., "3 
+  strongest counterarguments") — open-ended requests often produce 
+  weaker, more generic critique.
+- Pair with an adversarial PERSONA (skeptical investor, harsh 
+  reviewer, devil's advocate) to push the model past its default 
+  tendency toward diplomatic agreeableness.
+- Explicitly grant "permission" to be genuinely critical rather than 
+  gentle — state something like "don't hold back; be genuinely 
+  skeptical" if you notice the model being too soft.
+- Follow critique with a REBUTTAL/FIX step so the process results in 
+  an improved output, not just a list of problems with nothing done 
+  about them.
+- Time this AFTER initial idea generation/drafting is complete, not 
+  during early brainstorming, to avoid prematurely killing promising 
+  raw ideas.
+- Use for anything you're about to commit real resources to (money, 
+  time, reputation) — the cost of a self-critique pass is trivial 
+  compared to catching a costly flaw before it's too late.
+- Consider running self-critique from MULTIPLE distinct expert 
+  perspectives for especially high-stakes decisions (e.g., critique 
+  from a "financial" lens AND a "technical feasibility" lens 
+  separately).
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Asking for critique without specifying a number, resulting 
+  in a single vague, softened criticism ("this is pretty good, maybe 
+  just polish the wording a bit").
+  FIX: Explicitly request a specific number of genuine, substantive 
+  weaknesses.
+
+- MISTAKE: Not adopting an adversarial persona/framing, leading to an 
+  overly agreeable, diplomatic "critique" that doesn't surface real 
+  issues.
+  FIX: Frame the critique explicitly as coming from a skeptical 
+  expert or devil's advocate persona.
+
+- MISTAKE: Applying harsh self-critique too early in the creative/
+  ideation process, killing promising rough ideas before they've had 
+  a chance to develop.
+  FIX: Save self-critique for after an initial draft/plan exists, not 
+  during early brainstorming.
+
+- MISTAKE: Generating a list of flaws but never following up with 
+  fixes, leaving the work in a worse-feeling but not actually improved 
+  state.
+  FIX: Always pair critique with a subsequent "now fix each issue" 
+  step.
+
+- MISTAKE: Treating a single self-critique pass as fully 
+  comprehensive for extremely high-stakes decisions, when multiple 
+  critique passes from different angles/personas would surface more 
+  issues.
+  FIX: For major decisions, consider running self-critique from 
+  several distinct expert perspectives.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Here is my argument: 'Schools should ban smartphones entirely 
+because they distract students from learning.' 
+
+Now, acting as a skeptical debate opponent, critique this argument. 
+Identify the 2 strongest counterarguments, being genuinely critical."
+
+Expected Output:
+Two substantive counterarguments, such as: (1) smartphones can also 
+serve as valuable educational tools (research, calculators, 
+accessibility features) and a total ban discards these benefits along 
+with the distractions, and (2) a full ban doesn't address the root 
+issue of students' relationship with technology and may simply push 
+distraction to other devices or contexts, failing to build the self-
+regulation skills students will need long-term.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Here is my startup pitch summary: 'We're building an AI-powered 
+resume screening tool that automatically ranks job candidates based 
+on resume content, reducing HR screening time by 80%.' 
+
+Now, acting as a skeptical venture capital investor who has seen many 
+failed HR-tech startups, critique this pitch. Identify the 3 
+strongest weaknesses or risks a real investor would flag, being 
+genuinely critical rather than diplomatic. For each weakness, suggest 
+how I could address it in my pitch."
+
+Expected Output:
+Three substantive investor-grade critiques, such as: (1) algorithmic 
+bias/legal risk — automated resume ranking has well-documented 
+discrimination risks and potential legal exposure, which the pitch 
+doesn't address; (2) differentiation — the HR-tech screening space is 
+already crowded with established players, and "80% time reduction" 
+alone isn't a strong enough moat; (3) go-to-market — no mention of 
+how the company plans to get HR departments (often risk-averse 
+buyers) to trust and adopt an AI screening tool — each paired with a 
+specific suggestion for strengthening the pitch to address that gap.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Here is my proposed cryptographic vault design: 'BLACKCORE uses a 
+dual-file split-secret architecture with XChaCha20-Poly1305 
+encryption, Argon2id key derivation, and Shamir Secret Sharing, plus 
+ghost/honey vault modes for plausible deniability under coercion.' 
+
+Now, acting as a skeptical, senior security auditor who specializes 
+in breaking cryptographic systems, critique this design. Identify the 
+3 most significant potential weaknesses or attack vectors a real 
+auditor would flag — considering implementation risks, not just 
+whether the underlying primitives (XChaCha20-Poly1305, Argon2id, 
+Shamir Secret Sharing) are theoretically sound. Be genuinely critical, 
+not diplomatic. For each weakness, propose a specific mitigation."
+
+Expected Output:
+Three genuinely substantive security-auditor-grade critiques focused 
+on IMPLEMENTATION risk rather than just naming the primitives as 
+sound, such as: (1) key management/storage — even strong primitives 
+fail if key material or Shamir shares are stored insecurely at rest, 
+or if the split-secret files are ever backed up together, defeating 
+the split-secret purpose; (2) honey/ghost vault detectability — under 
+real coercion, forensic analysis of file sizes, metadata, or access 
+timestamps could potentially reveal the existence of a hidden real 
+vault distinct from the decoy, undermining plausible deniability; (3) 
+side-channel risks — Argon2id parameter choices and implementation 
+details matter significantly; a naive implementation could still be 
+vulnerable to timing or memory-based side-channel attacks despite 
+using a theoretically strong KDF — each paired with a specific, 
+actionable mitigation (e.g., ensuring split files are never co-
+located even in backups, using constant-time operations throughout, 
+and carefully tuning Argon2id memory/time parameters against current 
+hardware capabilities).
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Here is my [ARGUMENT/PLAN/DESIGN/PITCH]: [PASTE CONTENT]
+    
+    Now, acting as a skeptical [EXPERT ROLE/PERSONA — e.g., 
+    investor, security auditor, senior code reviewer, devil's 
+    advocate], critique this. 
+    
+    Identify the [SPECIFIC NUMBER, e.g., 3] strongest weaknesses, 
+    flaws, or risks — be genuinely critical, not diplomatic.
+    
+    For each weakness identified, propose a specific fix or 
+    mitigation.
+
+=====================================================================
+END OF FILE 20 — Self-Critique Prompting
+=====================================================================

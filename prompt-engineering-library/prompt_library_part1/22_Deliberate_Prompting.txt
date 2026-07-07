@@ -1,0 +1,265 @@
+=====================================================================
+22. DELIBERATE PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Reasoning)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Deliberate Prompting — Slowing Down for High-Stakes Careful Reasoning
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Deliberate prompting is a technique where you explicitly instruct the 
+model to SLOW DOWN and reason carefully and thoroughly before 
+answering, actively resisting the temptation to jump to a fast, 
+"intuitive" first response. It draws on the psychological concept of 
+"System 1" (fast, automatic, intuitive thinking) vs. "System 2" (slow, 
+effortful, deliberate thinking) — this technique explicitly pushes the 
+model toward System 2-style processing by instructing patience, 
+thoroughness, and resistance to premature conclusions.
+
+Think of it like the difference between answering a tricky riddle 
+with your gut-instinct first guess (which is often wrong because 
+riddles are specifically designed to trick fast, intuitive thinking) 
+versus deliberately forcing yourself to slow down, question your 
+first instinct, and work through it carefully before committing to an 
+answer.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Deliberate prompting exists to:
+- Counter the model's tendency toward fast, pattern-matched, 
+  sometimes-wrong "intuitive" answers on tricky or counter-intuitive 
+  problems.
+- Improve accuracy specifically on problems DESIGNED to trigger 
+  plausible-but-wrong fast answers (classic cognitive bias-style 
+  riddles, trick questions, subtly flawed premises).
+- Encourage genuine consideration of a question's premise before 
+  answering, catching cases where the question itself contains a 
+  false assumption or trick.
+- Provide an explicit "permission to take time" framing that can 
+  improve output quality on complex tasks where thoroughness matters 
+  more than speed.
+- Serve as an umbrella instruction that can be combined with more 
+  specific techniques (Chain-of-Thought, Self-Critique) to reinforce 
+  a careful, unhurried reasoning mode.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Trick questions, riddles, or problems specifically designed to 
+  trigger a plausible-but-incorrect fast answer (e.g., classic "bat 
+  and ball" style cognitive reflection test questions).
+- Questions with a subtly flawed or unusual premise that's easy to 
+  miss if you answer too quickly.
+- High-stakes decisions or analyses where thoroughness is explicitly 
+  more valuable than speed.
+- Situations where you've noticed the model (or people in general) 
+  tend to jump to an intuitive-but-wrong answer on a specific type of 
+  problem.
+- As a general reinforcement layered on top of Chain-of-Thought or 
+  Step-by-Step prompting for extra emphasis on care/thoroughness.
+
+WHEN NOT TO USE:
+- Simple, fast factual lookups where there's no "trick" or complexity 
+  to guard against (adds no value, just latency).
+- Time-sensitive applications where speed genuinely matters more than 
+  marginal accuracy gains.
+- Tasks with no meaningful "fast vs. slow thinking" distinction (e.g., 
+  purely creative or subjective tasks).
+
+BEST MODELS FOR DELIBERATE PROMPTING:
+- OpenAI o-series (o1/o3) and GPT-5-class reasoning modes, Claude with 
+  extended thinking, Gemini with Thinking mode, DeepSeek-R1 — these 
+  "reasoning models" are BUILT specifically for deliberate, extended 
+  reasoning and are the natural best fit for genuinely high-stakes 
+  deliberate tasks.
+- Standard (non-reasoning) models like base GPT-4o, Claude Sonnet 
+  (standard mode), and Gemini Pro still benefit meaningfully from 
+  explicit "slow down and think carefully" instructions, since they 
+  don't reason at length by default.
+- Qwen (QwQ/reasoning variants) — strong deliberate reasoning for 
+  math/logic-heavy deliberate tasks.
+- Mistral / Llama — benefit from explicit deliberate framing, though 
+  smaller models have a lower ceiling for how much genuine benefit 
+  extended deliberation provides compared to larger/reasoning-native 
+  models.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [QUESTION/TASK] + "This question may be trickier than it first 
+    appears. Take your time, question your first instinct, and reason 
+    through it carefully and thoroughly before answering."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Question/Task — the problem to solve.
+    2. Deliberate Framing Instruction — an explicit statement 
+       encouraging slow, careful thinking and warning against jumping 
+       to a fast first answer.
+    3. Premise-Checking Instruction (optional but powerful) — 
+       explicitly ask the model to first verify whether the question's 
+       premise/assumptions are even correct before answering.
+    4. Final Answer — the carefully reasoned conclusion.
+
+Example skeleton:
+    "[QUESTION]. 
+    This may be trickier than it first appears — resist the urge to 
+    answer immediately. First, check whether the question's premise 
+    or assumptions are actually correct. Then, reason through the 
+    problem carefully and thoroughly. Only after this careful 
+    reasoning, provide your final answer."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Explicitly warn that the question "may be trickier than it 
+  appears" — this primes more careful processing even before the 
+  actual reasoning begins.
+- Include an explicit PREMISE-CHECKING step for questions that might 
+  contain a flawed assumption — many "trick" questions are trick 
+  precisely because of a hidden false premise, not just complex 
+  logic.
+- Instruct the model to "question your first instinct" directly — 
+  this specifically targets the fast, intuitive-answer failure mode.
+- Combine with Chain-of-Thought for the actual step-by-step 
+  mechanics, using Deliberate Prompting as the "mindset" framing 
+  layered on top.
+- Reserve this technique for problems where you have genuine reason 
+  to suspect a fast answer might be wrong — applying it to every 
+  simple question adds unnecessary friction/latency.
+- For genuinely critical decisions, consider combining Deliberate 
+  Prompting with Self-Consistency (multiple careful, independent 
+  reasoning attempts) for maximum reliability.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Applying deliberate framing to simple, non-tricky questions 
+  where it adds unnecessary verbosity/latency without any accuracy 
+  benefit.
+  FIX: Reserve deliberate prompting for problems with a genuine "trick" 
+  or complexity that could trigger a wrong fast answer.
+
+- MISTAKE: Not including an explicit premise-checking step, missing 
+  cases where the actual "trick" is a false assumption baked into the 
+  question itself.
+  FIX: Explicitly ask the model to verify the question's premise 
+  before attempting to answer it.
+
+- MISTAKE: Using vague deliberate language ("think carefully") without 
+  the more pointed "question your first instinct" framing, which is 
+  specifically what counters fast, intuitive-but-wrong answers.
+  FIX: Use the more targeted phrasing that explicitly names the fast-
+  answer failure mode to guard against.
+
+- MISTAKE: Assuming deliberate prompting alone guarantees a correct 
+  answer — it improves the ODDS of catching a trick, but doesn't 
+  replace genuine domain knowledge or verification for factual 
+  correctness.
+  FIX: Combine with fact-checking, tool use, or verification steps 
+  when factual accuracy (not just logical trickiness) is the concern.
+
+- MISTAKE: Overusing this technique as a blanket instruction across 
+  all prompts "just in case," diluting its effectiveness and adding 
+  cost.
+  FIX: Apply selectively to problems you have genuine reason to treat 
+  as potentially tricky or high-stakes.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"A bat and a ball together cost $1.10. The bat costs $1.00 more than 
+the ball. How much does the ball cost? 
+
+This may be trickier than it first appears — resist the urge to 
+answer immediately with the first number that comes to mind. Reason 
+through it carefully before answering."
+
+Expected Output:
+Careful reasoning explicitly rejecting the common intuitive-but-wrong 
+answer of $0.10 (which would make the bat $1.00, totaling $1.10, but 
+that means the bat is only $0.90 more, not $1.00 more), correctly 
+setting up the algebra (ball = x, bat = x + 1.00, x + (x+1.00) = 
+1.10) to arrive at the correct Final Answer: the ball costs $0.05 
+(and the bat costs $1.05, totaling $1.10, with the bat being exactly 
+$1.00 more than the ball).
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"If it takes 5 machines 5 minutes to make 5 widgets, how long would 
+it take 100 machines to make 100 widgets? 
+
+This question may be trickier than it appears at first glance. First, 
+check whether your initial instinct about the relationship between 
+machines, time, and widgets is actually correct, then reason through 
+it carefully step by step before giving your final answer."
+
+Expected Output:
+Reasoning that explicitly resists the tempting-but-wrong intuitive 
+leap to "100 minutes," instead correctly identifying that each 
+individual machine takes 5 minutes to make 1 widget (since 5 machines 
+working in parallel make 5 widgets in 5 minutes, meaning each machine 
+makes one widget in that time), so 100 machines working in parallel 
+would similarly each make their own widget in the same 5 minutes, 
+arriving at the correct Final Answer: 5 minutes.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"I'm designing an evaluation metric for my AI system's response 
+quality. My initial idea: 'measure response quality purely by 
+response length, since longer, more detailed responses are generally 
+more helpful and thorough.' 
+
+This premise may be trickier or flawed in ways that aren't obvious at 
+first glance. First, carefully examine whether the underlying 
+assumption (that longer = more helpful/thorough) actually holds up 
+under scrutiny — consider potential counterexamples or failure modes. 
+Then, based on this careful examination, provide your recommendation 
+for whether and how to use length as part of a quality metric."
+
+Expected Output:
+Careful, deliberate reasoning that resists simply agreeing with the 
+premise, instead genuinely examining potential flaws — such as noting 
+that length can be trivially gamed (verbose but low-content 
+responses would score artificially high), that the IDEAL length is 
+actually task-dependent (a factual yes/no question deserves a short 
+answer; treating brevity as a failure would be wrong), and that 
+length says nothing about ACCURACY or RELEVANCE — leading to a 
+carefully reasoned Final Answer/recommendation that length alone is a 
+poor standalone quality metric and should, if used at all, be 
+combined with task-appropriateness, accuracy, and relevance measures 
+rather than treated as a direct proxy for quality — demonstrating 
+genuine premise-questioning rather than accepting the flawed initial 
+framing.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    [YOUR QUESTION OR TASK]
+    
+    This may be trickier or more nuanced than it first appears. 
+    Resist the urge to answer immediately with your first instinct.
+    
+    First, check whether the premise or assumptions behind this 
+    question/task are actually correct.
+    
+    Then, reason through the problem carefully and thoroughly, 
+    questioning your own initial reasoning as you go.
+    
+    Only after this careful process, provide your Final Answer.
+
+=====================================================================
+END OF FILE 22 — Deliberate Prompting
+=====================================================================

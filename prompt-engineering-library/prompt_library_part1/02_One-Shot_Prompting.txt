@@ -1,0 +1,229 @@
+=====================================================================
+02. ONE-SHOT PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Foundations)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+One-Shot Prompting — Teaching With a Single Example
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+One-shot prompting is a technique where you give the LLM EXACTLY ONE 
+example (input + desired output pair) before asking it to perform 
+the same task on new input. This single example acts as a 
+"demonstration" that shows the model the pattern, style, structure, 
+or format you want — without needing multiple examples like in 
+Few-Shot prompting.
+
+Think of it like showing a new employee ONE sample report and saying 
+"Now make one just like this, but for a different client."
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+One-shot prompting exists to:
+- Anchor the model's output to a specific format, tone, or structure 
+  using minimal context.
+- Reduce ambiguity when zero-shot prompting produces inconsistent 
+  results.
+- Save tokens compared to few-shot prompting (which uses multiple 
+  examples) while still guiding the model's behavior.
+- Demonstrate an unusual or custom format that the model wouldn't 
+  guess correctly on its own.
+- Act as a middle ground between "no guidance" (zero-shot) and 
+  "heavy guidance" (few-shot).
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Zero-shot prompting gives inconsistent or off-target formatting.
+- You have a very specific style/tone you want replicated (e.g., a 
+  particular writing voice).
+- You need to demonstrate a non-obvious output structure (like a 
+  custom labeling system or unusual table layout).
+- Token/context budget is limited, so you can't afford multiple 
+  few-shot examples.
+- You're working with structured data transformation (e.g., "convert 
+  this sentence into this exact JSON shape").
+
+WHEN NOT TO USE:
+- The task is simple and well-known (zero-shot is faster and 
+  sufficient).
+- The task has high variability and one example won't cover enough 
+  ground (use Few-Shot instead).
+- You need the model to generalize across many different edge cases 
+  (use Few-Shot or Multi-Shot).
+
+BEST MODELS FOR ONE-SHOT:
+- Claude (Sonnet/Opus) — excellent at pattern matching from a single 
+  demonstration, especially for structured or stylistic tasks.
+- GPT-4o/4.1/5-class — strong one-shot generalization, particularly 
+  for code and structured data.
+- Gemini Pro — good for one-shot multimodal tasks (image + example 
+  + new image).
+- Qwen / DeepSeek — strong for one-shot coding pattern replication.
+- Mistral / Llama (larger variants) — decent one-shot performance; 
+  smaller models benefit from a very clear, unambiguous example.
+- Grok — solid conversational one-shot performance.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [ROLE (optional)] + [TASK INSTRUCTION] + 
+    [EXAMPLE INPUT → EXAMPLE OUTPUT] + [NEW INPUT] + 
+    [OUTPUT FORMAT (optional)]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Task Instruction — explain what you want done.
+    2. Example Section — clearly labeled "Example:" with an 
+       Input/Output pair.
+    3. New Input — clearly labeled, distinct from the example.
+    4. (Optional) Reminder of format/constraints.
+
+Example skeleton:
+    "[TASK INSTRUCTION]
+    
+    Example:
+    Input: [example input]
+    Output: [example output]
+    
+    Now do the same for:
+    Input: [new input]
+    Output:"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Choose an example that is REPRESENTATIVE of the general pattern, 
+  not an edge case.
+- Clearly label "Input:" and "Output:" (or similar tags) so the 
+  model doesn't confuse the example with the real task.
+- Keep the example concise — it should demonstrate the pattern 
+  without being overly long or distracting.
+- End your prompt right after "Output:" (for the new input) so the 
+  model naturally continues the pattern.
+- If the format is complex (e.g., nested JSON), make sure your one 
+  example fully demonstrates every part of that structure.
+- Use one-shot as a diagnostic step: if performance is still poor, 
+  move to few-shot with 2-5 examples instead.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Choosing an unusual or overly complex example that 
+  doesn't represent the general case.
+  FIX: Pick a "typical" example that reflects the most common 
+  scenario.
+
+- MISTAKE: Not clearly separating the example from the new task, 
+  causing the model to get confused about which is which.
+  FIX: Use explicit labels like "Example Input/Output" vs. "New 
+  Input."
+
+- MISTAKE: Using one-shot when the task has high variability (e.g., 
+  customer support tickets with wildly different topics).
+  FIX: Use Few-Shot or Multi-Shot prompting instead.
+
+- MISTAKE: Making the example too long, wasting tokens and diluting 
+  focus.
+  FIX: Keep the example as short as possible while still fully 
+  demonstrating the pattern.
+
+- MISTAKE: Forgetting to end the prompt in a way that signals 
+  "continue the pattern here."
+  FIX: End with "Output:" or an equivalent cue, left blank for the 
+  model to fill in.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Convert the sentiment of a sentence into one word (Positive, 
+Negative, or Neutral).
+
+Example:
+Input: 'The food was absolutely delicious and the service was 
+great.'
+Output: Positive
+
+Now do the same for:
+Input: 'The delivery was three hours late and the food was cold.'
+Output:"
+
+Expected Output:
+"Negative"
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"You are a product description writer. Convert a basic product name 
+into a compelling, benefit-driven one-line description.
+
+Example:
+Input: 'Stainless steel water bottle, 1 liter'
+Output: 'Stay refreshed all day with our sleek 1-liter stainless 
+steel bottle — durable, leak-proof, and built to keep your drinks 
+cold for 24 hours.'
+
+Now do the same for:
+Input: 'Wireless noise-cancelling headphones'
+Output:"
+
+Expected Output:
+A similarly styled, benefit-driven one-line description for the 
+headphones, matching the tone and length of the example.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"You are a data engineer. Convert unstructured customer feedback 
+into a structured JSON object with fields: sentiment, key_issue, 
+and suggested_action.
+
+Example:
+Input: 'I waited 40 minutes for support and no one helped me solve 
+my billing issue.'
+Output:
+{
+  "sentiment": "negative",
+  "key_issue": "long wait time and unresolved billing issue",
+  "suggested_action": "escalate to billing team and offer 
+compensation for wait time"
+}
+
+Now do the same for:
+Input: 'Your app crashed twice while I was trying to upload my 
+resume for a job application.'
+Output:"
+
+Expected Output:
+A correctly formatted JSON object following the exact same 
+structure and key names, with sentiment, key_issue, and 
+suggested_action fields populated appropriately for the new input.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    You are a [ROLE/EXPERTISE].
+    
+    Task: [DESCRIBE THE TASK CLEARLY]
+    
+    Example:
+    Input: [EXAMPLE INPUT]
+    Output: [EXAMPLE OUTPUT — SHOWING EXACT DESIRED FORMAT/STYLE]
+    
+    Now do the same for:
+    Input: [YOUR NEW INPUT]
+    Output:
+
+=====================================================================
+END OF FILE 02 — One-Shot Prompting
+=====================================================================

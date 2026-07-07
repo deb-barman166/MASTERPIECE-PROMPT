@@ -1,0 +1,322 @@
+=====================================================================
+29. CRITIC PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Agentic)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Critic Prompting — A Dedicated Agent Role for Quality Review
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Critic prompting is a multi-agent technique where a SEPARATE, 
+DEDICATED agent role is assigned SOLELY to reviewing and evaluating 
+the output of another agent (a "Creator" or "Generator") against 
+defined quality criteria — without itself generating the original 
+content. While Self-Critique (file 20) has the SAME model critique 
+its OWN output in one continuous context, Critic Prompting formally 
+separates this into a genuinely distinct role/agent, often with its 
+own dedicated model instance, fresh context, or even a different 
+underlying model entirely — which tends to produce more objective, 
+less "attached" evaluation than a model critiquing something it just 
+created itself.
+
+Think of it like the difference between a writer proofreading their 
+own work immediately after finishing it (Self-Critique — useful, but 
+they're still mentally "attached" to their choices) versus handing 
+that same piece to a completely separate professional editor who has 
+no investment in the original phrasing and can evaluate it with fresh, 
+more objective eyes (Critic Prompting).
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Critic prompting exists to:
+- Provide more OBJECTIVE evaluation than self-critique, since a 
+  separate agent (especially with fresh context or a different 
+  underlying model) isn't "attached" to the choices made in the 
+  original output.
+- Enable SPECIALIZED review criteria — a Critic agent can be given a 
+  very specific, detailed rubric to check against, without needing to 
+  also handle the generation task.
+- Support scalable QUALITY ASSURANCE pipelines where a Critic agent 
+  automatically reviews outputs from many different Creator agents/
+  processes before final delivery.
+- Reduce the "grading your own homework" problem — genuinely separate 
+  evaluation tends to catch more issues than a single model reviewing 
+  its own immediately-prior output.
+- Serve as the quality-control layer in production multi-agent 
+  systems, functioning similarly to a QA or code review step in a 
+  professional software development pipeline.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Production content/code generation pipelines where you want an 
+  independent quality gate before final delivery.
+- Situations where self-critique has proven insufficient (a model 
+  reviewing its own work sometimes misses issues it would readily 
+  catch in someone else's).
+- Building systems with formal, detailed rubrics that content must 
+  satisfy (compliance requirements, brand guidelines, technical 
+  standards).
+- High-volume automated content generation where a dedicated Critic 
+  step can catch and flag/reject problematic outputs before they 
+  reach end users.
+- Any scenario where you have (or can build) infrastructure to run a 
+  genuinely separate agent/model call for the review step.
+
+WHEN NOT TO USE:
+- Simple, low-volume, low-stakes tasks where a basic Self-Critique or 
+  Reflection pass within the same conversation is sufficient.
+- Situations where the added latency/cost of a fully separate agent 
+  call isn't justified by the task's importance.
+- When you don't have the infrastructure to actually run a distinct 
+  Critic pass (e.g., a fresh context, or a different model instance) — 
+  without genuine separation, you're really just doing Self-Critique.
+
+BEST MODELS FOR CRITIC ROLE:
+- Claude — excellent for the Critic role given strong, well-calibrated 
+  critical judgment and a tendency toward genuinely substantive (not 
+  just superficial) feedback.
+- GPT-4o/4.1/5-class — strong, detail-oriented critique capability, 
+  well-suited to rubric-based evaluation.
+- USING A DIFFERENT MODEL FOR CRITIC THAN CREATOR is a common and 
+  often effective practice (e.g., GPT-4 generates content, Claude 
+  critiques it, or vice versa) — different models have different 
+  "blind spots," so cross-model review can catch more issues than 
+  same-model self-review.
+- Gemini Pro — capable Critic role, particularly strong for technical/
+  factual accuracy review given strong grounding capabilities.
+- DeepSeek-R1 / Qwen (reasoning variants) — strong for rigorous 
+  technical/code critic roles requiring careful logical analysis.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    "You are the CRITIC. Review the following [CONTENT TYPE] against 
+    these criteria: [CRITERIA/RUBRIC]. You did NOT create this 
+    content — evaluate it objectively. Identify specific issues, rate 
+    it, and provide actionable feedback."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Role Declaration — establish this is the dedicated CRITIC role, 
+       distinct from whatever agent/process created the content.
+    2. Content to Review — the actual output being evaluated (from a 
+       separate Creator agent or process).
+    3. Evaluation Criteria/Rubric — specific, detailed standards the 
+       content should be judged against.
+    4. Objectivity Framing — an explicit reminder that the Critic did 
+       not create this content and should evaluate it fairly/
+       objectively.
+    5. Output Format — how feedback should be structured (e.g., 
+       overall rating, specific issues list, actionable suggestions).
+
+Example skeleton:
+    "You are the CRITIC. You did NOT create the following [CONTENT 
+    TYPE] — your job is to objectively evaluate it. 
+    
+    Content to review: [CONTENT] 
+    
+    Evaluation criteria: 
+    - [CRITERION 1] 
+    - [CRITERION 2] 
+    - [CRITERION 3] 
+    
+    For each criterion, rate the content (Pass/Fail or a numeric 
+    scale) and explain your reasoning. Then provide specific, 
+    actionable feedback for improvement."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Provide a SPECIFIC, DETAILED rubric/criteria list rather than a 
+  vague "is this good?" — the more precise the evaluation standard, 
+  the more useful and consistent the Critic's feedback will be.
+- Explicitly frame the Critic as NOT having created the content — this 
+  framing, even when using the same underlying model, tends to 
+  encourage more genuinely objective evaluation than implicit self-
+  review.
+- Request a STRUCTURED output (rating per criterion, specific issues, 
+  actionable suggestions) rather than free-form prose feedback, which 
+  is easier to act on and to track over time/across many reviews.
+- Consider using a DIFFERENT underlying model for the Critic role than 
+  the Creator role, to benefit from different models' different 
+  strengths and blind spots.
+- Define a clear PASS/FAIL or approval threshold if this Critic is 
+  part of an automated pipeline that needs to make a go/no-go 
+  decision.
+- For especially important content, consider running the Critic 
+  review from MULTIPLE distinct angles/rubrics (e.g., a "technical 
+  accuracy" Critic pass AND a separate "tone/brand voice" Critic 
+  pass).
+- Feed the Critic's specific, structured feedback back to the Creator 
+  agent for revision, closing the loop rather than just generating a 
+  report that nobody acts on.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Giving the Critic a vague evaluation standard ("is this 
+  good?") rather than specific, detailed criteria, leading to shallow 
+  or inconsistent feedback.
+  FIX: Provide a precise, detailed rubric for the Critic to evaluate 
+  against.
+
+- MISTAKE: Not framing the review as coming from a genuinely separate, 
+  objective role, leading to softer, less critical feedback (as if 
+  reviewing one's own work).
+  FIX: Explicitly frame the Critic as an independent evaluator who did 
+  not create the content.
+
+- MISTAKE: Requesting only free-form prose feedback instead of a 
+  structured format, making it hard to consistently track quality or 
+  automate pass/fail decisions.
+  FIX: Request structured output (ratings per criterion, specific 
+  issues, actionable suggestions).
+
+- MISTAKE: Generating Critic feedback but never feeding it back to 
+  the Creator for actual revision, wasting the value of the review.
+  FIX: Always close the loop — route Critic feedback back for 
+  revision when issues are found.
+
+- MISTAKE: Using the exact same model with the exact same context/
+  conversation for both creation and "critique," which is really just 
+  Self-Critique with extra steps, not genuine independent review.
+  FIX: For true Critic Prompting, use a fresh context and/or a 
+  different model to maximize evaluation independence.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"You are the CRITIC. You did NOT write the following product 
+description — evaluate it objectively. 
+
+Content to review: 'Our water bottle is good. It holds water and 
+looks nice. Buy it today for a great experience.' 
+
+Evaluation criteria: 
+- Specificity (does it mention concrete features/benefits?) 
+- Persuasiveness (does it give a real reason to buy?) 
+- Professionalism (is the tone appropriately polished?) 
+
+Rate each criterion (Pass/Fail) with reasoning, then give specific, 
+actionable feedback for improvement."
+
+Expected Output:
+A structured review: Specificity — Fail (no concrete features 
+mentioned, e.g., capacity, material, insulation); Persuasiveness — 
+Fail (no genuine reason to buy beyond vague claims); Professionalism 
+— Fail (overly casual, generic phrasing) — followed by specific, 
+actionable feedback such as "add concrete specs (capacity in oz/ml, 
+material, insulation duration) and a genuine unique selling point."
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"You are the CRITIC. You did NOT write the following Python function 
+— evaluate it objectively. 
+
+Content to review: 
+def calc(a, b, c): 
+    if c == 1: 
+        return a + b 
+    if c == 2: 
+        return a - b 
+    if c == 3: 
+        return a * b 
+
+Evaluation criteria: 
+- Naming clarity (are function/variable names descriptive?) 
+- Error handling (does it handle invalid/unexpected inputs?) 
+- Documentation (is there a docstring explaining usage?) 
+- Extensibility (how easily could new operations be added?) 
+
+Rate each criterion (Pass/Fail) with specific reasoning, then provide 
+actionable feedback for each failing criterion."
+
+Expected Output:
+A structured review: Naming clarity — Fail (function name 'calc' and 
+parameters 'a, b, c' are non-descriptive; 'c' as a magic number for 
+operation type is unclear); Error handling — Fail (no handling for 
+invalid 'c' values, which would silently return None); Documentation 
+— Fail (no docstring at all); Extensibility — Fail (adding a new 
+operation requires modifying the function body directly with another 
+if-statement, and 'c' as raw integers is fragile) — with specific 
+actionable feedback for each, such as renaming to reflect actual 
+purpose, using a string or Enum for operation type instead of magic 
+numbers, adding an else/default case that raises a clear error, and 
+adding a proper docstring.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"You are the CRITIC. You did NOT design the following system 
+architecture — evaluate it objectively as a senior systems architect. 
+
+Content to review: 'Our multi-agent memory system uses a single 
+shared SQLite database file that all 50 agents read from and write to 
+directly for every memory operation (read, write, update).' 
+
+Evaluation criteria: 
+- Scalability (will this handle the stated 50 agents without becoming 
+  a bottleneck?) 
+- Concurrency safety (are there risks of data corruption or race 
+  conditions with multiple simultaneous writers?) 
+- Fault tolerance (what happens if this single component fails?) 
+- Appropriateness of technology choice (is SQLite the right tool for 
+  this specific use case?) 
+
+Rate each criterion (Pass/Fail/Concern) with detailed technical 
+reasoning, then provide specific, actionable recommendations for each 
+identified issue."
+
+Expected Output:
+A rigorous, structured architectural review: Scalability — Fail 
+(SQLite is fundamentally not designed for high-concurrency, multi-
+writer scenarios at this scale; 50 agents directly hitting one file 
+will likely create serious write-lock contention/bottlenecks); 
+Concurrency safety — Concern/Fail (SQLite's default locking behavior 
+can lead to "database is locked" errors or serialized writes that 
+defeat the purpose of having 50 concurrent agents); Fault tolerance — 
+Fail (single file = single point of failure; if the file becomes 
+corrupted or locked indefinitely, the entire 50-agent system's memory 
+layer goes down); Appropriateness — Fail (SQLite excels for embedded, 
+single-writer or low-concurrency use cases, not as a shared 
+multi-writer backend for a 50-agent concurrent system) — with 
+specific, actionable recommendations such as migrating to a proper 
+client-server database designed for concurrent access (PostgreSQL, or 
+a purpose-built solution like Redis for fast shared state), or, if 
+staying lightweight/local is a hard requirement, at minimum 
+implementing a write-queue/mediator pattern so agents don't hit the 
+SQLite file directly and concurrently.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    You are the CRITIC. You did NOT create the following [CONTENT 
+    TYPE] — evaluate it objectively and independently.
+    
+    Content to review: [PASTE CONTENT/CODE/PLAN HERE]
+    
+    Evaluation criteria:
+    - [CRITERION 1]
+    - [CRITERION 2]
+    - [CRITERION 3]
+    - [CRITERION 4]
+    
+    For each criterion, rate the content (Pass/Fail/Concern) with 
+    specific reasoning. Then provide specific, actionable feedback or 
+    recommendations for each issue identified.
+
+=====================================================================
+END OF FILE 29 — Critic Prompting
+=====================================================================

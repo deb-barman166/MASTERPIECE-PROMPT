@@ -1,0 +1,268 @@
+=====================================================================
+16. PROGRAM-OF-THOUGHTS (POT) PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Reasoning)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Program-of-Thoughts Prompting — Reasoning by Writing Executable Code
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Program-of-Thoughts (PoT) prompting is a technique where, instead of 
+having the model reason through a problem using natural language 
+(like Chain-of-Thought), you instruct it to express its reasoning as 
+EXECUTABLE CODE (typically Python) that computes the answer when run. 
+This separates REASONING (writing correct logic) from COMPUTATION 
+(getting arithmetic exactly right), leveraging the fact that a code 
+interpreter will always compute arithmetic perfectly, whereas 
+language models can occasionally make small arithmetic errors even 
+when their reasoning logic is completely correct.
+
+Think of it like the difference between a person doing complex 
+multiplication in their head (Chain-of-Thought — where a slip in 
+mental math can happen even with correct logic) versus that same 
+person writing the multiplication into a calculator (Program-of-
+Thoughts — the LOGIC of what to multiply is theirs, but the actual 
+computation is offloaded to something that never makes arithmetic 
+mistakes).
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Program-of-Thoughts prompting exists to:
+- Eliminate arithmetic/computational errors by offloading actual 
+  calculation to a code interpreter rather than relying on the 
+  model's internal (sometimes imperfect) mental math.
+- Improve accuracy dramatically on math-heavy, numeric, or data-
+  processing tasks compared to pure natural-language reasoning.
+- Produce VERIFIABLE, RE-RUNNABLE reasoning — you can literally 
+  execute the generated code to double-check the answer, rather than 
+  just trusting a natural-language explanation.
+- Handle complex multi-variable calculations, data transformations, 
+  or algorithmic problems more reliably than describing the steps in 
+  prose.
+- Combine naturally with code-execution tools/environments (like 
+  Claude's or ChatGPT's code interpreter) for a highly reliable 
+  reasoning + verification loop.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Any task involving non-trivial arithmetic, especially with multiple 
+  steps or variables (financial calculations, statistics, unit 
+  conversions).
+- Data processing/transformation tasks (parsing, filtering, 
+  aggregating data) where writing code is naturally more precise than 
+  describing the transformation in words.
+- Algorithmic problems where the "reasoning" IS essentially an 
+  algorithm (sorting, searching, combinatorics, graph problems).
+- When you have access to a code execution environment/tool, so the 
+  generated code can actually be RUN to verify the answer.
+- Scientific/engineering calculations requiring precision.
+
+WHEN NOT TO USE:
+- Purely qualitative, subjective, or language-based reasoning tasks 
+  where there's nothing to "compute" (e.g., ethical dilemmas, 
+  creative writing, opinion-based analysis).
+- When you don't have a code execution environment available and 
+  can't actually run the generated code (though the code can still 
+  be manually reviewed for logical correctness even without 
+  execution).
+- Very simple arithmetic that the model can reliably compute directly 
+  without needing the code-offloading (e.g., "what is 12 + 15" 
+  doesn't need PoT).
+
+BEST MODELS FOR PROGRAM-OF-THOUGHTS:
+- Claude (with code execution / Claude Code) — excellent at writing 
+  correct, clean Python code to solve reasoning problems, and can 
+  directly execute it to verify results.
+- GPT-4o/4.1/5-class (with Code Interpreter/Advanced Data Analysis) — 
+  very strong PoT performance, especially combined with actual code 
+  execution.
+- Gemini Pro (with code execution tools) — strong for data-heavy PoT 
+  tasks.
+- DeepSeek / Qwen (coding-specialized variants) — excellent at 
+  generating correct computational code for PoT-style reasoning.
+- Cursor / Copilot — naturally suited to PoT-style reasoning since 
+  they operate directly within a coding environment.
+- Any model + external code execution tool = the ideal PoT setup, 
+  since verifying the code actually runs and produces the expected 
+  output is the core value proposition of this technique.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [PROBLEM] + "Write Python code that computes the answer to this 
+    problem. Do not calculate the answer manually — express your 
+    reasoning entirely as code, then run it (or state what running 
+    it would output)."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Problem Statement — the task requiring computation/precise 
+       logic.
+    2. Explicit Code Instruction — clearly ask for a Python (or 
+       other language) function/script that solves the problem, 
+       rather than a prose explanation.
+    3. Variable/Comment Clarity — request meaningful variable names 
+       and brief comments so the code's logic is easy to follow and 
+       verify.
+    4. Execution Instruction — if a code execution tool is available, 
+       ask the model to actually RUN the code and report the output; 
+       if not, ask it to trace through manually and state the 
+       expected output.
+    5. Final Answer Extraction — clearly state the final numeric/
+       computed result separate from the code itself.
+
+Example skeleton:
+    "[PROBLEM]. 
+    Write Python code that computes the answer step by step, using 
+    clear variable names and comments. Do not do the math manually — 
+    let the code do the calculation. Then run the code and state the 
+    Final Answer based on its output."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Explicitly instruct the model NOT to compute the answer manually 
+  in its head and just write matching code afterward — you want the 
+  CODE to be the actual source of the computed answer.
+- Ask for clear, well-commented code so you (or anyone reviewing it) 
+  can verify the LOGIC is correct, independent of whether it's 
+  actually executed.
+- Whenever possible, use this technique WITH an actual code execution 
+  tool/environment so the code is truly run and the output is 
+  verified, not just visually inspected.
+- Request meaningful variable names tied to the problem's real-world 
+  quantities (e.g., `total_revenue`, `tax_rate`) rather than generic 
+  names like `x`, `y`, `z` — this makes verification easier.
+- For data processing tasks, ask the model to include basic 
+  input validation or edge-case handling in the generated code for 
+  robustness.
+- Combine with Self-Consistency for extremely high-stakes numeric 
+  problems: generate the code multiple times (or with a review pass) 
+  to catch any logic errors in the code itself.
+- Remember: PoT protects against ARITHMETIC errors but does NOT 
+  automatically protect against LOGIC errors in how the problem was 
+  translated into code — always sanity-check that the code's approach 
+  actually matches the problem being asked.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Asking for code but still allowing/expecting the model to 
+  also do manual mental math alongside it, defeating the purpose of 
+  offloading computation.
+  FIX: Explicitly state "do not calculate manually — let the code 
+  perform all calculations."
+
+- MISTAKE: Writing genuinely correct code but with a LOGIC error in 
+  how the real-world problem was translated into that code (e.g., 
+  using the wrong formula), which PoT does not automatically prevent.
+  FIX: Always review the code's approach/formula against the actual 
+  problem statement, not just check that it runs without errors.
+
+- MISTAKE: Not actually running the generated code when a code 
+  execution tool is available, missing the core verification benefit 
+  of this technique.
+  FIX: Always execute the code when possible rather than just 
+  visually inspecting it.
+
+- MISTAKE: Using PoT for purely qualitative/subjective questions that 
+  have nothing to compute.
+  FIX: Reserve PoT for genuinely computational/algorithmic tasks.
+
+- MISTAKE: Writing overly dense, uncommented code that's hard to 
+  verify for logical correctness even if numerically it runs fine.
+  FIX: Request clear variable names and brief explanatory comments 
+  alongside the code.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"A rectangular garden is 12.5 meters long and 8.3 meters wide. What 
+is its area and perimeter? Write Python code that computes both 
+values step by step using clear variable names, then state the 
+Final Answer based on running it."
+
+Expected Output:
+Python code such as:
+    length = 12.5
+    width = 8.3
+    area = length * width
+    perimeter = 2 * (length + width)
+    print(area, perimeter)
+Followed by execution/output: area = 103.75 square meters, perimeter 
+= 41.6 meters, clearly stated as the Final Answer.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"I invested $5,000 at an annual compound interest rate of 6.5%, 
+compounded monthly, for 4 years. What is the final amount? Write 
+Python code that computes this using the compound interest formula, 
+with clear variable names and comments explaining each part, then 
+run it and give the Final Answer rounded to 2 decimal places."
+
+Expected Output:
+Python code implementing A = P(1 + r/n)^(nt) with clearly named 
+variables (principal, annual_rate, compounds_per_year, years), 
+properly commented, executed to produce the correct final amount 
+(approximately $6,454.02), clearly stated as the Final Answer.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"I have a dataset of customer purchase amounts (in dollars): [45.99, 
+120.50, 89.00, 250.75, 15.25, 99.99, 310.00, 45.00, 78.50, 500.00]. I 
+need to know: (1) the total revenue, (2) the average purchase 
+amount, (3) the number of purchases above $100, and (4) what 
+percentage of total revenue comes from purchases above $100 (a form 
+of Pareto/80-20 analysis). 
+
+Write Python code that computes all four values step by step with 
+clear variable names and comments, run it, and clearly present the 
+Final Answer for each of the 4 requested metrics."
+
+Expected Output:
+Python code that defines the list, computes total_revenue = 
+sum(purchases), average_purchase = total_revenue / len(purchases), 
+filters purchases_above_100 = [p for p in purchases if p > 100] and 
+counts them, computes revenue_above_100 = sum(purchases_above_100), 
+and calculates percentage_from_high_value = 
+(revenue_above_100/total_revenue)*100 — all clearly commented — 
+executed to produce accurate results: total revenue $1,554.98, 
+average purchase ~$155.50 (note: this reveals average is skewed by 
+the $500 and $310 purchases, worth noting), 4 purchases above $100, 
+and roughly 68.6% of total revenue coming from those 4 high-value 
+purchases — demonstrating a clear "80/20-style" insight computed 
+with guaranteed arithmetic precision.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    [YOUR PROBLEM REQUIRING CALCULATION/COMPUTATION]
+    
+    Write Python code that computes the answer to this problem, 
+    step by step. 
+    
+    Requirements:
+    - Use clear, meaningful variable names 
+    - Add brief comments explaining each step 
+    - Do NOT calculate any part of the answer manually — express 
+      the entire computation as code 
+    
+    Run the code and state the Final Answer based on its actual 
+    output.
+
+=====================================================================
+END OF FILE 16 — Program-of-Thoughts Prompting
+=====================================================================

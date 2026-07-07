@@ -1,0 +1,236 @@
+=====================================================================
+06. ROLE PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Foundations)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Role Prompting — Assigning Expertise and Function to the Model
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Role prompting is a technique where you instruct the LLM to adopt a 
+specific PROFESSIONAL ROLE or FUNCTIONAL IDENTITY (e.g., "You are a 
+senior data scientist," "You are a cybersecurity auditor," "You are 
+an experienced high school teacher") before performing a task. This 
+shifts the model's response patterns toward the knowledge, 
+vocabulary, tone, and reasoning style associated with that role, 
+based on patterns learned during training.
+
+Think of it like asking a specific EXPERT for help rather than a 
+generalist — you get a doctor's perspective on a medical question, a 
+lawyer's perspective on a legal question, and so on, all from the 
+same underlying model.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Role prompting exists to:
+- Activate domain-specific knowledge, vocabulary, and reasoning 
+  patterns relevant to the task.
+- Improve response quality and specificity for professional/
+  technical tasks.
+- Set an appropriate tone and level of formality automatically 
+  (e.g., "elementary school teacher" vs. "PhD researcher").
+- Reduce the need for lengthy explicit instructions by letting the 
+  ROLE imply a set of expected behaviors and standards.
+- Help the model prioritize what's relevant (a "security auditor" 
+  role will naturally focus on vulnerabilities; a "marketing expert" 
+  role will focus on persuasion and audience appeal).
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Any task requiring domain expertise (legal, medical, technical, 
+  creative, financial, educational).
+- You want a consistent tone/perspective throughout a longer 
+  interaction.
+- You need the model to prioritize certain considerations 
+  automatically (e.g., a "compliance officer" role naturally 
+  emphasizes regulations).
+- Combined with almost ANY other technique (Few-Shot, Chain-of-
+  Thought, ReAct) to add domain grounding.
+
+WHEN NOT TO USE:
+- For purely factual, objective lookups where a role adds no value 
+  (e.g., "What's the capital of Japan?").
+- When you need the model to explicitly acknowledge uncertainty or 
+  give a neutral, non-expert-biased answer (role prompting can 
+  sometimes make a model overconfident in a persona).
+- Be cautious with roles implying credentials the model doesn't 
+  actually have (e.g., "You are a licensed doctor" doesn't grant 
+  real medical licensure — always add appropriate disclaimers for 
+  high-stakes domains like medical/legal/financial advice).
+
+BEST MODELS FOR ROLE PROMPTING:
+- Claude — excellent at maintaining a consistent, nuanced 
+  professional role/voice throughout long conversations.
+- GPT-4o/4.1/5-class — very strong at adopting technical and 
+  creative expert roles with appropriate depth.
+- Gemini Pro — good role adherence, especially for technical/
+  scientific roles.
+- DeepSeek / Qwen — strong for technical/engineering roles (e.g., 
+  "senior software architect").
+- Grok — good for more casual/conversational expert roles.
+- Mistral / Llama (Instruct variants) — solid role-following; larger 
+  models maintain the role more consistently over long outputs.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    "You are a [SPECIFIC ROLE] with [YEARS/LEVEL OF EXPERTISE] in 
+    [DOMAIN]. [TASK INSTRUCTION]."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Role Declaration — "You are a [role]."
+    2. Expertise Qualifier (optional but powerful) — years of 
+       experience, specialization, notable trait ("known for 
+       explaining complex topics simply").
+    3. Task Instruction — the actual thing you want done.
+    4. (Optional) Behavioral expectations tied to the role ("Always 
+       cite sources," "Prioritize security over convenience").
+
+Example skeleton:
+    "You are a [ROLE], specializing in [SPECIALIZATION], with 
+    [X years] of experience. 
+    [TASK INSTRUCTION]. 
+    As a [ROLE], make sure to [ROLE-SPECIFIC BEHAVIOR]."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Be SPECIFIC with the role — "You are a senior backend engineer 
+  specializing in distributed systems" works better than just "You 
+  are an engineer."
+- Add relevant qualifiers: years of experience, specialization, 
+  notable working style ("known for clear, jargon-free 
+  explanations").
+- Pair the role with explicit behavioral expectations when it 
+  matters ("As a security expert, always flag potential 
+  vulnerabilities").
+- Use roles to set the AUDIENCE-APPROPRIATE tone too (e.g., "You are 
+  a patient tutor explaining to a complete beginner").
+- For sensitive domains (medical, legal, financial), always pair the 
+  role with a reminder to include appropriate disclaimers or caveats.
+- Combine role prompting with Persona Prompting for creative/
+  narrative tasks, or with Few-Shot for technical consistency.
+- Don't over-stack multiple conflicting roles in one prompt (e.g., 
+  "You are both a strict lawyer AND a casual friend" creates 
+  confusing, contradictory outputs).
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Using a vague role like "You are an expert" without 
+  specifying WHAT they're an expert in.
+  FIX: "You are an expert in machine learning model deployment and 
+  MLOps."
+
+- MISTAKE: Assigning a role that implies real-world authority the 
+  model doesn't have (e.g., "You are a licensed financial advisor 
+  and your advice is legally binding").
+  FIX: Use roles for STYLE and KNOWLEDGE FRAMING only; add 
+  disclaimers for high-stakes domains ("Note: this is general 
+  information, not professional financial advice").
+
+- MISTAKE: Changing roles mid-conversation without resetting context, 
+  causing inconsistent tone.
+  FIX: Explicitly state role changes clearly ("Switching roles: you 
+  are now a...").
+
+- MISTAKE: Assuming a role alone will fix a poorly structured 
+  instruction.
+  FIX: Roles enhance quality but don't replace clear task 
+  instructions — combine both.
+
+- MISTAKE: Using overly theatrical or unrealistic roles for serious 
+  technical tasks (e.g., "You are a wizard who codes") which can 
+  reduce output quality/seriousness.
+  FIX: Keep roles professionally grounded for technical/business 
+  tasks; save theatrical personas for creative writing tasks.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"You are a friendly nutritionist. Explain why drinking enough water 
+is important for health, in simple terms suitable for a general 
+audience."
+
+Expected Output:
+A warm, accessible explanation covering hydration's role in bodily 
+functions (digestion, temperature regulation, energy levels) written 
+in plain, encouraging language — without excessive medical jargon.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"You are a senior UX designer with 10 years of experience specializing 
+in mobile app onboarding flows. Review the following onboarding 
+concept and give 3 specific, actionable pieces of feedback focused on 
+reducing user drop-off:
+
+'Our onboarding has 7 screens: welcome screen, sign-up form, email 
+verification, profile setup with 12 fields, notification 
+permissions, tutorial video (3 minutes), and a final confirmation 
+screen before the user reaches the home page.'"
+
+Expected Output:
+Three specific, professional UX critiques focused on drop-off risk 
+(e.g., "12 profile fields is too many for onboarding — reduce to 3-4 
+essential fields and let users complete the rest later"), written 
+with the authority and specificity of an experienced UX 
+professional.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"You are a principal security architect specializing in cloud 
+infrastructure (AWS/GCP/Azure) with deep expertise in Zero Trust 
+architecture. A startup has described their current setup: 'All our 
+microservices communicate over a shared internal network with no 
+authentication between services, assuming the network perimeter is 
+secure enough.' 
+
+As a security architect, identify the core security risk with this 
+approach, explain why it violates Zero Trust principles, and 
+recommend a specific remediation strategy. Structure your answer 
+as: Risk, Why It Matters, Recommended Fix."
+
+Expected Output:
+A technically precise, professionally structured answer identifying 
+the "implicit trust" / lack of service-to-service authentication as 
+the core risk, explaining how this violates Zero Trust's "never 
+trust, always verify" principle (perimeter security alone is 
+insufficient against lateral movement/insider threats), and 
+recommending a specific fix such as implementing mutual TLS (mTLS) 
+or a service mesh (e.g., Istio) for service-to-service 
+authentication — all written with genuine architect-level authority 
+and precision.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    You are a [SPECIFIC ROLE], specializing in [SPECIALIZATION/
+    NICHE], with [X years/level] of experience.
+    
+    Task: [CLEAR TASK INSTRUCTION]
+    
+    As a [ROLE], please:
+    - [ROLE-SPECIFIC BEHAVIOR/PRIORITY 1]
+    - [ROLE-SPECIFIC BEHAVIOR/PRIORITY 2]
+    
+    [OPTIONAL: Note — this is general guidance, not a substitute 
+    for professional [medical/legal/financial] advice, if 
+    applicable.]
+
+=====================================================================
+END OF FILE 06 — Role Prompting
+=====================================================================

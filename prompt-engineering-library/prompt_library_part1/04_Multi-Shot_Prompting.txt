@@ -1,0 +1,301 @@
+=====================================================================
+04. MULTI-SHOT PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Foundations)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Multi-Shot Prompting — Deep Pattern Reinforcement With Many Examples
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Multi-shot prompting is an extension of few-shot prompting where you 
+provide a LARGER number of examples (typically 6 or more, sometimes 
+10-20+) to reinforce a pattern very strongly. While few-shot uses a 
+handful of examples to demonstrate a pattern, multi-shot goes 
+further — used when the task has high complexity, many edge cases, 
+or requires very precise, consistent output across a wide variety of 
+inputs.
+
+Think of it like training an employee not with 3 sample reports, but 
+with an entire binder of 15 different reports covering nearly every 
+situation they might encounter — ensuring they've internalized the 
+FULL range of the pattern, not just the basics.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Multi-shot prompting exists to:
+- Handle tasks with HIGH variability or many distinct categories/
+  edge cases that few examples can't fully cover.
+- Achieve near-fine-tuned levels of consistency without actually 
+  fine-tuning a model.
+- Reduce edge-case failures in production systems (e.g., 
+  classification systems with 10+ categories).
+- Establish very strict formatting or stylistic rules that must hold 
+  across diverse inputs.
+- Serve as a stopgap solution when you don't have the resources to 
+  fine-tune a custom model but need fine-tuned-level reliability.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- You have a classification or extraction task with many (5+) 
+  distinct categories or output types.
+- Few-shot prompting (2-5 examples) still leaves noticeable 
+  inconsistency or errors.
+- You're building a production pipeline (e.g., a customer support 
+  bot) that needs very high reliability.
+- The task requires the model to distinguish between subtly 
+  different cases that need multiple contrasting examples.
+- You have a large context window model (essential — multi-shot uses 
+  significant tokens).
+
+WHEN NOT TO USE:
+- Your model has a small context window and can't fit many examples 
+  alongside the actual task input.
+- The task is simple — using 10+ examples for a basic task wastes 
+  tokens and money for no benefit (diminishing returns kick in fast).
+- You're prototyping quickly — start with few-shot first, then scale 
+  up to multi-shot only if needed.
+- Cost is a major concern — multi-shot prompts are token-expensive, 
+  especially at scale (many API calls).
+
+BEST MODELS FOR MULTI-SHOT:
+- GPT-4o/4.1/5-class (long-context variants) — handle large numbers 
+  of examples with strong pattern retention.
+- Claude (especially 200K+ context models) — exceptional at 
+  maintaining consistency across many in-context examples due to 
+  strong long-context attention.
+- Gemini 1.5/2.x Pro (1M-2M token context) — ideal for multi-shot 
+  since it can hold huge numbers of examples plus large input data 
+  simultaneously.
+- Qwen (long-context variants) — good for multi-shot coding/technical 
+  tasks.
+- Mistral / Llama — check context window size carefully; only 
+  larger-context variants are suitable.
+- AVOID multi-shot on models with very small context windows (e.g., 
+  4K-8K tokens) as examples will crowd out the actual task.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [ROLE (optional)] + [TASK INSTRUCTION] + 
+    [EXAMPLE 1 → OUTPUT] + [EXAMPLE 2 → OUTPUT] + ... + 
+    [EXAMPLE N → OUTPUT] (6-20+ examples) + 
+    [NEW INPUT] + [OUTPUT FORMAT]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Task Instruction — clear description of the task and its 
+       full range of possible categories/outputs.
+    2. Category Legend (optional but recommended) — a short list of 
+       all possible output categories/labels before the examples.
+    3. Many Examples (6-20+) — organized, consistently formatted, 
+       covering the FULL range of scenarios including edge cases.
+    4. New Input — the real task.
+    5. Output cue.
+
+Example skeleton:
+    "[TASK INSTRUCTION]
+    Possible categories: [Category A, Category B, Category C, ...]
+    
+    Example 1: Input: [...] → Output: [...]
+    Example 2: Input: [...] → Output: [...]
+    ... (continue for 6-20+ examples, covering every category)
+    
+    Now classify:
+    Input: [new input]
+    Output:"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Ensure EVERY possible category/output type has AT LEAST ONE 
+  example (ideally 2+ for important or tricky categories).
+- Group examples logically (e.g., by category) rather than randomly, 
+  UNLESS you specifically want to test order-independence.
+- Use a consistent, compact format for each example to save tokens 
+  (e.g., single-line "Input: X → Output: Y" instead of verbose 
+  multi-line blocks, if the task allows).
+- Include a "category legend" or short list of valid outputs at the 
+  top so the model has a clear reference frame.
+- Monitor token cost carefully — multi-shot prompts can get 
+  expensive fast at scale; consider caching or fine-tuning if this 
+  becomes a recurring high-volume task.
+- Periodically REVIEW and PRUNE examples — remove redundant ones that 
+  don't add new information, keep the set as lean as possible while 
+  still covering the full pattern space.
+- Use multi-shot together with structured output formatting (like 
+  JSON) for maximum reliability in production systems.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Adding many examples but they all cluster around the same 
+  1-2 categories, leaving other categories under-represented.
+  FIX: Audit your example set to ensure balanced coverage across all 
+  categories/edge cases.
+
+- MISTAKE: Using multi-shot for a simple 2-category task where 
+  few-shot would have worked fine.
+  FIX: Reserve multi-shot for genuinely complex, high-variability 
+  tasks; use few-shot for simpler ones.
+
+- MISTAKE: Inconsistent formatting drift across many examples (small 
+  differences accumulate and confuse the model).
+  FIX: Use a template/script to generate your examples in a 
+  perfectly consistent format.
+
+- MISTAKE: Not accounting for token costs, leading to unexpectedly 
+  high API bills at scale.
+  FIX: Calculate token usage per request and consider fine-tuning or 
+  RAG-based example retrieval if volume is high.
+
+- MISTAKE: Overloading the context window so much that the actual 
+  new input gets "lost" among the examples.
+  FIX: Clearly separate examples from the new input with strong 
+  delimiters (e.g., "### NEW TASK ###").
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Classify each word as a Noun, Verb, or Adjective.
+
+Example 1: Input: 'run' → Output: Verb
+Example 2: Input: 'happy' → Output: Adjective
+Example 3: Input: 'table' → Output: Noun
+Example 4: Input: 'jump' → Output: Verb
+Example 5: Input: 'bright' → Output: Adjective
+Example 6: Input: 'ocean' → Output: Noun
+Example 7: Input: 'sing' → Output: Verb
+Example 8: Input: 'quiet' → Output: Adjective
+
+Now classify:
+Input: 'mountain'
+Output:"
+
+Expected Output:
+"Noun"
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"You are an intent classifier for a food delivery app's chatbot. 
+Classify user messages into: Order_Status, Cancel_Order, 
+Menu_Question, Refund_Request, Delivery_Issue, or Other.
+
+Example 1: Input: 'Where is my food right now?' → Output: 
+Order_Status
+Example 2: Input: 'I want to cancel my order please.' → Output: 
+Cancel_Order
+Example 3: Input: 'Do you guys have vegan options?' → Output: 
+Menu_Question
+Example 4: Input: 'I never got my order but was charged.' → Output: 
+Refund_Request
+Example 5: Input: 'The delivery guy left my food outside in the 
+rain.' → Output: Delivery_Issue
+Example 6: Input: 'What time do you close today?' → Output: Other
+Example 7: Input: 'Can you track my package?' → Output: 
+Order_Status
+Example 8: Input: 'This is taking forever, cancel it.' → Output: 
+Cancel_Order
+Example 9: Input: 'Is the chicken burger spicy?' → Output: 
+Menu_Question
+Example 10: Input: 'My order arrived cold and half missing.' → 
+Output: Delivery_Issue
+
+Now classify:
+Input: 'I paid for two drinks but only got one, can I get my money 
+back?'
+Output:"
+
+Expected Output:
+"Refund_Request"
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"You are a legal document classifier. Given a clause from a 
+contract, classify it into: Indemnification, Confidentiality, 
+Termination, Payment_Terms, Liability_Limitation, Governing_Law, 
+Force_Majeure, Non_Compete, or Intellectual_Property. Output as 
+JSON: {\"category\": \"...\", \"confidence\": \"high/medium/low\"}.
+
+Example 1: Input: 'Each party agrees to hold harmless and indemnify 
+the other against any claims arising from breach.' → Output: 
+{\"category\": \"Indemnification\", \"confidence\": \"high\"}
+Example 2: Input: 'Neither party shall disclose confidential 
+information to third parties for 5 years post-termination.' → 
+Output: {\"category\": \"Confidentiality\", \"confidence\": 
+\"high\"}
+Example 3: Input: 'This agreement may be terminated by either party 
+with 30 days written notice.' → Output: {\"category\": 
+\"Termination\", \"confidence\": \"high\"}
+Example 4: Input: 'Invoices are due within 30 days of receipt; late 
+payments incur a 1.5% monthly fee.' → Output: {\"category\": 
+\"Payment_Terms\", \"confidence\": \"high\"}
+Example 5: Input: 'In no event shall either party's liability exceed 
+the total fees paid in the preceding 12 months.' → Output: 
+{\"category\": \"Liability_Limitation\", \"confidence\": \"high\"}
+Example 6: Input: 'This agreement shall be governed by the laws of 
+the State of Delaware.' → Output: {\"category\": \"Governing_Law\", 
+\"confidence\": \"high\"}
+Example 7: Input: 'Neither party is liable for delays caused by 
+events beyond reasonable control, including natural disasters.' → 
+Output: {\"category\": \"Force_Majeure\", \"confidence\": \"high\"}
+Example 8: Input: 'Employee agrees not to work for a competing 
+business within 100 miles for 12 months after leaving.' → Output: 
+{\"category\": \"Non_Compete\", \"confidence\": \"high\"}
+Example 9: Input: 'All work product created during this engagement 
+shall be the sole property of the Company.' → Output: 
+{\"category\": \"Intellectual_Property\", \"confidence\": \"high\"}
+Example 10: Input: 'The parties may also agree verbally, though 
+this is not recommended practice.' → Output: {\"category\": 
+\"Governing_Law\", \"confidence\": \"low\"}
+
+Now classify:
+Input: 'If a party fails to make payment within 60 days, the 
+non-breaching party may terminate this agreement immediately and 
+pursue damages.'
+Output:"
+
+Expected Output:
+A JSON object that recognizes this clause blends two categories 
+(Payment_Terms and Termination) and appropriately outputs the most 
+dominant category with a confidence reflecting that ambiguity — 
+demonstrating how multi-shot examples help the model reason about 
+overlapping edge cases, e.g., {\"category\": \"Termination\", 
+\"confidence\": \"medium\"}.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    You are a [ROLE/EXPERTISE].
+    
+    Task: [DESCRIBE THE TASK CLEARLY]
+    Possible categories/outputs: [LIST ALL VALID OPTIONS]
+    
+    Example 1: Input: [...] → Output: [...]
+    Example 2: Input: [...] → Output: [...]
+    Example 3: Input: [...] → Output: [...]
+    Example 4: Input: [...] → Output: [...]
+    Example 5: Input: [...] → Output: [...]
+    Example 6: Input: [...] → Output: [...]
+    [Continue until every category/edge case has coverage — 
+    typically 8-20 examples]
+    
+    ### NEW TASK ###
+    Input: [YOUR NEW INPUT]
+    Output:
+
+=====================================================================
+END OF FILE 04 — Multi-Shot Prompting
+=====================================================================

@@ -1,0 +1,302 @@
+=====================================================================
+32. WORKFLOW PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Agentic)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Workflow Prompting — Defining Conditional, Branching Processes
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Workflow prompting is a technique where you define a process 
+containing CONDITIONAL LOGIC and BRANCHING PATHS — not just a fixed 
+linear sequence like Step-by-Step Prompting, but a flow where the path 
+taken depends on specific conditions being met ("IF this happens, do 
+X; OTHERWISE, do Y"). This mirrors how real business processes, 
+customer support flowcharts, or software logic actually operate, where 
+different situations require genuinely different handling rather than 
+one-size-fits-all sequential steps.
+
+Think of it like the difference between a fixed recipe that's always 
+executed the same way (Step-by-Step Prompting) versus a customer 
+service flowchart: "IF the customer wants a refund AND the order is 
+under 30 days old, THEN process automatically; ELSE IF over 30 days, 
+THEN escalate to a manager; ELSE IF it's a different request type, 
+THEN route to the appropriate department" — the actual path taken 
+depends entirely on the specific situation encountered.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Workflow prompting exists to:
+- Handle REAL-WORLD PROCESSES that inherently involve decision points 
+  and different handling paths for different situations, rather than 
+  one fixed sequence.
+- Build reliable, consistent customer support, business process 
+  automation, or triage systems where the correct response genuinely 
+  depends on specific conditions.
+- Reduce ambiguity in complex decision-making by making the branching 
+  logic EXPLICIT rather than leaving it to the model's implicit 
+  judgment each time.
+- Provide auditability for business-critical processes — since the 
+  conditional logic is spelled out, it's reviewable, testable, and 
+  can be systematically improved over time.
+- Serve as a bridge between simple prompting and full programmatic 
+  logic — Workflow Prompting essentially encodes an IF/ELSE decision 
+  tree directly into natural language instructions for the model to 
+  follow.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Customer support/triage systems where different issue types require 
+  genuinely different handling paths.
+- Business process automation where established rules determine 
+  different outcomes based on specific conditions (approval workflows, 
+  escalation criteria, routing logic).
+- Any process you'd naturally draw as a flowchart with decision 
+  diamonds ("IF X, go here; IF Y, go there").
+- Situations where CONSISTENCY across many different input scenarios 
+  matters, and the correct handling genuinely varies by scenario type.
+- Building the natural-language "business logic" layer for an AI 
+  system before or alongside actual code implementation.
+
+WHEN NOT TO USE:
+- Simple tasks with only ONE path regardless of input specifics — use 
+  Step-by-Step Prompting instead if there's no genuine branching.
+- Extremely complex workflows with dozens of interacting conditions — 
+  at some point, this complexity is better handled by actual code/
+  business logic rather than natural-language instructions to a 
+  model (use Workflow Prompting for the parts that genuinely benefit 
+  from LLM judgment, and real code for pure deterministic logic).
+- Creative or open-ended tasks where forcing rigid conditional 
+  branches would be artificial and limiting.
+
+BEST MODELS FOR WORKFLOW PROMPTING:
+- GPT-4o/4.1/5-class — reliably follows complex conditional logic 
+  without dropping or misapplying branches.
+- Claude — excellent at correctly navigating multi-condition workflows 
+  and explaining WHICH branch was taken and why, which is valuable for 
+  auditability.
+- Gemini Pro — strong conditional logic handling, particularly for 
+  structured business process automation.
+- DeepSeek / Qwen — capable of following workflow logic, particularly 
+  strong for technical/engineering decision workflows.
+- Mistral / Llama — capable of simpler workflows (2-4 conditions); for 
+  workflows with many nested/interacting conditions, larger models 
+  maintain accuracy better, and it's worth testing smaller models 
+  carefully before relying on them for complex branching logic.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [SCENARIO/INPUT] + "IF [CONDITION 1], THEN [ACTION 1]. ELSE IF 
+    [CONDITION 2], THEN [ACTION 2]. ELSE [DEFAULT ACTION]." + 
+    "State which condition applied and why."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Context/Scenario — the input situation the workflow needs to 
+       process.
+    2. Conditional Branches — a clear set of IF/ELSE IF/ELSE rules, 
+       each specifying a condition and the corresponding action.
+    3. Default/Fallback Case — what to do if none of the specific 
+       conditions clearly apply (avoid leaving gaps in the logic).
+    4. Transparency Instruction — ask the model to state which 
+       condition/branch it determined applies and why, for 
+       auditability.
+    5. Action Execution — carry out the action specified by whichever 
+       branch was triggered.
+
+Example skeleton:
+    "Given this input: [SCENARIO]. 
+    
+    Follow this workflow: 
+    IF [CONDITION 1], THEN [ACTION 1]. 
+    ELSE IF [CONDITION 2], THEN [ACTION 2]. 
+    ELSE IF [CONDITION 3], THEN [ACTION 3]. 
+    ELSE (default case), [DEFAULT ACTION]. 
+    
+    State which condition applies to this specific input and why, 
+    then carry out the corresponding action."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Always include a DEFAULT/ELSE case to handle situations that don't 
+  clearly match any of your specific conditions — never leave gaps in 
+  the logic where the model has no defined path to follow.
+- Make conditions as OBJECTIVE and UNAMBIGUOUS as possible (e.g., 
+  "order is more than 30 days old" is clearer than "order is old") to 
+  reduce inconsistent branch selection across different runs.
+- Order conditions from MOST SPECIFIC to MOST GENERAL when there's any 
+  chance of overlap, so the more specific, higher-priority condition 
+  is checked first.
+- Always ask the model to STATE which condition/branch applied — this 
+  transparency is invaluable for debugging, auditing, and building 
+  trust in the system's decisions.
+- For workflows with many conditions, consider breaking them into 
+  logical GROUPS or using nested conditions (a condition within a 
+  condition) rather than one giant flat list, for clarity.
+- Test your workflow against EDGE CASES specifically — situations that 
+  sit right at the boundary between two conditions, or that don't 
+  cleanly fit any condition, to confirm the logic behaves as expected.
+- For genuinely complex, high-stakes workflows, consider implementing 
+  the deterministic parts as actual code/business logic, reserving 
+  natural-language Workflow Prompting for the parts that specifically 
+  benefit from LLM judgment (e.g., interpreting ambiguous free-text 
+  input into a structured condition).
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: No default/else case, leaving the model without guidance 
+  when a situation doesn't clearly match any defined condition.
+  FIX: Always include an explicit default/fallback action.
+
+- MISTAKE: Vague, subjective conditions ("if the customer seems upset") 
+  that different runs might interpret inconsistently.
+  FIX: Make conditions as objective and measurable as possible.
+
+- MISTAKE: Overlapping conditions with no clear priority order, 
+  leading to ambiguity about which branch should actually apply when 
+  multiple conditions seem to match.
+  FIX: Order conditions by priority/specificity, and explicitly note 
+  which takes precedence if overlap is possible.
+
+- MISTAKE: Not asking the model to state which branch was taken, 
+  losing valuable transparency and making it hard to debug incorrect 
+  handling.
+  FIX: Always require the model to explicitly state which condition 
+  applied and why.
+
+- MISTAKE: Building an overly complex workflow with dozens of 
+  interacting conditions purely in natural language, when this level 
+  of complexity would be more reliably handled by actual code.
+  FIX: Recognize when workflow complexity has exceeded what's 
+  reliable in natural-language instructions, and shift deterministic 
+  logic to real code.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Given this input: A customer says 'I want to return my order, it's 
+been 10 days since I received it.' 
+
+Follow this workflow: 
+IF the return request is within 14 days of delivery, THEN approve the 
+return and provide return shipping instructions. 
+ELSE IF the return request is between 15-30 days, THEN offer store 
+credit instead of a full refund. 
+ELSE (more than 30 days), THEN inform the customer the return window 
+has closed, but offer to escalate to a supervisor for special 
+consideration. 
+
+State which condition applies here and why, then carry out the 
+corresponding action."
+
+Expected Output:
+"This falls under the first condition — the return request is within 
+14 days (10 days since delivery), so the return is approved. Here are 
+your return shipping instructions: [instructions]..."
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Given this input: A job applicant's resume shows 2 years of Python 
+experience, a completed relevant certification, but no formal computer 
+science degree, applying for a 'Mid-Level Python Developer' role that 
+typically requires 3+ years of experience. 
+
+Follow this workflow: 
+IF the candidate meets both the years-of-experience AND education 
+requirements, THEN recommend advancing directly to technical 
+interview. 
+ELSE IF the candidate is missing ONLY the formal degree but has 
+relevant certifications AND meets the experience requirement, THEN 
+recommend advancing to technical interview with a note about the 
+non-traditional background. 
+ELSE IF the candidate meets education/certification requirements but 
+is short on years of experience (within 1 year of the requirement), 
+THEN recommend a phone screen first to assess actual skill level 
+before committing to a full technical interview. 
+ELSE, THEN recommend rejecting for this specific role but flagging for 
+any more junior openings. 
+
+State which condition applies to this candidate and why, then provide 
+your recommendation."
+
+Expected Output:
+"This candidate falls under the third condition: they meet the 
+certification requirement, but their experience (2 years) is within 
+1 year of the stated 3+ year requirement, rather than meeting it 
+outright. Recommendation: schedule a phone screen first to assess 
+actual skill level before committing to a full technical interview 
+process."
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Given this input: A code review has surfaced a Python function that 
+directly concatenates user input into a SQL query string, and also 
+lacks any input validation for a required 'user_id' parameter (it 
+would fail with an unhandled exception if user_id were None). 
+
+Follow this workflow for triaging code review findings: 
+IF a finding represents a security vulnerability (e.g., injection 
+risk, exposed credentials, broken authentication), THEN classify as 
+CRITICAL, block the merge, and require immediate fix before any 
+further review. 
+ELSE IF a finding could cause a runtime crash/unhandled exception in 
+production but has no direct security implication, THEN classify as 
+HIGH, require a fix before merge, but do not block other independent 
+review items. 
+ELSE IF a finding is a code style/readability issue with no functional 
+or security impact, THEN classify as LOW, note it as an optional 
+improvement, and do not block merge. 
+ELSE IF a finding involves both a security issue AND a separate 
+runtime issue, THEN classify as CRITICAL overall, but list BOTH 
+issues distinctly so they can be tracked and fixed independently. 
+
+State which condition applies to this specific finding (or 
+combination of findings) and why, then provide the triage 
+classification and required actions."
+
+Expected Output:
+"This finding falls under the fourth condition — it contains BOTH a 
+security issue (SQL injection risk from directly concatenating user 
+input into a query) AND a separate runtime issue (unhandled exception 
+risk from missing None-check on user_id). Per the workflow, this is 
+classified as CRITICAL overall, with both issues tracked distinctly: 
+(1) SECURITY — SQL injection vulnerability; requires immediate fix 
+using parameterized queries before any merge. (2) RUNTIME — missing 
+input validation for user_id; requires a None/type check with a clear 
+error or default handling before merge. Merge is blocked until both 
+are resolved."
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Given this input: [SCENARIO/SITUATION TO PROCESS]
+    
+    Follow this workflow:
+    IF [CONDITION 1], THEN [ACTION 1].
+    ELSE IF [CONDITION 2], THEN [ACTION 2].
+    ELSE IF [CONDITION 3], THEN [ACTION 3].
+    ELSE (default case), THEN [DEFAULT ACTION].
+    
+    State which condition applies to this specific input and why 
+    (noting if multiple conditions apply and how you're handling 
+    that), then carry out the corresponding action(s).
+
+=====================================================================
+END OF FILE 32 — Workflow Prompting
+=====================================================================

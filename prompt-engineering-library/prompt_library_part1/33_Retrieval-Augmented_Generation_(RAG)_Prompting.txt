@@ -1,0 +1,328 @@
+=====================================================================
+33. RETRIEVAL-AUGMENTED GENERATION (RAG) PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Knowledge)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Retrieval-Augmented Generation (RAG) Prompting — Grounding Answers in 
+Retrieved Documents
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Retrieval-Augmented Generation (RAG) prompting is a technique used 
+within RAG SYSTEMS — architectures where relevant documents/passages 
+are first RETRIEVED from an external knowledge base (using vector 
+search, keyword search, or a hybrid of both) based on the user's 
+query, and then INJECTED into the model's prompt as context, with 
+explicit instructions for the model to base its answer PRIMARILY or 
+EXCLUSIVELY on that retrieved content rather than its internal 
+training knowledge. This is distinct from general Context Prompting 
+(file 08) in that RAG specifically involves an automated RETRIEVAL 
+step (typically via embeddings/vector similarity search) that 
+dynamically selects which documents to include, rather than manually 
+pasting in fixed context.
+
+Think of it like the difference between a student answering an exam 
+question purely from memory (standard LLM generation) versus an 
+open-book exam where the student first looks up the most relevant 
+pages in a reference textbook (the retrieval step) and then writes 
+their answer specifically citing and grounding it in those found 
+pages (the augmented generation step) — this produces more accurate, 
+verifiable, and up-to-date answers than memory alone, especially for 
+specialized or rapidly-changing information.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+RAG prompting exists to:
+- Ground model responses in ACCURATE, VERIFIABLE, and often more 
+  CURRENT information than what's baked into the model's training 
+  data, reducing hallucination significantly.
+- Enable models to answer questions about PRIVATE, PROPRIETARY, or 
+  SPECIALIZED knowledge (company documents, personal notes, niche 
+  technical documentation) that was never part of their training data.
+- Provide natural CITATION/SOURCE-ATTRIBUTION capability, since the 
+  model can point back to the specific retrieved passage that supports 
+  each claim.
+- Reduce the need for expensive model fine-tuning when the actual goal 
+  is simply giving the model access to specific, current, or 
+  proprietary knowledge (relevant to projects like Deb Barman's 
+  RAG_Master hybrid dense/sparse retrieval framework).
+- Combine the model's general REASONING capability with dynamically 
+  retrieved, task-specific FACTS — getting the best of both rather 
+  than choosing one or the other.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Building Q&A systems, chatbots, or search interfaces over a specific 
+  document collection (company knowledge base, personal notes, 
+  technical documentation, legal/medical corpora).
+- Any application where FACTUAL ACCURACY grounded in specific, 
+  verifiable sources matters more than the model's general/parametric 
+  knowledge.
+- Situations involving frequently-updated information where 
+  retraining/fine-tuning a model for every update would be impractical 
+  — RAG lets you update the underlying document store instead.
+- Any use case requiring the model to work with PRIVATE data it was 
+  never trained on (internal company documents, personal files).
+
+WHEN NOT TO USE:
+- General knowledge questions the model already answers reliably from 
+  its own training — building a full retrieval pipeline for this adds 
+  unnecessary complexity/cost.
+- Purely creative or subjective tasks with no factual grounding 
+  requirement.
+- Very small, static knowledge bases that could just be included 
+  directly as Context Prompting (file 08) without needing a full 
+  retrieval/embedding pipeline — RAG's retrieval machinery earns its 
+  complexity when the knowledge base is too large to fit entirely in 
+  context every time.
+
+BEST MODELS FOR RAG PROMPTING:
+- Claude — excellent at faithfully grounding responses in provided 
+  retrieved context and appropriately citing/quoting the specific 
+  supporting passages, with strong resistance to "ignoring" the 
+  retrieved context in favor of its own prior beliefs when properly 
+  instructed to prioritize the source material.
+- GPT-4o/4.1/5-class — strong RAG performance, widely used in 
+  production RAG pipelines.
+- Gemini Pro/Ultra (especially large-context variants) — excellent for 
+  RAG systems needing to process large amounts of retrieved context 
+  simultaneously.
+- For the RETRIEVAL component specifically (separate from the 
+  generation model): embedding models like OpenAI's text-embedding 
+  models, Google's embedding models, or open-source options 
+  (sentence-transformers, BGE models) combined with vector databases 
+  (ChromaDB, FAISS, Pinecone, Weaviate) — directly relevant to hybrid 
+  dense/sparse retrieval architectures.
+- DeepSeek / Qwen — capable generation models for RAG pipelines, 
+  particularly cost-effective for high-volume RAG applications.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    "Using ONLY the following retrieved context, answer the question. 
+    If the context doesn't contain enough information to answer, say 
+    so rather than guessing. 
+    
+    Retrieved Context: [RETRIEVED DOCUMENTS/PASSAGES] 
+    
+    Question: [USER'S QUESTION]"
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Grounding Instruction — explicit instruction to base the answer 
+       on the provided retrieved context, not general knowledge.
+    2. Uncertainty Handling Instruction — explicit guidance on what to 
+       do if the retrieved context is insufficient (acknowledge the 
+       gap rather than hallucinating an answer).
+    3. Retrieved Context — the actual passages/documents returned by 
+       the retrieval system, ideally with source labels/citations 
+       (document name, page, section).
+    4. User Question — the original query.
+    5. Citation Instruction (optional but recommended) — ask the model 
+       to indicate WHICH part of the retrieved context supports each 
+       claim in its answer.
+
+Example skeleton:
+    "You are answering based on retrieved documents. Use ONLY the 
+    context provided below to answer the question. If the context 
+    doesn't contain sufficient information, clearly say so rather than 
+    relying on outside knowledge. Cite which source/passage supports 
+    each part of your answer. 
+    
+    Retrieved Context: 
+    [Source 1: ...] 
+    [Source 2: ...] 
+    
+    Question: [USER QUESTION] 
+    
+    Answer (with citations):"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Always instruct the model to PRIORITIZE the retrieved context over 
+  its own internal/parametric knowledge, especially for facts that 
+  might conflict (e.g., a company policy that changed after the 
+  model's training cutoff).
+- Explicitly handle the "insufficient context" case — instruct the 
+  model to acknowledge when the retrieved passages don't actually 
+  answer the question, rather than filling gaps with hallucinated 
+  information.
+- Include SOURCE LABELS/METADATA with each retrieved passage (document 
+  name, date, section) so the model can properly attribute claims and 
+  you can verify accuracy.
+- Ask for CITATIONS in the output — having the model indicate which 
+  specific source supports each claim significantly improves 
+  trustworthiness and lets users verify claims themselves.
+- For hybrid retrieval systems (combining dense/vector search with 
+  sparse/keyword search, as in reciprocal rank fusion approaches), 
+  ensure the final ranked/merged context passed to the model is 
+  genuinely the most relevant set, since irrelevant retrieved passages 
+  can dilute focus or introduce noise.
+- Consider the CONTEXT WINDOW budget carefully — retrieving too many 
+  passages can crowd out room for reasoning or cause "lost in the 
+  middle" effects even in long-context models; retrieve the most 
+  relevant K passages rather than maximizing quantity.
+- Test your RAG prompts specifically for cases where retrieval FAILS 
+  to find relevant content, to confirm the model behaves gracefully 
+  (acknowledging the gap) rather than hallucinating.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Not instructing the model to prioritize retrieved context 
+  over its own training knowledge, leading it to sometimes ignore 
+  correct retrieved information in favor of outdated internal 
+  "beliefs."
+  FIX: Explicitly instruct the model to base its answer primarily on 
+  the provided context.
+
+- MISTAKE: No guidance for the "insufficient context" case, leading to 
+  hallucinated answers when retrieval didn't actually find relevant 
+  information.
+  FIX: Explicitly instruct the model to acknowledge when the context 
+  doesn't contain enough information to answer.
+
+- MISTAKE: Not requesting citations, making it hard for users to 
+  verify claims or trust the system's outputs.
+  FIX: Always ask the model to indicate which source/passage supports 
+  each part of its answer.
+
+- MISTAKE: Retrieving and stuffing in too many passages, diluting 
+  relevance and potentially causing the model to lose focus among 
+  excessive context.
+  FIX: Retrieve a focused, high-relevance set of passages (tune your 
+  retrieval system's top-K parameter) rather than maximizing quantity.
+
+- MISTAKE: Missing source metadata/labels on retrieved passages, 
+  making proper citation and verification difficult or impossible.
+  FIX: Always include source identification (document name, date, 
+  section) alongside each retrieved passage.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Using ONLY the following retrieved context, answer the question. If 
+the context doesn't contain enough information, say so. 
+
+Retrieved Context: 
+[Source: Company_Handbook_2026.pdf, Section 4.2] 'Employees are 
+entitled to 15 days of paid vacation per year, accrued monthly, with a 
+maximum carryover of 5 days into the following year.' 
+
+Question: How many vacation days do employees get, and can they carry 
+days over to next year?"
+
+Expected Output:
+"According to the Company Handbook (Section 4.2), employees are 
+entitled to 15 days of paid vacation per year, accrued monthly. Yes, 
+they can carry over unused days to the following year, up to a 
+maximum of 5 days."
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Using ONLY the following retrieved context, answer the question. If 
+the context doesn't fully answer the question, clearly state what's 
+missing. Cite the source for each part of your answer. 
+
+Retrieved Context: 
+[Source: API_Docs_v2.3, Section 'Authentication'] 'All API requests 
+must include a Bearer token in the Authorization header. Tokens expire 
+after 24 hours and must be refreshed using the /auth/refresh 
+endpoint.' 
+[Source: API_Docs_v2.3, Section 'Rate Limits'] 'The API enforces a 
+rate limit of 100 requests per minute per API key. Exceeding this 
+limit returns a 429 status code.' 
+
+Question: How do I authenticate with the API, and what happens if I 
+send too many requests too quickly?"
+
+Expected Output:
+"To authenticate, include a Bearer token in the Authorization header 
+of your API requests (Source: Authentication section). These tokens 
+expire after 24 hours and need to be refreshed via the /auth/refresh 
+endpoint (Source: Authentication section). Regarding rate limits: the 
+API allows up to 100 requests per minute per API key; exceeding this 
+results in a 429 status code response (Source: Rate Limits section)."
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"You are the generation component of a hybrid dense/sparse RAG system. 
+The following passages were retrieved and re-ranked using Reciprocal 
+Rank Fusion combining vector similarity search and BM25 keyword 
+search results. Using ONLY this retrieved context, answer the 
+technical question. If the retrieved context is insufficient or 
+appears to conflict between sources, explicitly note the conflict/gap 
+rather than resolving it with outside knowledge. Cite the specific 
+source for each claim. 
+
+Retrieved Context: 
+[Source: internal_wiki/deployment_guide.md, relevance rank 1] 'Our 
+production deployment uses a blue-green deployment strategy with a 
+5-minute health check window before traffic is fully routed to the 
+new version.' 
+[Source: internal_wiki/incident_2026_03.md, relevance rank 2] 'During 
+the March 2026 incident, the standard 5-minute health check window 
+was insufficient to catch a memory leak that only manifested after 
+approximately 12 minutes of sustained load, resulting in a delayed 
+detection.' 
+[Source: internal_wiki/deployment_guide.md, relevance rank 3, older 
+revision noted] 'Note: as of the guide's last major revision, the 
+health check window was still set to its original 5-minute default 
+and has not yet been updated post-incident.' 
+
+Question: What is our current deployment health check process, and is 
+it adequate?"
+
+Expected Output:
+"Our current production deployment uses a blue-green deployment 
+strategy with a 5-minute health check window before full traffic 
+routing (Source: deployment_guide.md). However, based on retrieved 
+context, there is a notable gap: the March 2026 incident report 
+indicates this 5-minute window was insufficient to catch a memory 
+leak that only appeared after roughly 12 minutes of sustained load, 
+causing delayed detection (Source: incident_2026_03.md). Additionally, 
+the deployment guide itself notes that as of its last revision, the 
+health check window had NOT yet been updated to address this finding 
+(Source: deployment_guide.md, older revision note). Based solely on 
+this retrieved context, I cannot confirm whether the health check 
+window has since been updated post-incident — the available documents 
+suggest it may still be at the original 5-minute default, which the 
+incident data suggests may be inadequate for catching certain classes 
+of issues like slow memory leaks."
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    You are answering based on retrieved documents. Use ONLY the 
+    context provided below — do not rely on outside/general knowledge 
+    for factual claims. If the context is insufficient to fully answer 
+    the question, or if sources conflict, explicitly state this rather 
+    than guessing or resolving it yourself.
+    
+    Retrieved Context:
+    [Source: DOCUMENT_NAME, SECTION/METADATA] "[RETRIEVED PASSAGE 
+    TEXT]"
+    [Source: DOCUMENT_NAME_2, SECTION/METADATA] "[RETRIEVED PASSAGE 
+    TEXT]"
+    
+    Question: [USER'S QUESTION]
+    
+    Provide your answer, citing the specific source for each claim.
+
+=====================================================================
+END OF FILE 33 — Retrieval-Augmented Generation (RAG) Prompting
+=====================================================================

@@ -1,0 +1,286 @@
+=====================================================================
+30. TOOL-USE PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Agentic)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Tool-Use Prompting — Extending Model Capability With External Tools
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Tool-Use prompting is a technique for instructing a model on WHEN and 
+HOW to use external tools (calculators, search engines, code 
+interpreters, databases, APIs, file systems) to complete a task that 
+would be difficult, unreliable, or impossible using only the model's 
+internal knowledge and reasoning. Unlike ReAct (which specifically 
+defines an interleaved Thought/Action/Observation LOOP for multi-step 
+investigative tasks), Tool-Use Prompting is the broader, foundational 
+skill of correctly recognizing which available tool fits a given need 
+and invoking it with properly formatted inputs — which may involve 
+just a single tool call, not necessarily a full iterative loop.
+
+Think of it like teaching someone WHEN to reach for a calculator vs. 
+doing mental math, WHEN to look something up vs. relying on memory, 
+and WHEN to use a specific specialized instrument for a specific job 
+— the core skill is TOOL SELECTION and CORRECT USAGE, which is a 
+prerequisite for any more complex agentic behavior built on top of 
+it.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Tool-Use prompting exists to:
+- Overcome the model's inherent limitations (outdated knowledge, 
+  unreliable precise arithmetic, no access to private/real-time data) 
+  by delegating those specific sub-tasks to purpose-built tools.
+- Improve accuracy and reliability by using the RIGHT tool for the 
+  right job, rather than forcing the model to approximate everything 
+  through internal reasoning alone.
+- Enable models to interact with the real world and external systems 
+  — files, databases, APIs, code execution environments — turning a 
+  pure text generator into a genuinely capable AGENT.
+- Provide the foundational capability that more complex agentic 
+  patterns (ReAct, Multi-Agent systems, Function Calling) are built 
+  upon.
+- Reduce hallucination by grounding responses in actual tool-verified 
+  data rather than the model's potentially incorrect or outdated 
+  internal "beliefs."
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Any task requiring precise calculation (use a calculator/code 
+  execution tool rather than trusting mental math for complex 
+  numbers).
+- Any task requiring current/real-time information (use a search 
+  tool).
+- Any task requiring access to specific files, databases, or private 
+  systems (use the relevant file/database/API tool).
+- Tasks where the model's training data is known to be unreliable or 
+  outdated for the specific need.
+- Whenever a genuinely more RELIABLE method exists outside the 
+  model's own generative reasoning for a specific sub-component of the 
+  task.
+
+WHEN NOT TO USE:
+- Simple tasks the model can reliably handle from its own knowledge/
+  reasoning without needing external verification (don't over-
+  engineer trivial tasks with unnecessary tool calls).
+- When no relevant tool is actually available in your environment — 
+  design prompts around your ACTUAL available toolset, not an 
+  idealized one.
+- When tool latency/cost outweighs the accuracy benefit for a low-
+  stakes task.
+
+BEST MODELS FOR TOOL-USE PROMPTING:
+- Claude — excellent native tool-use/function-calling capability, 
+  reliably formats tool calls correctly and reasons well about WHEN a 
+  tool is actually needed vs. when direct knowledge suffices.
+- GPT-4o/4.1/5-class (with function calling) — very strong, widely-
+  used tool-calling capability, the basis for most production agentic 
+  applications built on OpenAI's API.
+- Gemini Pro/Ultra (with function calling/tool use) — strong tool-use 
+  capability, especially for multimodal tool integration.
+- DeepSeek / Qwen (function-calling variants) — capable tool-use 
+  performance for coding/technical tool integration.
+- Mistral / Llama (function-calling fine-tuned variants) — capable of 
+  tool use when the model variant specifically supports function 
+  calling; verify your chosen model/variant has this capability before 
+  building a tool-use-dependent system.
+- Cursor / Copilot / Claude Code — naturally built around extensive, 
+  sophisticated tool use (file editing, code execution, terminal 
+  access) as their core operating paradigm.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [TASK] + "Available tools: [TOOL LIST WITH DESCRIPTIONS]. Use a 
+    tool whenever it would be more reliable than your own internal 
+    knowledge/reasoning for that specific part of the task. Format 
+    tool calls as: [FORMAT]."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Task Statement — what needs to be accomplished.
+    2. Available Tools Declaration — each tool's name, purpose, and 
+       expected input format.
+    3. Tool Selection Guidance — criteria for WHEN to use a tool vs. 
+       relying on internal knowledge (e.g., "use search for anything 
+       that might have changed recently; use calculate for any 
+       arithmetic beyond simple single-digit operations").
+    4. Tool Call Format — the exact syntax/format expected for 
+       invoking each tool.
+    5. Result Integration — instruction on how to incorporate tool 
+       results into the final response.
+
+Example skeleton:
+    "Task: [GOAL]. 
+    Available tools: 
+    - search[query]: use for current events, real-time data, or facts 
+      you're not confident about. 
+    - calculate[expression]: use for any non-trivial arithmetic. 
+    - read_file[path]: use to access provided file contents. 
+    
+    Use a tool whenever it would produce a more reliable result than 
+    relying on your own knowledge alone. Format each tool call as 
+    shown, then incorporate the tool's result into your final 
+    response."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Clearly describe EACH tool's PURPOSE and expected input format — 
+  ambiguous tool descriptions lead to incorrect or malformed tool 
+  calls.
+- Give explicit GUIDANCE on when to use a tool vs. relying on internal 
+  knowledge — without this, models may either over-use tools 
+  (unnecessary calls for trivial tasks) or under-use them (relying on 
+  potentially unreliable internal knowledge when a tool would clearly 
+  be better).
+- For arithmetic-heavy tasks, explicitly instruct using a calculation/
+  code execution tool rather than mental math, even for seemingly 
+  simple calculations, if precision matters.
+- For time-sensitive or "current state" questions, always instruct 
+  reaching for a search tool rather than trusting potentially outdated 
+  internal knowledge.
+- Handle tool FAILURES explicitly — what should happen if a tool call 
+  returns an error, empty result, or unexpected data format?
+- Don't over-specify — trust the model's judgment on tool NECESSITY 
+  once you've given good criteria, rather than rigidly mandating a 
+  tool call for every single sub-step regardless of actual need.
+- Test your tool descriptions with a few sample tasks to confirm the 
+  model correctly identifies WHEN each tool should be used, adjusting 
+  descriptions if you notice systematic over- or under-use.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Vague or incomplete tool descriptions, leading to 
+  incorrectly formatted tool calls or the model not understanding when 
+  a tool is actually appropriate.
+  FIX: Provide clear, specific descriptions of each tool's purpose and 
+  exact input format.
+
+- MISTAKE: No guidance on WHEN to use tools vs. internal knowledge, 
+  leading to either excessive unnecessary tool calls or reliance on 
+  potentially outdated/unreliable internal knowledge when a tool 
+  clearly would have been better.
+  FIX: Provide explicit criteria for tool selection.
+
+- MISTAKE: Not accounting for tool failures (errors, empty results, 
+  timeouts), leaving the model without guidance on how to proceed when 
+  a tool doesn't work as expected.
+  FIX: Include explicit fallback/error-handling instructions.
+
+- MISTAKE: Assuming a tool is available when it actually isn't 
+  connected/configured in the current environment, leading to 
+  hallucinated tool calls that don't correspond to real capabilities.
+  FIX: Only reference tools that are genuinely available in your 
+  specific setup.
+
+- MISTAKE: Using a tool for something the model could already reliably 
+  handle from its own knowledge, adding unnecessary latency/cost for 
+  no accuracy benefit.
+  FIX: Reserve tool use for genuinely uncertain, precision-critical, 
+  or time-sensitive needs.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Task: What is 847 multiplied by 293, and is that number prime? 
+Available tools: 
+- calculate[expression]: use for arithmetic calculations. 
+
+Use the calculate tool for the multiplication rather than doing it 
+mentally, since precision matters here."
+
+Expected Output:
+A tool call such as calculate[847 * 293], returning 248,171, followed 
+by a correct determination of whether that specific number is prime 
+(likely requiring the calculate tool again or a reasoning process to 
+check divisibility), with the final answer clearly stated based on 
+the verified calculation rather than mental estimation.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Task: I need to know the current stable version of Python and 
+whether my code (written using Python 3.9 syntax features like 
+dictionary union operators) would run correctly on it. 
+Available tools: 
+- search[query]: use for current, real-time information. 
+
+Use the search tool to find the current stable Python version, since 
+this changes over time and your training data may be outdated. Then 
+reason about compatibility based on that verified information."
+
+Expected Output:
+A search tool call for the current stable Python version, followed by 
+a reasoned compatibility assessment based on the ACTUAL current 
+version returned (not an assumed/outdated version from training 
+data), correctly noting that Python 3.9+ syntax features would work 
+fine on any current stable version since Python maintains backward 
+compatibility for such features.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Task: Analyze the attached sales_data.csv file to determine the top 
+3 best-selling product categories by total revenue, and calculate 
+what percentage of total company revenue each represents. 
+Available tools: 
+- read_file[path]: reads file contents. 
+- calculate[expression]: performs precise arithmetic. 
+- run_code[python_code]: executes Python code for data processing. 
+
+For a task involving a real data file with likely many rows, use 
+run_code to properly parse and aggregate the CSV data with pandas 
+rather than attempting to manually estimate totals — this ensures 
+accuracy. Use calculate for any final percentage computations if not 
+already handled within your code. Present your final answer clearly, 
+including the actual verified figures."
+
+Expected Output:
+A tool call to read_file to confirm the file's structure, followed by 
+a run_code call using pandas (e.g., `df.groupby('category')['revenue'
+].sum().sort_values(ascending=False).head(3)`) to accurately aggregate 
+and rank categories by total revenue, then a percentage-of-total 
+calculation performed within the same code execution (or via a 
+follow-up calculate call), with the final answer presenting the 
+verified top 3 categories and their exact percentage contributions — 
+demonstrating correct tool selection (using genuine code execution for 
+real data aggregation rather than attempting error-prone manual/
+mental estimation of a real dataset).
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Task: [YOUR GOAL]
+    
+    Available tools:
+    - [TOOL 1 NAME][expected input format]: [WHEN/WHY TO USE THIS 
+      TOOL]
+    - [TOOL 2 NAME][expected input format]: [WHEN/WHY TO USE THIS 
+      TOOL]
+    - [TOOL 3 NAME][expected input format]: [WHEN/WHY TO USE THIS 
+      TOOL]
+    
+    Use a tool whenever it would produce a more reliable, accurate, or 
+    current result than relying on your own internal knowledge alone. 
+    If a tool call fails or returns unexpected results, [FALLBACK 
+    INSTRUCTION]. 
+    
+    Incorporate verified tool results into your final response, 
+    clearly stating your answer based on that verified information.
+
+=====================================================================
+END OF FILE 30 — Tool-Use Prompting
+=====================================================================

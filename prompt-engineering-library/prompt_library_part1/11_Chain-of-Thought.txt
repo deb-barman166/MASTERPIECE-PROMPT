@@ -1,0 +1,267 @@
+=====================================================================
+11. CHAIN-OF-THOUGHT (COT) PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Reasoning)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Chain-of-Thought Prompting — Making the Model "Show Its Work"
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Chain-of-Thought (CoT) prompting is a technique where you explicitly 
+instruct the model to break down its reasoning into a sequence of 
+intermediate logical steps BEFORE arriving at a final answer, 
+typically by including example demonstrations of step-by-step 
+reasoning in the prompt. This dramatically improves performance on 
+tasks requiring multi-step logic, arithmetic, or complex reasoning, 
+because it forces the model to work through the problem 
+systematically rather than jumping straight to a (potentially wrong) 
+answer.
+
+Think of it like the difference between a student writing just the 
+final answer to a math problem versus "showing their work" — the 
+step-by-step process itself helps ensure accuracy and lets you spot 
+exactly where an error occurred if the final answer is wrong.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Chain-of-Thought prompting exists to:
+- Significantly improve accuracy on tasks requiring multi-step 
+  reasoning (math word problems, logic puzzles, multi-step planning).
+- Reduce errors caused by the model "jumping to conclusions" without 
+  proper intermediate reasoning.
+- Make the model's reasoning process TRANSPARENT and auditable — you 
+  can see WHERE a mistake happened, not just THAT one happened.
+- Unlock emergent reasoning capabilities in large models that don't 
+  appear with direct-answer prompting alone.
+- Serve as the foundational technique behind more advanced reasoning 
+  methods (Self-Consistency, Tree-of-Thoughts, ReAct all build on 
+  CoT).
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Math word problems, arithmetic, and multi-step calculations.
+- Logic puzzles, riddles, and problems requiring sequential 
+  deduction.
+- Complex multi-step planning or decision-making tasks.
+- Code debugging where you need to trace through logic step-by-step.
+- Any task where the DIRECT answer is often wrong but breaking it 
+  down improves accuracy (a good heuristic: if a task requires more 
+  than one logical "hop," CoT usually helps).
+
+WHEN NOT TO USE:
+- Simple factual lookups or single-step tasks (adds unnecessary 
+  verbosity/latency for no accuracy benefit — e.g., "What is the 
+  capital of Spain?" doesn't need CoT).
+- When you need ONLY the final answer with no explanation (though 
+  you can still use CoT internally and then ask for just the final 
+  answer to be highlighted).
+- Extremely latency-sensitive applications where the extra reasoning 
+  tokens meaningfully slow down response time.
+- NOTE: Many modern "reasoning models" (o1/o3, DeepSeek-R1, Claude 
+  with extended thinking, Gemini with thinking) perform CoT-style 
+  reasoning INTERNALLY and automatically — explicit CoT prompting is 
+  less necessary (though still can help) with these models compared 
+  to standard non-reasoning models.
+
+BEST MODELS FOR CHAIN-OF-THOUGHT:
+- OpenAI o-series (o1/o3) and GPT-5-class reasoning modes — built 
+  specifically for extended internal chain-of-thought reasoning.
+- Claude with extended thinking enabled — excellent at transparent, 
+  detailed step-by-step reasoning for complex problems.
+- DeepSeek-R1 — specifically designed and trained for strong 
+  chain-of-thought math/logic reasoning, open-source and highly 
+  capable.
+- Gemini 2.x with Thinking mode — strong native CoT-style reasoning.
+- Qwen (QwQ/reasoning variants) — strong open-source CoT performance 
+  for math and coding.
+- Standard (non-reasoning) GPT-4o, Claude Sonnet, Gemini Pro — still 
+  benefit significantly from EXPLICIT CoT prompting ("think step by 
+  step") since they don't reason internally by default the way 
+  dedicated reasoning models do.
+- Mistral / Llama — benefit from explicit CoT prompting, especially 
+  smaller models which struggle with direct multi-step reasoning 
+  without it.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [TASK/QUESTION] + "Let's think step by step." OR 
+    [TASK] + [FEW-SHOT EXAMPLES SHOWING STEP-BY-STEP REASONING] + 
+    [NEW QUESTION]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Task/Question — the problem to solve.
+    2. Explicit Reasoning Trigger — a phrase instructing step-by-
+       step thinking ("Let's think step by step," "Break this down 
+       into steps," "Show your reasoning before answering").
+    3. (Optional, for Few-Shot CoT) One or more worked examples 
+       showing the full reasoning chain, not just the final answer.
+    4. Final Answer Cue — a clear signal for where the final answer 
+       should appear (e.g., "Final Answer:").
+
+Example skeleton (Zero-Shot CoT):
+    "[QUESTION] 
+    Let's think step by step."
+
+Example skeleton (Few-Shot CoT):
+    "Q: [Example Question] 
+    A: [Step 1 reasoning] → [Step 2 reasoning] → [Step 3 reasoning] 
+    → Final Answer: [answer] 
+    
+    Q: [New Question] 
+    A:"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Use the simple trigger phrase "Let's think step by step" for 
+  quick, zero-shot CoT — this alone significantly boosts accuracy on 
+  many reasoning tasks (this is a well-documented, research-backed 
+  technique).
+- For higher-stakes or more complex problems, use Few-Shot CoT: show 
+  1-3 example problems with FULLY worked-out reasoning chains before 
+  the real question.
+- Ask for a clearly labeled "Final Answer:" at the end so it's easy 
+  to extract the actual answer from the reasoning trace 
+  programmatically or visually.
+- For problems with common error patterns, explicitly ask the model 
+  to double-check its work as a final reasoning step ("After 
+  reaching an answer, verify it by re-checking your calculation").
+- Break extremely complex problems into smaller sub-questions if a 
+  single CoT chain gets too long or loses focus.
+- Combine with Self-Consistency Prompting (generating multiple CoT 
+  chains and taking a majority vote) for higher-stakes problems 
+  where accuracy is critical.
+- Don't overuse CoT on simple tasks — it adds latency/cost without 
+  benefit and can occasionally even introduce unnecessary complexity 
+  or errors on trivially simple questions.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Using CoT for simple, single-step factual questions where 
+  it adds no value and wastes tokens.
+  FIX: Reserve CoT for genuinely multi-step reasoning tasks.
+
+- MISTAKE: Not asking for a clearly labeled final answer, making it 
+  hard to extract the actual result from a long reasoning trace.
+  FIX: Always end with an explicit "Final Answer:" cue.
+
+- MISTAKE: Assuming CoT reasoning is always 100% accurate just 
+  because it "shows work" — models can still make reasoning errors 
+  within the chain itself.
+  FIX: For critical tasks, verify results independently or use 
+  Self-Consistency (multiple reasoning paths, majority vote).
+
+- MISTAKE: Writing Few-Shot CoT examples with inconsistent reasoning 
+  styles/formats between examples.
+  FIX: Keep the structure and style of reasoning steps consistent 
+  across all examples.
+
+- MISTAKE: Making reasoning examples too short/shallow, not actually 
+  demonstrating genuine step-by-step logic (just restating the 
+  answer with extra words).
+  FIX: Ensure each example shows REAL intermediate reasoning steps 
+  that logically build toward the answer.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE (Zero-Shot CoT) ---
+Prompt:
+"A store had 120 apples. They sold 45 apples in the morning and 28 
+apples in the afternoon. How many apples are left? 
+Let's think step by step."
+
+Expected Output:
+"Step 1: Start with 120 apples. 
+Step 2: Subtract morning sales: 120 - 45 = 75 apples. 
+Step 3: Subtract afternoon sales: 75 - 28 = 47 apples. 
+Final Answer: 47 apples."
+
+--- INTERMEDIATE EXAMPLE (Few-Shot CoT) ---
+Prompt:
+"Q: A train travels 60 miles in 1.5 hours. What is its average speed 
+in miles per hour? 
+A: Step 1: Average speed = distance ÷ time. Step 2: 60 miles ÷ 1.5 
+hours = 40 miles per hour. Final Answer: 40 mph. 
+
+Q: A car travels 210 miles in 3.5 hours. What is its average speed 
+in miles per hour? 
+A:"
+
+Expected Output:
+"Step 1: Average speed = distance ÷ time. 
+Step 2: 210 miles ÷ 3.5 hours = 60 miles per hour. 
+Final Answer: 60 mph."
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"You are debugging a Python function. The function is supposed to 
+return the second-largest number in a list, but it's returning 
+incorrect results for some inputs. 
+
+def second_largest(nums):
+    largest = max(nums)
+    nums.remove(largest)
+    return max(nums)
+
+Test case that fails: second_largest([5, 5, 3, 1]) returns 3, but 
+the expected behavior (per requirements) is that duplicate largest 
+values should still allow 5 to be considered 'second largest' since 
+there are two 5s. 
+
+Let's think step by step to identify the bug and propose a fix, 
+reasoning through the logic of the current implementation, why it 
+fails on this test case, and what the corrected logic should be."
+
+Expected Output:
+A step-by-step reasoning trace: 
+Step 1: Identify current logic — find max, remove ONE instance of 
+it, find max of remainder. 
+Step 2: Trace through [5, 5, 3, 1] — max is 5, remove one 5, list 
+becomes [5, 3, 1], max of that is 5, wait — reasoning should 
+correctly trace that after removing ONE 5, the list is [5,3,1] and 
+max is 5, so actual behavior would return 5, not 3 as stated — 
+requiring the model to correctly re-trace and identify the ACTUAL 
+bug (e.g., realizing the removed value depends on nums.remove() 
+behavior) with genuine step-by-step verification, then converging 
+on Final Answer: a corrected implementation such as sorting the list 
+in descending order and returning the second element, or using a 
+set-based approach depending on whether true duplicates should count 
+— demonstrating the CoT process catching and correcting reasoning 
+errors along the way rather than jumping to an unverified conclusion.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    [ZERO-SHOT VERSION]
+    [YOUR QUESTION/PROBLEM]
+    Let's think step by step. End with a clearly labeled "Final 
+    Answer:"
+    
+    [FEW-SHOT VERSION]
+    Q: [Example Question 1]
+    A: Step 1: [...] Step 2: [...] Final Answer: [...]
+    
+    Q: [Example Question 2]
+    A: Step 1: [...] Step 2: [...] Final Answer: [...]
+    
+    Q: [YOUR NEW QUESTION]
+    A:
+
+=====================================================================
+END OF FILE 11 — Chain-of-Thought Prompting
+=====================================================================

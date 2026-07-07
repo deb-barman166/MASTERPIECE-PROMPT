@@ -1,0 +1,375 @@
+=====================================================================
+31. FUNCTION CALLING PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Agentic)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Function Calling Prompting — Structured, Schema-Based Tool Invocation
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Function Calling prompting is a specific, more FORMALIZED version of 
+Tool-Use Prompting where the model is given a precise, structured 
+SCHEMA (typically JSON Schema) defining available functions — 
+including exact parameter names, types, and requirements — and is 
+expected to output a correctly structured function call (matching 
+that schema exactly) when it determines a function should be invoked, 
+rather than free-form natural language describing what tool to use. 
+This is the API-level mechanism that most modern LLM providers (OpenAI, 
+Anthropic, Google) have built directly into their model APIs, making 
+tool use reliable and programmatically parseable.
+
+Think of it like the difference between telling a colleague in plain 
+English "hey, can you look up the weather for me?" (general Tool-Use 
+Prompting) versus filling out a precise, standardized request form 
+with exact required fields: Function: get_weather, Parameters: 
+{city: string, required; date: string, optional} — the STRUCTURE 
+itself ensures the request can be automatically processed by a system 
+without needing to parse loose natural language.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Function Calling prompting exists to:
+- Enable RELIABLE, PROGRAMMATIC parsing of the model's intent to use 
+  a tool — structured JSON output is far easier for software systems 
+  to parse and execute correctly than free-form natural language.
+- Enforce STRICT PARAMETER VALIDATION — schemas define exactly what 
+  parameters are required, their types, and constraints, catching 
+  malformed requests before they reach the actual tool/API.
+- Support production-grade software integration where LLM outputs need 
+  to directly trigger real code execution, database queries, or API 
+  calls without fragile natural-language parsing in between.
+- Allow models to work with MULTIPLE available functions 
+  simultaneously and correctly select the right one based on schema 
+  descriptions, parameter matching, and context.
+- Provide the standardized foundation that most modern agentic 
+  frameworks, coding assistants, and AI-powered applications are built 
+  upon (this IS the underlying mechanism for tools in Claude, GPT, and 
+  Gemini APIs).
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Building production software that integrates LLM outputs directly 
+  with real code, APIs, or databases (this should be your default 
+  approach for any serious tool-integration project, rather than 
+  parsing free-form text).
+- Any situation requiring GUARANTEED structural correctness for 
+  downstream automated processing.
+- Systems with MULTIPLE distinct tools/functions where the model needs 
+  to correctly select among them based on the task.
+- API-based development (as opposed to just chatting in a UI) — 
+  function calling is fundamentally an API-level feature.
+- Building agents, chatbots, or automation systems where tool 
+  invocation needs to be dependable at scale.
+
+WHEN NOT TO USE:
+- Casual, single-conversation chat interactions where you're manually 
+  reading and acting on the model's suggestions yourself (formal 
+  function-calling schemas add complexity that's unnecessary for pure 
+  human-in-the-loop conversation).
+- Simple scripts/prototypes where a lighter-weight Tool-Use Prompting 
+  approach (asking the model to describe what it would do) is 
+  sufficient for your immediate exploratory needs.
+- Situations without genuine software infrastructure to actually parse 
+  and execute the structured function calls the model produces.
+
+BEST MODELS FOR FUNCTION CALLING:
+- Claude (via the Anthropic API's native tool use feature) — robust, 
+  well-documented function/tool calling support with reliable schema 
+  adherence.
+- GPT-4o/4.1/5-class (via OpenAI's function calling / tools API) — the 
+  original and most widely-adopted function calling implementation, 
+  extremely mature and well-supported across frameworks.
+- Gemini Pro/Ultra (via Google's function calling API) — strong native 
+  function calling support, especially well-integrated with Google 
+  Cloud services and Google ADK for multi-agent systems.
+- DeepSeek / Qwen (function-calling-tuned variants) — increasingly 
+  capable open-source function calling support.
+- Mistral (Instruct/function-calling variants) — supports function 
+  calling in variants specifically fine-tuned for it; verify your 
+  chosen model version explicitly supports this before building around 
+  it.
+- Frameworks like LangChain, LangGraph, and Google ADK provide 
+  higher-level abstractions on top of these native function-calling 
+  APIs, useful for building more complex multi-tool/multi-agent 
+  systems.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [SYSTEM/API-LEVEL FUNCTION SCHEMA DEFINITION] + [USER TASK] + 
+    "If a function call is needed to complete this task, output it 
+    matching the provided schema exactly."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Function Schema Definitions — for each available function: 
+       name, description, and a parameters object specifying each 
+       parameter's name, type (string/number/boolean/array/object), 
+       whether it's required, and any constraints (enum values, 
+       format).
+    2. User Task/Query — the actual request the model needs to handle.
+    3. Selection Instruction — guidance on choosing the correct 
+       function (or determining that no function call is needed and a 
+       direct text response is more appropriate).
+    4. Output Expectation — the model should produce a correctly 
+       structured function call (handled automatically by the API 
+       when using native function calling features) or a direct 
+       answer if no tool is needed.
+
+Example skeleton (conceptual — actual implementation is typically via 
+API parameters, not raw prompt text):
+    Function schema: 
+    {
+      "name": "get_weather",
+      "description": "Get current weather for a specified city",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "city": {"type": "string", "description": "City name"},
+          "unit": {"type": "string", "enum": ["celsius", 
+    "fahrenheit"]}
+        },
+        "required": ["city"]
+      }
+    }
+    
+    User task: "What's the weather like in Tokyo right now?"
+    
+    Expected model behavior: Recognize this requires the get_weather 
+    function, and output a call like: get_weather(city="Tokyo")
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Write CLEAR, DETAILED function descriptions — the model relies 
+  heavily on the description text to determine WHEN a function is 
+  appropriate, so vague descriptions lead to missed or incorrect 
+  function selection.
+- Mark parameters as REQUIRED vs. OPTIONAL accurately — this affects 
+  whether the model will ask clarifying questions (for missing 
+  required info) or proceed with sensible defaults (for optional 
+  parameters).
+- Use ENUM constraints where applicable (e.g., a "unit" parameter 
+  limited to ["celsius", "fahrenheit"]) to prevent the model from 
+  generating invalid parameter values.
+- Provide DESCRIPTIVE parameter names and descriptions, not just 
+  types — "city" with a description is much clearer than an ambiguous 
+  parameter named "loc" with no explanation.
+- When multiple functions could plausibly apply to a task, ensure 
+  their descriptions are DISTINCT enough for the model to disambiguate 
+  correctly — test with realistic queries to confirm correct selection.
+- Handle the case where NO function call is appropriate — the model 
+  should be able to recognize when a direct text response is better 
+  than forcing an unnecessary function call.
+- Validate function call outputs on the RECEIVING (application) side 
+  regardless of schema constraints — never fully trust structured 
+  output without additional validation in production systems, since 
+  models can occasionally still produce malformed or unexpected 
+  values.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Vague or incomplete function descriptions, causing the 
+  model to miss when a function should be used or select the wrong 
+  one among several options.
+  FIX: Write clear, specific, detailed descriptions for every function 
+  and parameter.
+
+- MISTAKE: Not using enum constraints for parameters with a limited 
+  valid value set, allowing the model to generate invalid values that 
+  break downstream code.
+  FIX: Use enum constraints wherever a parameter has a fixed set of 
+  valid options.
+
+- MISTAKE: Marking parameters as required when they should be 
+  optional (or vice versa), leading to unnecessary clarifying 
+  questions or missing critical information.
+  FIX: Carefully define required vs. optional parameters based on 
+  actual function behavior/defaults.
+
+- MISTAKE: Assuming the model will always produce perfectly valid 
+  structured output without any application-side validation.
+  FIX: Always validate function call outputs before executing them in 
+  production systems, regardless of schema constraints.
+
+- MISTAKE: Providing too many overlapping/ambiguous functions without 
+  testing whether the model can reliably disambiguate between them.
+  FIX: Test function selection with realistic queries and refine 
+  descriptions if you observe incorrect selection.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Function Schema:
+{
+  "name": "convert_currency",
+  "description": "Convert an amount from one currency to another 
+using current exchange rates",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "amount": {"type": "number", "description": "The amount to 
+convert"},
+      "from_currency": {"type": "string", "description": "3-letter 
+currency code, e.g., USD"},
+      "to_currency": {"type": "string", "description": "3-letter 
+currency code, e.g., EUR"}
+    },
+    "required": ["amount", "from_currency", "to_currency"]
+  }
+}
+
+User Query: "How much is 50 US dollars in Japanese yen?"
+
+Expected Model Behavior:
+Correctly identifies this requires the convert_currency function and 
+generates a call: convert_currency(amount=50, from_currency="USD", 
+to_currency="JPY")
+
+--- INTERMEDIATE EXAMPLE ---
+Function Schemas (2 available functions):
+{
+  "name": "search_flights",
+  "description": "Search for available flights between two cities on 
+a given date",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "origin": {"type": "string"},
+      "destination": {"type": "string"},
+      "date": {"type": "string", "description": "Date in YYYY-MM-DD 
+format"},
+      "class": {"type": "string", "enum": ["economy", "business", 
+"first"]}
+    },
+    "required": ["origin", "destination", "date"]
+  }
+}
+{
+  "name": "search_hotels",
+  "description": "Search for available hotels in a city for a given 
+date range",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "city": {"type": "string"},
+      "check_in": {"type": "string"},
+      "check_out": {"type": "string"}
+    },
+    "required": ["city", "check_in", "check_out"]
+  }
+}
+
+User Query: "I need a flight from Delhi to Bangkok on August 15th, 
+2026, business class."
+
+Expected Model Behavior:
+Correctly disambiguates between the two available functions, 
+recognizing this query is about flights (not hotels), and generates: 
+search_flights(origin="Delhi", destination="Bangkok", 
+date="2026-08-15", class="business") — correctly using the enum-
+constrained "business" value and NOT calling search_hotels since no 
+hotel information was requested.
+
+--- ADVANCED EXAMPLE ---
+Function Schemas (3 available functions for a coding assistant):
+{
+  "name": "read_file",
+  "description": "Read the contents of a file at a given path in the 
+project",
+  "parameters": {
+    "type": "object",
+    "properties": {"path": {"type": "string"}},
+    "required": ["path"]
+  }
+}
+{
+  "name": "run_tests",
+  "description": "Run the project's test suite, optionally filtered 
+to a specific test file or pattern",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "pattern": {"type": "string", "description": "Optional test 
+name pattern to filter which tests run"}
+    },
+    "required": []
+  }
+}
+{
+  "name": "write_file",
+  "description": "Write or overwrite content to a file at a given 
+path",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "path": {"type": "string"},
+      "content": {"type": "string"}
+    },
+    "required": ["path", "content"]
+  }
+}
+
+User Query: "My test_auth.py tests are failing. Can you check what's 
+wrong and fix it?"
+
+Expected Model Behavior:
+A correctly sequenced series of function calls: first 
+run_tests(pattern="test_auth") to see the actual failure details, then 
+read_file(path="test_auth.py") and likely read_file(path="auth.py") 
+or similar to understand the relevant source code based on what the 
+test failures reveal, then — once the issue is identified — 
+write_file(path="auth.py", content="[corrected code]") to apply the 
+fix, and finally run_tests(pattern="test_auth") again to verify the 
+fix actually resolved the failures — demonstrating correct multi-step 
+function selection where each call's parameters are informed by the 
+result of the previous one, using only the empty/optional "pattern" 
+parameter correctly when appropriate (e.g., the final verification run 
+could also omit the pattern to run the full suite for extra 
+confidence).
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    [Function Schema — typically defined via your API's tools/
+    functions parameter, not raw prompt text]
+    {
+      "name": "[FUNCTION_NAME]",
+      "description": "[CLEAR, DETAILED DESCRIPTION OF WHAT THIS 
+    FUNCTION DOES AND WHEN TO USE IT]",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "[PARAM_NAME]": {
+            "type": "[string/number/boolean/array/object]",
+            "description": "[CLEAR DESCRIPTION]",
+            "enum": ["[OPTIONAL: LIST OF VALID VALUES]"]
+          }
+        },
+        "required": ["[LIST OF REQUIRED PARAM NAMES]"]
+      }
+    }
+    
+    [User task/query that may require this function]
+    
+    Instruction to model: If completing this task requires calling an 
+    available function, generate a correctly structured call matching 
+    its schema exactly. If no function call is needed, respond 
+    directly.
+
+=====================================================================
+END OF FILE 31 — Function Calling Prompting
+=====================================================================

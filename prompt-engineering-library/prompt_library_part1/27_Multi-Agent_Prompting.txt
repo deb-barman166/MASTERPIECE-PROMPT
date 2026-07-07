@@ -1,0 +1,337 @@
+=====================================================================
+27. MULTI-AGENT PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Agentic)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Multi-Agent Prompting — Orchestrating Multiple Specialized AI Roles
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Multi-Agent prompting is the overarching technique of designing a 
+system where MULTIPLE distinct AI "agents" — each with a specific 
+role, persona, or area of specialization (e.g., a Researcher, a 
+Writer, a Critic, a Coder) — collaborate, communicate, or hand off 
+work to each other to accomplish a task that would be harder for a 
+single, generalist prompt to handle well. Planner/Executor (files 
+25-26), Debate (file 28), and Critic (file 29) prompting are all 
+SPECIFIC INSTANCES of the broader Multi-Agent pattern; this file 
+covers the general framework and orchestration principles that tie 
+them together.
+
+Think of it like the difference between one generalist employee 
+trying to handle an entire complex project alone (single-agent 
+prompting) versus assembling a small team — a researcher, a writer, 
+an editor, a fact-checker — each contributing their specialized 
+expertise, with clear handoffs between them, to produce a 
+significantly higher-quality final result than any one generalist 
+could achieve solo.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Multi-Agent prompting exists to:
+- Achieve higher-quality results on complex tasks by leveraging 
+  SPECIALIZATION — each agent focuses deeply on its specific role 
+  rather than trying to be good at everything simultaneously.
+- Enable CHECKS AND BALANCES — having a distinct Critic or Reviewer 
+  agent catch issues a Creator agent might miss (since it's genuinely 
+  hard for the same "mind" to both generate and thoroughly critique 
+  its own work in the same pass).
+- Support SCALABLE, parallel processing of complex projects by 
+  breaking them into specialized roles that can potentially operate 
+  concurrently.
+- Mirror effective human team structures and workflows, which have 
+  long relied on specialization and division of labor for complex 
+  work.
+- Provide the architectural foundation for sophisticated agentic 
+  systems (directly relevant to swarm architectures like Deb Barman's 
+  Godfather Agent project, which coordinates 100+ specialized agents 
+  with defined memory layers and communication protocols).
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Complex projects that naturally decompose into genuinely different 
+  TYPES of work (research + writing + editing + fact-checking; coding 
+  + testing + documentation).
+- Tasks that benefit from adversarial or checks-and-balances dynamics 
+  (a Creator and a Critic agent catching more issues together than 
+  either would alone).
+- Building production AI systems/products where role specialization 
+  improves reliability, maintainability, and debuggability compared to 
+  one giant, do-everything prompt.
+- Situations where different sub-tasks genuinely benefit from 
+  DIFFERENT models (e.g., a creative-writing-strong model for drafting, 
+  a precision-focused model for fact-checking).
+- When you have (or are building) actual orchestration infrastructure 
+  to manage communication/handoffs between agents.
+
+WHEN NOT TO USE:
+- Simple tasks where a single well-crafted prompt easily achieves the 
+  desired quality — multi-agent systems add real complexity, latency, 
+  and cost that must be justified by genuine task complexity.
+- Situations without the infrastructure to actually orchestrate 
+  multiple agents (message passing, state management, handoff logic) 
+  — a single chat conversation without external tooling is not truly 
+  "multi-agent" even if you ask a model to "roleplay as several 
+  personas."
+- Time-sensitive tasks where the coordination overhead between 
+  multiple agents would introduce unacceptable latency.
+
+BEST MODELS FOR MULTI-AGENT SYSTEMS:
+- MIXED MODEL STRATEGIES are common and often optimal: use a more 
+  capable model (Claude Opus, GPT-5-class) for roles requiring deep 
+  reasoning (Planner, Critic, Architect), paired with faster/cheaper 
+  models (Claude Haiku, GPT-4o-mini, Gemini Flash) for higher-volume 
+  or more narrowly-scoped roles (simple Executors, formatters, basic 
+  classifiers).
+- Google ADK, LangGraph, AutoGen, CrewAI — common ORCHESTRATION 
+  FRAMEWORKS specifically designed for building genuine multi-agent 
+  systems with proper state management and inter-agent communication 
+  (directly relevant infrastructure for projects like Deb Barman's 
+  Godfather Agent, built on Google ADK with Gemini 2.0 Flash).
+- Claude — particularly strong when used across multiple roles in a 
+  system given its consistent instruction-following and ability to 
+  maintain distinct personas/roles reliably across a pipeline.
+- DeepSeek / Qwen — cost-effective choices for higher-volume agent 
+  roles in larger swarm-style systems.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [DEFINE AGENT 1: ROLE + RESPONSIBILITY] + 
+    [DEFINE AGENT 2: ROLE + RESPONSIBILITY] + ... + 
+    [DEFINE COMMUNICATION/HANDOFF PROTOCOL BETWEEN AGENTS] + 
+    [OVERALL GOAL/ORCHESTRATION LOGIC]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Overall Goal — the complex task the multi-agent system as a 
+       whole is meant to accomplish.
+    2. Agent Role Definitions — for each agent: name/identifier, 
+       specific responsibility, and boundaries (what it does NOT 
+       handle).
+    3. Communication/Handoff Protocol — how agents pass information 
+       to each other (what format, what triggers a handoff, what 
+       happens if an agent's output doesn't meet the next agent's 
+       requirements).
+    4. Orchestration Logic — the overall sequence/flow: which agent 
+       goes first, what conditions trigger moving to the next agent, 
+       whether any steps loop or can send work backward for revision.
+    5. Final Synthesis — how/where the individual agents' outputs 
+       combine into the final deliverable.
+
+Example skeleton:
+    "SYSTEM DESIGN: 
+    Agent 1 (Researcher): Responsible for [X]. Outputs: [FORMAT]. 
+    Agent 2 (Writer): Responsible for [Y], using Agent 1's output as 
+    input. Outputs: [FORMAT]. 
+    Agent 3 (Critic): Reviews Agent 2's output against [CRITERIA]. If 
+    issues found, sends back to Agent 2 with specific feedback; 
+    otherwise approves for final delivery. 
+    
+    Orchestration: Run Agent 1 → Agent 2 → Agent 3. If Agent 3 
+    rejects, return to Agent 2 with feedback (max 2 revision cycles). 
+    Once approved, present Agent 2's final output as the deliverable."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Give each agent a CLEAR, NON-OVERLAPPING responsibility — role 
+  ambiguity or overlap between agents is one of the most common 
+  sources of multi-agent system failures.
+- Define an EXPLICIT communication format/protocol between agents 
+  (structured data like JSON is often more reliable for inter-agent 
+  handoffs than loose natural language, especially in programmatic 
+  systems).
+- Build in EXPLICIT FAILURE HANDLING — what happens if one agent's 
+  output doesn't meet the next agent's requirements? Define retry 
+  logic, maximum revision cycles, or escalation paths.
+- Match model CAPABILITY/COST to each agent's actual task difficulty 
+  — this is one of the biggest practical benefits of proper multi-
+  agent architecture.
+- Avoid excessive agent proliferation — more agents means more 
+  coordination overhead, more potential failure points, and more 
+  cost; only add a new specialized agent role when it genuinely 
+  improves outcomes over consolidating responsibilities.
+- Log/trace inter-agent communication in production systems — 
+  debugging multi-agent failures requires visibility into what each 
+  agent received and produced at each step.
+- Design for GRACEFUL DEGRADATION — consider what the system should 
+  do if an agent fails entirely or produces unusable output, rather 
+  than assuming every agent will always succeed.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Defining agent roles with unclear or overlapping 
+  responsibilities, causing confusion about which agent should handle 
+  what.
+  FIX: Define crisp, non-overlapping boundaries for each agent's 
+  responsibility.
+
+- MISTAKE: No defined communication protocol/format between agents, 
+  leading to unreliable or unparseable handoffs, especially in 
+  programmatic systems.
+  FIX: Specify explicit, structured formats (e.g., JSON schemas) for 
+  inter-agent communication.
+
+- MISTAKE: No failure handling — assuming every agent will always 
+  produce perfect, usable output on the first try.
+  FIX: Build in explicit retry/revision logic and maximum iteration 
+  limits.
+
+- MISTAKE: Over-engineering simple tasks with unnecessary multi-agent 
+  complexity when a single well-crafted prompt would suffice.
+  FIX: Reserve multi-agent architectures for genuinely complex tasks 
+  that benefit from specialization.
+
+- MISTAKE: Using the same (often unnecessarily expensive) model for 
+  every agent role regardless of actual task difficulty, missing cost-
+  optimization opportunities.
+  FIX: Match model choice to each agent's specific role complexity.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Design a 2-agent system for writing a short blog post: 
+
+Agent 1 (Writer): Writes a first draft of a 300-word blog post about 
+'5 tips for staying productive while studying.' 
+
+Agent 2 (Editor): Reviews the Writer's draft for clarity, grammar, and 
+whether it actually delivers 5 distinct, useful tips. If any issues 
+are found, provides specific feedback and requests a revision; 
+otherwise approves it as final. 
+
+Run this system: Agent 1 drafts, Agent 2 reviews, and if needed, 
+Agent 1 revises once based on feedback before final delivery."
+
+Expected Output:
+An initial 300-word draft from "Agent 1," followed by "Agent 2's" 
+specific review (e.g., noting if only 4 clear tips were actually 
+delivered, or if one tip was vague), followed by a revised final draft 
+from "Agent 1" addressing that specific feedback, clearly labeled as 
+the final approved output.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Design a 3-agent system for answering technical support questions 
+about a software product: 
+
+Agent 1 (Classifier): Reads the user's question and categorizes it as 
+Billing, Technical Bug, Feature Request, or General. Outputs: 
+{category, confidence}. 
+
+Agent 2 (Responder): Based on the category from Agent 1, drafts an 
+appropriate response using category-specific guidelines (Billing → 
+direct to billing portal with empathy; Technical Bug → ask for 
+reproduction steps; Feature Request → thank and log; General → answer 
+directly). Outputs: draft response text. 
+
+Agent 3 (Quality Checker): Reviews Agent 2's draft for tone (must be 
+warm and professional) and completeness (must actually address the 
+user's specific question). If issues found, sends back to Agent 2 
+with feedback; otherwise approves. 
+
+Run this system for the user question: 'I was charged twice this 
+month and I'm really frustrated, can someone help?'"
+
+Expected Output:
+Agent 1 output: {category: "Billing", confidence: "high"}. Agent 2 
+output: a warm, empathetic draft directing the user to billing 
+support/portal, acknowledging their frustration. Agent 3 review: 
+checking tone (appropriately empathetic given the stated frustration) 
+and completeness (does it actually address the double-charge issue 
+specifically, not just generic billing language) — approving or 
+requesting a specific revision, followed by the final approved 
+response.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Design a 4-agent system for building and validating a new Python 
+module for a larger project (in the style of a focused slice of a 
+larger swarm system like Godfather Agent): 
+
+Agent 1 (Spec Writer): Given a feature request in plain English, 
+produces a precise technical specification (inputs, outputs, edge 
+cases, constraints) for the module. Outputs: structured spec document. 
+
+Agent 2 (Coder): Implements the module in Python based EXACTLY on 
+Agent 1's spec, including docstrings and type hints. Outputs: Python 
+code file. 
+
+Agent 3 (Test Writer): Independently (without seeing Agent 2's 
+implementation, only Agent 1's spec) writes a comprehensive test suite 
+covering normal cases and edge cases defined in the spec. Outputs: 
+test file. 
+
+Agent 4 (Integration Runner): Runs Agent 3's tests against Agent 2's 
+implementation. If any tests fail, sends specific failure details back 
+to Agent 2 for fixes (max 3 revision cycles). If all tests pass after 
+revisions (or initially), approves the module as complete. 
+
+Feature request: 'A function that validates whether a given string is 
+a strong password: at least 8 characters, contains uppercase, 
+lowercase, a digit, and a special character.' 
+
+Run this full system and present the final validated module."
+
+Expected Output:
+Agent 1 produces a clear spec (function signature, exact strength 
+criteria, edge cases like empty strings or None input, return type). 
+Agent 2 implements a Python function matching that spec exactly, with 
+docstring and type hints. Agent 3, working ONLY from the spec 
+(demonstrating genuine independent test design rather than testing to 
+match the implementation), writes tests covering all stated criteria 
+plus edge cases (empty string, missing each required character type, 
+minimum-length boundary). Agent 4 runs these tests against Agent 2's 
+code — if, for example, Agent 2's implementation missed handling an 
+edge case like a None input causing an unhandled exception rather than 
+a clean False/error, Agent 4 reports this specific failure back to 
+Agent 2, which produces a fix; Agent 4 re-runs and confirms all tests 
+now pass, then presents the final, validated, tested password-
+strength module as the deliverable — demonstrating genuine 
+specialization (spec-writing, independent test design, coding, and 
+verification each handled distinctly) and a real checks-and-balances 
+loop between agents.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    MULTI-AGENT SYSTEM DESIGN
+    
+    Overall Goal: [THE COMPLEX TASK THE FULL SYSTEM SHOULD 
+    ACCOMPLISH]
+    
+    Agent 1 ([ROLE NAME]): Responsible for [SPECIFIC RESPONSIBILITY]. 
+    Input: [WHAT IT RECEIVES]. Output: [WHAT IT PRODUCES, format].
+    
+    Agent 2 ([ROLE NAME]): Responsible for [SPECIFIC RESPONSIBILITY], 
+    using Agent 1's output as input. Output: [FORMAT].
+    
+    Agent 3 ([ROLE NAME], e.g., Reviewer/Critic): Reviews [PREVIOUS 
+    AGENT]'s output against [SPECIFIC CRITERIA]. If issues found, 
+    sends back with specific feedback (max [N] revision cycles); 
+    otherwise approves.
+    
+    [Add more agents as needed]
+    
+    Orchestration: Run agents in order [1 → 2 → 3...]. Define what 
+    triggers moving forward vs. looping back for revision. Once 
+    approved, present the final synthesized deliverable.
+
+=====================================================================
+END OF FILE 27 — Multi-Agent Prompting
+=====================================================================

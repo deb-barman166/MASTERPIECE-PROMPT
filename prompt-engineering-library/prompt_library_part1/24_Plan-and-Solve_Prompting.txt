@@ -1,0 +1,290 @@
+=====================================================================
+24. PLAN-AND-SOLVE PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Agentic)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Plan-and-Solve Prompting — Separating Strategy From Execution
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Plan-and-Solve prompting is a technique where you explicitly instruct 
+the model to FIRST create a complete PLAN (breaking the problem into 
+a clear sequence of sub-tasks) BEFORE executing any of those sub-
+tasks, as two distinct, separated phases. This differs from basic 
+Chain-of-Thought (which often blends planning and execution together 
+in one continuous stream) by cleanly separating "figuring out WHAT to 
+do" from "actually DOING it" — which reduces the common CoT failure 
+mode of missing steps or losing track of the overall structure partway 
+through a long reasoning chain.
+
+Think of it like the difference between a chef who starts cooking 
+immediately and figures out the recipe as they go (which risks 
+missing ingredients or steps) versus a chef who first writes out the 
+complete recipe/plan, reviews it for completeness, and ONLY THEN 
+starts actually cooking step by step according to that plan.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Plan-and-Solve prompting exists to:
+- Reduce the "missing step" failure mode common in basic Chain-of-
+  Thought, where the model can lose track of the full problem 
+  structure while reasoning through it linearly.
+- Improve performance on complex, multi-part problems by ensuring the 
+  FULL scope is mapped out before any execution begins.
+- Provide a natural CHECKPOINT where you (or the model itself) can 
+  review the plan for completeness/correctness BEFORE committing 
+  effort to execution.
+- Separate STRATEGIC thinking (what needs to happen, in what order) 
+  from TACTICAL thinking (how to actually carry out each specific 
+  sub-task), which tend to require different reasoning modes.
+- Serve as a lighter-weight alternative to full multi-agent Planner/
+  Executor Prompting (see files 25-26) when a single model can 
+  reasonably handle both phases itself.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Complex, multi-part problems where basic Chain-of-Thought has 
+  shown a tendency to miss or skip steps.
+- Tasks where reviewing the PLAN before execution has real value 
+  (you can catch a flawed approach before wasting effort executing 
+  it).
+- Multi-step math word problems, complex analyses, or structured 
+  writing/coding tasks with several distinct components.
+- Situations where you want visibility into the model's overall 
+  STRATEGY before seeing the detailed execution, so you can course-
+  correct early if needed.
+
+WHEN NOT TO USE:
+- Simple, single-step tasks where creating an explicit "plan" is 
+  unnecessary overhead.
+- Highly exploratory or creative tasks where the "plan" isn't really 
+  knowable in advance and rigid separation of planning/execution would 
+  feel artificial.
+- Tasks better suited to genuine multi-branch exploration (use Tree-
+  of-Thoughts) rather than committing to a single linear plan upfront.
+
+BEST MODELS FOR PLAN-AND-SOLVE PROMPTING:
+- GPT-4o/4.1/5-class — strong at generating clear, complete plans and 
+  then faithfully executing them step by step.
+- Claude — excellent at both structured planning and disciplined 
+  execution, maintaining consistency between the stated plan and the 
+  actual steps taken.
+- Gemini Pro — capable planning and execution, particularly strong 
+  for structured/technical multi-part tasks.
+- DeepSeek-R1 / Qwen (reasoning variants) — strong for math/technical 
+  Plan-and-Solve tasks specifically.
+- Mistral / Llama — capable of basic plan-then-execute structure; 
+  larger models maintain better fidelity between the stated plan and 
+  actual execution (smaller models sometimes drift from their own 
+  stated plan during execution).
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [PROBLEM] + "First, create a complete plan breaking this into 
+    sub-tasks. Then, execute each sub-task in your plan step by step 
+    to reach the final solution."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Problem Statement — the full task/problem to solve.
+    2. Planning Phase Instruction — explicitly request a complete, 
+       numbered breakdown of sub-tasks BEFORE any solving begins.
+    3. Plan Output — the model's full plan, clearly presented (e.g., 
+       "Sub-task 1: ..., Sub-task 2: ...").
+    4. Execution Phase Instruction — explicitly instruct the model to 
+       now execute each sub-task from the plan, in order.
+    5. Execution Output — the model works through each sub-task, 
+       ideally referencing which plan item it's currently executing.
+    6. Final Solution — the synthesized final answer, drawing on all 
+       completed sub-tasks.
+
+Example skeleton:
+    "[PROBLEM]. 
+    
+    PLANNING PHASE: First, break this problem into a clear, numbered 
+    list of sub-tasks needed to solve it completely. Do not solve 
+    anything yet — just plan. 
+    
+    EXECUTION PHASE: Now, execute each sub-task from your plan in 
+    order, showing your work for each, to arrive at the final 
+    solution."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Enforce a CLEAR SEPARATION between the planning and execution 
+  phases — explicitly instruct "do not solve anything yet" during 
+  planning to prevent the model from blending the two phases 
+  together.
+- Ask for the plan to be a NUMBERED list of distinct sub-tasks, which 
+  makes it easy to verify completeness and reference during 
+  execution.
+- During execution, ask the model to explicitly REFERENCE which sub-
+  task/plan item it's currently working on (e.g., "Executing Sub-task 
+  2:") to maintain clear alignment between plan and execution.
+- Use the planning phase as a natural REVIEW CHECKPOINT — for 
+  important tasks, review the plan yourself (or have the model self-
+  critique it) before proceeding to execution.
+- If the plan turns out to be flawed or incomplete once execution 
+  begins, explicitly allow for plan REVISION rather than forcing rigid 
+  adherence to a plan that's proven inadequate.
+- Combine with Step-by-Step Prompting for the execution phase 
+  specifically, since a good plan naturally becomes the step 
+  sequence for execution.
+- For very complex tasks, consider treating the plan review as a 
+  separate conversational turn (get the plan, confirm/adjust it, THEN 
+  ask for execution) rather than doing everything in one single 
+  prompt.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Not clearly separating the two phases, resulting in the 
+  model blending planning and solving together anyway (functionally 
+  reverting to basic Chain-of-Thought).
+  FIX: Explicitly instruct "do not solve anything during the planning 
+  phase — just create the plan."
+
+- MISTAKE: Creating a plan but then not actually following it during 
+  execution (drifting to a different approach without acknowledging 
+  the change).
+  FIX: Ask the model to explicitly reference which plan item it's 
+  executing at each step, making drift immediately visible.
+
+- MISTAKE: Treating the plan as unchangeable even when execution 
+  reveals it was flawed or incomplete.
+  FIX: Explicitly allow for plan revision if execution surfaces 
+  problems with the original plan.
+
+- MISTAKE: Using Plan-and-Solve for simple, single-step tasks where 
+  creating a formal plan is unnecessary overhead.
+  FIX: Reserve this technique for genuinely complex, multi-part 
+  problems.
+
+- MISTAKE: Not reviewing the plan before execution for important 
+  tasks, missing an opportunity to catch a flawed strategy early 
+  (before time/tokens are spent on execution).
+  FIX: For high-stakes tasks, treat the plan as a checkpoint — review 
+  or have the model self-critique it before proceeding.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Problem: A recipe serves 4 people and requires 2 cups of flour, 1.5 
+cups of sugar, and 3 eggs. I need to scale it to serve 10 people. 
+What quantities do I need? 
+
+PLANNING PHASE: First, list the sub-tasks needed to solve this (do 
+not calculate anything yet). 
+
+EXECUTION PHASE: Now execute each sub-task to find the final scaled 
+quantities."
+
+Expected Output:
+Plan: "Sub-task 1: Determine the scaling factor (10 people ÷ 4 
+people). Sub-task 2: Multiply flour by the scaling factor. Sub-task 
+3: Multiply sugar by the scaling factor. Sub-task 4: Multiply eggs by 
+the scaling factor." 
+Execution: Working through each sub-task with the scaling factor of 
+2.5, arriving at 5 cups flour, 3.75 cups sugar, and 7.5 eggs (noting 
+eggs would realistically round to 7 or 8 in practice).
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Problem: Write a professional resignation email that (1) gives 2 
+weeks' notice, (2) expresses genuine gratitude for the opportunity, 
+(3) offers to help with the transition, and (4) maintains a positive 
+tone throughout without over-explaining the reason for leaving. 
+
+PLANNING PHASE: First, break this into a numbered list of sub-tasks/
+components the email needs to include, in the order they should 
+appear. Do not write the email yet. 
+
+EXECUTION PHASE: Now write the email, addressing each planned 
+component in order."
+
+Expected Output:
+Plan: A numbered list such as "1. Clear statement of resignation with 
+2-week notice date. 2. Expression of gratitude for specific 
+opportunities/growth. 3. Offer to assist with transition/handover. 4. 
+Warm, professional closing." 
+Execution: A complete, well-structured resignation email that visibly 
+follows this exact planned sequence, maintaining positive tone 
+throughout and avoiding over-explanation of the departure reason.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Problem: I need to design a Python CLI tool (similar in spirit to my 
+KaliTerminal project) that supports: multiple color themes, a plugin 
+architecture for adding new commands without modifying core code, 
+command history with up-arrow recall, and basic tab-completion for 
+command names. 
+
+PLANNING PHASE: First, break this into a clear, numbered list of 
+sub-tasks/components needed to build this tool, including what 
+Python libraries would be relevant for each. Do not write any code 
+yet — just plan the architecture. 
+
+EXECUTION PHASE: Now, execute the plan by providing a code skeleton/
+structure for each planned component in order, showing how they fit 
+together into the overall architecture. If you discover during 
+execution that any part of the original plan needs adjustment, 
+explicitly note the change and why."
+
+Expected Output:
+Plan: A numbered architectural breakdown such as "1. Core CLI loop 
+using prompt_toolkit for input handling (supports history/tab-
+completion natively). 2. Theme engine — a configuration-driven color 
+scheme system, likely using the 'rich' library for styled output. 3. 
+Plugin architecture — a dynamic command-loading system, e.g., scanning 
+a 'plugins/' directory and importing modules that register themselves 
+via a decorator or base class. 4. Command history — leveraging 
+prompt_toolkit's built-in history support. 5. Tab-completion — using 
+prompt_toolkit's Completer class populated dynamically from 
+registered plugin commands." 
+Execution: Code skeletons for each of the 5 components built in order, 
+explicitly referencing which plan item each skeleton corresponds to, 
+showing how the plugin registration system integrates with the tab-
+completion system (e.g., noting during execution that the completer 
+needs to be refreshed whenever a new plugin registers a command, an 
+adjustment flagged and explained if it wasn't explicit in the 
+original plan), culminating in a coherent overall architecture that 
+directly traces back to the initial plan.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Problem: [YOUR COMPLEX, MULTI-PART PROBLEM]
+    
+    PLANNING PHASE: 
+    First, break this problem into a clear, numbered list of sub-
+    tasks needed to solve it completely. Do NOT solve or execute 
+    anything yet — only create the plan.
+    
+    [Review the plan here if desired before proceeding]
+    
+    EXECUTION PHASE: 
+    Now, execute each sub-task from your plan, in order, showing your 
+    work for each and referencing which plan item you're completing. 
+    If execution reveals the plan needs adjustment, note the change 
+    and why, then continue. 
+    
+    Conclude with your final, synthesized solution.
+
+=====================================================================
+END OF FILE 24 — Plan-and-Solve Prompting
+=====================================================================

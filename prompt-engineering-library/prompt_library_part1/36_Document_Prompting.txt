@@ -1,0 +1,278 @@
+=====================================================================
+36. DOCUMENT PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Knowledge)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Document Prompting — Working Effectively With Long-Form Documents
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Document prompting is a technique specifically focused on how to 
+effectively provide an ENTIRE document (or multiple documents) — 
+contracts, reports, research papers, codebases, books, transcripts — 
+as input to a model, and how to structure instructions so the model 
+processes, analyzes, summarizes, extracts from, or transforms that 
+document accurately and completely, rather than superficially skimming 
+or losing track of content in the middle of a long input.
+
+Think of it like the difference between handing someone a single 
+sentence to react to versus handing them an entire 50-page report and 
+asking for a specific analysis — the SAME underlying reasoning ability 
+is needed, but working with a full-length document requires different 
+techniques: clear instructions about WHICH parts matter most, explicit 
+guidance to prevent skimming/summarizing prematurely, and strategies 
+for handling documents that might exceed the available context window 
+entirely.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Document prompting exists to:
+- Enable thorough, accurate processing of long-form content 
+  (contracts, research papers, technical documentation, transcripts, 
+  entire codebases) rather than superficial engagement.
+- Combat the "lost in the middle" phenomenon where models sometimes 
+  pay less attention to information in the MIDDLE of a very long 
+  context compared to the beginning and end.
+- Provide strategies for documents that EXCEED a model's context 
+  window, requiring chunking, summarization, or multi-pass processing.
+- Support precise TASKS on documents — not just generic "summarize 
+  this," but targeted extraction, specific analysis, or transformation 
+  of particular document sections.
+- Enable systematic processing of MULTIPLE documents together for 
+  comparison, synthesis, or cross-referencing tasks.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Analyzing contracts, legal documents, research papers, or lengthy 
+  reports for specific information or overall assessment.
+- Summarizing or extracting key points from long transcripts, 
+  articles, or books.
+- Reviewing or analyzing entire codebases/large code files.
+- Comparing or cross-referencing MULTIPLE documents (e.g., comparing 
+  two contract versions, or synthesizing findings across several 
+  research papers).
+- Any task where the INPUT itself is substantial (multiple pages/
+  thousands of words) rather than a short prompt.
+
+WHEN NOT TO USE:
+- Short inputs that don't require special document-handling 
+  strategies — basic Instruction Prompting suffices for brief content.
+- When only a small, specific portion of a very long document is 
+  relevant — in this case, extracting/providing just that relevant 
+  section (rather than the entire document) may be more efficient 
+  than full-document processing.
+
+BEST MODELS FOR DOCUMENT PROMPTING:
+- Gemini 1.5/2.x Pro (1M-2M token context) — exceptional for extremely 
+  long documents or many documents simultaneously, given the massive 
+  context window; particularly strong for full-book or full-codebase 
+  analysis.
+- Claude (200K+ context models) — excellent, well-documented strong 
+  performance specifically on long-context RECALL and accuracy 
+  (avoiding the "lost in the middle" problem better than many 
+  alternatives), making it a strong choice for critical document 
+  analysis where accuracy on details anywhere in the document matters.
+- GPT-4o/4.1/5-class (128K-1M+ context variants) — strong document 
+  processing, particularly for structured/technical documents.
+- DeepSeek / Qwen (long-context variants) — good for technical 
+  document processing (code, technical specs) at scale.
+- For documents EXCEEDING even the largest context windows, or for 
+  systematic processing of a large document COLLECTION, combine with 
+  RAG Prompting (file 33) rather than attempting to fit everything 
+  into a single context window.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [DOCUMENT] + [SPECIFIC TASK — not just "summarize"] + 
+    [GUIDANCE ON WHICH PARTS/ASPECTS MATTER MOST] + 
+    [OUTPUT FORMAT]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Document Content — the full document(s) provided as input 
+       (typically pasted directly, uploaded as a file, or referenced 
+       if already in context).
+    2. Specific Task Instruction — a precise, targeted task rather 
+       than a vague "tell me about this" (e.g., "identify all payment 
+       terms," "list any inconsistencies between Section 3 and Section 
+       7," "extract all function names and their purposes").
+    3. Attention Guidance (for long documents) — explicit instruction 
+       to thoroughly review the ENTIRE document, not just the 
+       beginning, if completeness matters (this helps counter "lost 
+       in the middle" effects).
+    4. Multi-Document Instructions (if applicable) — clear labeling of 
+       which document is which, and explicit instructions for how to 
+       compare/synthesize across them.
+    5. Output Format — how findings should be structured/presented.
+
+Example skeleton:
+    "Document: [FULL DOCUMENT TEXT OR REFERENCE] 
+    
+    Task: [SPECIFIC, TARGETED INSTRUCTION — not just 'summarize']. 
+    Please review the ENTIRE document thoroughly, including content in 
+    the middle sections, not just the introduction and conclusion. 
+    
+    Present your findings as: [FORMAT]."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Give a SPECIFIC, TARGETED task rather than a vague "summarize this" 
+  — "identify all financial obligations mentioned in this contract" 
+  produces far more useful results than "tell me about this document."
+- For long documents where completeness matters, EXPLICITLY instruct 
+  the model to review the entire document thoroughly, specifically 
+  calling out that middle sections matter as much as the beginning/
+  end — this measurably helps counter "lost in the middle" tendencies.
+- When working with MULTIPLE documents, clearly LABEL each one (e.g., 
+  "Document A:", "Document B:") and be explicit about how they should 
+  be compared or synthesized.
+- For extremely long documents approaching or exceeding context 
+  limits, consider CHUNKING the document into logical sections and 
+  processing each with a clear running summary carried forward, rather 
+  than attempting one massive single pass.
+- Ask for CITATIONS to specific sections/page numbers/line numbers 
+  when precision matters, so claims can be verified against the 
+  original document.
+- For code documents specifically, consider asking the model to first 
+  produce a structural OUTLINE (functions, classes, major sections) 
+  before diving into detailed analysis, which helps organize a 
+  complex/long codebase review.
+- Test whether your document actually FITS within the model's context 
+  window — if it doesn't, plan for chunking/RAG rather than assuming 
+  truncation will be handled gracefully.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Giving a vague task like "summarize this document" when a 
+  more specific, targeted task would produce far more useful results.
+  FIX: Define precisely what information/analysis you actually need 
+  from the document.
+
+- MISTAKE: Assuming the model will pay EQUAL attention to all parts of 
+  a very long document without explicit instruction, when "lost in 
+  the middle" effects can cause reduced attention to middle content.
+  FIX: Explicitly instruct thorough review of the entire document, 
+  specifically noting that middle sections matter.
+
+- MISTAKE: Not clearly labeling multiple documents when providing 
+  several at once, causing confusion about which content belongs to 
+  which source.
+  FIX: Clearly label each document (Document A, Document B) and 
+  reference these labels in your task instructions.
+
+- MISTAKE: Attempting to process a document that exceeds the model's 
+  context window without any chunking/RAG strategy, resulting in 
+  silent truncation and incomplete analysis.
+  FIX: Verify document length against context limits; use chunking or 
+  RAG for documents that don't fit.
+
+- MISTAKE: Not requesting citations/references to specific document 
+  locations, making it hard to verify or locate the source of specific 
+  claims in the output.
+  FIX: Ask for section/page references when precision and verifiability 
+  matter.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Document: [a 3-page rental lease agreement pasted here] 
+
+Task: Extract and list all financial obligations mentioned in this 
+lease (rent amount, due date, late fees, security deposit, any other 
+fees). Present as a clear bulleted list, citing which section each 
+obligation comes from."
+
+Expected Output:
+A clean, bulleted list of every financial obligation found throughout 
+the document (not just the ones mentioned early on), each with a 
+section reference, formatted for easy scanning.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Document A: [Original API documentation v1.0, pasted here] 
+Document B: [Updated API documentation v2.0, pasted here] 
+
+Task: Compare Document A and Document B, and identify ALL breaking 
+changes that would require existing API consumers to modify their 
+integration code (e.g., renamed endpoints, changed parameter types, 
+removed fields, altered authentication methods). Review both documents 
+thoroughly, including all sections, not just the changelog if one 
+exists. Present findings as a table: Change Description | Old 
+Behavior | New Behavior | Section Reference."
+
+Expected Output:
+A thorough comparison table listing every genuine breaking change 
+found by reviewing BOTH complete documents, not relying solely on a 
+changelog summary (which might be incomplete), correctly identifying 
+changes throughout all sections including any easily-missed changes 
+buried in the middle of either document.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Document: [A 2,000-line Python codebase file for a multi-agent 
+system, pasted/uploaded here] 
+
+Task: 
+1. First, produce a structural outline: list every class and function 
+defined in this file, with a one-line description of each. 
+2. Then, thoroughly review the ENTIRE file (not just the beginning 
+functions) to identify any functions that lack error handling for 
+potentially invalid inputs (e.g., None values, empty collections, 
+wrong types) — this is a common issue that could easily be missed if 
+you don't examine every function individually rather than sampling a 
+few. 
+3. For each function identified as lacking error handling, cite the 
+approximate line number and briefly describe the specific risk. 
+
+Present your findings in the two distinct sections described above 
+(Structural Outline, then Error Handling Gaps)."
+
+Expected Output:
+A complete structural outline covering every class/function in the 
+2,000-line file (demonstrating genuine full-document coverage, not 
+just the first several functions near the top), followed by a 
+thorough, systematically-reviewed list of specific functions lacking 
+proper error handling — including any found in later, middle, or 
+otherwise easily-overlooked sections of the file — each with a line 
+number citation and a specific description of the input-validation 
+risk, demonstrating the kind of complete, non-superficial document 
+coverage that explicit "review the entire document" instructions are 
+designed to encourage.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Document: [FULL DOCUMENT TEXT, OR MULTIPLE CLEARLY LABELED 
+    DOCUMENTS: Document A, Document B, etc.]
+    
+    Task: [SPECIFIC, TARGETED INSTRUCTION — precisely what 
+    information/analysis you need, not a vague "summarize"]
+    
+    Please review the ENTIRE document(s) thoroughly, including 
+    content in the middle sections, not just the beginning and end.
+    
+    Cite the specific section/line/page where relevant for each 
+    finding.
+    
+    Present your findings as: [DESIRED OUTPUT FORMAT — list, table, 
+    structured sections, etc.]
+
+=====================================================================
+END OF FILE 36 — Document Prompting
+=====================================================================

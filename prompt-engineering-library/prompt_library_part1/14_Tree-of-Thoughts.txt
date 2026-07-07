@@ -1,0 +1,296 @@
+=====================================================================
+14. TREE-OF-THOUGHTS (TOT) PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Reasoning)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Tree-of-Thoughts Prompting — Exploring Multiple Branches of Reasoning
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Tree-of-Thoughts (ToT) prompting is an advanced reasoning technique 
+where the model explores MULTIPLE possible reasoning paths (branches) 
+at each step of a problem, EVALUATES the promise of each branch, and 
+then decides whether to continue down a path, backtrack, or explore 
+a different branch entirely — much like a tree with a trunk that 
+splits into multiple branches, some of which lead to dead ends and 
+some of which lead to good solutions. Unlike Chain-of-Thought (a 
+single linear path) or Self-Consistency (multiple INDEPENDENT full 
+paths voted on afterward), Tree-of-Thoughts actively evaluates and 
+prunes branches DURING the reasoning process itself.
+
+Think of it like solving a maze: instead of committing to one path 
+from start to finish (CoT) or trying several complete paths and 
+picking whichever reaches the end fastest (Self-Consistency), you 
+explore a few steps down each of several paths, notice which ones 
+look promising vs. which are dead ends, backtrack from dead ends, 
+and focus your effort on the most promising branches.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Tree-of-Thoughts prompting exists to:
+- Handle complex problems with multiple valid approaches where it's 
+  not obvious in advance which approach will succeed.
+- Enable BACKTRACKING — the ability to abandon an unpromising line of 
+  reasoning partway through, rather than committing fully to one path 
+  (which CoT cannot do).
+- Improve performance on problems requiring PLANNING, SEARCH, or 
+  strategic exploration (puzzles, game strategies, creative problem-
+  solving with multiple valid solution paths).
+- Provide a structured framework for evaluating intermediate progress, 
+  not just final answers.
+- Mimic more deliberate, human-like problem-solving where we often 
+  consider several approaches, evaluate which seems most promising, 
+  and adjust course as we learn more.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Complex puzzles or games with multiple possible strategies (e.g., 
+  Game of 24, complex logic puzzles, strategic planning).
+- Creative problem-solving where several fundamentally different 
+  approaches exist and it's unclear which will work best.
+- Tasks where BACKTRACKING is valuable — where early steps might turn 
+  out to be mistakes that need correcting.
+- Multi-step planning tasks where different sequences of actions lead 
+  to very different outcomes.
+- Research or design problems where exploring and comparing multiple 
+  approaches before committing produces better results than picking 
+  one approach immediately.
+
+WHEN NOT TO USE:
+- Simple problems with an obvious single correct approach (CoT is 
+  sufficient and much cheaper).
+- Highly latency-sensitive applications — ToT is significantly more 
+  expensive/slow than CoT since it explores multiple branches.
+- Problems where there's no meaningful way to EVALUATE partial 
+  progress (ToT relies on being able to judge "is this branch 
+  promising?" at intermediate steps).
+- Simple factual or single-step tasks.
+
+BEST MODELS FOR TREE-OF-THOUGHTS:
+- GPT-4o/4.1/5-class — strong at both generating diverse candidate 
+  branches AND evaluating their promise, which ToT requires.
+- Claude (Opus/Sonnet with extended thinking) — excellent at 
+  structured exploration and self-evaluation of reasoning branches.
+- Gemini Pro/Ultra — capable of multi-branch exploration, especially 
+  useful for creative/strategic problems.
+- DeepSeek-R1 / Qwen (reasoning variants) — strong for structured, 
+  search-like reasoning tasks (math, puzzles).
+- NOTE: True Tree-of-Thoughts (as in the original research) often 
+  requires PROGRAMMATIC orchestration (a script that manages the 
+  tree, calls the model to generate branches, evaluates them, and 
+  decides which to expand) rather than a single prompt in a chat 
+  window — but a SIMPLIFIED, single-prompt version (described below) 
+  can still be effective for many practical use cases.
+- Smaller models (Mistral/Llama 7B-13B) often struggle with the self-
+  evaluation component required for effective ToT; reserve this 
+  technique for larger, more capable models.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [PROBLEM] + "Generate [N] different approaches/branches" + 
+    "Evaluate each branch's promise" + 
+    "Expand the most promising branch(es), abandon weak ones" + 
+    "Converge on the best final solution"
+
+-----------------------------
+6. PROMPT STRUCTURE (Simplified, Single-Prompt Version)
+-----------------------------
+    1. Problem Statement — the complex problem to solve.
+    2. Branch Generation — ask for 3-5 distinct initial approaches/
+       first steps.
+    3. Branch Evaluation — ask the model to evaluate each branch's 
+       promise (e.g., rate 1-10, or classify as 
+       "promising/uncertain/dead-end").
+    4. Branch Expansion — continue developing only the most 
+       promising branch(es) further.
+    5. Backtracking (if needed) — if a branch hits a dead end, 
+       explicitly return to a previous decision point and try an 
+       alternative.
+    6. Final Convergence — synthesize the best path into a final 
+       answer.
+
+Example skeleton:
+    "Problem: [COMPLEX PROBLEM]. 
+    Step 1: Generate 3 distinct possible approaches to solve this. 
+    Step 2: For each approach, evaluate its likelihood of success 
+    (High/Medium/Low) and briefly explain why. 
+    Step 3: Take the approach(es) rated 'High,' and develop it 
+    further with detailed next steps. If it hits a dead end, return 
+    to Step 1 and try the next best approach. 
+    Step 4: Converge on and clearly state the final solution."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Explicitly ask for a SPECIFIC NUMBER of branches (typically 3-5) — 
+  too few limits exploration, too many becomes unwieldy and 
+  expensive.
+- Require the model to EVALUATE each branch with a clear rubric 
+  (e.g., "rate feasibility 1-10" or "classify as promising/dead-
+  end") rather than vaguely judging quality.
+- Explicitly allow and encourage BACKTRACKING — tell the model it's 
+  okay (and expected) to abandon a branch that isn't working out.
+- For very complex problems, consider breaking ToT into multiple 
+  separate prompts/turns (generate branches → evaluate → expand best 
+  one → repeat) rather than trying to do everything in one giant 
+  prompt.
+- Use ToT selectively for genuinely complex, multi-path problems — 
+  applying it to simple problems wastes significant tokens/time for 
+  no benefit.
+- Consider combining with Self-Consistency at the final step (once 
+  you've narrowed to the best branch, verify with multiple final 
+  reasoning passes).
+- If building a production system, consider implementing TRUE 
+  programmatic ToT (a script managing the search tree) rather than 
+  relying on a single prompt to hold the entire tree structure in its 
+  "head."
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Using Tree-of-Thoughts for simple problems that don't 
+  actually have multiple meaningfully different solution paths.
+  FIX: Reserve ToT for genuinely complex, multi-approach problems; 
+  use CoT for simpler linear reasoning.
+
+- MISTAKE: Not giving the model a clear evaluation rubric, leading to 
+  vague or inconsistent branch assessments.
+  FIX: Provide explicit evaluation criteria (e.g., "rate each branch 
+  1-10 on likelihood of leading to a correct solution").
+
+- MISTAKE: Generating branches but never actually using the 
+  evaluation to prune/select — just generating all branches and 
+  averaging them together (this misses the point of ToT, which is 
+  selective exploration).
+  FIX: Explicitly instruct the model to ABANDON low-rated branches 
+  and only develop the promising ones further.
+
+- MISTAKE: Trying to fit an entire complex ToT search into a single, 
+  massive prompt when a multi-turn or programmatic approach would be 
+  clearer and more effective.
+  FIX: For genuinely complex problems, break ToT into multiple 
+  sequential prompts/turns.
+
+- MISTAKE: Ignoring the significant token/cost overhead of exploring 
+  multiple branches, leading to unexpectedly expensive API usage at 
+  scale.
+  FIX: Reserve ToT for problems where the complexity genuinely 
+  justifies the added cost.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Problem: Using the numbers 4, 7, 8, and 8 exactly once each, with 
+any combination of +, -, *, /, reach a final result of 24. 
+
+Step 1: Generate 3 different possible starting approaches (which 
+operations/pairings to try first). 
+Step 2: For each approach, evaluate whether it seems promising or 
+likely a dead end. 
+Step 3: Develop the most promising approach fully to reach 24. If it 
+fails, backtrack and try the next approach. 
+Step 4: State the final working equation."
+
+Expected Output:
+Three initial approaches (e.g., "8÷8=1, then use 1 with 4 and 7," "8-
+4=4, then combine with 7 and 8," "7-4=3, then combine with 8 and 8"), 
+a quick promise evaluation of each, development of the most promising 
+one, backtracking if needed, and a final correct equation such as 
+"(8-4) × (8-... )" adjusted until reaching a valid solution like 
+(7-8/8)×4 = 24, clearly stated as the Final Answer.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Problem: I need to choose a technical approach for deploying a 
+Python-based multi-agent AI system so that it can handle 100+ 
+concurrent users without crashing, using only free/open-source tools 
+(no budget for paid cloud services beyond a single $20/month VPS). 
+
+Step 1: Generate 3 distinct architectural approaches to achieve this. 
+Step 2: Evaluate each approach's feasibility (High/Medium/Low) given 
+the single $20/month VPS constraint, with brief reasoning. 
+Step 3: Develop the highest-feasibility approach in more detail, 
+including specific tools/technologies. If it seems infeasible upon 
+deeper analysis, backtrack to the next approach. 
+Step 4: State your final recommended architecture."
+
+Expected Output:
+Three approaches (e.g., "vertical scaling with async processing," 
+"horizontal scaling with multiple lightweight VPS instances," 
+"queue-based load leveling with a single VPS"), each evaluated 
+against the $20/month single-VPS constraint (likely ruling out true 
+horizontal scaling as infeasible given budget), leading to development 
+of the most realistic approach (e.g., async request handling with 
+asyncio plus a task queue like Redis/Celery to smooth out load 
+spikes on a single VPS), converging on a clearly stated final 
+recommended architecture.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Problem: I'm designing a hybrid dense/sparse retrieval system (like 
+my RAG_Master project) and need to decide how to combine dense vector 
+search results with sparse (BM25) keyword search results into a 
+single ranked list. Naive score averaging isn't working well because 
+dense and sparse scores are on very different scales. 
+
+Step 1: Generate 4 distinct approaches to properly combine/re-rank 
+these two result sets. 
+Step 2: For each approach, evaluate: (a) implementation complexity, 
+(b) likely effectiveness, (c) computational cost. Rate each on a 
+Low/Medium/High scale. 
+Step 3: Identify the approach with the best overall balance across 
+all three criteria, and if the top-rated approach on paper turns out 
+to have a hidden weakness upon closer analysis, explicitly backtrack 
+and select the next-best approach instead, explaining why. 
+Step 4: Develop the selected approach into a concrete implementation 
+plan, and state your Final Answer."
+
+Expected Output:
+Four distinct approaches (e.g., Reciprocal Rank Fusion (RRF), score 
+normalization + weighted linear combination, a learned re-ranking 
+model/cross-encoder, or a Rank-Biased Precision fusion method), each 
+evaluated across complexity/effectiveness/cost, a reasoned selection 
+process that may involve backtracking (e.g., initially favoring a 
+cross-encoder re-ranker for effectiveness but backtracking due to 
+High computational cost being a poor fit for a lightweight local RAG 
+pipeline, ultimately selecting Reciprocal Rank Fusion as the best 
+balance of Low complexity, Medium-High effectiveness, and Low cost), 
+followed by a concrete implementation plan and clearly stated Final 
+Answer.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Problem: [YOUR COMPLEX, MULTI-APPROACH PROBLEM]
+    
+    Step 1: Generate [3-5] distinct possible approaches to solve 
+    this problem.
+    
+    Step 2: For each approach, evaluate [YOUR EVALUATION CRITERIA — 
+    e.g., feasibility, cost, effectiveness] on a High/Medium/Low 
+    scale, with brief reasoning.
+    
+    Step 3: Select and develop the most promising approach(es) 
+    further. If a selected approach turns out to have a hidden flaw, 
+    explicitly backtrack, explain why, and develop the next-best 
+    approach instead.
+    
+    Step 4: Converge on and clearly state your Final Answer/
+    recommendation.
+
+=====================================================================
+END OF FILE 14 — Tree-of-Thoughts Prompting
+=====================================================================

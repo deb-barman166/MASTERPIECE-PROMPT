@@ -1,0 +1,285 @@
+=====================================================================
+21. SELF-REFINE PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Reasoning)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Self-Refine Prompting — Iterative Improvement Through Repeated Cycles
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Self-Refine prompting is a technique where the model generates an 
+initial output, then repeatedly cycles through FEEDBACK and 
+REVISION steps — critiquing its own work and producing an improved 
+version — across MULTIPLE ITERATIONS, until the output reaches a 
+satisfactory quality level or a set number of refinement rounds is 
+complete. While Self-Critique focuses on identifying flaws in a 
+SINGLE pass, and Reflection is a single "second look," Self-Refine is 
+specifically about the ITERATIVE LOOP: generate → critique → improve 
+→ critique again → improve again, repeated multiple times.
+
+Think of it like a sculptor who doesn't just carve once and stop, but 
+repeatedly steps back, studies the work, makes a refinement, steps 
+back again, makes another refinement — cycling through this process 
+multiple times until the final piece is polished, rather than 
+stopping after just one round of adjustment.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Self-Refine prompting exists to:
+- Progressively improve output quality beyond what a single 
+  generation OR a single critique-and-fix pass can achieve.
+- Handle complex creative, technical, or analytical tasks where 
+  quality genuinely compounds with multiple rounds of polish (writing, 
+  code, design, strategy).
+- Simulate the natural human creative/professional process of 
+  drafting, reviewing, and revising multiple times before finalizing 
+  work.
+- Provide a controllable QUALITY DIAL — you can choose to run more or 
+  fewer refinement iterations depending on how much polish a given 
+  task warrants.
+- Serve as a foundational technique behind many modern "agentic" 
+  coding and writing tools that iteratively improve their own output 
+  before presenting a final result.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- High-value creative or professional deliverables (important emails, 
+  essays, marketing copy, code, business proposals) where multiple 
+  rounds of polish meaningfully improve the final result.
+- Tasks where quality genuinely compounds — each refinement round 
+  catches issues the previous round didn't, rather than just 
+  reshuffling the same content.
+- Situations where you have the time/token budget for multiple 
+  generation cycles and prioritize quality over speed.
+- Building semi-autonomous content generation pipelines where you 
+  want a built-in quality-improvement loop rather than accepting the 
+  first draft.
+
+WHEN NOT TO USE:
+- Simple, low-stakes tasks where a single generation is already 
+  sufficient — running multiple refinement cycles wastes tokens for 
+  negligible gain.
+- Extremely time-sensitive situations where speed matters more than 
+  incremental quality improvement.
+- Tasks with DIMINISHING RETURNS after 1-2 rounds — watch for the 
+  point where further iterations stop meaningfully improving the 
+  output (this varies by task; test to find your task's "sweet 
+  spot").
+- Purely factual/objective tasks where there's nothing subjective to 
+  "refine" (e.g., a factual lookup doesn't benefit from iterative 
+  refinement the way a piece of writing does).
+
+BEST MODELS FOR SELF-REFINE:
+- Claude — excellent at genuine, substantive multi-round refinement 
+  without just superficially rewording the same content each cycle.
+- GPT-4o/4.1/5-class — strong iterative refinement performance, 
+  especially for writing and code tasks.
+- Gemini Pro — capable multi-round refinement, particularly for 
+  structured/technical content.
+- DeepSeek / Qwen (coding variants) — good for iterative code 
+  refinement cycles (write → test/critique → fix → repeat).
+- Mistral / Llama — capable of self-refine loops; may show more 
+  noticeable diminishing returns after 1-2 rounds compared to larger, 
+  more capable models — test to find the right number of iterations 
+  for your specific model and task.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [TASK] → [DRAFT 1] → "Critique Draft 1, then produce Draft 2 
+    fixing the identified issues" → [DRAFT 2] → "Critique Draft 2, 
+    then produce Draft 3..." → [repeat N times] → [FINAL VERSION]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Original Task — the thing to be created.
+    2. Initial Draft — the model's first attempt.
+    3. Iteration Loop (repeated N times):
+       a. Critique the current draft against clear quality criteria.
+       b. Produce an improved draft addressing the critique.
+    4. Stopping Condition — a defined number of rounds (e.g., "refine 
+       3 times total") OR a quality threshold ("stop refining once 
+       you genuinely can't find any more meaningful improvements").
+    5. Final Output — the last, most refined version, clearly 
+       presented.
+
+Example skeleton:
+    "[TASK]. Generate Draft 1. 
+    Then, critique Draft 1 against [QUALITY CRITERIA] and produce 
+    Draft 2 with improvements. 
+    Then, critique Draft 2 and produce Draft 3 with further 
+    improvements. 
+    Present Draft 3 as your Final Version, along with a brief summary 
+    of what improved across the iterations."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Define CLEAR QUALITY CRITERIA for the critique step at each 
+  iteration (clarity, accuracy, tone, structure, technical 
+  correctness) — vague "make it better" critiques produce shallow 
+  refinement.
+- Set an EXPLICIT number of refinement rounds (typically 2-4) rather 
+  than leaving it open-ended, to control cost/time and give the model 
+  a clear stopping point.
+- Watch for DIMINISHING RETURNS — if Draft 3 isn't meaningfully better 
+  than Draft 2, you've likely hit your task's natural refinement 
+  ceiling; further rounds may just reshuffle wording.
+- Ask for a brief summary of WHAT specifically improved across 
+  iterations — this helps you verify genuine refinement occurred 
+  rather than superficial rewording.
+- For code, combine Self-Refine with actual execution/testing at each 
+  iteration (write code → run tests → fix failures → re-test) for a 
+  much more powerful, verifiable refinement loop.
+- Consider varying the critique PERSPECTIVE across iterations (e.g., 
+  Round 1: critique for clarity; Round 2: critique for technical 
+  accuracy; Round 3: critique for tone) to surface different types of 
+  improvements rather than repeating the same lens.
+- Don't over-iterate on tasks that don't benefit from it — always 
+  weigh the added cost/time against the realistic quality gain for 
+  your specific use case.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Not defining specific quality criteria, leading to vague, 
+  superficial critique-and-revise cycles that just reword content 
+  without genuine improvement.
+  FIX: Define explicit criteria to check at each refinement round.
+
+- MISTAKE: Running refinement indefinitely without a set stopping 
+  point, wasting tokens once genuine improvement has plateaued.
+  FIX: Set an explicit number of rounds (2-4 is often a good default) 
+  or a clear quality-based stopping condition.
+
+- MISTAKE: Applying Self-Refine to simple, low-stakes tasks where a 
+  single good generation was already sufficient.
+  FIX: Reserve multi-round refinement for genuinely important, high-
+  value outputs.
+
+- MISTAKE: Using the same critique lens/perspective for every 
+  iteration, which tends to surface diminishing new insights after 
+  the first round or two.
+  FIX: Vary the critique focus across rounds (clarity, then accuracy, 
+  then tone, etc.).
+
+- MISTAKE: For code specifically, refining based only on the model's 
+  own read-through rather than actually running/testing the code at 
+  each iteration, missing real functional bugs.
+  FIX: Combine Self-Refine with actual test execution whenever a code 
+  execution environment is available.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Write a short 'About Me' bio for a personal portfolio website (50-70 
+words). 
+
+Generate Draft 1. Then critique it for warmth, professionalism, and 
+conciseness, and produce Draft 2 with improvements. Then do one more 
+critique-and-improve round to produce Draft 3 as your Final Version. 
+Briefly note what improved across drafts."
+
+Expected Output:
+Three progressively refined bio drafts, with each critique step 
+identifying genuine issues (e.g., Draft 1 being too generic, Draft 2 
+improving specificity but running slightly long, Draft 3 tightening 
+word count while keeping the added personality), ending with a 
+polished Final Version and a brief note on the improvement 
+trajectory.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Write a cold outreach email to a potential mentor in the AI field, 
+asking for a 20-minute informational call. 
+
+Generate Draft 1. 
+Round 1 critique: evaluate for clarity and whether the ask is 
+specific/easy to say yes to. Produce Draft 2 with improvements. 
+Round 2 critique: evaluate for tone (confident but not presumptuous) 
+and brevity. Produce Draft 3 with improvements. 
+Present Draft 3 as your Final Version, with a brief note on what 
+changed in each round."
+
+Expected Output:
+An initial draft, a Round 1 revision that sharpens the specific ask 
+(e.g., making the 20-minute call request and proposed times more 
+concrete rather than open-ended "let me know if you're free 
+sometime"), a Round 2 revision that trims unnecessary length and 
+adjusts tone (e.g., removing overly deferential language while 
+keeping genuine respect), and a final polished version with a clear 
+summary distinguishing what each round specifically fixed.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Write a Python function that implements a basic LRU (Least Recently 
+Used) cache with a fixed capacity, supporting get(key) and 
+put(key, value) operations, each in O(1) time complexity. 
+
+Generate Draft 1 of the implementation. 
+Round 1: Critique the draft specifically for whether it ACTUALLY 
+achieves true O(1) time complexity for both operations (not just 
+claims to) — trace through the data structures used. Fix any issues 
+found, producing Draft 2. 
+Round 2: Critique Draft 2 for edge cases — what happens with 
+capacity=0, updating an existing key's value, or getting a 
+non-existent key? Fix any issues found, producing Draft 3. 
+Round 3: If a code execution environment is available, run Draft 3 
+against a set of test cases covering normal use and the identified 
+edge cases; fix any failures to produce the Final Version. 
+Present the Final Version along with a summary of what was fixed in 
+each round."
+
+Expected Output:
+A Draft 1 implementation likely using a dictionary combined with 
+either an OrderedDict or a manually implemented doubly-linked list + 
+hash map for true O(1) performance; a Round 1 critique that verifies 
+(or corrects) the actual time complexity of each operation, e.g., 
+catching if a naive approach accidentally introduced O(n) behavior 
+somewhere (like using a plain list and calling .remove()); a Round 2 
+critique/fix addressing edge cases like capacity=0 (should perhaps 
+raise an error or always evict immediately), updating an existing 
+key (should update value AND mark as most-recently-used, not just 
+insert a duplicate), and getting a missing key (should return a clear 
+sentinel/None or raise, per typical LRU cache conventions); a Round 3 
+verification via actual test execution catching any remaining bugs; 
+culminating in a fully correct, tested, genuinely O(1) LRU cache 
+implementation with a clear summary of the 3 refinement rounds' 
+specific fixes.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Task: [WHAT YOU WANT CREATED]
+    
+    Generate Draft 1.
+    
+    Round 1: Critique Draft 1 for [QUALITY CRITERION 1 — e.g., 
+    clarity/correctness]. Produce Draft 2 with improvements.
+    
+    Round 2: Critique Draft 2 for [QUALITY CRITERION 2 — e.g., 
+    completeness/edge cases]. Produce Draft 3 with improvements.
+    
+    Round 3 (optional): Critique Draft 3 for [QUALITY CRITERION 3 — 
+    e.g., tone/polish, or actual testing if applicable]. Produce the 
+    Final Version.
+    
+    Present the Final Version, with a brief summary of what improved 
+    across each round.
+
+=====================================================================
+END OF FILE 21 — Self-Refine Prompting
+=====================================================================

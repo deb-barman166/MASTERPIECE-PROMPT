@@ -1,0 +1,266 @@
+=====================================================================
+13. SELF-CONSISTENCY PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Reasoning)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Self-Consistency Prompting — Voting Across Multiple Reasoning Paths
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Self-Consistency prompting is a technique that improves upon basic 
+Chain-of-Thought by generating MULTIPLE INDEPENDENT reasoning paths 
+(usually 3-10+) for the SAME question, then selecting the FINAL 
+ANSWER that appears most frequently across all those paths (a 
+"majority vote"). Because different reasoning attempts might take 
+different routes but should converge on the same correct answer, 
+this technique catches and filters out occasional reasoning errors 
+that any single CoT attempt might make.
+
+Think of it like asking 5 different experts to independently solve 
+the same problem without seeing each other's work, then going with 
+the answer that most of them agree on — even if 1 or 2 experts made 
+a mistake, the majority is far more likely to be correct.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Self-Consistency prompting exists to:
+- Significantly boost accuracy beyond single-path Chain-of-Thought, 
+  especially on complex reasoning, math, and logic tasks.
+- Catch and filter out random/occasional reasoning errors that any 
+  ONE reasoning chain might make.
+- Provide a measurable CONFIDENCE signal (e.g., "7 out of 10 paths 
+  agreed") for high-stakes decisions.
+- Reduce the impact of the model's inherent randomness/temperature-
+  based variation on final answer reliability.
+- Serve as a practical, implementable technique for critical 
+  applications where a single wrong answer has real consequences.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- High-stakes reasoning tasks where accuracy matters more than speed/
+  cost (financial calculations, medical-adjacent reasoning, critical 
+  business decisions).
+- Complex math or logic problems where even strong models 
+  occasionally make errors on a single attempt.
+- Situations where you can afford multiple API calls (this technique 
+  inherently costs more due to running the same prompt multiple 
+  times).
+- Building evaluation/benchmarking systems that need reliable ground-
+  truth-adjacent outputs.
+- Any scenario where you want a built-in "confidence score" alongside 
+  the answer.
+
+WHEN NOT TO USE:
+- Simple, low-stakes tasks where a single CoT pass is already highly 
+  reliable — the extra cost/latency isn't justified.
+- Extremely latency-sensitive applications (running 5-10 parallel/
+  sequential calls takes longer and costs more than a single call).
+- Creative or subjective tasks where there ISN'T a single "correct" 
+  answer to converge on (e.g., creative writing, brainstorming) — 
+  self-consistency works best for tasks with objectively verifiable 
+  or convergent answers.
+- Budget-constrained applications where the multiplied API cost 
+  isn't worth the accuracy gain for your use case.
+
+BEST MODELS FOR SELF-CONSISTENCY:
+- Works with ANY model capable of Chain-of-Thought reasoning — the 
+  technique is model-agnostic since it's really about HOW you call 
+  the model multiple times, not a special model capability.
+- GPT-4o/4.1/5-class, Claude, Gemini Pro — all benefit similarly; 
+  choose based on your existing model preference and cost 
+  structure.
+- DeepSeek-R1 / Qwen (reasoning variants) — good candidates since 
+  they're often more cost-effective for running multiple reasoning 
+  passes at scale.
+- IMPORTANT: This technique typically requires API-level access 
+  (running the same prompt multiple times with temperature > 0 for 
+  path diversity) rather than a single chat conversation, since you 
+  need genuinely independent reasoning attempts.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [SAME COT PROMPT RUN N TIMES INDEPENDENTLY, temperature > 0] + 
+    [EXTRACT FINAL ANSWER FROM EACH RUN] + 
+    [SELECT MOST FREQUENT ANSWER AS FINAL RESULT]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Base CoT Prompt — a well-formed Chain-of-Thought prompt (see 
+       file 11) for the target question.
+    2. Repetition Setup — run this exact prompt N times (typically 
+       5-10) with temperature set above 0 (e.g., 0.7) to encourage 
+       varied reasoning paths, NOT with temperature 0 (which would 
+       produce identical/near-identical outputs every time).
+    3. Answer Extraction — pull the "Final Answer:" from each of the 
+       N runs.
+    4. Aggregation/Voting — tally which final answer appears most 
+       frequently; that becomes your Self-Consistency result.
+    5. (Optional) Confidence Reporting — report the vote ratio (e.g., 
+       "8/10 runs agreed") as a confidence signal.
+
+Example workflow (conceptual, not a single prompt):
+    "Run this prompt 7 times: '[QUESTION]. Let's think step by 
+    step. End with Final Answer: [answer].' 
+    Collect the 7 final answers. 
+    Report the answer that appears most often, along with how many 
+    of the 7 runs agreed."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Use a MODERATE temperature (typically 0.5-0.8) when generating the 
+  multiple reasoning paths — too low (near 0) produces near-
+  identical paths (defeating the purpose), too high (near 1.0+) may 
+  introduce excessive randomness/noise.
+- Generate an ODD number of samples (5, 7, 9) to avoid tie votes when 
+  possible.
+- Always extract and compare only the FINAL ANSWER across runs, not 
+  the full reasoning text (reasoning paths can differ even when 
+  converging on the same correct answer).
+- Report the confidence/agreement ratio alongside the final answer 
+  for transparency (e.g., "6 out of 9 reasoning paths converged on 
+  this answer").
+- For numeric answers, consider normalizing formats before comparing 
+  (e.g., "$20" vs "20 dollars" vs "20.00" should be recognized as 
+  the same answer).
+- Start with 5 samples as a reasonable baseline; increase to 10+ only 
+  for genuinely high-stakes decisions where the added cost is 
+  justified.
+- This technique is best implemented programmatically (via API calls 
+  in a script) rather than manually in a single chat — build a small 
+  script/loop if you plan to use this regularly.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Running the same prompt multiple times at temperature=0, 
+  which produces nearly identical outputs every time, defeating the 
+  purpose of generating diverse reasoning paths.
+  FIX: Use a moderate temperature (0.5-0.8) for path diversity.
+
+- MISTAKE: Applying Self-Consistency to subjective/creative tasks 
+  where there's no single "correct" answer to converge on.
+  FIX: Reserve this technique for tasks with objectively verifiable 
+  or convergent correct answers (math, logic, factual reasoning).
+
+- MISTAKE: Not normalizing answer formats before comparing/voting, 
+  causing the same correct answer expressed differently to be 
+  counted as different results.
+  FIX: Normalize/standardize answer formats before tallying votes.
+
+- MISTAKE: Using too few samples (e.g., only 2-3), which doesn't 
+  provide a robust majority signal.
+  FIX: Use at least 5 samples for a meaningful majority vote.
+
+- MISTAKE: Ignoring the cost implications at scale — running this 
+  across thousands of queries multiplies your API costs 
+  significantly.
+  FIX: Reserve Self-Consistency for genuinely high-stakes queries, 
+  not blanket application across all requests.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Setup:
+Run this prompt 5 times at temperature 0.7:
+"A farmer has 17 sheep. All but 9 die. How many sheep are left? 
+Let's think step by step, then give a Final Answer."
+
+Simulated Results Across 5 Runs:
+Run 1: Final Answer: 9 
+Run 2: Final Answer: 9 
+Run 3: Final Answer: 8 (reasoning error: miscalculated the "all but" 
+phrasing) 
+Run 4: Final Answer: 9 
+Run 5: Final Answer: 9
+
+Self-Consistency Result:
+"9" (4 out of 5 runs agree) — correctly filtering out the single 
+erroneous "8" answer from Run 3, since "all but 9 die" means 9 
+survive regardless of the starting number.
+
+--- INTERMEDIATE EXAMPLE ---
+Setup:
+Run this prompt 7 times at temperature 0.7:
+"A company's marketing budget is $50,000. They plan to allocate 40% 
+to social media ads, 25% to influencer partnerships, and the 
+remainder split evenly between email marketing and content creation. 
+How much money goes to content creation? Let's think step by step, 
+then give a Final Answer."
+
+Simulated Results Across 7 Runs:
+5 runs: Final Answer: $8,750 
+2 runs: Final Answer: $17,500 (reasoning error: forgot to split the 
+remainder evenly between the two remaining categories)
+
+Self-Consistency Result:
+"$8,750" (5 out of 7 runs agree) — correctly identifying the majority 
+answer, which reflects properly calculating the remaining 35% 
+($17,500) and THEN splitting it evenly ($8,750 each) between email 
+marketing and content creation.
+
+--- ADVANCED EXAMPLE ---
+Setup:
+Run this prompt 9 times at temperature 0.7 on a Python code-tracing 
+task:
+"Trace through this Python code and determine the final printed 
+output. Let's think step by step, then give a Final Answer.
+
+def mystery(n):
+    result = 0
+    for i in range(n):
+        if i % 3 == 0:
+            result += i
+        elif i % 5 == 0:
+            result -= i
+    return result
+
+print(mystery(10))"
+
+Simulated Results Across 9 Runs:
+7 runs: Final Answer: 13 (correctly tracing: i=0→+0, i=3→+3, i=5→-5, 
+i=6→+6, i=9→+9; note i=0 satisfies %3==0 first per elif ordering; 
+sum: 0+3-5+6+9=13) 
+2 runs: Final Answer: 18 (reasoning error: likely mis-tracing the 
+elif branch priority or arithmetic slip)
+
+Self-Consistency Result:
+"13" (7 out of 9 runs agree) — demonstrating how, even on a moderately 
+complex code-tracing task where individual reasoning chains can slip 
+on arithmetic or branch-priority logic, the majority vote across 
+multiple independent attempts converges reliably on the correct 
+traced output, filtering out the 2 erroneous runs.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    [STEP 1 — Base CoT Prompt to run N times, temperature 0.5-0.8]
+    [YOUR QUESTION/PROBLEM]
+    Let's think step by step, then give a clearly labeled "Final 
+    Answer:"
+    
+    [STEP 2 — Aggregation instruction, run after collecting N 
+    outputs]
+    Here are [N] independent reasoning attempts and their final 
+    answers for the same question: 
+    [PASTE ALL N FINAL ANSWERS] 
+    Identify which final answer appears most frequently, report it 
+    as the Self-Consistency Result, and state the agreement ratio 
+    (e.g., "X out of N runs agreed").
+
+=====================================================================
+END OF FILE 13 — Self-Consistency Prompting
+=====================================================================

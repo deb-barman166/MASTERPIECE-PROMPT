@@ -1,0 +1,309 @@
+=====================================================================
+23. REACT PROMPTING (REASONING + ACTING)
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Agentic)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+ReAct Prompting — Interleaving Reasoning With Real-World Actions
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+ReAct (Reasoning + Acting) prompting is a technique where the model 
+alternates between THOUGHT (internal reasoning about what to do 
+next), ACTION (calling an external tool, API, or performing a 
+lookup), and OBSERVATION (processing the result of that action) — 
+repeating this Thought → Action → Observation loop until it has 
+enough information to produce a final answer. This is the 
+foundational pattern behind virtually all modern "agentic" AI systems 
+that use tools (web search, code execution, APIs, file systems) 
+rather than relying purely on their internal training knowledge.
+
+Think of it like a detective solving a case: they don't just sit and 
+theorize the whole solution from an armchair (pure reasoning); they 
+THINK about what to investigate next, take an ACTION (interview a 
+witness, examine evidence), OBSERVE what they learn, then THINK again 
+about what that new information means and what to investigate next — 
+cycling through this loop until they can conclude the case.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+ReAct prompting exists to:
+- Enable models to access CURRENT, EXTERNAL, or REAL-TIME information 
+  beyond their training data by using tools (search, APIs, databases, 
+  code execution).
+- Ground reasoning in VERIFIED information from actual tool results 
+  rather than the model's internal (potentially outdated or 
+  hallucinated) knowledge.
+- Handle complex, multi-step tasks that require gathering information 
+  progressively — where each action's result informs what to do next, 
+  rather than planning everything upfront blindly.
+- Provide TRANSPARENCY into the model's process — you can see exactly 
+  what it was thinking, what action it took, and what it learned at 
+  each step, making the reasoning auditable.
+- Serve as the core architectural pattern underlying nearly all 
+  practical AI agents (coding agents, research agents, customer 
+  service agents, autonomous task-completion systems).
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Any task requiring access to current/external information (web 
+  search for recent events, database queries, live API data).
+- Multi-step tasks where you need to gather information 
+  PROGRESSIVELY, since the right next action often depends on what 
+  was learned from the previous one.
+- Building AI agents that interact with real tools/environments 
+  (coding agents, research assistants, automation systems).
+- Tasks combining REASONING and TOOL USE in a genuinely interleaved 
+  way, rather than a single tool call followed by a single answer.
+- Debugging or investigative tasks where you don't know the full 
+  answer upfront and need to explore step by step.
+
+WHEN NOT TO USE:
+- Simple tasks that can be answered directly from the model's 
+  existing knowledge with no need for external tools/actions.
+- Situations where you don't actually have tool access available 
+  (ReAct requires a real mechanism for the model to take actions and 
+  receive results back).
+- Very simple single-tool-call tasks where a basic Tool-Use Prompting 
+  approach (see file 30) is sufficient without needing the full 
+  interleaved reasoning loop.
+
+BEST MODELS FOR REACT PROMPTING:
+- Claude — excellent native tool-use/agentic capability, well-suited 
+  to ReAct-style interleaved reasoning and action (this is the 
+  pattern behind Claude Code and similar agentic products).
+- GPT-4o/4.1/5-class (with function calling/tools enabled) — very 
+  strong ReAct performance, widely used in agentic frameworks.
+- Gemini Pro/Ultra (with tool use) — strong ReAct capability, 
+  especially for multimodal agentic tasks.
+- DeepSeek / Qwen (agentic-tuned variants) — capable ReAct 
+  performance for technical/coding agent tasks.
+- Mistral / Llama (function-calling variants) — capable of ReAct 
+  patterns when properly set up with tool-calling infrastructure; 
+  reliability of the reasoning-action loop generally improves with 
+  larger model size.
+- NOTE: ReAct fundamentally requires an ORCHESTRATION LAYER (a system 
+  that actually executes the requested actions/tool calls and feeds 
+  results back to the model) — this is typically implemented via 
+  function calling APIs, agent frameworks (LangChain, LangGraph, 
+  Google ADK), or built-in agentic products (Claude Code, ChatGPT 
+  with tools) rather than a single standalone chat prompt.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [TASK] + "Use this Thought/Action/Observation loop: Thought: 
+    [reason about what to do next]. Action: [tool call]. 
+    Observation: [tool result]. Repeat until ready, then provide: 
+    Final Answer: [...]"
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Task Statement — what needs to be accomplished.
+    2. Available Tools Declaration — list what tools/actions are 
+       available (e.g., "search[query]", "calculate[expression]", 
+       "lookup[term]").
+    3. Loop Format Definition — explicitly define the Thought → 
+       Action → Observation cycle format.
+    4. Iterative Execution — the model produces a Thought, takes an 
+       Action, receives an Observation (the actual tool result), then 
+       produces a new Thought based on that observation, repeating as 
+       needed.
+    5. Final Answer — once sufficient information has been gathered, 
+       the model exits the loop and provides a final, synthesized 
+       answer.
+
+Example skeleton:
+    "Task: [GOAL]. 
+    Available actions: [Search, Calculate, Lookup, etc.] 
+    Use this format: 
+    Thought: [reasoning about what to do next] 
+    Action: [specific tool call] 
+    Observation: [result of the tool call] 
+    (repeat Thought/Action/Observation as needed) 
+    Thought: I now have enough information to answer. 
+    Final Answer: [synthesized answer]"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Clearly DEFINE the available actions/tools upfront, including their 
+  expected input format, so the model knows exactly what it can call 
+  and how.
+- Enforce the Thought → Action → Observation FORMAT explicitly and 
+  consistently so the loop remains structured and parseable (this 
+  matters especially if you're programmatically executing the actions 
+  and feeding results back).
+- Instruct the model to reason EXPLICITLY about what it learned from 
+  each Observation before deciding the next Action — this is the key 
+  difference between genuine ReAct and just "calling tools randomly."
+- Set a reasonable MAXIMUM number of loop iterations to prevent 
+  infinite or excessively long tool-calling chains on ambiguous tasks.
+- Always require the model to clearly signal when it's DONE gathering 
+  information and ready to produce a "Final Answer" distinct from 
+  intermediate Thoughts.
+- For production agentic systems, log the full Thought/Action/
+  Observation trace — this transparency is valuable for debugging 
+  when the agent doesn't reach the desired outcome.
+- Combine with error handling instructions: what should the model do 
+  if an Action/tool call fails or returns unexpected results (e.g., 
+  "if a search returns no results, try rephrasing the query once 
+  before giving up").
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Not clearly defining what tools/actions are actually 
+  available, leading the model to hallucinate imaginary tool calls 
+  that don't correspond to real capabilities.
+  FIX: Explicitly enumerate available actions and their expected 
+  input/output formats.
+
+- MISTAKE: Allowing unlimited loop iterations, causing runaway tool-
+  calling chains (and cost) on ambiguous or poorly-scoped tasks.
+  FIX: Set an explicit maximum number of Thought/Action/Observation 
+  cycles.
+
+- MISTAKE: The model taking actions without genuine reasoning in 
+  between (just chaining tool calls without processing what each 
+  result actually means for the next step).
+  FIX: Explicitly require a Thought step that references and 
+  reasons about the previous Observation before each new Action.
+
+- MISTAKE: No clear signal for when the loop should end, leading to 
+  either premature final answers (before enough information is 
+  gathered) or the model continuing to loop unnecessarily.
+  FIX: Require an explicit "I now have enough information" Thought 
+  before producing the Final Answer.
+
+- MISTAKE: No error-handling guidance for when a tool call fails or 
+  returns unexpected/empty results, causing the agent to get stuck or 
+  produce a poor final answer based on incomplete information.
+  FIX: Include explicit instructions for handling failed or 
+  unhelpful tool results (e.g., retry with different parameters, or 
+  acknowledge the limitation in the final answer).
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Task: Find out the current population of Japan and calculate what 
+10% of that population would be. 
+Available actions: search[query], calculate[expression] 
+Use this format: 
+Thought: [reasoning] 
+Action: [action] 
+Observation: [result] 
+(repeat as needed) 
+Final Answer: [answer]"
+
+Expected Output (conceptual trace):
+"Thought: I need to find Japan's current population first. 
+Action: search[current population of Japan] 
+Observation: [search result showing approximately 123 million] 
+Thought: Now I need to calculate 10% of 123 million. 
+Action: calculate[123000000 * 0.10] 
+Observation: 12300000 
+Thought: I now have enough information to answer. 
+Final Answer: Japan's population is approximately 123 million, and 
+10% of that is approximately 12.3 million people."
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Task: Determine whether it would currently be a good time (weather-
+wise) to visit Kyoto, Japan for outdoor sightseeing, and suggest 
+appropriate clothing. 
+Available actions: search[query] 
+Use this format: 
+Thought: [reasoning] 
+Action: [action] 
+Observation: [result] 
+(repeat as needed) 
+Final Answer: [answer]"
+
+Expected Output (conceptual trace):
+"Thought: I need to find the current weather conditions in Kyoto. 
+Action: search[current weather Kyoto Japan] 
+Observation: [search result showing temperature, conditions, e.g., 
+15°C, partly cloudy] 
+Thought: Given these conditions, I should also check if there are 
+any weather warnings or upcoming changes (rain forecast) that might 
+affect outdoor sightseeing. 
+Action: search[Kyoto weather forecast next 3 days] 
+Observation: [search result indicating mild conditions expected to 
+continue, low rain chance] 
+Thought: I now have enough information to answer. 
+Final Answer: Current conditions in Kyoto are mild and mostly clear 
+with low rain probability over the next few days, making it a good 
+time for outdoor sightseeing. Recommended clothing: light layers, a 
+light jacket for cooler mornings/evenings, and comfortable walking 
+shoes."
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Task: I'm getting a 'ModuleNotFoundError: No module named 
+chromadb' error when running my RAG pipeline script. Diagnose the 
+issue and provide a fix. 
+Available actions: run_command[shell command], search[query] 
+Use this format: 
+Thought: [reasoning] 
+Action: [action] 
+Observation: [result] 
+(repeat as needed, max 5 iterations) 
+Final Answer: [diagnosis and fix]"
+
+Expected Output (conceptual trace):
+"Thought: This error typically means the chromadb package isn't 
+installed in the current Python environment. Let me check if it's 
+installed. 
+Action: run_command[pip show chromadb] 
+Observation: [output indicating 'WARNING: Package(s) not found: 
+chromadb'] 
+Thought: Confirmed — chromadb is not installed. Let me check which 
+Python environment is active, in case there's a virtual environment 
+mismatch. 
+Action: run_command[which python && python --version] 
+Observation: [output showing the active Python path and version] 
+Thought: I now have enough information — the package genuinely isn't 
+installed in this environment. I should provide the installation 
+command as the fix. 
+Final Answer: The error occurs because the 'chromadb' package is not 
+installed in your current Python environment. Fix: run 'pip install 
+chromadb' (or 'pip install chromadb --break-system-packages' if using 
+a system-managed Python environment) in the same environment/
+virtual environment your script uses, confirmed via 'which python' 
+above, then re-run your script."
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Task: [YOUR GOAL]
+    
+    Available actions: [LIST TOOLS/ACTIONS AVAILABLE, e.g., 
+    search[query], calculate[expression], run_command[shell command]]
+    
+    Use this format for each step:
+    Thought: [reason about what to do next based on the goal and any 
+    previous observations]
+    Action: [the specific tool call to make]
+    Observation: [the result of that action]
+    
+    Repeat the Thought/Action/Observation cycle as needed (maximum 
+    [N] iterations). Once you have enough information, write:
+    Thought: I now have enough information to answer.
+    Final Answer: [your synthesized, complete answer]
+
+=====================================================================
+END OF FILE 23 — ReAct Prompting
+=====================================================================

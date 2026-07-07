@@ -1,0 +1,277 @@
+=====================================================================
+17. STEP-BY-STEP PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Reasoning)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Step-by-Step Prompting — Explicitly Sequencing the Process
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Step-by-step prompting is a technique where YOU (the prompt writer) 
+explicitly define a NUMBERED SEQUENCE OF STEPS that the model must 
+follow, in order, to complete a task — as opposed to Chain-of-Thought, 
+where the model GENERATES its own reasoning steps freely. Here, the 
+STRUCTURE of the process is predetermined by you; the model's job is 
+to execute each defined step faithfully and in the correct order.
+
+Think of it as the difference between telling someone "figure out how 
+to bake this cake" (they invent their own process — closer to CoT) 
+versus handing them a numbered recipe: "Step 1: preheat oven. Step 2: 
+mix dry ingredients. Step 3: mix wet ingredients..." (Step-by-Step 
+Prompting) — you've already designed the process; they just need to 
+execute it correctly.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Step-by-step prompting exists to:
+- Enforce a SPECIFIC, REPRODUCIBLE process when the exact sequence of 
+  operations matters (not just the final outcome).
+- Reduce the model's tendency to skip important steps or take 
+  shortcuts, especially on tasks with a known correct methodology.
+- Provide auditability and consistency — since the steps are fixed, 
+  outputs across multiple runs follow the same structure and are 
+  easier to compare/verify.
+- Break down complex, multi-part tasks into manageable, sequential 
+  chunks that are easier for the model (and you) to track.
+- Serve as a lightweight alternative to full Workflow Prompting when 
+  you need sequence but not necessarily conditional branching logic.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- You already KNOW the correct/required process and want it followed 
+  exactly (e.g., a compliance checklist, a specific analysis 
+  methodology, a required editing process).
+- The task has a natural, fixed sequence where doing things out of 
+  order would produce incorrect or lower-quality results.
+- You need CONSISTENCY across many runs of the same type of task 
+  (e.g., processing 50 documents the exact same way).
+- Teaching or onboarding contexts where showing the explicit process 
+  itself has educational value.
+- Multi-part tasks where you want to verify each step's output before 
+  the model proceeds to the next (can be done turn-by-turn).
+
+WHEN NOT TO USE:
+- The best process ISN'T known in advance and you want the model to 
+  figure out its own approach (use Chain-of-Thought or Goal-Oriented 
+  Prompting instead).
+- The task is simple enough that an explicit process would be 
+  overkill (a single-step task doesn't need "Step 1: do the thing").
+- You want creative flexibility rather than a fixed procedure.
+
+BEST MODELS FOR STEP-BY-STEP PROMPTING:
+- ALL modern instruction-tuned models handle explicit step-by-step 
+  instructions well, since faithfully following numbered/sequential 
+  instructions is a core instruction-following capability: GPT-4o/
+  4.1/5-class, Claude, Gemini, Grok, DeepSeek, Qwen, Mistral-Instruct, 
+  Llama-Instruct, Copilot, Cursor.
+- Claude and GPT-4-class models are particularly reliable at not 
+  skipping or reordering steps even in long, complex sequences.
+- For VERY long step sequences (10+ steps), models with strong long-
+  context handling (Claude, Gemini) maintain step fidelity better 
+  than shorter-context models.
+- Smaller/open-source models (Mistral 7B, Llama 8B) handle step-by-
+  step instructions reasonably well but may benefit from processing 
+  fewer steps at once (break very long sequences into smaller batches 
+  of steps if you notice step-skipping).
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [TASK OVERVIEW] + "Follow these steps in order:" + 
+    "Step 1: [...]" + "Step 2: [...]" + "Step 3: [...]" + 
+    [OUTPUT FORMAT/EXPECTATION FOR EACH OR FINAL STEP]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Task Overview — a one-sentence summary of the overall goal.
+    2. Explicit Step List — each step clearly numbered, in the exact 
+       required order, each step being a single clear action.
+    3. (Optional) Step-Specific Output Instructions — if you want 
+       output shown after EACH step (not just the end), specify this.
+    4. Final Output Instruction — what the completed result should 
+       look like after all steps are done.
+
+Example skeleton:
+    "Goal: [OVERALL TASK]. 
+    Follow these steps in order, showing your work for each: 
+    Step 1: [FIRST ACTION] 
+    Step 2: [SECOND ACTION, building on Step 1] 
+    Step 3: [THIRD ACTION, building on Step 2] 
+    Step 4: [FINAL ACTION — produce the final output] 
+    
+    Complete all steps before giving your final result."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Keep each step FOCUSED on a single, clear action — avoid combining 
+  multiple distinct actions into one numbered step.
+- Order steps in the EXACT sequence required — if order doesn't 
+  actually matter for some steps, consider whether step-by-step is 
+  even the right technique (vs. a simple checklist/constraint list).
+- Make dependencies between steps explicit when relevant ("Step 3: 
+  using the result from Step 2, calculate..."), especially for 
+  multi-part calculations or analyses.
+- For very long or complex processes, consider having the model show 
+  its output after EACH step (rather than only at the end) so you can 
+  verify correctness along the way and catch errors early.
+- Combine with Constraint Prompting to add format/length rules to 
+  individual steps or the final output.
+- If a step could reasonably be skipped or shortened by the model, 
+  add an explicit instruction like "do not skip any step, even if it 
+  seems straightforward."
+- For processes with 8+ steps, consider whether breaking the task 
+  into multiple separate prompts/turns (one per major phase) would 
+  produce more reliable results than one giant step list.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Combining multiple distinct actions into a single numbered 
+  step (e.g., "Step 2: Clean the data, remove duplicates, and 
+  calculate averages" — that's really 3 steps).
+  FIX: Break compound steps into separate, single-action steps.
+
+- MISTAKE: Steps that don't actually need to happen in a specific 
+  order, making the "step-by-step" framing unnecessary or confusing.
+  FIX: Use step-by-step only when true sequential dependency exists; 
+  otherwise use a simple requirements/checklist format.
+
+- MISTAKE: Not specifying whether you want to see output after each 
+  step or just the final result, leading to overly long or overly 
+  terse responses relative to your actual need.
+  FIX: Explicitly state your preference ("show your work for each 
+  step" vs. "only show the final result after completing all steps 
+  internally").
+
+- MISTAKE: Writing so many steps (15+) in one prompt that the model 
+  starts skipping or merging steps due to sheer length/complexity.
+  FIX: Break very long processes into multiple prompts/turns, one per 
+  logical phase.
+
+- MISTAKE: Vague step descriptions that don't give the model enough 
+  detail to execute correctly (e.g., "Step 3: Analyze it").
+  FIX: Be as specific as possible about WHAT to analyze and HOW, 
+  within each step.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Goal: Convert a temperature from Fahrenheit to Celsius. 
+Follow these steps in order, showing your work: 
+Step 1: Take the Fahrenheit temperature and subtract 32. 
+Step 2: Multiply the result by 5. 
+Step 3: Divide that result by 9. 
+Step 4: State the final Celsius temperature. 
+
+Convert 98.6°F using this process."
+
+Expected Output:
+"Step 1: 98.6 - 32 = 66.6 
+Step 2: 66.6 × 5 = 333 
+Step 3: 333 ÷ 9 = 37 
+Step 4: Final Celsius temperature: 37°C"
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Goal: Review a short piece of writing for quality. 
+Follow these steps in order, showing your findings for each: 
+Step 1: Read the text and identify the main argument or purpose. 
+Step 2: Check for grammar and spelling errors — list any found. 
+Step 3: Evaluate clarity — is the main point communicated clearly 
+within the first 2 sentences? 
+Step 4: Evaluate structure — does the text flow logically from 
+point to point? 
+Step 5: Provide one specific, actionable suggestion for improvement 
+based on your findings from Steps 1-4. 
+
+Text to review: 'AI is changing everything in are world. Many 
+peoples dont understand how much its already effecting there daily 
+lifes, from the phones to shopping, AI is everywhere now and will 
+keep growing bigger and bigger in the future for sure.'"
+
+Expected Output:
+A structured 5-step review: Step 1 identifies the main point (AI's 
+growing impact on daily life); Step 2 lists specific errors ("are" 
+→ "our," "peoples" → "people," "dont" → "don't," "effecting" → 
+"affecting," "there" → "their," "lifes" → "lives"); Step 3 notes the 
+main point IS attempted early but is muddled by errors; Step 4 notes 
+run-on structure and repetitive phrasing ("bigger and bigger"); Step 
+5 gives one specific actionable suggestion (e.g., "Proofread for 
+homophone errors and split the run-on sentence into two clearer 
+sentences").
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Goal: Perform a security review of a Python function that handles 
+user authentication. 
+Follow these steps in order, documenting findings for each: 
+Step 1: Identify how the password is being compared/verified. 
+Step 2: Check if there is any protection against timing attacks. 
+Step 3: Check if there is any rate-limiting or brute-force 
+protection logic present. 
+Step 4: Check how errors are handled — do error messages leak 
+information (e.g., revealing whether the username exists vs. the 
+password being wrong)? 
+Step 5: Based on Steps 1-4, list all identified vulnerabilities in 
+order of severity (Critical/High/Medium/Low). 
+Step 6: For the single MOST CRITICAL vulnerability found, provide a 
+specific code-level fix. 
+
+Function to review: 
+def login(username, password): 
+    user = get_user(username) 
+    if user is None: 
+        return 'Error: Username not found' 
+    if user.password == password: 
+        return 'Login successful' 
+    else: 
+        return 'Error: Incorrect password'"
+
+Expected Output:
+A structured 6-step security review: Step 1 notes plaintext string 
+comparison (==) is used instead of a secure comparison; Step 2 
+identifies vulnerability to timing attacks due to non-constant-time 
+comparison; Step 3 notes complete absence of rate-limiting/brute-
+force protection; Step 4 identifies a critical username enumeration 
+vulnerability (different error messages reveal whether a username 
+exists); Step 5 ranks vulnerabilities (e.g., Critical: plaintext 
+password storage/comparison and username enumeration; High: no rate 
+limiting; Medium: timing attack surface); Step 6 provides a specific 
+fix for the most critical issue, such as using a constant-time 
+comparison function with hashed passwords (e.g., 
+`bcrypt.checkpw()`) and returning an identical generic error message 
+regardless of whether the username or password was wrong.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Goal: [OVERALL TASK/OBJECTIVE]
+    
+    Follow these steps in order, showing your work/findings for 
+    each:
+    Step 1: [FIRST SPECIFIC ACTION]
+    Step 2: [SECOND SPECIFIC ACTION]
+    Step 3: [THIRD SPECIFIC ACTION]
+    Step 4: [CONTINUE AS NEEDED...]
+    Step [N]: [FINAL ACTION — produce/state the final result]
+    
+    Complete all steps in order before giving your final result. Do 
+    not skip any step.
+
+=====================================================================
+END OF FILE 17 — Step-by-Step Prompting
+=====================================================================

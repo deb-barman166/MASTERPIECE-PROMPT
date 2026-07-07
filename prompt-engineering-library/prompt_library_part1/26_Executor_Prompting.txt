@@ -1,0 +1,298 @@
+=====================================================================
+26. EXECUTOR PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Agentic)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Executor Prompting — The Dedicated Task-Completion Role
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Executor prompting is the counterpart to Planner Prompting: a 
+technique where a model (or a distinct role within a system) is given 
+a SINGLE, ALREADY-DEFINED sub-task — typically one item from a 
+Planner's output — and is instructed to focus ENTIRELY on completing 
+that specific sub-task correctly, without worrying about the broader 
+strategy, the overall plan, or what happens before/after. The 
+Executor doesn't decide WHAT to do (that's the Planner's job); it 
+focuses purely on HOW to do the one thing it's been assigned, and 
+doing it well.
+
+Think of it like a construction crew member handed a specific work 
+order: "Install the electrical wiring in Room 3 according to this 
+diagram." They don't need to know the entire building's blueprint or 
+worry about the plumbing crew's schedule — they focus completely on 
+executing THIS specific, well-defined task correctly, trusting that 
+the overall coordination has already been handled elsewhere.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Executor prompting exists to:
+- Enable FOCUSED, high-quality completion of individual sub-tasks by 
+  removing the cognitive overhead of tracking the entire plan/
+  strategy.
+- Support scalable multi-agent architectures where many Executor 
+  instances (potentially running in parallel) each handle one piece 
+  of a larger decomposed problem.
+- Allow cost optimization — since Executor tasks are often more 
+  narrowly scoped than planning, cheaper/faster models can frequently 
+  handle execution effectively even when a more expensive model was 
+  needed for the initial planning.
+- Improve reliability by giving each Executor a clean, unambiguous, 
+  narrowly-scoped task rather than an entire complex problem to hold 
+  in mind simultaneously.
+- Complete the Planner/Executor architectural pattern that underlies 
+  many production multi-agent AI systems (relevant to swarm-style 
+  architectures like Deb Barman's Godfather Agent system, where many 
+  specialized agents each execute focused sub-tasks).
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Any multi-agent system where a Planner has already broken a complex 
+  task into discrete sub-tasks that now need to be carried out.
+- Situations where you want to parallelize work — multiple Executor 
+  instances can each independently handle different sub-tasks 
+  simultaneously (when sub-tasks don't have sequential dependencies).
+- Cost-sensitive systems where using a smaller/cheaper model for 
+  well-defined execution tasks (after a more expensive model has done 
+  the hard planning work) makes economic sense.
+- Any scenario where you want to hand off a SPECIFIC, already-scoped 
+  piece of work with clear inputs/expected outputs, without needing 
+  the executor to understand the full context of the broader project.
+
+WHEN NOT TO USE:
+- Simple, single-step tasks where creating a formal Planner/Executor 
+  split adds unnecessary architectural complexity.
+- Tasks where sub-task boundaries are unclear or highly interdependent 
+  in ways that make isolated execution impractical (in this case, 
+  reconsider the plan's decomposition, or use Plan-and-Solve with a 
+  single model instead).
+- Situations without real infrastructure to actually orchestrate 
+  handoffs between Planner and Executor roles.
+
+BEST MODELS FOR EXECUTOR ROLE:
+- Claude Haiku / GPT-4o-mini / smaller Gemini Flash variants — 
+  excellent, cost-effective choices for the Executor role in many 
+  systems, since well-scoped execution tasks often don't require the 
+  most expensive/powerful model, especially when the hard strategic 
+  thinking was already done by the Planner.
+- Claude Sonnet/Opus, GPT-4o/4.1, Gemini Pro — appropriate when 
+  individual sub-tasks are still fairly complex or technical, even if 
+  well-scoped (e.g., writing a non-trivial piece of code as one 
+  sub-task).
+- DeepSeek / Qwen (coding variants) — strong, cost-effective Executor 
+  choices specifically for coding sub-tasks.
+- The KEY practical insight: match the Executor model's capability/
+  cost to the actual DIFFICULTY of the individual sub-task, not the 
+  difficulty of the overall original problem — this is precisely 
+  where the Planner/Executor split creates cost-efficiency 
+  opportunities.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    "You are the EXECUTOR. Complete this SPECIFIC sub-task: [SUB-TASK 
+    FROM PLAN]. Input: [PROVIDED INPUT]. Expected output: [WHAT 
+    SHOULD BE PRODUCED]. Focus only on this task — do not worry about 
+    the broader plan."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Role Declaration — establish this is the EXECUTOR role, 
+       focused on one specific, already-defined task.
+    2. Sub-Task Definition — the exact task to complete, typically 
+       copied directly from a Planner's output.
+    3. Provided Inputs — any data, context, or prior sub-task outputs 
+       this Executor needs to complete its work.
+    4. Expected Output Specification — clearly define what a 
+       successful completion of this sub-task looks like.
+    5. Scope Boundary — an explicit reminder to focus ONLY on this 
+       task, not the broader project.
+
+Example skeleton:
+    "You are the EXECUTOR. 
+    Your task: [SPECIFIC SUB-TASK, e.g., copied from a Planner's 
+    output]. 
+    Input provided: [RELEVANT DATA/CONTEXT] 
+    Expected output: [WHAT THE COMPLETED SUB-TASK SHOULD PRODUCE] 
+    
+    Complete this task fully and correctly. Do not concern yourself 
+    with other parts of the broader plan — focus only on this 
+    specific task."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Give the Executor EVERYTHING it needs to complete the task without 
+  requiring it to understand the broader plan — a well-scoped sub-
+  task should be genuinely self-contained.
+- Clearly specify the EXPECTED OUTPUT FORMAT so the Executor's result 
+  can be reliably used by subsequent steps or integrated back into 
+  the overall project.
+- If a sub-task depends on the OUTPUT of a previous sub-task, provide 
+  that prior output directly as input — don't expect the Executor to 
+  re-derive or guess at information it should simply be handed.
+- Match the CAPABILITY of the model assigned to Executor duty to the 
+  actual difficulty of the sub-task — this is where real cost savings 
+  in multi-agent systems come from.
+- For sub-tasks with clear success criteria (code that should pass 
+  tests, output matching a specific schema), have the Executor 
+  VERIFY its own output against those criteria before considering the 
+  task complete.
+- When running multiple Executors in parallel for independent sub-
+  tasks, ensure their outputs will be compatible/mergeable at the 
+  synthesis stage (consistent formatting, naming conventions, etc.).
+- Keep the Executor's scope genuinely narrow — if you find yourself 
+  wanting to explain "the bigger picture" extensively to the 
+  Executor, that's often a sign the sub-task wasn't decomposed clearly 
+  enough by the Planner.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Giving the Executor a vague or incompletely-scoped sub-
+  task that actually requires understanding the broader plan to 
+  complete correctly.
+  FIX: Ensure sub-tasks are genuinely self-contained with all 
+  necessary context/inputs provided directly.
+
+- MISTAKE: Not providing outputs from PRIOR dependent sub-tasks, 
+  forcing the Executor to guess at information it should have been 
+  given directly.
+  FIX: Always pass forward the actual outputs of dependency sub-tasks 
+  as explicit input.
+
+- MISTAKE: Using an unnecessarily expensive/powerful model for simple, 
+  well-scoped Executor tasks, missing cost-optimization opportunities.
+  FIX: Match model capability to actual sub-task difficulty, not the 
+  difficulty of the original overall problem.
+
+- MISTAKE: Not specifying the expected output format clearly, leading 
+  to Executor outputs that are hard to integrate with other sub-task 
+  results or the final synthesis.
+  FIX: Explicitly define the expected output structure/format for 
+  each Executor task.
+
+- MISTAKE: Allowing Executor scope to creep into re-planning or second-
+  guessing the overall strategy, blurring the Planner/Executor role 
+  boundary.
+  FIX: Explicitly instruct the Executor to focus only on its assigned 
+  task, not to reconsider or modify the broader plan.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"You are the EXECUTOR. 
+Your task: Draft party invitations for a birthday party. 
+Input provided: Party details — Saturday, July 18th, 3 PM, at 123 
+Maple Street, casual dress, RSVP by July 10th. 
+Expected output: A short, friendly invitation text (under 60 words) 
+including all the provided details. 
+
+Complete this task fully. Do not worry about other party planning 
+tasks (venue booking, food, etc.) — focus only on writing this 
+invitation."
+
+Expected Output:
+A concise, friendly invitation text under 60 words that correctly 
+incorporates every provided detail (date, time, address, dress code, 
+RSVP deadline) — nothing more, nothing about other planning aspects.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"You are the EXECUTOR. 
+Your task: Draft the 'core concepts' section of a technical guide on 
+Python's asyncio library, covering: the event loop, coroutines, 
+tasks, and async/await syntax. 
+Input provided: This section follows an introductory section that has 
+already explained WHY asyncio exists (for I/O-bound concurrency) — do 
+not re-explain that motivation, just build on it. 
+Expected output: A markdown-formatted section (roughly 400-600 words) 
+with a clear code example for each of the 4 listed concepts, 
+suitable for an intermediate Python developer audience. 
+
+Complete this task fully. Do not worry about the introductory section 
+or the 'practical patterns' section that will follow — focus only on 
+this core concepts section."
+
+Expected Output:
+A well-structured, 400-600 word markdown section covering all 4 
+specified concepts with working code examples for each, written at 
+an appropriate intermediate level, that logically builds on (without 
+redundantly re-explaining) the stated prior introductory content.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"You are the EXECUTOR. 
+Your task: Implement the similarity-check function for a semantic 
+query cache, as defined in the project plan: 'a function that takes a 
+new query embedding and compares it against a list of cached query 
+embeddings using cosine similarity, returning the best-matching 
+cached result if similarity exceeds a configurable threshold, or None 
+if no sufficiently similar cached entry exists.' 
+
+Input provided: 
+- The project uses NumPy arrays for embeddings 
+- Cached entries are stored as a list of dictionaries with keys: 
+  'query_embedding' (NumPy array), 'result' (the cached retrieval 
+  result), 'timestamp' 
+- Default similarity threshold should be 0.95, but must be 
+  configurable via a function parameter 
+
+Expected output: A complete, working Python function named 
+`find_cached_result` with proper type hints, a docstring, and 2-3 
+inline test cases demonstrating both a cache hit and a cache miss 
+scenario. 
+
+Complete this task fully and correctly. Do not worry about how this 
+function integrates into the broader retrieval pipeline or the cache 
+invalidation logic — those are separate sub-tasks. Focus only on 
+implementing this specific similarity-check function correctly."
+
+Expected Output:
+A complete, correct Python function `find_cached_result(query_embedding, 
+cached_entries, threshold=0.95)` using NumPy for cosine similarity 
+computation (e.g., via dot product and norm calculations, or 
+`numpy.dot` combined with `numpy.linalg.norm`), properly type-hinted, 
+documented with a clear docstring, and accompanied by 2-3 test cases 
+that demonstrate correct behavior for both a clear cache hit (high 
+similarity found) and a clear cache miss (no sufficiently similar 
+entry) — fully self-contained and not referencing or attempting to 
+build the surrounding cache invalidation or pipeline integration 
+logic.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    You are the EXECUTOR. Your job is to complete ONE specific, 
+    already-defined sub-task — you do not need to understand or 
+    manage the broader plan.
+    
+    Your task: [SPECIFIC SUB-TASK, e.g., copied directly from a 
+    Planner's output]
+    
+    Input provided: [ALL RELEVANT DATA, CONTEXT, OR PRIOR SUB-TASK 
+    OUTPUTS NEEDED]
+    
+    Expected output: [CLEAR DEFINITION OF WHAT A SUCCESSFULLY 
+    COMPLETED SUB-TASK PRODUCES, INCLUDING FORMAT]
+    
+    Complete this task fully and correctly. Focus only on this 
+    specific task — do not concern yourself with other parts of the 
+    broader project/plan.
+
+=====================================================================
+END OF FILE 26 — Executor Prompting
+=====================================================================

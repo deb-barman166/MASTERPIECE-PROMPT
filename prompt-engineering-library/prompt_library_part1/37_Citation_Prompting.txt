@@ -1,0 +1,314 @@
+=====================================================================
+37. CITATION PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Knowledge)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Citation Prompting — Requiring Traceable Source Attribution
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Citation prompting is a technique where you explicitly instruct the 
+model to ATTRIBUTE specific claims in its response to specific 
+SOURCES — whether that's a provided document, a retrieved passage 
+(as in RAG), a web search result, or (for general knowledge claims) an 
+honest acknowledgment of where such information would typically 
+originate. This makes the model's output AUDITABLE and VERIFIABLE, 
+allowing readers to trace any specific claim back to where it came 
+from, rather than presenting information as an unattributed, 
+unverifiable assertion.
+
+Think of it like the difference between a student writing an essay 
+with no footnotes or references (making every claim un-checkable) 
+versus a properly cited academic paper, where every specific fact or 
+quotation includes a clear reference to exactly where it came from — 
+letting readers verify claims themselves and clearly distinguishing 
+the author's own original analysis from information drawn from other 
+sources.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Citation prompting exists to:
+- Enable VERIFICATION — readers/users can check the model's claims 
+  against the actual original source rather than simply trusting an 
+  unattributed statement.
+- Increase TRUSTWORTHINESS and transparency, particularly important 
+  for research, journalism, academic, legal, medical, or any context 
+  where source credibility matters.
+- Reduce the risk of the model blending genuinely sourced information 
+  with its own inference/analysis in a way that obscures which is 
+  which.
+- Support proper ACADEMIC/PROFESSIONAL standards when AI-assisted 
+  content needs to meet citation requirements (research papers, 
+  reports, legal briefs).
+- Work naturally alongside RAG systems (file 33) and Knowledge-
+  Grounded Prompting (file 35), providing the specific mechanism for 
+  attributing claims to their retrieved/provided sources.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Research, academic, journalistic, or professional writing where 
+  proper source attribution is expected or required.
+- RAG-based systems where you want every claim traceable back to the 
+  specific retrieved document/passage that supports it.
+- Fact-checking or verification tasks where distinguishing sourced 
+  claims from the model's own analysis is essential.
+- Any content that will be reviewed/audited by others who need to 
+  verify claims independently.
+- Building AI systems that need to meet legal, academic, or 
+  professional citation standards.
+
+WHEN NOT TO USE:
+- Casual conversational exchanges where formal citation would feel 
+  unnatural and add unnecessary overhead.
+- Purely creative or subjective content with no factual claims 
+  requiring attribution.
+- When no actual sources are provided/available to cite — don't 
+  request citations if there's genuinely nothing for the model to cite 
+  from (this can pressure a model toward fabricating plausible-
+  sounding but fake citations, a known failure mode worth actively 
+  guarding against).
+
+BEST MODELS FOR CITATION PROMPTING:
+- Claude — generally reliable at accurately citing PROVIDED sources 
+  (documents in context, search results) without fabricating citations 
+  when properly instructed and when actual source material is present 
+  in context.
+- GPT-4o/4.1/5-class — strong citation capability, particularly when 
+  combined with browsing/retrieval tools that provide real, verifiable 
+  source material.
+- Gemini Pro/Ultra (with Search grounding) — strong native citation 
+  support for web-sourced claims, given built-in search integration.
+- CRITICAL UNIVERSAL WARNING: ALL models, regardless of provider, can 
+  potentially FABRICATE plausible-sounding but entirely fake citations 
+  (fake paper titles, fake URLs, fake page numbers) if asked to cite 
+  sources when no real source material was actually provided in 
+  context. This is a well-documented hallucination pattern. Citation 
+  prompting is only as reliable as the actual verified source material 
+  it's citing FROM — always pair citation requests with actual 
+  provided/retrieved source content (via RAG, document upload, or 
+  search tools), and always independently verify AI-generated 
+  citations for anything genuinely important, especially academic or 
+  legal work.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [PROVIDED SOURCE(S)] + [TASK] + "For every specific claim, cite 
+    the exact source that supports it. Do not include any claim you 
+    cannot trace back to the provided sources. If you cannot cite a 
+    source for something, clearly state that it's your own inference/
+    analysis, not a sourced fact."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Provided Source Material — the actual documents, passages, or 
+       search results the model should cite from (this MUST be real, 
+       provided content — never ask for citations without providing 
+       actual source material).
+    2. Task Instruction — what needs to be produced (a summary, an 
+       analysis, an answer to a question).
+    3. Citation Requirement — explicit instruction that every specific 
+       claim needs a traceable citation to the provided sources.
+    4. Fabrication Guard — an explicit instruction NOT to cite anything 
+       that isn't actually traceable to the provided sources, and to 
+       clearly flag original analysis/inference as distinct from 
+       sourced fact.
+    5. Citation Format — how citations should be formatted (inline, 
+       footnotes, a reference list at the end).
+
+Example skeleton:
+    "Source material: [ACTUAL PROVIDED DOCUMENTS/PASSAGES] 
+    
+    Task: [WHAT TO PRODUCE]. 
+    
+    For every specific factual claim, cite the exact source (e.g., 
+    '[Source: Document Name, Section X]') that supports it. Do NOT 
+    include any claim you cannot trace back to the provided sources. 
+    If part of your response is your own analysis or inference rather 
+    than a directly sourced fact, clearly label it as such."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- ALWAYS provide actual source material alongside citation requests — 
+  never ask a model to "cite your sources" for a general knowledge 
+  question with no provided documents, as this significantly increases 
+  the risk of fabricated citations.
+- Explicitly instruct the model to distinguish SOURCED FACTS from its 
+  own ANALYSIS/INFERENCE — both are valuable, but conflating them 
+  undermines the purpose of citation.
+- Specify the exact CITATION FORMAT you need (inline brackets, 
+  footnotes, a formal reference list) based on your use case's 
+  standards (academic, legal, casual).
+- For high-stakes work (academic papers, legal briefs, published 
+  journalism), ALWAYS independently verify AI-generated citations 
+  against the actual original sources before publishing/submitting — 
+  never trust AI-generated citations blindly, even from generally 
+  reliable models.
+- When using RAG or search tools, ensure the citation instruction 
+  explicitly references the SPECIFIC retrieved passages/results 
+  actually provided, not the model's general training knowledge about 
+  the topic.
+- If a claim genuinely CAN'T be traced to any provided source, 
+  instruct the model to either omit it or clearly flag it as 
+  unsourced/its own inference, rather than fabricating a plausible-
+  sounding attribution.
+- For multi-source documents, use clear, consistent source identifiers 
+  (Document A, Source 1, [Ref: filename]) so citations are 
+  unambiguous and easy to cross-reference.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Asking a model to "cite sources" for a general knowledge 
+  question without providing any actual source material, risking 
+  fabricated (hallucinated) citations that look plausible but don't 
+  actually exist.
+  FIX: Always provide real source material (documents, search results) 
+  alongside any citation request.
+
+- MISTAKE: Not distinguishing between sourced facts and the model's 
+  own analysis, presenting both with the same apparent level of 
+  attribution/certainty.
+  FIX: Explicitly instruct the model to label its own inference/
+  analysis as distinct from directly sourced claims.
+
+- MISTAKE: Blindly trusting AI-generated citations without independent 
+  verification, especially for academic, legal, or professionally 
+  published work.
+  FIX: Always independently verify citations against actual original 
+  sources for any high-stakes use case.
+
+- MISTAKE: Not specifying a clear citation format, leading to 
+  inconsistent or hard-to-follow attribution throughout a longer 
+  response.
+  FIX: Explicitly specify the exact citation format/style needed.
+
+- MISTAKE: Using ambiguous source labels when multiple documents are 
+  involved, making it unclear which citation refers to which actual 
+  source.
+  FIX: Use clear, consistent, unambiguous source identifiers 
+  throughout.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Source material: [Source: WHO_factsheet_2025.pdf] 'Regular physical 
+activity of at least 150 minutes of moderate-intensity exercise per 
+week is associated with reduced risk of cardiovascular disease.' 
+
+Task: Summarize the key recommendation from this source. For the 
+specific claim, cite the source. If you add any additional general 
+context, clearly label it as your own general knowledge, not from 
+this specific source."
+
+Expected Output:
+"According to the provided source [Source: WHO_factsheet_2025.pdf], 
+at least 150 minutes of moderate-intensity exercise per week is 
+associated with reduced cardiovascular disease risk. (Note: this 
+specific 150-minute figure is a commonly cited general guideline in 
+public health, but I'm citing it here specifically as it appears in 
+your provided source document, not from my own general training 
+knowledge.)"
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Source material: 
+[Source: internal_report_Q1.pdf, page 3] 'Customer churn increased by 
+12% in Q1 2026 compared to Q4 2025, primarily concentrated in the 
+Enterprise tier.' 
+[Source: internal_report_Q1.pdf, page 7] 'Exit surveys indicated 
+pricing concerns as the top-cited reason for cancellation among 
+Enterprise customers, mentioned in 68% of exit surveys.' 
+
+Task: Write a brief analysis of the Q1 churn situation. Cite the exact 
+source (including page number) for every specific factual claim. Then, 
+separately, provide your own brief analysis/recommendation, clearly 
+labeled as your own inference rather than directly sourced 
+information."
+
+Expected Output:
+"Based on sourced information: Customer churn increased 12% in Q1 
+2026 vs. Q4 2025, concentrated in the Enterprise tier [Source: 
+internal_report_Q1.pdf, page 3]. Exit surveys identified pricing 
+concerns as the top-cited cancellation reason, mentioned in 68% of 
+surveys [Source: internal_report_Q1.pdf, page 7]. 
+
+My own analysis (not directly sourced): Given that pricing is the 
+dominant cited concern specifically within the Enterprise tier, it may 
+be worth investigating whether Enterprise pricing has become 
+misaligned with perceived value compared to competitors, though this 
+report doesn't provide direct competitive pricing data to confirm 
+this hypothesis."
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Source material (retrieved via RAG from technical documentation): 
+[Source: security_audit_2026.md, Section 'Findings'] 'The 
+authentication module was found to use MD5 for password hashing, 
+which is considered cryptographically broken for this purpose.' 
+[Source: security_audit_2026.md, Section 'Recommendations'] 'Migrate 
+to Argon2id or bcrypt for password hashing, with a phased rollout to 
+avoid breaking existing user sessions.' 
+[Source: changelog_v3.2.md] 'v3.2 (March 2026): Updated password 
+hashing algorithm as part of the security remediation plan.' 
+
+Task: Determine whether the security finding about MD5 password 
+hashing has actually been remediated, based ONLY on the provided 
+sources. For every claim, cite the specific source. If the sources 
+don't definitively confirm remediation (e.g., the changelog is vague 
+about WHICH algorithm was actually adopted), explicitly note this gap 
+rather than assuming the recommended fix was the one implemented."
+
+Expected Output:
+"The security audit identified MD5 password hashing as 
+cryptographically broken [Source: security_audit_2026.md, Section 
+'Findings'] and recommended migrating to Argon2id or bcrypt [Source: 
+security_audit_2026.md, Section 'Recommendations']. The v3.2 changelog 
+confirms that 'the password hashing algorithm was updated as part of 
+the security remediation plan' [Source: changelog_v3.2.md]. 
+
+However, based solely on these provided sources, I cannot confirm with 
+certainty WHICH specific algorithm was actually adopted in v3.2 — the 
+changelog entry is vague and doesn't explicitly name Argon2id, bcrypt, 
+or any other specific algorithm. While it's reasonable to infer the 
+recommended fix was likely implemented (my own inference, not a 
+directly sourced fact), the provided sources don't definitively 
+confirm this. I'd recommend checking the actual v3.2 source code or a 
+more detailed technical changelog to verify exactly which algorithm 
+was implemented, rather than assuming based on this ambiguous 
+changelog entry alone."
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Source material: 
+    [Source: DOCUMENT_NAME, SECTION/PAGE] "[ACTUAL PROVIDED PASSAGE]"
+    [Source: DOCUMENT_NAME_2, SECTION/PAGE] "[ACTUAL PROVIDED PASSAGE]"
+    
+    Task: [WHAT YOU WANT PRODUCED]
+    
+    For every specific factual claim, cite the exact source (document 
+    name and section/page) that supports it. Do NOT include any claim 
+    you cannot trace back to the provided sources above — if the 
+    sources are insufficient or ambiguous on a point, explicitly say 
+    so rather than filling the gap. If any part of your response is 
+    your own analysis or inference rather than a directly sourced 
+    fact, clearly label it as such.
+
+=====================================================================
+END OF FILE 37 — Citation Prompting
+=====================================================================

@@ -1,0 +1,267 @@
+=====================================================================
+18. SOCRATIC PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Reasoning)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Socratic Prompting — Guiding Understanding Through Questions
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Socratic prompting is a technique where you instruct the model to 
+respond to a topic or problem NOT by directly providing the answer, 
+but by asking a SERIES OF PROBING QUESTIONS that guide the person (or 
+the model itself, when self-applied) toward discovering the answer or 
+deeper understanding through their own reasoning. Named after the 
+Socratic method used by the philosopher Socrates, this technique 
+values the PROCESS of guided self-discovery over direct information 
+delivery.
+
+Think of it like the difference between a tutor who simply tells a 
+student the answer to a math problem versus a tutor who asks, "What 
+do you think happens if we try this first step? What does that tell 
+us about the next step?" — guiding the student to arrive at the 
+answer themselves through a chain of well-chosen questions, which 
+often produces deeper, longer-lasting understanding.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Socratic prompting exists to:
+- Foster DEEPER LEARNING and understanding rather than passive 
+  information consumption — people (and models, when this technique 
+  is applied to self-questioning) often understand concepts better 
+  when they arrive at insights through guided questioning.
+- Help identify and challenge HIDDEN ASSUMPTIONS in a person's (or 
+  the model's own) thinking that a direct answer wouldn't surface.
+- Support tutoring, coaching, and educational applications where the 
+  GOAL is the learner's own growth, not just getting a fast answer.
+- Encourage CRITICAL THINKING by making someone examine their own 
+  reasoning, rather than simply receiving conclusions.
+- Serve as a self-reflective technique the model can apply to its OWN 
+  reasoning (asking itself clarifying/challenging questions before 
+  answering) to catch errors or unstated assumptions.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Educational/tutoring contexts where genuine understanding matters 
+  more than a fast answer (learning a new programming concept, 
+  understanding a philosophical idea, working through a proof).
+- Coaching or reflective conversations (career decisions, personal 
+  growth, values clarification) where guided self-discovery is more 
+  valuable than direct advice.
+- Debugging or problem-solving sessions where you want to develop 
+  someone's (or your own) independent diagnostic skills, not just fix 
+  the immediate issue.
+- Challenging assumptions in a business strategy, argument, or plan 
+  before committing to it.
+- Self-applied as a REASONING CHECK: having the model ask itself 
+  clarifying questions about a problem before attempting to answer it 
+  directly, surfacing ambiguities or assumptions.
+
+WHEN NOT TO USE:
+- Time-sensitive situations where a DIRECT, fast answer is genuinely 
+  needed (e.g., "what's the syntax for a Python for-loop?" doesn't 
+  need Socratic guidance).
+- The person explicitly wants information delivery, not a guided 
+  discovery process (respect stated preferences — don't force 
+  Socratic style on someone who just wants a direct answer).
+- Simple factual questions with a single objectively correct answer 
+  and no meaningful assumptions to challenge.
+
+BEST MODELS FOR SOCRATIC PROMPTING:
+- Claude — excellent at generating thoughtful, genuinely probing 
+  questions rather than superficial ones, and maintains a warm, 
+  patient tutoring tone well-suited to this style.
+- GPT-4o/4.1/5-class — strong at generating well-sequenced, 
+  pedagogically sound question chains for tutoring/coaching contexts.
+- Gemini Pro — good for Socratic-style educational applications, 
+  especially with multimodal learning content.
+- Grok / Mistral / Llama (Instruct) — capable of Socratic-style 
+  questioning; quality of question depth/insight tends to scale with 
+  overall model capability, so larger/more capable models produce 
+  more genuinely probing (vs. generic) questions.
+- DeepSeek / Qwen — can apply Socratic self-questioning effectively 
+  for technical/mathematical problem decomposition.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    "Using the Socratic method, help me understand/solve [TOPIC/
+    PROBLEM] by asking me guiding questions rather than giving the 
+    answer directly. Ask one question at a time and build on my 
+    responses."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Method Declaration — explicitly request the Socratic method/
+       questioning approach.
+    2. Topic/Problem — what the questioning should be centered 
+       around.
+    3. Pacing Instruction — typically "ask one question at a time" 
+       (rather than dumping 10 questions at once) so it's a genuine 
+       back-and-forth dialogue.
+    4. Responsiveness Instruction — instruct the model to build each 
+       subsequent question on the person's previous answer, creating 
+       a genuine guided chain rather than a generic question list.
+    5. (Optional) Fallback Instruction — what to do if the person 
+       gets stuck (offer a hint rather than the full answer, or 
+       gently redirect).
+
+Example skeleton:
+    "Using the Socratic method, help me [UNDERSTAND/SOLVE] [TOPIC]. 
+    Ask me one thoughtful question at a time rather than explaining 
+    directly. Build each question on my previous response. If I seem 
+    stuck, offer a small hint rather than the full answer, then 
+    continue questioning."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Always specify "one question at a time" — dumping multiple 
+  questions at once defeats the responsive, back-and-forth nature of 
+  genuine Socratic dialogue.
+- Instruct the model to genuinely BUILD each question on the 
+  previous answer, rather than asking a pre-planned, generic sequence 
+  regardless of how the person responds.
+- Include a "stuck" fallback — real Socratic tutoring provides small 
+  hints when someone is genuinely stuck, rather than endlessly 
+  withholding all help (which becomes frustrating rather than 
+  educational).
+- Use this technique for topics with genuine DEPTH or nuance where 
+  guided discovery adds real value, not for simple factual lookups.
+- When self-applying Socratic prompting (having the model question 
+  itself before answering), explicitly ask it to identify assumptions 
+  or ambiguities in the ORIGINAL problem before attempting a direct 
+  solution.
+- Set a natural endpoint — after a reasonable number of exchanges, 
+  the model should help synthesize what's been discovered rather than 
+  questioning indefinitely.
+- Respect when someone explicitly asks for a direct answer instead — 
+  Socratic prompting should be an intentional choice, not forced on 
+  every interaction.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Asking a whole list of questions at once instead of one at 
+  a time, which becomes an interrogation rather than a guided 
+  dialogue.
+  FIX: Explicitly instruct "ask one question at a time" and wait for 
+  a response before continuing.
+
+- MISTAKE: Using generic, disconnected questions that don't actually 
+  build on the person's previous answers (a real Socratic dialogue 
+  is RESPONSIVE, not a fixed script).
+  FIX: Instruct the model to explicitly reference and build on the 
+  previous response in each new question.
+
+- MISTAKE: Never offering any hint when someone is genuinely stuck, 
+  leading to frustration rather than learning.
+  FIX: Build in an explicit fallback: offer a small hint if someone 
+  seems stuck, then resume questioning.
+
+- MISTAKE: Applying Socratic prompting to situations where the person 
+  clearly just wants a fast, direct answer (e.g., an urgent technical 
+  question during a work crisis).
+  FIX: Reserve Socratic prompting for genuine learning/coaching 
+  contexts; respect explicit requests for direct answers.
+
+- MISTAKE: Letting the Socratic dialogue go on indefinitely without 
+  ever synthesizing or confirming the understanding reached.
+  FIX: After a reasonable exchange, ask the model to help summarize 
+  what's been discovered together.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Using the Socratic method, help me understand why the sky is blue. 
+Ask me one question at a time rather than just explaining it, and 
+build on my answers."
+
+Expected Output:
+An opening question like "Great question! Before we get into it — 
+what do you already know about how light behaves? For instance, have 
+you heard of light being made up of different colors, like in a 
+rainbow?" — waiting for a response before continuing to the next 
+building question (e.g., about how those colors might interact 
+differently with tiny particles in the atmosphere), gradually guiding 
+toward the concept of Rayleigh scattering without stating it outright 
+at first.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"I'm a self-taught Python developer trying to understand why my 
+recursive function is causing a 'maximum recursion depth exceeded' 
+error. Using the Socratic method, help me debug this myself by 
+asking guiding questions one at a time, rather than just telling me 
+the fix. If I get stuck, give me a small hint before continuing."
+
+Expected Output:
+An opening question such as "Let's dig in — does your recursive 
+function have a clear base case, a condition that stops the 
+recursion?" — followed by responsive follow-up questions building on 
+the developer's answer (e.g., if they say "yes, I have a base case," 
+the next question probes whether that base case is actually being 
+REACHED given the function's current logic), guiding them to discover 
+the actual bug (e.g., an off-by-one error preventing the base case 
+from ever triggering) through their own reasoning, with a hint offered 
+if they get stuck at any point.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"I'm deciding whether to fine-tune a custom model for my multi-agent 
+AI system or continue relying entirely on prompt engineering with an 
+off-the-shelf model. Using the Socratic method, help me think through 
+this decision myself by asking me one thoughtful, probing question at 
+a time, building on my responses, and helping me uncover any 
+assumptions I might be making. Don't just tell me the 'right' answer 
+— help me reason through it. After about 5-6 exchanges, help me 
+synthesize what we've discovered."
+
+Expected Output:
+A genuine guided dialogue beginning with a question probing the core 
+motivation (e.g., "What specific limitation are you currently hitting 
+with prompt engineering that's making you consider fine-tuning?"), 
+followed by responsive follow-ups that build on each answer — 
+potentially surfacing hidden assumptions (e.g., questioning whether 
+the perceived limitation is actually a prompt engineering problem 
+that could be solved with better technique, vs. a genuine case for 
+fine-tuning, or probing the assumed cost/maintenance trade-offs of 
+fine-tuning vs. prompting) — culminating, after several exchanges, in 
+a synthesis step that summarizes the key considerations uncovered 
+through the dialogue and the person's own emerging conclusion, rather 
+than the model simply asserting its own recommendation.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Using the Socratic method, help me [UNDERSTAND/SOLVE/DECIDE ON] 
+    [TOPIC/PROBLEM].
+    
+    Instructions:
+    - Ask me ONE thoughtful question at a time — do not list 
+      multiple questions at once
+    - Build each new question directly on my previous response
+    - Help me uncover any hidden assumptions in my thinking
+    - If I seem stuck, offer a small hint, then continue questioning
+    - After a reasonable number of exchanges, help me synthesize 
+      what we've discovered together
+    
+    Do not give me the direct answer/solution unless I explicitly 
+    ask you to.
+
+=====================================================================
+END OF FILE 18 — Socratic Prompting
+=====================================================================

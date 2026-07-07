@@ -1,0 +1,279 @@
+=====================================================================
+19. REFLECTION PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Reasoning)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Reflection Prompting — Reviewing and Learning From Prior Output
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Reflection prompting is a technique where you instruct the model to 
+generate an initial response, and then explicitly REFLECT on that 
+response — reviewing it for errors, gaps, or weaknesses — before 
+either confirming it's correct or producing an improved version. 
+Unlike Self-Critique (which focuses specifically on finding faults) 
+or Self-Refine (which focuses on the improvement loop), Reflection 
+Prompting is the broader practice of having the model pause and think 
+ABOUT its own output — asking "was that actually right? What did I 
+maybe miss? What would I do differently?" — as a distinct, deliberate 
+step.
+
+Think of it like a writer who finishes a first draft, then instead of 
+immediately submitting it, takes a moment to reread it and honestly 
+ask: "Does this actually make sense? Did I address everything I meant 
+to?" — before deciding it's ready to send.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Reflection prompting exists to:
+- Catch errors, omissions, or weak reasoning that the model's INITIAL 
+  response might contain, before that response is treated as final.
+- Improve overall output quality by adding a deliberate "second look" 
+  step, mimicking how skilled humans review their own work.
+- Build in a natural checkpoint for identifying whether a response 
+  fully addressed all parts of a complex or multi-part request.
+- Serve as the conceptual foundation that more specific techniques 
+  (Self-Critique, Self-Refine) build upon and specialize.
+- Improve the model's calibration — recognizing when it's actually 
+  uncertain about something rather than presenting everything with 
+  equal confidence.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Complex, multi-part tasks where it's easy to accidentally miss or 
+  under-address one component.
+- Any task where a "second look" plausibly catches meaningful errors 
+  (writing, analysis, code, planning).
+- Situations where you want the model to explicitly acknowledge 
+  uncertainty or limitations in its own answer, rather than presenting 
+  everything with false confidence.
+- Higher-stakes outputs where an extra reflection pass is worth the 
+  added time/tokens.
+- As a general-purpose "quality gate" you can append to almost any 
+  other prompting technique.
+
+WHEN NOT TO USE:
+- Very simple, low-stakes tasks where a reflection step adds latency/
+  cost without meaningful benefit (e.g., "what's 7 x 8?").
+- Time-sensitive situations where getting SOME answer quickly matters 
+  more than an extra polish pass.
+- When reflection has already been performed via a more specific 
+  technique (Self-Critique, Self-Refine) — avoid redundant, stacked 
+  reflection steps that don't add new value.
+
+BEST MODELS FOR REFLECTION PROMPTING:
+- Claude — particularly strong and well-calibrated at genuine self-
+  reflection, often identifying real limitations or gaps rather than 
+  just performatively agreeing its first answer was already perfect.
+- GPT-4o/4.1/5-class — strong reflective capability, especially for 
+  identifying missed requirements in complex, multi-part prompts.
+- Gemini Pro — capable reflection, particularly useful for reviewing 
+  structured/technical outputs.
+- DeepSeek-R1 / Qwen (reasoning variants) — naturally incorporate 
+  reflection-like behavior as part of their extended reasoning 
+  process.
+- Mistral / Llama — capable of reflection when explicitly prompted; 
+  smaller models sometimes produce more superficial reflection 
+  ("yes, this looks good!") and benefit from being asked pointed, 
+  specific reflection questions rather than an open-ended "review 
+  your answer."
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [TASK] → [INITIAL RESPONSE] → "Now reflect on your response: 
+    Did you address everything? Are there any errors, gaps, or 
+    unclear parts?" → [REVISED/CONFIRMED RESPONSE]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Original Task — the task to complete.
+    2. Initial Response Generation — the model's first attempt.
+    3. Explicit Reflection Trigger — a direct instruction to review 
+       the response against specific criteria (accuracy, 
+       completeness, clarity).
+    4. Reflection Output — the model's honest assessment of its own 
+       response, including any identified issues.
+    5. Final Response — either a confirmation that the original was 
+       sound, or a revised response addressing identified issues.
+
+Example skeleton:
+    "[TASK]. 
+    
+    [Model generates initial response] 
+    
+    Now, reflect on your response above: 
+    - Did you fully address every part of the request? 
+    - Are there any factual errors or unclear explanations? 
+    - What would you improve if you had one more pass? 
+    
+    Based on this reflection, provide your final, refined response."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Give the reflection step SPECIFIC criteria to check against 
+  (completeness, accuracy, clarity, tone) rather than a vague "review 
+  your answer," which tends to produce more genuine, useful 
+  self-assessment.
+- Explicitly ask the model to identify what it would IMPROVE, not 
+  just whether the answer was "good" — this pushes past superficial 
+  self-approval.
+- For multi-part requests, explicitly ask the reflection step to 
+  verify EACH part of the original request was addressed (a mini-
+  checklist approach).
+- Encourage honest uncertainty acknowledgment — explicitly state 
+  it's okay (and valuable) for the reflection to say "I'm not fully 
+  confident about X part of this."
+- Use reflection selectively for tasks where it adds genuine value, 
+  not as a blanket step for every single response (this adds 
+  unnecessary latency/cost at scale).
+- Combine with Self-Critique for a more structured, systematic fault-
+  finding process, or with Self-Refine when you specifically want an 
+  improvement LOOP (multiple reflect-and-improve cycles) rather than 
+  a single reflection pass.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Asking a vague "review your answer" without specific 
+  criteria, leading to shallow, non-substantive reflection ("Yes, 
+  this looks good!").
+  FIX: Provide specific things to check (completeness, accuracy, 
+  clarity, tone, format).
+
+- MISTAKE: Treating reflection as purely performative — the model 
+  says it reflected but doesn't actually change anything even when 
+  real issues exist.
+  FIX: Explicitly ask "what SPECIFIC change would improve this?" 
+  rather than a yes/no "is this good?"
+
+- MISTAKE: Using reflection on every single simple task, adding 
+  unnecessary cost/latency for no real benefit.
+  FIX: Reserve reflection for complex, multi-part, or higher-stakes 
+  tasks.
+
+- MISTAKE: Not giving the model permission/encouragement to express 
+  genuine uncertainty, leading to overconfident reflection that 
+  misses real limitations.
+  FIX: Explicitly state that acknowledging uncertainty or 
+  limitations is valued and expected where genuinely present.
+
+- MISTAKE: Stacking multiple redundant reflection steps (reflection + 
+  self-critique + self-refine all applied to the same output without 
+  clear distinct purpose) which wastes tokens without proportional 
+  benefit.
+  FIX: Choose ONE reflection-family technique suited to your specific 
+  need, rather than layering all of them by default.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Explain the difference between a Python list and a Python tuple. 
+
+[After the initial explanation] 
+
+Now reflect: Did your explanation cover both the KEY similarities and 
+differences? Is there anything important you left out? Provide your 
+final, refined explanation."
+
+Expected Output:
+An initial explanation covering mutability as the main difference, 
+followed by genuine reflection noting perhaps performance 
+implications or use-case guidance were initially omitted, then a 
+refined final explanation incorporating that additional point (e.g., 
+tuples being slightly more memory-efficient and appropriate for fixed 
+collections, lists better for collections that need to change).
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Write a 200-word explanation of how RAG (Retrieval-Augmented 
+Generation) works, suitable for someone with basic Python knowledge 
+but no ML background. 
+
+[After the initial explanation] 
+
+Now reflect on your explanation: 
+- Did you avoid unexplained jargon given the stated audience? 
+- Did you cover the full RAG pipeline (retrieval AND generation), or 
+  did you focus too heavily on one part? 
+- Is the word count close to the requested 200 words? 
+
+Provide your final, refined explanation based on this reflection."
+
+Expected Output:
+An initial explanation, followed by honest reflection potentially 
+identifying an unexplained term (e.g., "embedding" used without 
+definition) or noting the explanation leaned too heavily on the 
+retrieval step without adequately covering how retrieved content 
+integrates into generation, followed by a refined final explanation 
+that fixes the identified gaps and confirms word count is 
+appropriately close to 200.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"I'm designing the 'God Mode pipeline' for my 100-agent swarm system 
+(built with Google ADK and Gemini 2.0 Flash). Propose an architecture 
+for how a top-level 'God Mode' controller could override or 
+coordinate individual agent decisions in emergency/critical 
+situations, while normally letting agents operate autonomously. 
+
+[After the initial architecture proposal] 
+
+Now reflect critically on your own proposal: 
+- Does it fully address BOTH the 'normal autonomous operation' mode 
+  AND the 'emergency override' mode, or did you focus too heavily on 
+  one? 
+- Are there any failure modes or edge cases in your proposed design 
+  that you didn't consider (e.g., what happens if the God Mode 
+  controller itself fails)? 
+- Is there a single-point-of-failure risk in what you proposed? 
+- What would you genuinely change if you had one more design pass? 
+
+Based on this honest reflection, provide your final, refined 
+architecture proposal."
+
+Expected Output:
+An initial architecture proposal, followed by genuinely substantive 
+reflection (e.g., honestly identifying that the initial design 
+created the God Mode controller as a single point of failure with no 
+fallback, or that normal autonomous operation wasn't clearly 
+specified in terms of HOW agents know they're NOT in override mode), 
+followed by a meaningfully revised final proposal that addresses the 
+identified gap (e.g., adding a heartbeat/failover mechanism so agents 
+revert to pre-defined safe autonomous behavior if the God Mode 
+controller becomes unresponsive) — demonstrating genuine, substantive 
+self-reflection rather than superficial confirmation.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    [YOUR ORIGINAL TASK]
+    
+    [Model provides initial response]
+    
+    Now reflect honestly on your response above:
+    - Did you fully address every part of the original request?
+    - Are there any factual errors, gaps, or unclear explanations?
+    - Are there any edge cases, limitations, or uncertainties you 
+      should acknowledge?
+    - What specifically would you improve with one more pass?
+    
+    Based on this reflection, provide your final, refined response.
+
+=====================================================================
+END OF FILE 19 — Reflection Prompting
+=====================================================================

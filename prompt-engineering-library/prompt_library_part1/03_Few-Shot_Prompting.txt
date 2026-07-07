@@ -1,0 +1,294 @@
+=====================================================================
+03. FEW-SHOT PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Foundations)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Few-Shot Prompting — Learning Patterns From Multiple Examples
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Few-shot prompting is a technique where you provide the LLM with 
+SEVERAL examples (typically 2 to 5) of input/output pairs before 
+asking it to complete a new, similar task. By seeing multiple 
+examples, the model can identify the underlying PATTERN more 
+reliably than with zero-shot or one-shot prompting, especially when 
+the task has some variability.
+
+Think of it like training a new employee by showing them 3-5 
+different sample reports covering different scenarios, so they 
+understand the range of situations they might encounter, not just 
+one fixed case.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Few-shot prompting exists to:
+- Improve accuracy and consistency on tasks with some variability or 
+  nuance.
+- Teach the model a specific classification scheme, labeling system, 
+  or format that isn't obvious from a single example.
+- Reduce hallucination and off-format responses by reinforcing the 
+  pattern multiple times.
+- Handle edge cases by including examples that cover different 
+  scenarios (e.g., positive, negative, and neutral cases).
+- Bridge the gap when zero-shot/one-shot underperforms but you don't 
+  want to fine-tune a custom model.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- The task has multiple distinct categories, tones, or formats that 
+  need to be demonstrated (e.g., sentiment analysis with 3 classes).
+- One-shot prompting still produces inconsistent results.
+- You need the model to learn a nuanced or company-specific style, 
+  policy, or rule.
+- You're doing classification, extraction, or transformation tasks 
+  with variable inputs.
+- You want to "in-context train" the model on a new mini-skill 
+  without fine-tuning.
+
+WHEN NOT TO USE:
+- The task is simple and well-known — zero-shot is faster and 
+  sufficient.
+- Your context window is very limited, and multiple examples would 
+  crowd out important input data.
+- The examples you'd provide are inconsistent or contradictory with 
+  each other (this confuses the model rather than helping it).
+
+BEST MODELS FOR FEW-SHOT:
+- GPT-4o/4.1/5-class — very strong at in-context pattern learning 
+  from multiple examples.
+- Claude (Sonnet/Opus) — excellent at maintaining consistency across 
+  several few-shot examples, especially for nuanced writing tasks.
+- Gemini Pro/Ultra — strong performance, especially for structured 
+  data extraction few-shot tasks.
+- DeepSeek / Qwen — excellent for few-shot coding and math pattern 
+  learning.
+- Mistral / Llama (70B+) — good few-shot performance; smaller models 
+  (7B-13B) benefit significantly from few-shot vs. zero-shot.
+- Grok — solid few-shot conversational and reasoning performance.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [ROLE (optional)] + [TASK INSTRUCTION] + 
+    [EXAMPLE 1: INPUT → OUTPUT] + 
+    [EXAMPLE 2: INPUT → OUTPUT] + 
+    [EXAMPLE 3+: INPUT → OUTPUT] + 
+    [NEW INPUT] + [OUTPUT FORMAT (optional)]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Task Instruction — clearly state what the task is.
+    2. Multiple Examples (2-5) — each with clearly labeled Input 
+       and Output, covering different scenarios/edge cases.
+    3. New Input — the actual task to solve.
+    4. (Optional) Explicit format reminder before the final output 
+       cue.
+
+Example skeleton:
+    "[TASK INSTRUCTION]
+    
+    Example 1:
+    Input: [input 1]
+    Output: [output 1]
+    
+    Example 2:
+    Input: [input 2]
+    Output: [output 2]
+    
+    Example 3:
+    Input: [input 3]
+    Output: [output 3]
+    
+    Now do the same for:
+    Input: [new input]
+    Output:"
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Use 2-5 examples — more than 5-6 rarely improves results further 
+  and wastes tokens (this is called "diminishing returns").
+- Ensure examples COVER DIFFERENT SCENARIOS (e.g., if classifying 
+  sentiment, include a positive, negative, AND neutral example).
+- Keep formatting 100% CONSISTENT across all examples (same labels, 
+  same structure, same style).
+- Order examples from simple to complex, or randomize if order 
+  shouldn't matter (avoid all examples following one predictable 
+  pattern like always ending positive).
+- If possible, include one "tricky" or edge-case example to sharpen 
+  the model's understanding of boundaries.
+- Use delimiters (like "---" or numbered examples) to clearly 
+  separate each example from the next.
+- Test different numbers of examples (2 vs. 3 vs. 5) to find the 
+  sweet spot for your specific task.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Providing examples that are all very similar to each 
+  other (e.g., 5 positive sentiment examples, no negative or 
+  neutral).
+  FIX: Diversify examples to cover the full range of expected inputs.
+
+- MISTAKE: Inconsistent formatting between examples (e.g., Example 1 
+  uses "Output:" and Example 2 uses "Result:").
+  FIX: Use the exact same structure and labels in every example.
+
+- MISTAKE: Using too many examples, which wastes context window 
+  space and can dilute focus without improving accuracy.
+  FIX: Start with 3 examples; only add more if accuracy is still 
+  poor.
+
+- MISTAKE: Including examples with errors or contradictions.
+  FIX: Double-check every example is accurate — the model will 
+  learn from your example, mistakes included.
+
+- MISTAKE: Not testing with a genuinely NEW input, but reusing one 
+  of the example inputs, which doesn't validate true generalization.
+  FIX: Always test with fresh input the model hasn't seen.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Classify the sentiment of each sentence as Positive, Negative, or 
+Neutral.
+
+Example 1:
+Input: 'This is the best purchase I've made all year!'
+Output: Positive
+
+Example 2:
+Input: 'The product broke after two days of use.'
+Output: Negative
+
+Example 3:
+Input: 'The package arrived on the expected delivery date.'
+Output: Neutral
+
+Now classify:
+Input: 'I'm still waiting for a response from customer support 
+after a week.'
+Output:"
+
+Expected Output:
+"Negative"
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"You are a customer support assistant. Categorize each support 
+ticket into one of these categories: Billing, Technical Issue, 
+Feature Request, or General Inquiry.
+
+Example 1:
+Input: 'I was charged twice for my subscription this month.'
+Output: Billing
+
+Example 2:
+Input: 'The app crashes every time I try to upload a photo.'
+Output: Technical Issue
+
+Example 3:
+Input: 'It would be great if you added a dark mode option.'
+Output: Feature Request
+
+Example 4:
+Input: 'What are your business hours?'
+Output: General Inquiry
+
+Now categorize:
+Input: 'My invoice shows a different amount than what I agreed to 
+during signup.'
+Output:"
+
+Expected Output:
+"Billing"
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"You are a code review assistant. Given a Python function, identify 
+the primary code smell (Naming, Duplication, Complexity, or 
+Security) and suggest ONE specific fix.
+
+Example 1:
+Input:
+def f(x):
+    return x*2
+Output:
+{"code_smell": "Naming", "fix": "Rename 'f' to a descriptive name 
+like 'double_value' and 'x' to 'value'."}
+
+Example 2:
+Input:
+def get_user(id):
+    query = "SELECT * FROM users WHERE id = " + str(id)
+    return db.execute(query)
+Output:
+{"code_smell": "Security", "fix": "Use parameterized queries 
+(e.g., 'WHERE id = ?') to prevent SQL injection."}
+
+Example 3:
+Input:
+def process(data):
+    if data['type'] == 'a':
+        if data['status'] == 'active':
+            if data['value'] > 100:
+                return 'high_priority'
+    return 'normal'
+Output:
+{"code_smell": "Complexity", "fix": "Flatten nested if-statements 
+using early returns or combined boolean conditions."}
+
+Now analyze:
+Input:
+def calc(a, b, op):
+    if op == 'add':
+        return a + b
+    if op == 'add2':
+        return a + b + 1
+Output:"
+
+Expected Output:
+A correctly formatted JSON response identifying "Duplication" as 
+the code smell (the 'add' and 'add2' branches share nearly 
+identical logic) with a specific, actionable fix suggestion, 
+matching the exact JSON structure of the examples.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    You are a [ROLE/EXPERTISE].
+    
+    Task: [DESCRIBE THE TASK CLEARLY]
+    
+    Example 1:
+    Input: [EXAMPLE INPUT 1]
+    Output: [EXAMPLE OUTPUT 1]
+    
+    Example 2:
+    Input: [EXAMPLE INPUT 2 — different scenario/edge case]
+    Output: [EXAMPLE OUTPUT 2]
+    
+    Example 3:
+    Input: [EXAMPLE INPUT 3 — another distinct scenario]
+    Output: [EXAMPLE OUTPUT 3]
+    
+    Now do the same for:
+    Input: [YOUR NEW INPUT]
+    Output:
+
+=====================================================================
+END OF FILE 03 — Few-Shot Prompting
+=====================================================================

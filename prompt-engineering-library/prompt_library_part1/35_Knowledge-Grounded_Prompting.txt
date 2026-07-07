@@ -1,0 +1,292 @@
+=====================================================================
+35. KNOWLEDGE-GROUNDED PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Knowledge)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Knowledge-Grounded Prompting — Anchoring Responses in Verified Facts
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Knowledge-Grounded prompting is the broader technique of ensuring a 
+model's response is anchored to VERIFIED, ACCURATE, EXTERNALLY-
+CONFIRMED knowledge rather than the model's own potentially 
+unreliable internal "beliefs" — encompassing but not limited to RAG 
+(a specific retrieval-based implementation). This includes 
+approaches like providing verified facts directly in the prompt, 
+instructing the model to flag confidence levels, cross-referencing 
+multiple sources, and explicitly distinguishing between what's 
+KNOWN/VERIFIED versus what would be the model's own INFERENCE or 
+GUESS.
+
+Think of it like the difference between a journalist who writes an 
+article purely from memory of "things they think they know" versus 
+one who deliberately grounds every factual claim in a verified 
+source, clearly distinguishes confirmed facts from their own analysis/
+speculation, and is upfront about anything they couldn't verify — the 
+grounding discipline itself, independent of any specific tool, is 
+what produces more trustworthy output.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Knowledge-Grounded prompting exists to:
+- Reduce HALLUCINATION by establishing clear practices for 
+  distinguishing verified information from the model's own 
+  generated/inferred content.
+- Improve TRUSTWORTHINESS and auditability of AI-generated content, 
+  especially for factual, technical, medical, legal, or scientific 
+  domains where accuracy is critical.
+- Provide a general FRAMEWORK for grounding that applies whether 
+  you're using RAG, providing manual context, or simply asking the 
+  model to be transparent about its own confidence levels.
+- Encourage appropriate EPISTEMIC HUMILITY — getting models to 
+  explicitly acknowledge uncertainty rather than presenting 
+  everything with false, uniform confidence.
+- Serve as the underlying PRINCIPLE that specific techniques like RAG 
+  Prompting, Citation Prompting, and Context Prompting all implement 
+  in different ways.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Any factual, technical, scientific, medical, legal, or historically-
+  grounded task where accuracy genuinely matters.
+- Situations where you want the model to be transparent about its 
+  CONFIDENCE level rather than presenting uncertain claims as if they 
+  were definitely true.
+- Research, analysis, or reporting tasks where distinguishing verified 
+  facts from the model's own inference/analysis is important for the 
+  reader to properly evaluate the content.
+- Any high-stakes application where hallucinated "facts" could cause 
+  real harm (misinformation, bad decisions, safety issues).
+- As a general PRINCIPLE to apply across virtually any other 
+  prompting technique when factual accuracy is a priority.
+
+WHEN NOT TO USE:
+- Purely creative, fictional, or brainstorming tasks where there's no 
+  factual grounding requirement in the first place (grounding 
+  discipline doesn't apply to "write me a fantasy story").
+- Casual conversational exchanges where the overhead of confidence-
+  flagging every statement would feel unnatural and unnecessary.
+
+BEST MODELS FOR KNOWLEDGE-GROUNDED PROMPTING:
+- Claude — well-known for relatively strong, well-calibrated 
+  uncertainty acknowledgment and a tendency to flag when it's not 
+  confident about a specific claim, when explicitly instructed to do 
+  so.
+- GPT-4o/4.1/5-class — strong grounding capability, especially when 
+  combined with explicit instructions to distinguish verified vs. 
+  inferred content.
+- Gemini Pro/Ultra (especially when combined with Google Search 
+  grounding features) — strong native fact-grounding capability, 
+  particularly for current events and verifiable factual claims.
+- DeepSeek-R1 / Qwen (reasoning variants) — the explicit reasoning 
+  process in these models often naturally surfaces uncertainty and 
+  distinguishes steps that are well-supported from those requiring 
+  more speculative leaps.
+- ALL models benefit from EXPLICIT confidence/grounding instructions — 
+  this is fundamentally a prompting discipline that improves output 
+  quality across virtually any capable model, though larger/more 
+  capable models tend to have better-CALIBRATED uncertainty 
+  (accurately knowing what they don't know) than smaller ones.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [TASK] + "Clearly distinguish between: (1) facts you're highly 
+    confident are accurate, (2) reasonable inferences/analysis, and 
+    (3) anything you're uncertain about. Do not present uncertain 
+    claims with false confidence."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Task Statement — what needs to be answered/produced.
+    2. Grounding Instruction — explicit request to distinguish 
+       verified facts from inference/speculation.
+    3. Confidence Labeling Instruction — ask for explicit confidence 
+       indicators (e.g., "High confidence:", "Uncertain:", "This is my 
+       inference, not a verified fact:").
+    4. Verification Encouragement — where applicable, ask the model to 
+       note what COULD be independently verified (e.g., "this could 
+       be confirmed by checking X source") if it can't verify directly 
+       itself.
+    5. Response — the actual content, clearly structured to show the 
+       distinction between grounded facts and inference/speculation.
+
+Example skeleton:
+    "[TASK]. 
+    
+    As you respond, clearly distinguish between: 
+    - Facts you are highly confident are accurate 
+    - Reasonable analysis/inference based on those facts 
+    - Anything you are uncertain about or cannot verify 
+    
+    Do not present uncertain or inferred content with the same 
+    confidence as verified facts."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Explicitly ask the model to LABEL its confidence level for different 
+  claims, rather than presenting everything in a uniform, equally-
+  confident tone.
+- Distinguish clearly between FACTS (things that are objectively 
+  verifiable) and ANALYSIS/INFERENCE (the model's own reasoning built 
+  on top of those facts) — both can be valuable, but conflating them 
+  reduces trustworthiness.
+- For genuinely important factual claims, combine this technique with 
+  actual verification tools (web search, RAG, function calling to 
+  authoritative APIs) rather than relying solely on the model's self-
+  reported confidence, since self-assessed confidence isn't always 
+  perfectly calibrated.
+- Encourage explicit acknowledgment of KNOWLEDGE GAPS — it's far 
+  better for a model to say "I'm not certain about this specific 
+  detail" than to confidently state something incorrect.
+- For technical/scientific/medical claims specifically, consider 
+  asking the model to note what TYPE of source would typically be used 
+  to verify such a claim (e.g., "this would typically be confirmed via 
+  peer-reviewed literature" or "check the official documentation for 
+  the current version").
+- Combine with Deliberate Prompting (file 22) for extra rigor on 
+  claims that are easy to get subtly wrong.
+- Recognize the LIMITS of this technique — asking a model to "be more 
+  careful about accuracy" improves calibration but does NOT eliminate 
+  the fundamental risk of hallucination; for critical applications, 
+  external verification remains essential.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Assuming that simply asking a model to "be accurate" or "be 
+  careful" eliminates hallucination risk entirely, when it only 
+  improves (but doesn't guarantee) calibration.
+  FIX: For genuinely critical facts, combine grounding instructions 
+  with actual external verification (search, RAG, authoritative 
+  sources) rather than relying purely on self-reported confidence.
+
+- MISTAKE: Not asking for explicit confidence labeling, leaving all 
+  claims presented with the same uniform (and potentially misleading) 
+  level of apparent certainty.
+  FIX: Explicitly request confidence indicators or clear separation 
+  between fact and inference.
+
+- MISTAKE: Conflating the model's own analysis/inference with 
+  objectively verified fact, misleading readers about what's 
+  established vs. what's the model's own reasoning.
+  FIX: Explicitly instruct the model to distinguish these categories 
+  clearly in its response.
+
+- MISTAKE: Applying rigorous grounding discipline to purely creative 
+  tasks where it's unnecessary and disrupts the creative flow.
+  FIX: Reserve knowledge-grounding rigor for genuinely factual/
+  technical content.
+
+- MISTAKE: Treating a model's self-reported "high confidence" as a 
+  guarantee of accuracy rather than a useful but imperfect signal.
+  FIX: Understand that self-assessed confidence is a helpful heuristic, 
+  not a substitute for actual fact-checking on critical claims.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Explain how vaccines work, generally. As you respond, clearly 
+distinguish between well-established scientific facts and anything 
+that involves more nuanced or evolving scientific understanding."
+
+Expected Output:
+A clear explanation labeling well-established mechanisms (e.g., 
+"It's well-established that vaccines work by training the immune 
+system to recognize a pathogen...") separately from any areas of more 
+active research or nuance (e.g., "the exact duration of immunity for 
+some vaccines is an area of ongoing study and can vary"), rather than 
+presenting all statements with uniform, undifferentiated confidence.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"I'm considering using SQLite vs. PostgreSQL for a project's database. 
+Explain the key differences relevant to my choice. Clearly distinguish 
+between: (1) objective technical facts about each database, (2) your 
+own analysis/recommendation based on those facts, and (3) anything 
+that depends heavily on my specific use case that you can't determine 
+without more information."
+
+Expected Output:
+A response clearly separating objective facts (e.g., "SQLite is a 
+file-based, serverless database; PostgreSQL is a full client-server 
+RDBMS — this is a straightforward factual distinction"), the model's 
+own analysis (e.g., "Based on these facts, if you need genuine 
+concurrent multi-user write access, PostgreSQL is generally the better 
+fit — this is my reasoning, not a universal rule"), and explicitly 
+flagged use-case-dependent uncertainty (e.g., "Whether SQLite's 
+limitations actually matter for YOUR specific project depends on your 
+expected concurrent user count and deployment environment, which I 
+don't have enough information about to determine confidently").
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"I'm researching whether Argon2id is still considered the best choice 
+for password/key derivation in 2026, compared to alternatives like 
+bcrypt and scrypt, for use in my BLACKCORE cryptographic vault project. 
+
+As you respond: 
+(1) Clearly label anything you're highly confident is accurate based 
+on well-established cryptographic consensus as of your training data. 
+(2) Clearly label anything that may have changed or could benefit from 
+verification, since cryptographic best practices and vulnerability 
+disclosures can evolve. 
+(3) Note what type of authoritative source (e.g., OWASP guidelines, 
+NIST publications, recent cryptography conference papers) would be 
+best to check for the most current recommendation, since this is 
+exactly the kind of claim that benefits from verification beyond a 
+single AI response."
+
+Expected Output:
+A response that clearly labels well-established, high-confidence 
+information (e.g., "It's well-established, as of my training data, 
+that Argon2id was the winner of the Password Hashing Competition and 
+has been widely recommended by organizations like OWASP over older 
+alternatives like bcrypt and scrypt, primarily due to better resistance 
+to GPU/ASIC cracking attacks"), while explicitly flagging the 
+appropriate uncertainty (e.g., "However, since this question concerns 
+current best practices as of 2026, and cryptographic recommendations 
+CAN evolve with new research or vulnerability disclosures, I'd 
+recommend verifying this is still current"), and pointing to 
+appropriate authoritative sources for verification (e.g., "I'd suggest 
+checking the current OWASP Password Storage Cheat Sheet and any recent 
+NIST publications for the most up-to-date, authoritative 
+recommendation, since these are actively maintained by the security 
+community specifically to track this kind of evolving guidance") — 
+demonstrating genuine epistemic humility and appropriate source-
+type guidance rather than presenting a single confident claim as 
+timeless truth.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    [YOUR FACTUAL/TECHNICAL QUESTION OR TASK]
+    
+    As you respond, clearly distinguish between:
+    (1) Facts you are highly confident are accurate
+    (2) Reasonable analysis or inference built on those facts
+    (3) Anything you are uncertain about, that may have changed, or 
+    that depends on information you don't have
+    
+    Do not present uncertain or inferred content with the same 
+    confidence as verified facts. Where relevant, note what type of 
+    authoritative source would be best for independently verifying key 
+    claims.
+
+=====================================================================
+END OF FILE 35 — Knowledge-Grounded Prompting
+=====================================================================

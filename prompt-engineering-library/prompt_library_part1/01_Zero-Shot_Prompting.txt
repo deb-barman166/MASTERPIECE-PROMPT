@@ -1,1 +1,203 @@
+=====================================================================
+01. ZERO-SHOT PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Foundations)
+Author: Deb Barman
+=====================================================================
 
+-----------------------------
+1. TITLE
+-----------------------------
+Zero-Shot Prompting — Getting Results Without Any Examples
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Zero-shot prompting is a prompting technique where you ask a Large 
+Language Model (LLM) to perform a task by giving it ONLY an 
+instruction — with ZERO examples of what the input/output should 
+look like. The model must rely entirely on its pre-trained knowledge 
+to understand the task and generate a correct response.
+
+Think of it like asking a highly educated friend to "summarize this 
+article" without showing them a sample summary first. They already 
+know what a summary is, so they can do it without seeing an example.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Zero-shot prompting exists to:
+- Test the raw reasoning and knowledge ability of a model.
+- Save time and tokens (context window space) since no examples are 
+  needed.
+- Handle tasks where you don't have (or don't want to create) sample 
+  examples.
+- Quickly prototype ideas before deciding if more complex prompting 
+  (few-shot, chain-of-thought, etc.) is needed.
+- Serve as the "default" starting point for almost every LLM 
+  interaction — you should always try zero-shot first before adding 
+  complexity.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- The task is common, well-defined, and widely represented in the 
+  model's training data (e.g., "translate this sentence," 
+  "summarize this text," "write a Python function to reverse a 
+  string").
+- You need a fast answer and don't have time to build examples.
+- You are prototyping / testing a new idea quickly.
+- The task doesn't require a very specific or unusual output format.
+
+WHEN NOT TO USE:
+- The task requires a very specific style, tone, or format that the 
+  model can't guess (use Few-Shot instead).
+- The task is highly niche, technical, or ambiguous (use Few-Shot or 
+  Chain-of-Thought instead).
+- You need consistent, structured output across many runs (use 
+  Structured or JSON Prompting instead).
+
+BEST MODELS FOR ZERO-SHOT:
+- GPT-4o / GPT-4.1 / GPT-5-class models — excellent zero-shot 
+  reasoning due to large-scale instruction tuning.
+- Claude (Opus/Sonnet family) — very strong zero-shot instruction 
+  following, especially for nuanced or long-form tasks.
+- Gemini 1.5/2.x Pro — strong zero-shot performance, especially with 
+  multimodal inputs.
+- Grok — good for zero-shot conversational and reasoning tasks.
+- DeepSeek / Qwen — strong for zero-shot coding and math tasks.
+- Mistral / Llama (larger variants, 70B+) — solid zero-shot 
+  performance for general tasks; smaller variants (7B/8B) may 
+  struggle with complex zero-shot reasoning and benefit more from 
+  few-shot examples.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [ROLE (optional)] + [CLEAR TASK INSTRUCTION] + [INPUT DATA] + 
+    [OUTPUT FORMAT (optional)]
+
+In its simplest form:
+    "Do [TASK] for [INPUT]."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+A well-formed zero-shot prompt has these parts:
+
+    1. (Optional) Role/Context — "You are an expert copywriter."
+    2. Task Instruction — the clear action verb + what to do.
+    3. Input — the actual content to act on.
+    4. (Optional) Constraints — length, tone, format, audience.
+    5. (Optional) Output format — bullet points, JSON, table, etc.
+
+Example skeleton:
+    "You are a [ROLE]. 
+    [ACTION VERB] the following [INPUT TYPE]: 
+    '[INPUT CONTENT]' 
+    Make sure the output is [CONSTRAINT/FORMAT]."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Be extremely specific about the task — vague instructions produce 
+  vague results.
+- Use strong, unambiguous action verbs: "summarize," "translate," 
+  "classify," "extract," "rewrite," "generate."
+- State the desired output format explicitly if it matters (e.g., 
+  "respond in exactly 3 bullet points").
+- Include constraints (tone, length, audience) directly in the 
+  prompt rather than assuming the model will infer them.
+- Add a role/persona if domain expertise matters (e.g., "You are a 
+  senior Python developer").
+- Test with small variations in wording — zero-shot prompts are 
+  sensitive to phrasing.
+- If output quality is inconsistent, that's your signal to upgrade 
+  to Few-Shot or Chain-of-Thought prompting.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Being too vague. 
+  "Write about dogs." 
+  FIX: "Write a 150-word informative paragraph about why Labrador 
+  Retrievers make good family pets, aimed at first-time dog owners."
+
+- MISTAKE: Assuming the model knows your unstated preferences (tone, 
+  audience, length).
+  FIX: State them explicitly every time.
+
+- MISTAKE: Using zero-shot for highly specialized or unusual formats 
+  (e.g., a very specific legal document template) and expecting 
+  perfect results.
+  FIX: Switch to Few-Shot prompting with 1-2 examples.
+
+- MISTAKE: Not specifying the output format, leading to inconsistent 
+  results across multiple runs.
+  FIX: Always specify format if you need consistency (e.g., 
+  "respond only in JSON").
+
+- MISTAKE: Overloading a single zero-shot prompt with 10 different 
+  tasks at once.
+  FIX: Break complex multi-step tasks into smaller zero-shot prompts 
+  or use Workflow Prompting.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Translate the following sentence into French: 'I love learning 
+about artificial intelligence.'"
+
+Expected Output:
+"J'adore apprendre l'intelligence artificielle."
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"You are a professional email writer. Write a polite follow-up email 
+to a client who hasn't responded to a project proposal sent 5 days 
+ago. Keep it under 100 words and maintain a friendly, professional 
+tone."
+
+Expected Output:
+A concise, well-structured follow-up email with a greeting, gentle 
+reminder, call to action, and professional sign-off — under 100 
+words.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"You are a senior Python backend engineer. Write a Python function 
+called 'validate_email' that takes a string as input and returns 
+True if it's a valid email address and False otherwise. Use regex, 
+include a docstring explaining the function, add type hints, and 
+include 3 test cases demonstrating valid and invalid inputs. Do not 
+use any external libraries beyond the Python standard library."
+
+Expected Output:
+A complete, well-documented Python function with regex validation, 
+type hints, a docstring, and 3 test cases — all in properly 
+formatted code blocks.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    You are a [ROLE/EXPERTISE].
+    
+    Task: [CLEAR ACTION VERB] the following [INPUT TYPE]:
+    "[PASTE YOUR INPUT HERE]"
+    
+    Requirements:
+    - Tone: [e.g., professional / casual / friendly]
+    - Length: [e.g., under 100 words / 5 bullet points]
+    - Format: [e.g., plain text / JSON / table / markdown]
+    - Audience: [e.g., beginners / experts / general public]
+    
+    Do not include any explanation outside of the requested output 
+    unless asked.
+
+=====================================================================
+END OF FILE 01 — Zero-Shot Prompting
+=====================================================================

@@ -1,0 +1,327 @@
+=====================================================================
+28. DEBATE PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Agentic)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Debate Prompting — Arriving at Truth Through Structured Argumentation
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Debate prompting is a multi-agent technique where TWO (or more) 
+distinct "agent" perspectives are instructed to argue OPPOSING sides 
+of a question, proposal, or claim, taking turns responding to and 
+challenging each other's points — with the goal of surfacing a more 
+thorough, well-tested understanding than either single perspective 
+would produce alone. Often, a third neutral "Judge" role synthesizes 
+the debate into a balanced final conclusion, weighing which arguments 
+held up best under challenge.
+
+Think of it like a courtroom: rather than a single lawyer presenting 
+one side and calling it settled, you have a Prosecution and a Defense 
+each rigorously arguing their position, cross-examining the other's 
+claims, with a Judge (or jury) ultimately weighing the strength of 
+both sides' surviving arguments — this adversarial structure tends to 
+surface weaknesses and considerations that a single, one-sided 
+analysis would miss.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Debate prompting exists to:
+- Surface the STRONGEST arguments on multiple sides of a genuinely 
+  contested question, rather than settling for a single, possibly 
+  one-sided analysis.
+- Stress-test a proposal, decision, or claim by having it actively 
+  challenged and defended, revealing weaknesses that a non-adversarial 
+  analysis might miss.
+- Reduce the risk of the model defaulting to a single "safe" or 
+  generic answer on complex, genuinely debatable topics by forcing 
+  genuine engagement with counterarguments.
+- Provide a structured, balanced way to explore controversial or 
+  multi-sided issues without the model needing to prematurely commit 
+  to one "correct" position.
+- Improve decision-making on genuinely close calls by making the 
+  trade-offs and strongest objections to each option explicit before 
+  a final judgment is made.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Genuinely contested questions or decisions with legitimate arguments 
+  on multiple sides (business strategy trade-offs, technical 
+  architecture choices, policy questions, ethical dilemmas).
+- Evaluating a proposal or plan where you want to see it seriously 
+  challenged before committing to it.
+- Exploring a topic from multiple angles for educational or research 
+  purposes, ensuring a fair, comprehensive treatment.
+- Situations where a single-perspective analysis risks being one-
+  sided, biased, or missing important counterarguments.
+- Any decision where seeing the STRONGEST version of opposing views 
+  would meaningfully improve your confidence in the final choice.
+
+WHEN NOT TO USE:
+- Questions with a single objectively correct answer (e.g., factual 
+  or mathematical questions) — debate adds no value when there's 
+  nothing genuinely contestable.
+- Simple, low-stakes decisions where the overhead of structured debate 
+  isn't justified by the decision's importance.
+- Topics where manufacturing "both sides" would be misleading because 
+  one position is essentially settled/overwhelming (avoid false-
+  balance debates on settled factual matters).
+
+BEST MODELS FOR DEBATE PROMPTING:
+- Claude — excellent at genuinely representing DIFFERENT perspectives 
+  with real intellectual honesty and nuance, rather than creating a 
+  weak strawman for one side.
+- GPT-4o/4.1/5-class — strong at constructing substantive arguments 
+  for multiple positions and engaging in genuine back-and-forth 
+  rebuttal.
+- Gemini Pro — capable of structured multi-perspective debate, 
+  particularly for technical/business decision contexts.
+- Grok — well-suited to spirited, direct debate-style engagement.
+- DeepSeek / Qwen — capable for technical debates (e.g., architecture 
+  trade-off debates) though may show less nuance on softer, more 
+  subjective topics compared to top-tier general models.
+- IMPORTANT: For genuinely rigorous debates, some practitioners use 
+  TWO DIFFERENT models (e.g., Claude arguing one side, GPT arguing 
+  the other) to reduce the risk of a single model's inherent biases 
+  affecting both "sides" of the debate equally.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    "Debate this question: [QUESTION/PROPOSAL]. 
+    Position A: Argue FOR [X]. 
+    Position B: Argue AGAINST [X] (or FOR the alternative). 
+    Have each position respond to the other's strongest points across 
+    [N] rounds. 
+    Then, as a neutral Judge, synthesize which arguments held up best 
+    and provide a balanced conclusion."
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Debate Topic/Question — the contested claim, proposal, or 
+       decision to be debated.
+    2. Position Definitions — clearly define what each side is 
+       arguing (Position A vs. Position B, or multiple distinct 
+       positions).
+    3. Round Structure — define how many rounds of argument/rebuttal 
+       will occur (e.g., "3 rounds: opening argument, rebuttal, 
+       closing argument").
+    4. Engagement Requirement — instruct each position to genuinely 
+       ENGAGE with and respond to the other's specific points, not 
+       just restate their own position repeatedly.
+    5. Judge/Synthesis Role — a neutral final step that weighs the 
+       strongest surviving arguments from each side and produces a 
+       balanced conclusion (not necessarily declaring one side the 
+       "winner," but synthesizing genuine insight from the exchange).
+
+Example skeleton:
+    "Debate: [QUESTION]. 
+    Position A: [FIRST STANCE]. 
+    Position B: [SECOND STANCE]. 
+    
+    Round 1 — Opening arguments: 
+    Position A: [argument] 
+    Position B: [argument] 
+    
+    Round 2 — Rebuttals (each position must directly respond to the 
+    other's Round 1 argument): 
+    Position A: [rebuttal] 
+    Position B: [rebuttal] 
+    
+    Judge: Synthesize the strongest points from both sides and 
+    provide a balanced final conclusion."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- Require GENUINE ENGAGEMENT — each round's argument must specifically 
+  respond to the opposing side's PREVIOUS point, not just restate the 
+  same original position in different words.
+- Set a defined NUMBER OF ROUNDS (2-4 is typically sufficient) to keep 
+  the debate focused and prevent it from running indefinitely.
+- Instruct each position to argue its STRONGEST possible case — a 
+  weak, strawman version of one side defeats the entire purpose of 
+  this technique.
+- Include a neutral JUDGE/synthesis step at the end — the value of a 
+  debate often comes from the final synthesis of what genuinely held 
+  up under challenge, not just the raw arguments themselves.
+- For genuinely important decisions, consider using this technique 
+  with real diversity in the "arguing" perspectives (different 
+  underlying models, or explicitly instructing very different starting 
+  assumptions/values for each side).
+- Avoid forcing artificial "both sides" framing on settled factual 
+  questions — reserve debate for genuinely contested matters where 
+  legitimate disagreement exists.
+- The Judge role should explicitly note WHERE each side made a 
+  stronger point, rather than giving a vague "both sides have merit" 
+  non-conclusion.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Each position just restating its opening argument in later 
+  rounds instead of genuinely responding to the other side's specific 
+  points.
+  FIX: Explicitly require each round to directly address the 
+  opponent's previous argument.
+
+- MISTAKE: Creating a strawman/weak version of one side to make the 
+  other side look better, defeating the purpose of genuine stress-
+  testing.
+  FIX: Explicitly instruct each position to argue its strongest 
+  possible case.
+
+- MISTAKE: No defined stopping point, letting the debate continue 
+  indefinitely without converging toward useful synthesis.
+  FIX: Set an explicit number of rounds.
+
+- MISTAKE: Skipping the Judge/synthesis step, leaving the raw 
+  arguments without any actionable conclusion or insight.
+  FIX: Always include a neutral synthesis step that weighs which 
+  points genuinely held up.
+
+- MISTAKE: Using debate to manufacture false balance on settled 
+  factual questions where one position is simply, verifiably correct.
+  FIX: Reserve debate for genuinely contested matters with legitimate 
+  substance on multiple sides.
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"Debate: Should students be allowed to use AI tools like ChatGPT for 
+homework? 
+Position A: Argue that students SHOULD be allowed to use AI tools for 
+homework. 
+Position B: Argue that students should NOT be allowed to use AI tools 
+for homework. 
+
+Round 1 — Opening arguments from each position. 
+Round 2 — Each position must directly respond to the other's Round 1 
+argument. 
+
+Judge: Synthesize the strongest points from both sides into a 
+balanced conclusion."
+
+Expected Output:
+Position A's opening argument (e.g., AI as a learning aid similar to 
+calculators, preparing students for a future where AI literacy 
+matters), Position B's opening argument (e.g., risk of undermining 
+genuine skill development and critical thinking), followed by genuine 
+Round 2 rebuttals directly engaging each other's specific points, and 
+a Judge synthesis that identifies, for example, that the real crux is 
+HOW AI is used (as a crutch to bypass learning vs. as a tool 
+alongside genuine effort) rather than a simple yes/no, offering a 
+nuanced, balanced conclusion.
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Debate: For a solo developer building a personal AI project, is it 
+better to build on established frameworks (like LangChain/LangGraph) 
+or build custom infrastructure from scratch? 
+Position A: Argue FOR using established frameworks. 
+Position B: Argue FOR building custom infrastructure from scratch. 
+
+Round 1 — Opening arguments. 
+Round 2 — Rebuttals, directly addressing the opposing side's specific 
+points. 
+Round 3 — Closing arguments, each acknowledging the strongest point 
+made by the OTHER side before restating their position. 
+
+Judge: Provide a balanced conclusion, noting what factors would tip 
+the decision one way or the other."
+
+Expected Output:
+Position A arguing established frameworks save development time, 
+benefit from community support/battle-testing, and reduce maintenance 
+burden; Position B arguing custom infrastructure offers full control, 
+avoids framework limitations/bloat, and provides deeper learning value 
+for a developer building expertise; genuine Round 2 rebuttals (e.g., 
+Position A challenging that "full control" often isn't needed and 
+custom code becomes a maintenance burden of its own; Position B 
+challenging that frameworks can become black boxes that limit deep 
+understanding); Round 3 closings that each genuinely acknowledge the 
+other's strongest point; and a Judge synthesis noting the decision 
+likely depends on factors like the project's complexity, the 
+developer's learning goals, and long-term maintenance plans — 
+providing genuinely useful decision criteria rather than a flat 
+verdict.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Debate: Should an AI-powered content moderation system prioritize 
+minimizing false positives (wrongly flagging safe content) or 
+minimizing false negatives (missing genuinely harmful content), given 
+that optimizing heavily for one typically worsens the other? 
+Position A: Argue that minimizing FALSE POSITIVES should be the 
+priority. 
+Position B: Argue that minimizing FALSE NEGATIVES should be the 
+priority. 
+
+Round 1 — Opening arguments, each grounded in the real trade-offs and 
+stakeholder impacts involved. 
+Round 2 — Rebuttals, directly engaging with the specific real-world 
+harms/costs the other side raised. 
+Round 3 — Closing arguments, each proposing a scenario/context where 
+their priority would clearly be correct, and acknowledging a scenario 
+where the OTHER side's priority would be correct instead. 
+
+Judge: Rather than declaring one side an absolute winner, synthesize 
+the debate into a framework for WHEN each priority should take 
+precedence, based on the strongest points raised by both sides."
+
+Expected Output:
+Position A grounding its argument in real costs of false positives 
+(legitimate speech suppressed, user trust erosion, chilling effects 
+on expression); Position B grounding its argument in real costs of 
+false negatives (genuine harm reaching users, platform liability, 
+safety failures); genuine engagement in Round 2 with the SPECIFIC 
+harms raised by the other side rather than generic restatement; Round 
+3 closings that each identify a context favoring their own priority 
+(e.g., Position A citing educational/discussion platforms where 
+false positives are especially costly to discourse; Position B citing 
+platforms serving vulnerable populations like minors where false 
+negatives carry severe risk) while genuinely acknowledging the other's 
+valid context; and a Judge synthesis that produces a genuinely useful 
+decision framework (e.g., noting that severity/reversibility of 
+potential harm, the vulnerability of the affected user base, and the 
+availability of human review as a backstop are the key factors that 
+should determine which priority takes precedence in a given context) 
+rather than a simplistic single verdict — demonstrating the real value 
+of structured debate on a genuinely nuanced trade-off.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    Debate: [YOUR CONTESTED QUESTION, PROPOSAL, OR DECISION]
+    
+    Position A: Argue FOR [STANCE A]
+    Position B: Argue FOR [STANCE B / AGAINST STANCE A]
+    
+    Round 1 — Opening arguments from each position.
+    Round 2 — Rebuttals: each position must directly respond to the 
+    other's specific Round 1 points.
+    Round 3 (optional) — Closing arguments: each position acknowledges 
+    the strongest point made by the OTHER side before restating its 
+    conclusion.
+    
+    Judge: As a neutral party, synthesize which arguments held up 
+    best under challenge, and provide a balanced conclusion — 
+    including, if relevant, the conditions under which each side's 
+    position would be the stronger choice.
+
+=====================================================================
+END OF FILE 28 — Debate Prompting
+=====================================================================

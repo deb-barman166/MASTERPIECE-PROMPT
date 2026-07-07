@@ -1,0 +1,225 @@
+=====================================================================
+05. INSTRUCTION PROMPTING
+=====================================================================
+Part of: The Ultimate Prompt Engineering Library (Part 1: Foundations)
+Author: Deb Barman
+=====================================================================
+
+-----------------------------
+1. TITLE
+-----------------------------
+Instruction Prompting — Direct Command-Based Prompting
+
+-----------------------------
+2. DEFINITION
+-----------------------------
+Instruction prompting is the foundational technique of giving an LLM 
+a direct, clear, imperative COMMAND describing exactly what you want 
+it to do — without necessarily including examples, roles, or complex 
+reasoning scaffolding. It relies on the model's "instruction-tuned" 
+training (RLHF and supervised fine-tuning on instruction-following 
+data) to interpret and execute the command accurately.
+
+Think of it as the difference between describing a task to a 
+capable assistant in plain, direct language ("Write a summary of 
+this report in 3 bullet points") versus having a complex 
+back-and-forth conversation. It's the most fundamental building 
+block that almost all other prompting techniques are built on top 
+of.
+
+-----------------------------
+3. PURPOSE
+-----------------------------
+Instruction prompting exists to:
+- Leverage the instruction-tuning that modern LLMs are specifically 
+  trained on (this is literally what makes ChatGPT/Claude/Gemini 
+  "chat" models different from raw base models).
+- Provide the clearest, most direct path to getting a model to do 
+  exactly what you ask.
+- Serve as the base layer that other techniques (role, persona, 
+  few-shot, chain-of-thought) are layered on top of.
+- Minimize ambiguity by using imperative, action-oriented language 
+  rather than vague questions or statements.
+- Enable fast, efficient single-turn task completion.
+
+-----------------------------
+4. WHEN TO USE AND BEST MODEL OR LLM
+-----------------------------
+WHEN TO USE:
+- Virtually ANY task — this is the default, universal prompting 
+  approach that underlies almost every other technique.
+- When you want fast, direct execution without extra scaffolding.
+- When the task is clear enough that examples or elaborate context 
+  aren't strictly necessary.
+- As the "verb + object" core of ANY more complex prompt you build 
+  later (few-shot, CoT, ReAct, etc. all still need a clear 
+  instruction at their core).
+
+WHEN NOT TO USE (or when to add more):
+- If the instruction alone produces vague or incorrect results, add 
+  examples (Few-Shot) or reasoning steps (Chain-of-Thought).
+- If domain expertise matters significantly, combine with Role 
+  Prompting.
+- If the task has ambiguity around format, add explicit structure 
+  requirements or use Structured/JSON Prompting.
+
+BEST MODELS FOR INSTRUCTION PROMPTING:
+- ALL modern instruction-tuned models excel here by design: GPT-4o/
+  4.1/5-class, Claude (all versions), Gemini, Grok, DeepSeek, Qwen, 
+  Mistral-Instruct, Llama-Instruct/Chat variants, Copilot, Cursor.
+- The KEY distinction: always use "Instruct" or "Chat" versions of 
+  open-source models (e.g., "Mistral-7B-Instruct" not base 
+  "Mistral-7B") since base/pretrained models are NOT trained to 
+  follow instructions well.
+- Claude and GPT-4-class models are particularly strong at following 
+  multi-part, nuanced instructions precisely.
+
+-----------------------------
+5. PROMPT FORMULA
+-----------------------------
+    [IMPERATIVE VERB] + [SPECIFIC OBJECT/TASK] + 
+    [CONSTRAINTS/PARAMETERS] + [OUTPUT FORMAT]
+
+-----------------------------
+6. PROMPT STRUCTURE
+-----------------------------
+    1. Action Verb — start with a clear command word: "Write," 
+       "List," "Explain," "Summarize," "Generate," "Fix," 
+       "Translate," "Analyze."
+    2. Object/Task — what exactly the action applies to.
+    3. Parameters/Constraints — length, tone, style, audience, 
+       format.
+    4. (Optional) Additional context or background information 
+       needed to complete the task correctly.
+
+Example skeleton:
+    "[VERB] a [OBJECT] that [KEY REQUIREMENT]. 
+    Make sure it is [CONSTRAINT 1] and [CONSTRAINT 2]. 
+    Format it as [FORMAT]."
+
+-----------------------------
+7. BEST PRACTICES
+-----------------------------
+- ALWAYS start with a strong, unambiguous verb (avoid weak framings 
+  like "Can you maybe help me think about..." — instead use "List," 
+  "Explain," "Generate").
+- Be as SPECIFIC as possible about the desired outcome — vague 
+  instructions get vague results.
+- Put the most important instruction FIRST, then add supporting 
+  details/constraints after.
+- Use numbered or bulleted constraints when there are multiple 
+  requirements, for clarity.
+- Avoid unnecessary politeness/hedging language ("please," "if you 
+  don't mind," "I was wondering if") — it doesn't hurt, but it also 
+  doesn't help; be direct instead.
+- State explicitly what NOT to do if there's a common failure mode 
+  you want to avoid (e.g., "Do not include a preamble or 
+  explanation").
+- Combine multiple related instructions into one clear multi-part 
+  command rather than several vague fragments.
+
+-----------------------------
+8. COMMON MISTAKES
+-----------------------------
+- MISTAKE: Using question form instead of instruction form when a 
+  command would be clearer.
+  "Could you maybe possibly write something about dogs?" 
+  FIX: "Write a 100-word paragraph about dog breeds suitable for 
+  apartments."
+
+- MISTAKE: Burying the actual instruction in the middle or end of a 
+  long paragraph of context.
+  FIX: Lead with the instruction, then provide supporting context 
+  afterward, or clearly separate context from the command.
+
+- MISTAKE: Giving multiple conflicting instructions in one prompt 
+  (e.g., "make it short" and "cover everything in detail").
+  FIX: Resolve conflicts before writing the prompt — decide 
+  priorities clearly.
+
+- MISTAKE: Forgetting to specify output format, leading to responses 
+  that don't fit your downstream use case (e.g., getting prose when 
+  you needed a bulleted list).
+  FIX: Always specify format explicitly when it matters.
+
+- MISTAKE: Using overly generic verbs like "do something with" or 
+  "help with" instead of precise action verbs.
+  FIX: Use precise verbs: "summarize," "extract," "compare," 
+  "translate," "refactor," "critique."
+
+-----------------------------
+9. EXAMPLES (BASIC, INTERMEDIATE, ADVANCED)
+-----------------------------
+
+--- BASIC EXAMPLE ---
+Prompt:
+"List 5 benefits of regular exercise."
+
+Expected Output:
+A clean, numbered list of 5 distinct, accurate benefits of exercise 
+(e.g., improved cardiovascular health, better mood, weight 
+management, etc.).
+
+--- INTERMEDIATE EXAMPLE ---
+Prompt:
+"Rewrite the following paragraph to be more concise and professional, 
+reducing it to no more than 3 sentences. Do not change the core 
+meaning:
+
+'So basically what happened was that our team kind of ran into some 
+issues with the server last week, and it was down for like a few 
+hours, and we're not totally sure why but we think it might have 
+been due to too much traffic or maybe a memory leak, and we're still 
+looking into it.'"
+
+Expected Output:
+A concise, professional 3-sentence (or fewer) rewrite that preserves 
+the core meaning: the server experienced downtime last week, the 
+likely causes are high traffic or a memory leak, and the team is 
+investigating further.
+
+--- ADVANCED EXAMPLE ---
+Prompt:
+"Analyze the following Python function for time complexity. Provide 
+your answer in this exact format: 
+1) Big-O notation, 
+2) One-sentence explanation of why, 
+3) One suggestion to improve efficiency if possible. 
+Do not include any other commentary.
+
+def find_duplicates(arr):
+    duplicates = []
+    for i in range(len(arr)):
+        for j in range(i+1, len(arr)):
+            if arr[i] == arr[j] and arr[i] not in duplicates:
+                duplicates.append(arr[i])
+    return duplicates"
+
+Expected Output:
+A precisely formatted 3-part answer: 
+1) O(n²) 
+2) Explanation citing the nested loop structure comparing each pair 
+of elements 
+3) A suggestion such as using a hash set/dictionary to track seen 
+elements, reducing time complexity to O(n) — with NO extra 
+commentary outside the requested 3 points.
+
+-----------------------------
+10. REUSABLE PROMPT TEMPLATE
+-----------------------------
+    [ACTION VERB] a [SPECIFIC OBJECT/TASK].
+    
+    Requirements:
+    - [CONSTRAINT 1: e.g., length]
+    - [CONSTRAINT 2: e.g., tone/style]
+    - [CONSTRAINT 3: e.g., format]
+    - [CONSTRAINT 4: e.g., what to avoid]
+    
+    [OPTIONAL: Additional context or input data needed]
+    
+    Do not include [ANYTHING YOU WANT EXCLUDED, e.g., preambles, 
+    disclaimers, extra commentary].
+
+=====================================================================
+END OF FILE 05 — Instruction Prompting
+=====================================================================
